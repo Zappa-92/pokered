@@ -165,4 +165,4 @@ MoveNames::
 	db "SUBSTITUTE@"
 	db "STRUGGLE@"
 	db "SCYTHE SWORD@"
-	DB "SHADOW THIEF@"
+	db "SHADOW THIEF@"
