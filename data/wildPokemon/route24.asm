@@ -11,6 +11,7 @@ Route24Mons:
 		db 13,PIDGEY
 		db 8,ABRA
 		db 12,ABRA
+		db 5,BULBASAUR
 	ENDC
 	IF DEF(_BLUE)
 		db 7,CATERPIE
@@ -23,5 +24,6 @@ Route24Mons:
 		db 13,PIDGEY
 		db 8,ABRA
 		db 12,ABRA
+		db 5,BULBASAUR
 	ENDC
 	db $00
