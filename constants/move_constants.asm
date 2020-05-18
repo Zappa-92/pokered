@@ -164,6 +164,11 @@ const_value = 1
 	const SUPER_FANG   ; a2
 	const SLASH        ; a3
 	const SUBSTITUTE   ; a4
+	const SCYTHE SWORD ; a5
+	const SHADOW THIEF ; a6
+	const SLAYER	   ; a7
+	const DRAGON ANGER ; a8
+	const HORN CHARGE  ; a9
 
 NUM_ATTACKS EQU const_value + -1
 
