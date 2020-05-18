@@ -11,9 +11,11 @@ PowerPlantMons:
 	IF DEF(_RED)
 		db 33,ELECTABUZZ
 		db 36,ELECTABUZZ
+		db 33,RAICHU
 	ENDC
 	IF DEF(_BLUE)
 		db 33,RAICHU
 		db 36,RAICHU
+		db 33,ELECTABUZZ
 	ENDC
 	db $00
