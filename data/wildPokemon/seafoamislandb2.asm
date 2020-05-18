@@ -6,6 +6,7 @@ IslandMonsB2:
 		db 32,SEEL
 		db 32,SLOWPOKE
 		db 28,HORSEA
+		db 28,KRABBY
 		db 30,STARYU
 		db 30,HORSEA
 		db 28,SHELLDER
@@ -18,6 +19,7 @@ IslandMonsB2:
 		db 32,SEEL
 		db 32,PSYDUCK
 		db 28,KRABBY
+		db 28,HORSEA
 		db 30,SHELLDER
 		db 30,KRABBY
 		db 28,STARYU
