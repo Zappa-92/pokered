@@ -166,3 +166,6 @@ MoveNames::
 	db "STRUGGLE@"
 	db "SCYTHE SWORD@"
 	db "SHADOW THIEF@"
+	db "SLAYER@"
+	db "DRAGON ANGER@"
+	db "HORN CHARGE@"
