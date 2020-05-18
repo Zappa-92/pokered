@@ -6,6 +6,7 @@ MansionMons1:
 		db 34,PONYTA
 		db 30,PONYTA
 		db 34,GROWLITHE
+		db 34,VULPIX
 		db 32,PONYTA
 		db 30,GRIMER
 		db 28,PONYTA
@@ -18,6 +19,7 @@ MansionMons1:
 		db 34,PONYTA
 		db 30,PONYTA
 		db 34,VULPIX
+		db 34,GROWLITHE
 		db 32,PONYTA
 		db 30,KOFFING
 		db 28,PONYTA
