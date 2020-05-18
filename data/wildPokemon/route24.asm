@@ -5,7 +5,9 @@ Route24Mons:
 		db 8,KAKUNA
 		db 12,PIDGEY
 		db 12,ODDISH
+		db 12,BELLSPROUT
 		db 13,ODDISH
+		db 13,BELLSPROUT
 		db 10,ABRA
 		db 14,ODDISH
 		db 13,PIDGEY
@@ -18,7 +20,9 @@ Route24Mons:
 		db 8,METAPOD
 		db 12,PIDGEY
 		db 12,BELLSPROUT
+		db 12,ODDISH
 		db 13,BELLSPROUT
+		db 13,ODDISH
 		db 10,ABRA
 		db 14,BELLSPROUT
 		db 13,PIDGEY
