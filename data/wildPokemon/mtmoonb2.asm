@@ -10,4 +10,5 @@ MoonMonsB2:
 	db 10,CLEFAIRY
 	db 12,ZUBAT
 	db 12,CLEFAIRY
+	db 5,CHARMANDER
 	db $00
