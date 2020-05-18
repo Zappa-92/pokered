@@ -2,6 +2,7 @@ Route13Mons:
 	IF DEF(_RED)
 		db $14
 		db 24,ODDISH
+		db 24,BELLSPROUT
 		db 25,PIDGEY
 		db 27,PIDGEY
 		db 24,VENONAT
@@ -11,9 +12,11 @@ Route13Mons:
 		db 25,DITTO
 		db 28,GLOOM
 		db 30,GLOOM
+		db 28,WEEPINBELL
 	ENDC
 	IF DEF(_BLUE)
 		db $14
+		db 24,ODDISH
 		db 24,BELLSPROUT
 		db 25,PIDGEY
 		db 27,PIDGEY
@@ -24,5 +27,6 @@ Route13Mons:
 		db 25,DITTO
 		db 28,WEEPINBELL
 		db 30,WEEPINBELL
+		db 28,GLOOM
 	ENDC
 	db $00
