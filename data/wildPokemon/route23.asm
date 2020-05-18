@@ -2,9 +2,11 @@ Route23Mons:
 	db $0A
 	IF DEF(_RED)
 		db 26,EKANS
+		db 26,SANDSHREW
 	ENDC
 	IF DEF(_BLUE)
 		db 26,SANDSHREW
+		db 26,EKANS
 	ENDC
 	db 33,DITTO
 	db 26,SPEAROW
