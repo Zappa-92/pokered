@@ -2,6 +2,7 @@ Route14Mons:
 	db $0F
 	IF DEF(_RED)
 		db 24,ODDISH
+		db 24,BELLSPROUT
 		db 26,PIDGEY
 		db 23,DITTO
 		db 24,VENONAT
@@ -14,6 +15,7 @@ Route14Mons:
 	ENDC
 	IF DEF(_BLUE)
 		db 24,BELLSPROUT
+		db 24,ODDISH
 		db 26,PIDGEY
 		db 23,DITTO
 		db 24,VENONAT
