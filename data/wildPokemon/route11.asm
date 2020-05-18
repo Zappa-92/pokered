@@ -2,8 +2,10 @@ Route11Mons:
 	db $0F
 	IF DEF(_RED)
 		db 14,EKANS
+		db 14,SANDSHREW
 		db 15,SPEAROW
 		db 12,EKANS
+		db 12,SANDSHREW
 		db 9,DROWZEE
 		db 13,SPEAROW
 		db 13,DROWZEE
@@ -14,8 +16,10 @@ Route11Mons:
 	ENDC
 	IF DEF(_BLUE)
 		db 14,SANDSHREW
+		db 14,EKANS
 		db 15,SPEAROW
 		db 12,SANDSHREW
+		db 12,EKANS
 		db 9,DROWZEE
 		db 13,SPEAROW
 		db 13,DROWZEE
