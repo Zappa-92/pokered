@@ -11,6 +11,7 @@ Route6Mons:
 		db 16,PIDGEY
 		db 14,MANKEY
 		db 16,MANKEY
+		db 5,SQUIRTLE
 	ENDC
 	IF DEF(_BLUE)
 		db 13,BELLSPROUT
@@ -23,5 +24,6 @@ Route6Mons:
 		db 16,PIDGEY
 		db 14,MEOWTH
 		db 16,MEOWTH
+		db 5,SQUIRTLE
 	ENDC
 	db $00
