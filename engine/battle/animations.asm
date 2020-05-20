@@ -698,6 +698,9 @@ AnimationIdSpecialEffects:
 
 	db ROCK_SLIDE
 	dw DoRockSlideSpecialEffects
+	
+	db SHADOW_THIEF
+	dw 
 
 	db TRADE_BALL_DROP_ANIM
 	dw TradeHidePokemon
