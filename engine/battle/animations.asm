@@ -698,9 +698,6 @@ AnimationIdSpecialEffects:
 
 	db ROCK_SLIDE
 	dw DoRockSlideSpecialEffects
-	
-	db SHADOW_THIEF
-	dw 
 
 	db TRADE_BALL_DROP_ANIM
 	dw TradeHidePokemon
@@ -2430,7 +2427,7 @@ MoveSoundTable:
 	db SFX_BATTLE_2A,         $f0,$60 ; BUBBLEBEAM
 	db SFX_BATTLE_28,         $00,$80 ; AURORA_BEAM
 	db SFX_BATTLE_36,         $00,$80 ; HYPER_BEAM
-	db SFX_PECK,$01,          $a0 ; PECK
+	db SFX_PECK,		  $01,$a0 ; PECK
 	db SFX_BATTLE_13,         $f0,$20 ; DRILL_PECK
 	db SFX_BATTLE_23,         $01,$c0 ; SUBMISSION
 	db SFX_BATTLE_23,         $00,$80 ; LOW_KICK
@@ -2532,7 +2529,12 @@ MoveSoundTable:
 	db SFX_NOT_VERY_EFFECTIVE,$01,$ff ; SLASH
 	db SFX_BATTLE_2C,         $d8,$04 ; SUBSTITUTE
 	db SFX_BATTLE_0B,         $00,$80 ; STRUGGLE
-	db SFX_BATTLE_0B,         $00,$80
+	db SFX_NOT_VERY_EFFECTIVE,$00,$ff ; SCYTHE_SWORD
+	db SFX_NOT_VERY_EFFECTIVE,$e0,$c0 ; SHADOW_THIEF
+	db SFX_NOT_VERY_EFFECTIVE,$03,$d0 ; SLAYER
+	db SFX_BATTLE_29,	  $c0,$a0 ; DRAGON_ANGER
+	db SFX_BATTLE_1E,         $10,$40 ; HORN_CHARGE
+	db SFX_BATTLE_0B,         $00,$80 ;	
 
 CopyPicTiles:
 	ld a, [H_WHOSETURN]
