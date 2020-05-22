@@ -8261,6 +8261,9 @@ ChargeMoveEffectText:
 	cp SOLARBEAM
 	ld hl, TookInSunlightText
 	jr z, .gotText
+	cp HORN_CHARGE
+	ld hl, IsAboutToChargeText
+	jr z, .gotText
 	cp SKULL_BASH
 	ld hl, LoweredItsHeadText
 	jr z, .gotText
@@ -8274,6 +8277,10 @@ ChargeMoveEffectText:
 	ld hl, DugAHoleText
 .gotText
 	ret
+
+IsAboutToChargeText:
+	TX_FAR _IsAboutToChargeText
+	db "@"
 
 MadeWhirlwindText:
 	TX_FAR _MadeWhirlwindText
