@@ -2152,6 +2152,11 @@ _TookInSunlightText::
 	line "took in sunlight!"
 	prompt
 
+_IsAboutToChargeText::
+	text ""
+	line "is about to charge!"
+	prompt
+
 _LoweredItsHeadText::
 	text ""
 	line "lowered its head!"
