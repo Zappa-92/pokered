@@ -7,7 +7,6 @@ ZoneMonsCenter:
 		db 24,EXEGGCUTE
 		db 31,NIDORINO
 		db 25,EXEGGCUTE
-		db 31,NIDORINA
 		db 30,PARASECT
 		db 23,SCYTHER
 		db 23,PINSIR
@@ -20,7 +19,6 @@ ZoneMonsCenter:
 		db 24,EXEGGCUTE
 		db 31,NIDORINA
 		db 25,EXEGGCUTE
-		db 31,NIDORINO
 		db 30,PARASECT
 		db 23,PINSIR
 		db 23,SCYTHER
