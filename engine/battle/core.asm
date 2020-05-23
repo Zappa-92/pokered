@@ -4052,7 +4052,7 @@ CheckForDisobedience:
 	inc hl
 	ld a, [wPlayerID + 1]
 	cp [hl]
-	jp z, .canUseMove
+	jp z, .monIsTraded
 ; it was traded
 .monIsTraded
 ; what level might disobey?
@@ -4069,7 +4069,7 @@ CheckForDisobedience:
 	bit 1, [hl]
 	ld a, 30
 	jr nz, .next
-	ld a, 10
+	ld a, 20
 .next
 	ld b, a
 	ld c, a
@@ -4715,7 +4715,7 @@ CriticalHitTest:
 	ld b, $ff                    ; cap at 255/256
 	jr .noFocusEnergyUsed
 .focusEnergyUsed
-	srl b
+	sll b
 .noFocusEnergyUsed
 	ld hl, HighCriticalMoves     ; table of high critical hit moves
 .Loop
@@ -4751,6 +4751,8 @@ HighCriticalMoves:
 	db RAZOR_LEAF
 	db CRABHAMMER
 	db SLASH
+	db SCYTHE_SWORD
+	db SLAYER
 	db $FF
 
 
@@ -5357,7 +5359,7 @@ AdjustDamageForMoveType:
 	push bc
 	inc hl
 	ld a, [wDamageMultipliers]
-	and $80
+	and $40
 	ld b, a
 	ld a, [hl] ; a = damage multiplier
 	ld [H_MULTIPLIER], a
