@@ -3,10 +3,9 @@ MansionMons2:
 	IF DEF(_RED)
 		db 32,GROWLITHE
 		db 32,VULPIX
-		db 34,KOFFING
+		db 34,DITTO
 		db 34,KOFFING
 		db 30,PONYTA
-		db 30,KOFFING
 		db 32,PONYTA
 		db 30,GRIMER
 		db 28,PONYTA
@@ -16,10 +15,9 @@ MansionMons2:
 	IF DEF(_BLUE)
 		db 32,VULPIX
 		db 32,GROWLITHE
-		db 34,GRIMER
+		db 34,DITTO
 		db 34,GRIMER
 		db 30,PONYTA
-		db 30,GRIMER
 		db 32,PONYTA
 		db 30,KOFFING
 		db 28,PONYTA
