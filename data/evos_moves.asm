@@ -368,7 +368,6 @@ NidoranFEvosMoves:
 	db 29, BITE
 	db 36, FURY_SWIPES
 	db 43, DOUBLE_KICK
-	db 46, HORN_CHARGE
 	db 0
 
 NidoqueenEvosMoves:
@@ -378,7 +377,6 @@ NidoqueenEvosMoves:
 	db 8, SCRATCH
 	db 14, POISON_STING
 	db 23, BODY_SLAM
-	db 55, HORN_CHARGE
 	db 0
 
 CuboneEvosMoves:
@@ -386,6 +384,7 @@ CuboneEvosMoves:
 	db EV_LEVEL, 28, MAROWAK
 	db 0
 ; Learnset
+	db 1, BONE_CLUB
 	db 25, LEER
 	db 31, FOCUS_ENERGY
 	db 38, THRASH
@@ -481,7 +480,7 @@ GastlyEvosMoves:
 ; Learnset
 	db 27, HYPNOSIS
 	db 35, DREAM_EATER
-	db 42, HAUNTER
+	db 42, SHADOW_THIEF
 	db 0
 
 ScytherEvosMoves:
@@ -568,8 +567,8 @@ GrowlitheEvosMoves:
 	db 18, EMBER
 	db 23, LEER
 	db 30, TAKE_DOWN
+	db 35, FLAMETHROWER
 	db 39, AGILITY
-	db 50, FLAMETHROWER
 	db 0
 
 OnixEvosMoves:
@@ -723,6 +722,7 @@ ParasectEvosMoves:
 	db 30, SPORE
 	db 39, SLASH
 	db 48, GROWTH
+	db 53, SCYTHE_SWORD
 	db 0
 
 PsyduckEvosMoves:
@@ -734,6 +734,7 @@ PsyduckEvosMoves:
 	db 31, DISABLE
 	db 36, CONFUSION
 	db 43, FURY_SWIPES
+	db 47, PSYCHIC_M
 	db 52, HYDRO_PUMP
 	db 0
 
@@ -772,12 +773,12 @@ MagmarEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 36, LEER
+	db 32, LEER
+	db 35, FLAMETHROWER
 	db 39, CONFUSE_RAY
 	db 43, FIRE_PUNCH
 	db 48, SMOKESCREEN
 	db 52, SMOG
-	db 55, FLAMETHROWER
 	db 0
 
 MissingNo34EvosMoves:
@@ -832,6 +833,7 @@ MankeyEvosMoves:
 	db EV_LEVEL, 28, PRIMEAPE
 	db 0
 ; Learnset
+	db 11, LOW_KICK	
 	db 15, KARATE_CHOP
 	db 21, FURY_SWIPES
 	db 27, FOCUS_ENERGY
@@ -1439,6 +1441,7 @@ PrimeapeEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
+	db 11, LOW_KICK
 	db 15, KARATE_CHOP
 	db 21, FURY_SWIPES
 	db 27, FOCUS_ENERGY
@@ -1544,6 +1547,7 @@ GolduckEvosMoves:
 	db 31, DISABLE
 	db 39, CONFUSION
 	db 48, FURY_SWIPES
+	db 53, PSYCHIC_M
 	db 59, HYDRO_PUMP
 	db 0
 
@@ -1697,6 +1701,7 @@ MarowakEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
+	db 1, BONE_CLUB
 	db 25, LEER
 	db 33, FOCUS_ENERGY
 	db 41, THRASH
@@ -1939,7 +1944,6 @@ NidorinaEvosMoves:
 	db 32, BITE
 	db 41, FURY_SWIPES
 	db 50, DOUBLE_KICK
-	db 55, HORN_CHARGE
 	db 0
 
 GeodudeEvosMoves:
