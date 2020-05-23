@@ -163,6 +163,11 @@ AttackAnimationPointers:
 	dw SuperFangAnim
 	dw SlashAnim
 	dw SubstituteAnim
+	dw ScytheSwordAnim
+	dw ShadowThiefAnim
+	dw SlayerAnim
+	dw DragonAngerAnim
+	dw HornChargeAnim
 	dw StruggleAnim
 	dw ShowPicAnim
 	dw EnemyFlashAnim
@@ -1122,6 +1127,30 @@ SubstituteAnim:
 	db SE_SLIDE_MON_OFF, $A3
 	db $08,$FF,$47
 	db SE_SUBSTITUTE_MON, $FF
+	db $FF
+
+ScytheSwordAnim:
+	db $06,$07,$0F
+	db $FF
+
+ShadowThiefAnim:
+	db SE_FLASH_SCREEN_LONG, $89
+	db SE_DARK_SCREEN_PALETTE, $89
+	db $08,$89,$02
+	db SE_RESET_SCREEN_PALETTE, $FF
+	db $FF
+
+SlayerAnim:
+	db $06,$A4,$0F
+	db $FF
+
+DragonAngerAnim:
+	db $46,$34,$1F
+	db $46,$34,$0C
+	db $FF
+	
+HornChargeAnim:
+	db $46,$81,$05
 	db $FF
 
 BallTossAnim:
