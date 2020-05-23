@@ -16,11 +16,9 @@ Route2Mons:
 	db 2,RATTATA
 	db 5,RATTATA
 	IF DEF(_RED)
-		db 4,WEEDLE
 		db 5,WEEDLE
 	ENDC
 	IF DEF(_BLUE)
-		db 4,CATERPIE
 		db 5,CATERPIE
 	ENDC
 	db $00
