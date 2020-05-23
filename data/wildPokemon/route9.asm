@@ -10,7 +10,6 @@ Route9Mons:
 		db 15,EKANS
 		db 17,RATTATA
 		db 17,SPEAROW
-		db 13,EKANS
 		db 17,EKANS
 	ENDC
 	IF DEF(_BLUE)
@@ -23,7 +22,6 @@ Route9Mons:
 		db 15,SANDSHREW
 		db 17,RATTATA
 		db 17,SPEAROW
-		db 13,SANDSHREW
 		db 17,SANDSHREW
 	ENDC
 	db $00
