@@ -98,3 +98,5 @@ FishingGroup10:
 	db 15,KRABBY
 	db 15,GOLDEEN
 	db 15,MAGIKARP
+	db 15,KABUTO
+	db 15,OMANYTE
