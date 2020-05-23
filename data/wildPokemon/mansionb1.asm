@@ -5,7 +5,7 @@ MansionMonsB1:
 		db 35,GROWLITHE
 		db 35,VULPIX
 		db 32,PONYTA
-		db 31,KOFFING
+		db 31,DITTO
 		db 40,WEEZING
 		db 34,PONYTA
 		db 35,GRIMER
@@ -17,7 +17,7 @@ MansionMonsB1:
 		db 35,VULPIX
 		db 35,GROWLITHE
 		db 32,PONYTA
-		db 31,GRIMER
+		db 31,DITTO
 		db 40,MUK
 		db 34,PONYTA
 		db 35,KOFFING
