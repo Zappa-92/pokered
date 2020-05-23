@@ -6,7 +6,7 @@ Route17Mons:
 	db 24,DODUO
 	db 27,RATICATE
 	db 26,DODUO
-	db 28,DODUO
+	db 28,VOLTORB
 	db 29,RATICATE
 	db 25,FEAROW
 	db 27,FEAROW
