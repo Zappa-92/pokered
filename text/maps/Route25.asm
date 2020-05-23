@@ -17,21 +17,21 @@ _Route25AfterBattleText1::
 	done
 
 _Route25BattleText2::
-	text "Dad took me to a"
-	line "great party on"
-	cont "S.S.ANNE at"
-	cont "VERMILION CITY!"
+	text "You came for"
+	line "the Mew glitch,"
+	cont "am I right?"
 	done
 
 _Route25EndBattleText2::
-	text "I'm"
-	line "not mad!"
+	text "Go"
+	line "get the Mew!"
 	prompt
 
 _Route25AfterBattleText2::
-	text "On S.S.ANNE, I"
-	line "saw trainers from"
-	cont "around the world."
+	text "This was easier"
+	line "than moving that"
+	cont "rusty old truck,"
+	cont "eh?"
 	done
 
 _Route25BattleText3::
