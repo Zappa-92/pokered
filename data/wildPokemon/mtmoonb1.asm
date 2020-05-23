@@ -9,5 +9,5 @@ MoonMonsB1:
 	db 10,ZUBAT
 	db 11,ZUBAT
 	db 9,CLEFAIRY
-	db 9,GEODUDE
+	db 9,MACHOP
 	db $00
