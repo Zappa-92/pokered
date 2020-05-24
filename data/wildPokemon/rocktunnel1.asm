@@ -1,13 +1,13 @@
 TunnelMonsB1:
 	db $0F
-	db 16,MANKEY
-	db 17,ZUBAT
-	db 17,GEODUDE
-	db 15,MACHOP
-	db 16,GEODUDE
-	db 18,DIGLETT
-	db 15,ZUBAT
-	db 17,MACHOP
-	db 13,ONIX
-	db 15,ONIX
+	db 24,MANKEY
+	db 25,ZUBAT
+	db 25,GEODUDE
+	db 23,MACHOP
+	db 24,GEODUDE
+	db 26,DIGLETT
+	db 23,ZUBAT
+	db 25,MACHOP
+	db 21,CUBONE
+	db 23,ONIX
 	db $00
