@@ -4067,9 +4067,9 @@ CheckForDisobedience:
 	ld a, 50
 	jr nz, .next
 	bit 1, [hl]
-	ld a, 30
+	ld a, 35
 	jr nz, .next
-	ld a, 20
+	ld a, 25
 .next
 	ld b, a
 	ld c, a
