@@ -4998,7 +4998,7 @@ ApplyAttackToPlayerPokemon:
 .loop
 	call BattleRandom
 	and a
-	jr zm, .loop
+	jr z, .loop
 	cp b
 	jr nc, .loop
 	ld b, a
