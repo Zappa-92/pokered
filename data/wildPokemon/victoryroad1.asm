@@ -1,8 +1,8 @@
 PlateauMons1:
 	db $0F
-	db 24,MACHOP
-	db 26,GEODUDE
-	db 22,ZUBAT
+	db 34,MACHOP
+	db 36,GEODUDE
+	db 32,CUBONE
 	db 36,ONIX
 	db 39,ONIX
 	db 42,ONIX
