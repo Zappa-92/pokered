@@ -4,7 +4,7 @@ MoonMonsB1:
 	db 11,ZUBAT
 	db 11,GEODUDE
 	db 12,GEODUDE
-	db 13,ZUBAT
+	db 13,VOLTORB
 	db 13,PARAS
 	db 14,ZUBAT
 	db 15,ZUBAT
