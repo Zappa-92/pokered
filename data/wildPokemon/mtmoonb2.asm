@@ -3,7 +3,7 @@ MoonMonsB2:
 	db 12,ZUBAT
 	db 12,GEODUDE
 	db 13,GEODUDE
-	db 14,ZUBAT
+	db 14,VOLTORB
 	db 13,PARAS
 	db 14,PARAS
 	db 15,CLEFAIRY
