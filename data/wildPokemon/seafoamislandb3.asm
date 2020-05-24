@@ -6,7 +6,7 @@ IslandMonsB3:
 		db 36,PSYDUCK
 		db 35,STARYU
 		db 35,HORSEA
-		db 36,SHELLDER
+		db 36,JYNX
 		db 35,KRABBY
 		db 34,SHELLDER
 		db 39,SEADRA
@@ -18,7 +18,7 @@ IslandMonsB3:
 		db 36,SLOWPOKE
 		db 35,SHELLDER
 		db 35,KRABBY
-		db 36,STARYU
+		db 36,JYNX
 		db 35,HORSEA
 		db 34,STARYU
 		db 39,KINGLER
