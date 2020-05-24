@@ -3402,7 +3402,7 @@ CheckPlayerStatusConditions:
 	call PlayMoveAnimation
 	ld hl, FastAsleepText
 	call PrintText
-	jr .loadmoves
+	jr .sleepDone
 .WakeUp
 	ld hl, WokeUpText
 	call PrintText
