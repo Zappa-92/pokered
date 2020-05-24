@@ -1505,7 +1505,7 @@ CaterpieEvosMoves:
 MetapodEvosMoves:
 ; Evolutions
 	db EV_LEVEL, 10, BUTTERFREE
-	db 0
+	db 7, HARDEN
 ; Learnset
 	db 0
 
@@ -1513,7 +1513,7 @@ ButterfreeEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 12, CONFUSION
+	db 10, CONFUSION
 	db 15, POISONPOWDER
 	db 16, STUN_SPORE
 	db 17, SLEEP_POWDER
