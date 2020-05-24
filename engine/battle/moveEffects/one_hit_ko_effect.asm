@@ -12,7 +12,7 @@ OneHitKOEffect_:
 	jr z, .compareSpeed
 	ld hl, wEnemyMonLevel + 1
 	ld de, wBattleMonLevel + 1
-.compareLevel
+.compareSpeed
 ; set damage to 65535 and OHKO flag is the user's current level is higher than the target's
 	ld a, [de]
 	dec de
