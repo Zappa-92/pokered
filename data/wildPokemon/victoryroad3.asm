@@ -1,8 +1,8 @@
 PlateauMons3:
 	db $0F
-	db 24,MACHOP
-	db 26,GEODUDE
-	db 22,ZUBAT
+	db 35,MACHOP
+	db 35,GEODUDE
+	db 34,ZUBAT
 	db 42,ONIX
 	db 40,VENOMOTH
 	db 45,ONIX
