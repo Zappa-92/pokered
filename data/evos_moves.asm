@@ -1649,7 +1649,7 @@ CloysterEvosMoves:
 	db 0
 ; Learnset
 	db 50, SPIKE_CANNON
-	db 55, ICE BEAM
+	db 55, ICE_BEAM
 	db 0
 
 MissingNo8CEvosMoves:
