@@ -309,6 +309,7 @@ ExeggutorEvosMoves:
 	db 0
 ; Learnset
 	db 28, STOMP
+	db 42, SOLARBEAM
 	db 0
 
 LickitungEvosMoves:
@@ -317,6 +318,7 @@ LickitungEvosMoves:
 ; Learnset
 	db 7, STOMP
 	db 15, DISABLE
+	db 20, LICK
 	db 23, DEFENSE_CURL
 	db 31, SLAM
 	db 39, SCREECH
@@ -899,10 +901,11 @@ FarfetchdEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 7, LEER
+	db 7, GUST
 	db 15, FURY_ATTACK
 	db 23, SWORDS_DANCE
-	db 31, AGILITY
+	db 28, WING_ATTACK
+	db 32, AGILITY
 	db 39, SLASH
 	db 44, SCYTHE_SWORD
 	db 0
