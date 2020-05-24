@@ -5,7 +5,7 @@ Route22Mons:
 		db 4,NIDORAN_M
 		db 5,RATTATA
 		db 5,NIDORAN_M
-		db 3,RATTATA
+		db 7,PIDGEY
 		db 4,MANKEY
 		db 4,SPEAROW
 		db 6,SPEAROW
@@ -17,7 +17,7 @@ Route22Mons:
 		db 4,NIDORAN_F
 		db 5,RATTATA
 		db 5,NIDORAN_F
-		db 3,RATTATA
+		db 7,PIDGEY
 		db 4,MANKEY
 		db 4,SPEAROW
 		db 6,SPEAROW
