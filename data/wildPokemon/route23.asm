@@ -1,17 +1,17 @@
 Route23Mons:
 	db $0A
 	IF DEF(_RED)
-		db 26,EKANS
-		db 26,SANDSHREW
+		db 36,EKANS
+		db 36,SANDSHREW
 	ENDC
 	IF DEF(_BLUE)
-		db 26,SANDSHREW
-		db 26,EKANS
+		db 36,SANDSHREW
+		db 36,EKANS
 	ENDC
-	db 33,DITTO
-	db 38,FEAROW
-	db 38,DITTO
-	db 38,FEAROW
+	db 39,DITTO
+	db 43,FEAROW
+	db 41,DITTO
+	db 44,FEAROW
 	IF DEF(_RED)
 		db 41,ARBOK
 	ENDC
@@ -19,5 +19,5 @@ Route23Mons:
 		db 41,SANDSLASH
 	ENDC
 	db 43,DITTO
-	db 43,FEAROW
+	db 46,FEAROW
 	db $00
