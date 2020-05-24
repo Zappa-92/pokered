@@ -9,8 +9,8 @@ Route24Mons:
 		db 17,ODDISH
 		db 11,ABRA
 		db 10,ABRA
-		db 13,ABRA
 		db 12,BULBASAUR
+		db 13,ABRA
 	ENDC
 	IF DEF(_BLUE)
 		db 14,CATERPIE
@@ -21,7 +21,7 @@ Route24Mons:
 		db 17,BELLSPROUT
 		db 11,ABRA
 		db 10,ABRA
-		db 13,ABRA
 		db 12,BULBASAUR
+		db 13,ABRA
 	ENDC
 	db $00
