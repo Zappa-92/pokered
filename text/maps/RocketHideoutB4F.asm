@@ -11,19 +11,22 @@ _RocketHideout4Text_4557f::
 
 _RocketHideout4Text_45584::
 	text "I see that you"
-	line "raise #MON"
-	cont "with utmost care."
+	line "raise #MON, but"
+	cont "don't understand"
+	cont "business"
 
 	para "A child like you"
-	line "would never"
-	cont "understand what I"
-	cont "hope to achieve."
+	line "would never know"
+	cont "how rich I got"
+	cont "selling posters of"
+	cont "RICARDO MONTANER"
 
 	para "I shall step"
 	line "aside this time!"
 
-	para "I hope we meet"
-	line "again..."
+	para "Hasta quee"
+	line "me olvidesss.."
+	cont "O ese era LUISMI?"
 	done
 
 _RocketHideout4BattleText2::
