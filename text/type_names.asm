@@ -8,7 +8,7 @@ TypeNames:
 	dw .Rock
 	dw .Bird
 	dw .Bug
-	dw .Dragon
+	dw .Ghost
 
 	dw .Normal
 	dw .Normal
@@ -28,7 +28,7 @@ TypeNames:
 	dw .Electric
 	dw .Psychic
 	dw .Ice
-	dw .Ghost
+	dw .Dragon
 
 .Normal:   db "NORMAL@"
 .Fighting: db "FIGHTING@"
