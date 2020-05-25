@@ -1,6 +1,6 @@
 db DEX_HAUNTER ; pokedex id
 db 45 ; base hp
-db 115 ; base attack
+db 60 ; base attack
 db 45 ; base defense
 db 95 ; base speed
 db 100 ; base special
