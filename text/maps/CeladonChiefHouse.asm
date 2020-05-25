@@ -7,9 +7,9 @@ _CeladonHouseText1::
 _CeladonHouseText2::
 	text "CHIEF!"
 
-	para "We just shipped"
-	line "2000 #MON as"
-	cont "slot prizes!"
+	para "Yeahh we are"
+	line "bad guys!!"
+	cont "Fuck you kid!"
 	done
 
 _CeladonHouseText3::
