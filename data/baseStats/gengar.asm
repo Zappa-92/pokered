@@ -1,9 +1,9 @@
 db DEX_GENGAR ; pokedex id
 db 60 ; base hp
-db 65 ; base attack
+db 130 ; base attack
 db 60 ; base defense
 db 110 ; base speed
-db 130 ; base special
+db 100 ; base special
 db GHOST ; species type 1
 db GHOST ; species type 2
 db 45 ; catch rate
