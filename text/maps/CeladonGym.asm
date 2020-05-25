@@ -1,36 +1,36 @@
 _CeladonGymText_48a5e::
 	text "Hello. Lovely"
 	line "weather isn't it?"
-	cont "It's so pleasant."
+	cont "Ohh..you are not"
+	cont "a cop!"
 
-	para "...Oh dear..."
-	line "I must have dozed"
-	cont "off. Welcome."
+	para "...Oh man..."
+	line "I'm so high.."
+	cont "Want some?"
 
 	para "My name is ERIKA."
 	line "I am the LEADER"
 	cont "of CELADON GYM."
 
 	para "I teach the art of"
-	line "flower arranging."
+	line "flower smoking."
 	cont "My #MON are of"
 	cont "the grass-type."
 
-	para "Oh, I'm sorry, I"
-	line "had no idea that"
-	cont "you wished to"
-	cont "challenge me."
+	para "Sorry, I thought"
+	line "you came just to"
+	cont "buy some pot!"
 
-	para "Very well, but I"
-	line "shall not lose."
+	para "Let's fight!"
 	done
 
 _CeladonGymText_48a63::
 	text "Oh!"
 	line "I concede defeat."
 
-	para "You are remarkably"
-	line "strong."
+	para "You are remakarbl.."
+	line "rekamarb..remabark"
+	cont "..You are strong"
 
 	para "I must confer you"
 	line "the RAINBOWBADGE."
