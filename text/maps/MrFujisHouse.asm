@@ -59,8 +59,8 @@ _FluteExplanationText::
 	cont "#MON will"
 	cont "spring awake."
 
-	para "It works on all"
-	line "sleeping #MON."
+	para "Y SNORLAX está"
+	line "bien PAPUSA!"
 	done
 
 _FluteNoRoomText::
