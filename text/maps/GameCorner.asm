@@ -158,8 +158,9 @@ _CeladonGameCornerText_48e98::
 	done
 
 _CeladonGameCornerText_48ece::
-	text "I'm guarding this"
-	line "poster!"
+	text "This is mine"
+	line "RICARDO MONTANER"
+	cont "poster!"
 	cont "Go away, or else!"
 	done
 
@@ -168,16 +169,16 @@ _CeladonGameCornerText_48ed3::
 	prompt
 
 _CeladonGameCornerText_48ed8::
-	text "Our hideout might"
-	line "be discovered! I"
+	text "Me vaaaa a "
+	line "extrañarrrrr!"
 	cont "better tell BOSS!"
 	done
 
 _CeladonGameCornerText_48f09::
 	text "Hey!"
 
-	para "A switch behind"
-	line "the poster!?"
+	para "A RICARDO MONTANER"
+	line "poster!?"
 	cont "Let's push it!@@"
 
 _CeladonGameCornerText_48f19::
