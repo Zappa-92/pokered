@@ -1,6 +1,6 @@
 db DEX_GASTLY ; pokedex id
 db 30 ; base hp
-db 100 ; base attack
+db 30 ; base attack
 db 30 ; base defense
 db 80 ; base speed
 db 100 ; base special
