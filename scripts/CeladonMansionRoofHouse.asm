@@ -11,7 +11,7 @@ CeladonMansion5Text1:
 
 CeladonMansion5Text2:
 	TX_ASM
-	lb bc, EEVEE, 29
+	lb bc, EEVEE, 30
 	call GivePokemon
 	jr nc, .asm_24365
 	ld a, HS_CELADON_MANSION_EEVEE_GIFT
