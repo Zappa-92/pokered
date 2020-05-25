@@ -2,29 +2,36 @@ _PokemonTower2Text_6062d::
 	text "<RIVAL>: Hey,"
 	line "<PLAYER>! What"
 	cont "brings you here?"
-	cont "Your #MON"
-	cont "don't look dead!"
+	cont "Better go write"
+	cont "ideas for the"
+	cont "BESTIARIO"
 
-	para "I can at least"
-	line "make them faint!"
-	cont "Let's go, pal!"
+	para "POKEBOLA veee"
+	line "Ah reeee"
+	cont "A las piñas!"
 	done
 
 _PokemonTower2Text_60632::
 	text "What?"
-	line "You stinker!"
+	line "Usas soft reset!"
 
-	para "I took it easy on"
-	line "you too!"
+	para "Crearé mi RPG!"
+	line "Con juegos de azar"
+	cont "y mujerzuelas!"
 	prompt
 
 _PokemonTower2Text_60637::
-	text "<RIVAL>: Well,"
-	line "look at all your"
-	cont "wimpy #MON!"
+	text "How's your #DEX"
+	line "coming, pal?"
+	cont "I just caught a"
+	cont "CUBONE!"
 
-	para "Toughen them up a"
-	line "bit more!"
+	para "Hay LAPRAS"
+	line "salvajes por ahí."
+	cont "Encontralos!"
+
+	para "Me voy a terminar"
+	line "el rompecabezas"
 	prompt
 
 _PokemonTower2Text_6063c::
@@ -33,17 +40,14 @@ _PokemonTower2Text_6063c::
 	cont "I just caught a"
 	cont "CUBONE!"
 
-	para "I can't find the"
-	line "grown-up MAROWAK"
-	cont "yet!"
+	para "Hay LAPRAS"
+	line "salvajes por ahí."
+	cont "Encontralos!"
 
-	para "I doubt there are"
-	line "any left! Well, I"
-	cont "better get going!"
-	cont "I've got a lot to"
-	cont "accomplish, pal!"
+	para "Me voy a terminar"
+	line "el rompecabezas"
 
-	para "Smell ya later!"
+	para "Adieu!"
 	done
 
 _PokemonTower2Text2::
