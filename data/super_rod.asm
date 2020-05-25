@@ -66,10 +66,10 @@ FishingGroup5:
 
 FishingGroup6:
 	db 4
-	db 28,DRATINI
-	db 33,STARYU
-	db 34,PSYDUCK
-	db 34,SLOWPOKE
+	db 29,DRATINI
+	db 35,STARYU
+	db 36,PSYDUCK
+	db 35,SLOWPOKE
 
 FishingGroup7:
 	db 4
@@ -94,7 +94,7 @@ FishingGroup9:
 
 FishingGroup10:
 	db 4
-	db 23,SEAKING
-	db 15,KRABBY
-	db 15,KABUTO
-	db 15,OMANYTE
+	db 36,GYARADOS
+	db 34,KRABBY
+	db 30,KABUTO
+	db 30,OMANYTE
