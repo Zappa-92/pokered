@@ -8,7 +8,7 @@ IslandMons1:
 		db 37,HORSEA
 		db 37,KRABBY
 		db 39,JYNX
-		db 40,GOLBAT
+		db 30,SQUIRTLE
 		db 37,PSYDUCK
 		db 36,SHELLDER
 		db 41,GOLDUCK
@@ -21,7 +21,7 @@ IslandMons1:
 		db 37,KRABBY
 		db 37,HORSEA
 		db 39,JYNX
-		db 40,GOLBAT
+		db 30,SQUIRTLE
 		db 37,SLOWPOKE
 		db 36,STARYU
 		db 41,SLOWBRO
