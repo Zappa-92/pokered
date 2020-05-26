@@ -6,7 +6,7 @@ ZoneMonsCenter:
 		db 32,VENONAT
 		db 34,EXEGGCUTE
 		db 41,NIDORINO
-		db 35,EXEGGCUTE
+		db 28,BULBASAUR
 		db 40,PARASECT
 		db 34,SCYTHER
 		db 34,PINSIR
@@ -18,7 +18,7 @@ ZoneMonsCenter:
 		db 32,VENONAT
 		db 34,EXEGGCUTE
 		db 41,NIDORINA
-		db 35,EXEGGCUTE
+		db 28,BULBASAUR
 		db 40,PARASECT
 		db 34,PINSIR
 		db 34,SCYTHER
