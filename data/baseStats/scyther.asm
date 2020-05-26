@@ -6,7 +6,7 @@ db 105 ; base speed
 db 55 ; base special
 db BUG ; species type 1
 db FLYING ; species type 2
-db 45 ; catch rate
+db 70 ; catch rate
 db 187 ; base exp yield
 INCBIN "pic/bmon/scyther.pic",0,1 ; 77, sprite dimensions
 dw ScytherPicFront
