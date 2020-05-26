@@ -5328,7 +5328,6 @@ AdjustDamageForMoveType:
 	ld b, h
 	ld c, l    ; bc = damage
 	srl b
-	rr c      
 	rr c	   ; bc = floor(0.5 * damage)
 	add hl, bc ; hl = floor(1.5 * damage)
 ; store damage
@@ -5360,7 +5359,7 @@ AdjustDamageForMoveType:
 	push bc
 	inc hl
 	ld a, [wDamageMultipliers]
-	and $80
+	and $20
 	ld b, a
 	ld a, [hl] ; a = damage multiplier
 	ld [H_MULTIPLIER], a
