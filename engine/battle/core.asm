@@ -5328,7 +5328,8 @@ AdjustDamageForMoveType:
 	ld b, h
 	ld c, l    ; bc = damage
 	srl b
-	rr c	   ; bc = floor(0.5 * damage)
+	srl b
+	rr c   	   ; bc = floor(0.5 * damage)
 	add hl, bc ; hl = floor(1.5 * damage)
 ; store damage
 	ld a, h
