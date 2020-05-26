@@ -4751,8 +4751,6 @@ HighCriticalMoves:
 	db RAZOR_LEAF
 	db CRABHAMMER
 	db SLASH
-	db SCYTHE_SWORD
-	db SLAYER
 	db $FF
 
 
