@@ -10,7 +10,7 @@ _CeladonGymText_48a5e::
 
 	para "My name is ERIKA."
 	line "I am the LEADER"
-	cont "of CELADON GYM."
+	cont "of WEED GYM."
 
 	para "I teach the art of"
 	line "flower smoking."
@@ -38,13 +38,13 @@ _CeladonGymText_48a63::
 
 _CeladonGymText_48a68::
 	text "You are cataloging"
-	line "#MON? I must"
-	cont "say I'm impressed."
+	line "#MON? Get me"
+	cont "some WEED #MON."
 
 	para "I would never"
 	line "collect #MON"
-	cont "if they were"
-	cont "unattractive."
+	cont "if they didn't"
+	cont "produce Weed."
 	done
 
 _CeladonGymText9::
@@ -86,9 +86,8 @@ _TM21NoRoomText::
 
 _CeladonGymBattleText2::
 	text "Hey!"
-
-	para "You are not"
-	line "allowed in here!"
+	
+	line "No cops!"
 	done
 
 _CeladonGymEndBattleText2::
@@ -97,7 +96,7 @@ _CeladonGymEndBattleText2::
 	prompt
 
 _CeladonGymAfterBattleText2::
-	text "Bleaah!"
+	text "Bummer!"
 	line "I hope ERIKA"
 	cont "wipes you out!"
 	done
@@ -109,7 +108,7 @@ _CeladonGymBattleText3::
 
 _CeladonGymEndBattleText3::
 	text "My"
-	line "makeup!"
+	line "Pot!"
 	prompt
 
 _CeladonGymAfterBattleText3::
@@ -118,32 +117,33 @@ _CeladonGymAfterBattleText3::
 	cont "the water-type!"
 
 	para "They also have an"
-	line "edge on rock and"
-	cont "ground #MON!"
+	line "ability to make"
+	cont "Weed! Yeahh"
 	done
 
 _CeladonGymBattleText4::
 	text "Aren't you the"
-	line "peeping Tom?"
+	line "sober kid?"
 	done
 
 _CeladonGymEndBattleText4::
 	text "I'm"
-	line "in shock!"
+	line "too high!"
 	prompt
 
 _CeladonGymAfterBattleText4::
-	text "Oh, you weren't"
-	line "peeping? We get a"
-	cont "lot of gawkers!"
+	text "Who are you"
+	line "again??"
+	
+	para "Want some pot?"
 	done
 
 _CeladonGymBattleText5::
 	text "Look at my grass"
 	line "#MON!"
 
-	para "They're so easy"
-	line "to raise!"
+	para "They're my little"
+	line "potheads!"
 	done
 
 _CeladonGymEndBattleText5::
@@ -156,8 +156,8 @@ _CeladonGymAfterBattleText5::
 	cont "our GYM!"
 
 	para "We also use them"
-	line "for making flower"
-	cont "arrangements!"
+	line "for producing"
+	cont "and selling weed!"
 	done
 
 _CeladonGymBattleText6::
@@ -181,7 +181,7 @@ _CeladonGymAfterBattleText6::
 _CeladonGymBattleText7::
 	text "Pleased to meet"
 	line "you. My hobby is"
-	cont "#MON training."
+	cont "pot smoking."
 	done
 
 _CeladonGymEndBattleText7::
@@ -193,7 +193,7 @@ _CeladonGymAfterBattleText7::
 	text "I have a blind"
 	line "date coming up."
 	cont "I have to learn"
-	cont "to be polite."
+	cont "to be careta."
 	done
 
 _CeladonGymBattleText8::
@@ -202,7 +202,7 @@ _CeladonGymBattleText8::
 
 	para "You better not"
 	line "underestimate"
-	cont "girl power!"
+	cont "pot power!"
 	done
 
 _CeladonGymEndBattleText8::
@@ -212,7 +212,7 @@ _CeladonGymEndBattleText8::
 
 _CeladonGymAfterBattleText8::
 	text "I didn't bring my"
-	line "best #MON!"
+	line "best weed!"
 
 	para "Wait 'til next"
 	line "time!"
