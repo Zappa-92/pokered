@@ -930,9 +930,9 @@ DragoniteEvosMoves:
 	db 10, THUNDER_WAVE
 	db 20, AGILITY
 	db 35, SLAM
-	db 45, DRAGON_RAGE
-	db 50, DRAGON_ANGER
-	db 60, HYPER_BEAM
+	db 40, DRAGON_RAGE
+	db 48, DRAGON_ANGER
+	db 55, HYPER_BEAM
 	db 0
 
 MissingNo43EvosMoves:
@@ -1124,8 +1124,8 @@ DratiniEvosMoves:
 	db 10, THUNDER_WAVE
 	db 20, AGILITY
 	db 30, SLAM
-	db 40, DRAGON_RAGE
-	db 45, DRAGON_ANGER
+	db 35, DRAGON_RAGE
+	db 42, DRAGON_ANGER
 	db 50, HYPER_BEAM
 	db 0
 
@@ -1137,9 +1137,9 @@ DragonairEvosMoves:
 	db 10, THUNDER_WAVE
 	db 20, AGILITY
 	db 35, SLAM
-	db 45, DRAGON_RAGE
-	db 50, DRAGON_ANGER
-	db 55, HYPER_BEAM
+	db 42, DRAGON_RAGE
+	db 47, DRAGON_ANGER
+	db 52, HYPER_BEAM
 	db 0
 
 KabutoEvosMoves:
@@ -1593,9 +1593,9 @@ SnorlaxEvosMoves:
 	db 0
 ; Learnset
 	db 35, BODY_SLAM
-	db 41, HARDEN
-	db 48, DOUBLE_EDGE
-	db 56, HYPER_BEAM
+	db 40, HARDEN
+	db 45, DOUBLE_EDGE
+	db 50, HYPER_BEAM
 	db 0
 
 MagikarpEvosMoves:
@@ -1800,9 +1800,9 @@ VenusaurEvosMoves:
 	db 13, VINE_WHIP
 	db 22, POISONPOWDER
 	db 30, RAZOR_LEAF
-	db 43, GROWTH
-	db 55, SLEEP_POWDER
-	db 65, SOLARBEAM
+	db 40, GROWTH
+	db 50, SLEEP_POWDER
+	db 60, SOLARBEAM
 	db 0
 
 TentacruelEvosMoves:
@@ -1879,10 +1879,10 @@ PonytaEvosMoves:
 	db EV_LEVEL, 40, RAPIDASH
 	db 0
 ; Learnset
-	db 30, TAIL_WHIP
-	db 32, STOMP
-	db 35, GROWL
-	db 39, FIRE_SPIN
+	db 20, TAIL_WHIP
+	db 25, STOMP
+	db 30, GROWL
+	db 34, FIRE_SPIN
 	db 41, FLAMETHROWER
 	db 43, TAKE_DOWN
 	db 48, AGILITY
