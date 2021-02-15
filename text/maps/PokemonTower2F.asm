@@ -31,7 +31,7 @@ _PokemonTower2Text_60637::
 	cont "Encontralos!"
 
 	para "Me voy a terminar"
-	line "el rompecabezas"
+	line "el BESTIARIO"
 	prompt
 
 _PokemonTower2Text_6063c::
@@ -45,7 +45,7 @@ _PokemonTower2Text_6063c::
 	cont "Encontralos!"
 
 	para "Me voy a terminar"
-	line "el rompecabezas"
+	line "el BESTIARIO"
 
 	para "Adieu!"
 	done
