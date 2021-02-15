@@ -1,13 +1,14 @@
 _OaksLabGaryText1::
-	text "<RIVAL>: Yo"
-	line "<PLAYER>! Gramps"
-	cont "isn't around!"
+	text "<RIVAL>: Che"
+	line "<PLAYER>! Beor"
+	cont "..digo OAK"
+	cont "is not here"
 	done
 
 _OaksLabText40::
 	text "<RIVAL>: Heh, I"
 	line "don't need to be"
-	cont "greedy like you!"
+	cont "a capo like you!"
 
 	para "Go ahead and"
 	line "choose, <PLAYER>!"
@@ -15,8 +16,8 @@ _OaksLabText40::
 
 _OaksLabText41::
 	text "<RIVAL>: My"
-	line "#MON looks a"
-	cont "lot stronger."
+	line "#MON looks has"
+	cont "type advantage."
 	done
 
 _OaksLabText39::
@@ -134,7 +135,7 @@ _OaksLabGivePokeballsText2::
 
 	para "Just throw a #"
 	line "BALL at it and try"
-	line "to catch it!"
+	cont "to catch it!"
 
 	para "This won't always"
 	line "work, though."
