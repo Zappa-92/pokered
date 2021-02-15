@@ -1,16 +1,16 @@
 CreditsMons:
-	db VENUSAUR
+	db MEW
 	db ARBOK
 	db RHYHORN
 	db FEAROW
-	db ABRA
-	db GRAVELER
+	db DRATINI
+	db GOLEM
 	db HITMONLEE
-	db TANGELA
+	db PINSIR
 	db STARMIE
 	db GYARADOS
 	db DITTO
 	db OMASTAR
 	db VILEPLUME
-	db NIDOKING
+	db RAICHU
 	db PARASECT
