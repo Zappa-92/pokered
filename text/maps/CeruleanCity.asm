@@ -1,10 +1,10 @@
 _CeruleanCityText_19668::
-	text "<RIVAL>: Yo!"
+	text "<RIVAL>: Ehh!"
 	line "<PLAYER>!"
 
 	para "You're still"
-	line "struggling along"
-	cont "back here?"
+	line "writing ideas for"
+	cont "the BESTIARIO?"
 
 	para "I'm doing great!"
 	line "I caught a bunch"
@@ -18,14 +18,14 @@ _CeruleanCityText_19668::
 
 _CeruleanCityText_1966d::
 	text "Hey!"
-	line "Take it easy!"
-	cont "You won already!"
+	line "Tranqui champ!"
+	cont "Aflojale un toque!"
 	prompt
 
 _CeruleanCityText_19672::
 	text "Heh!"
-	line "You're no match"
-	cont "for my genius!"
+	line "No te aguantas"
+	cont "los trapos!"
 	prompt
 
 _CeruleanCityText_19677::
