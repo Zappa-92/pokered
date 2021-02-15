@@ -1,34 +1,31 @@
 _ProgrammerText::
 	text "Me? I'm the"
-	line "programmer!"
+	line "writer!"
 	done
 
 _GraphicArtistText::
 	text "I'm the graphic"
 	line "artist!"
-	cont "I drew you!"
+	cont "I drew a Phoenix"
 	done
 
 _WriterText::
 	text "I wrote the story!"
-	line "Isn't ERIKA cute?"
+	line "Isn't Beor cool?"
 
-	para "I like MISTY a"
+	para "I like Lorn a"
 	line "lot too!"
-
-	para "Oh, and SABRINA,"
-	line "I like her!"
 	done
 
 _GameDesignerText::
 	text "Is that right?"
 
-	para "I'm the game"
-	line "designer!"
+	para "I re wrote"
+	line "#MON red & blue!"
+	cont "as a side job"
 
 	para "Filling up your"
-	line "#DEX is tough,"
-	cont "but don't quit!"
+	line "#DEX is easier,"
 
 	para "When you finish,"
 	line "come tell me!"
@@ -43,13 +40,13 @@ _CompletedDexText::
 
 _CeladonMansion3Text5::
 	text "It's the game"
-	line "program! Messing"
-	cont "with it could bug"
+	line "dialogs! Messing"
+	cont "with it will fuck"
 	cont "out the game!"
 	done
 
 _CeladonMansion3Text6::
-	text "Someone's playing"
+	text "Alexis is playing"
 	line "a game instead of"
 	cont "working!"
 	done
@@ -61,6 +58,6 @@ _CeladonMansion3Text7::
 	done
 
 _CeladonMansion3Text8::
-	text "GAME FREAK"
+	text "BESTIARIO"
 	line "Development Room"
 	done
