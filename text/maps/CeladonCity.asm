@@ -111,7 +111,7 @@ _CeladonCityText13::
 	line "#MON GYM"
 	cont "LEADER: ERIKA"
 
-	para "The Nature Loving"
+	para "The Weed Loving"
 	line "Princess!"
 	done
 
