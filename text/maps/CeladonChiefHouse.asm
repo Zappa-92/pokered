@@ -14,8 +14,8 @@ _CeladonHouseText2::
 
 _CeladonHouseText3::
 	text "Don't touch the"
-	line "poster at the"
-	cont "GAME CORNER!"
+	line "Montaner poster"
+	cont "at the casino!"
 
 	para "There's no secret"
 	line "switch behind it!"
