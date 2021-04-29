@@ -10,7 +10,7 @@ _CeladonCityText1::
 _CeladonCityText2::
 	text "Heheh! This GYM"
 	line "is great! It's"
-	cont "full of women!"
+	cont "full of pot!"
 	done
 
 _CeladonCityText3::
@@ -49,11 +49,12 @@ _TM41ExplanationText::
 	text "TM41 teaches"
 	line "SOFTBOILED!"
 
-	para "Only one #MON"
+	para "Only some #MON"
 	line "can use it!"
 
-	para "That #MON is"
-	line "CHANSEY!"
+	para "That #MON are"
+	line "CHANSEY and"
+	line "MEW!"
 	done
 
 _TM41NoRoomText::
