@@ -2,7 +2,7 @@ PrizeMonLevelDictionary:
 IF DEF(_RED)
 	db ABRA,15
 	db CLEFAIRY,20
-	db NIDORINA,27
+	db TAUROS,27
 
 	db DRATINI,28
 	db SCYTHER,33
@@ -11,7 +11,7 @@ ENDC
 IF DEF(_BLUE)
 	db ABRA,15
 	db CLEFAIRY,20
-	db NIDORINO,27
+	db MAGMAR,27
 
 	db PINSIR,33
 	db DRATINI,28
