@@ -733,7 +733,7 @@ PsyduckEvosMoves:
 	db 0
 ; Learnset
 	db 10, SCRATCH
-	db 16  WATER_GUN
+	db 16, WATER_GUN
 	db 24, TAIL_WHIP
 	db 31, DISABLE
 	db 36, CONFUSION
