@@ -44,9 +44,9 @@ _ViridianCityText_19157::
 
 _ViridianCityText_19175::
 	text "Oh Grandpa! Don't"
-	line "be so mean!"
-	cont "He hasn't had his"
-	cont "coffee yet."
+	line "be so garca!"
+	cont "Todavía está en"
+	cont "pedo."
 	done
 
 _ViridianCityText_1917a::
@@ -58,11 +58,11 @@ _ViridianCityText_1917a::
 	done
 
 _ViridianCityText_19191::
-	text "You can't go"
-	line "through here!"
+	text "Tomatela!"
+	line "salí pibe!"
 
-	para "This is private"
-	line "property!"
+	para "Que vuelvan"
+	line "los milicos!"
 	done
 
 _ViridianCityText_191ca::
@@ -98,12 +98,13 @@ _TM42NoRoomText::
 	done
 
 _ViridianCityText_1920a::
-	text "Ahh, I've had my"
-	line "coffee now and I"
-	cont "feel great!"
+	text "Ahh, ya me tome"
+	line "un feca"
+	cont "Ahora estoy"
 
-	para "Sure you can go"
-	line "through!"
+	para "Where is my"
+	line "falcon verde..."
+	cont "???"
 
 	para "Are you in a"
 	line "hurry?"
