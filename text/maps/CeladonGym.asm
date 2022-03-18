@@ -92,18 +92,18 @@ _CeladonGymBattleText2::
 
 _CeladonGymEndBattleText2::
 	text "You're"
-	line "too rough!"
+	line "too sober!"
 	prompt
 
 _CeladonGymAfterBattleText2::
 	text "Bummer!"
 	line "I hope ERIKA"
-	cont "wipes you out!"
+	cont "skokes you out!"
 	done
 
 _CeladonGymBattleText3::
 	text "I was getting"
-	line "bored."
+	line "stoned."
 	done
 
 _CeladonGymEndBattleText3::
