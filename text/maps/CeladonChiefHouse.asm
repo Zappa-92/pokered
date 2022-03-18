@@ -1,11 +1,11 @@
 _CeladonHouseText1::
-	text "Hehehe! The slots"
+	text "Hehehe! MONTANER"
 	line "just reel in the"
 	cont "dough, big time!"
 	done
 
 _CeladonHouseText2::
-	text "CHIEF!"
+	text "ILUMINADA!"
 
 	para "Yeahh we are"
 	line "bad guys!!"
@@ -14,7 +14,7 @@ _CeladonHouseText2::
 
 _CeladonHouseText3::
 	text "Don't touch the"
-	line "Montaner poster"
+	line "MONTANER poster"
 	cont "at the casino!"
 
 	para "There's no secret"
