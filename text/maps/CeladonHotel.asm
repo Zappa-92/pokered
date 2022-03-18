@@ -18,4 +18,6 @@ _CeladonHotelText2::
 _CeladonHotelText3::
 	text "Why did she bring"
 	line "her brother?"
+	
+	para "No la pongo más"
 	done
