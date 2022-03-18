@@ -732,7 +732,9 @@ PsyduckEvosMoves:
 	db EV_LEVEL, 33, GOLDUCK
 	db 0
 ; Learnset
-	db 28, TAIL_WHIP
+	db 10, SCRATCH
+	db 16  WATER_GUN
+	db 24, TAIL_WHIP
 	db 31, DISABLE
 	db 36, CONFUSION
 	db 43, FURY_SWIPES
