@@ -15,10 +15,10 @@ PrizeMenuMon1Entries:
 	db ABRA
 	db CLEFAIRY
 IF DEF(_RED)
-	db NIDORINA
+	db TAUROS
 ENDC
 IF DEF(_BLUE)
-	db NIDORINO
+	db MAGMAR
 ENDC
 	db "@"
 
@@ -49,13 +49,13 @@ ENDC
 PrizeMenuMon2Cost:
 IF DEF(_RED)
 	coins 2800
-	coins 5500
-	coins 9999
+	coins 3300
+	coins 4000
 ENDC
 IF DEF(_BLUE)
-	coins 2500
-	coins 4600
-	coins 6500
+	coins 2800
+	coins 3300
+	coins 4000
 ENDC
 	db "@"
 
@@ -66,7 +66,7 @@ PrizeMenuTMsEntries:
 	db "@"
 
 PrizeMenuTMsCost:
-	coins 3300
-	coins 5500
-	coins 7700
+	coins 1500
+	coins 2000
+	coins 2500
 	db "@"
