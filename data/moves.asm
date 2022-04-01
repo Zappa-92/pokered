@@ -158,7 +158,7 @@ MoveEnd:
 	move BUBBLE,       SPEED_DOWN_SIDE_EFFECT,      14, WATER,    100, 30
 	move DIZZY_PUNCH,  CONFUSION_SIDE_EFFECT,       49, NORMAL,   100, 10
 	move SPORE,        SLEEP_EFFECT,                 0, GRASS,    100, 15
-	move FLASH,        ACCURACY_DOWN1_EFFECT,       14, ELECTRIC,  90, 20
+	move FLASH,        ACCURACY_DOWN1_EFFECT,        0, ELECTRIC,  90, 20
 	move PSYWAVE,      SPECIAL_DAMAGE_EFFECT,        1, PSYCHIC,   80, 15
 	move SPLASH,       SPLASH_EFFECT,                0, NORMAL,   100, 40
 	move ACID_ARMOR,   DEFENSE_UP2_EFFECT,           0, POISON,   100, 40
