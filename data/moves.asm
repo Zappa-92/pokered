@@ -67,7 +67,7 @@ MoveEnd:
 	move MIST,         MIST_EFFECT,                  0, ICE,      100, 30
 	move WATER_GUN,    NO_ADDITIONAL_EFFECT,        28, WATER,    100, 25
 	move HYDRO_PUMP,   NO_ADDITIONAL_EFFECT,        84, WATER,     75,  5
-	move SURF,         NO_ADDITIONAL_EFFECT,        63, WATER,    100, 15
+	move SURF,         NO_ADDITIONAL_EFFECT,        49, WATER,    100, 15
 	move ICE_BEAM,     FREEZE_SIDE_EFFECT,          63, ICE,      100, 10
 	move BLIZZARD,     FREEZE_SIDE_EFFECT,          84, ICE,       75,  5
 	move PSYBEAM,      CONFUSION_SIDE_EFFECT,       45, PSYCHIC,  100, 20
@@ -158,7 +158,7 @@ MoveEnd:
 	move BUBBLE,       SPEED_DOWN_SIDE_EFFECT,      14, WATER,    100, 30
 	move DIZZY_PUNCH,  CONFUSION_SIDE_EFFECT,       49, NORMAL,   100, 10
 	move SPORE,        SLEEP_EFFECT,                 0, GRASS,    100, 15
-	move FLASH,        ACCURACY_DOWN1_EFFECT,        0, NORMAL,    90, 20
+	move FLASH,        ACCURACY_DOWN1_EFFECT,       14, ELECTRIC,  90, 20
 	move PSYWAVE,      SPECIAL_DAMAGE_EFFECT,        1, PSYCHIC,   80, 15
 	move SPLASH,       SPLASH_EFFECT,                0, NORMAL,   100, 40
 	move ACID_ARMOR,   DEFENSE_UP2_EFFECT,           0, POISON,   100, 40
