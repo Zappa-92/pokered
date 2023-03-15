@@ -1,9 +1,9 @@
 db DEX_DODUO ; pokedex id
-db 35 ; base hp
+db 50 ; base hp
 db 85 ; base attack
-db 45 ; base defense
+db 55 ; base defense
 db 75 ; base speed
-db 35 ; base special
+db 50 ; base special
 db FLYING ; species type 1
 db FLYING ; species type 2
 db 190 ; catch rate
