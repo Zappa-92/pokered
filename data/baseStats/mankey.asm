@@ -1,7 +1,7 @@
 db DEX_MANKEY ; pokedex id
-db 40 ; base hp
+db 55 ; base hp
 db 80 ; base attack
-db 35 ; base defense
+db 45 ; base defense
 db 70 ; base speed
 db 35 ; base special
 db FIGHTING ; species type 1
