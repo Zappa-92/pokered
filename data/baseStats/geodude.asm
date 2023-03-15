@@ -1,7 +1,7 @@
 db DEX_GEODUDE ; pokedex id
-db 40 ; base hp
+db 60 ; base hp
 db 80 ; base attack
-db 100 ; base defense
+db 90 ; base defense
 db 20 ; base speed
 db 30 ; base special
 db ROCK ; species type 1
