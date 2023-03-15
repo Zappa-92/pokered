@@ -1,7 +1,7 @@
 db DEX_ALAKAZAM ; pokedex id
-db 55 ; base hp
+db 75 ; base hp
 db 50 ; base attack
-db 45 ; base defense
+db 50 ; base defense
 db 120 ; base speed
 db 135 ; base special
 db PSYCHIC ; species type 1
