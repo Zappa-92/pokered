@@ -1,7 +1,7 @@
 db DEX_CLOYSTER ; pokedex id
-db 50 ; base hp
+db 80 ; base hp
 db 95 ; base attack
-db 180 ; base defense
+db 160 ; base defense
 db 70 ; base speed
 db 85 ; base special
 db WATER ; species type 1
