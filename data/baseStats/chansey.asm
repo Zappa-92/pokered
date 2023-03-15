@@ -1,7 +1,7 @@
 db DEX_CHANSEY ; pokedex id
 db 250 ; base hp
 db 5 ; base attack
-db 5 ; base defense
+db 30 ; base defense
 db 50 ; base speed
 db 105 ; base special
 db NORMAL ; species type 1
