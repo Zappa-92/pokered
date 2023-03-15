@@ -1,9 +1,9 @@
 db DEX_GOLDUCK ; pokedex id
-db 80 ; base hp
-db 82 ; base attack
+db 90 ; base hp
+db 87 ; base attack
 db 78 ; base defense
-db 85 ; base speed
-db 80 ; base special
+db 95 ; base speed
+db 90 ; base special
 db WATER ; species type 1
 db WATER ; species type 2
 db 75 ; catch rate
