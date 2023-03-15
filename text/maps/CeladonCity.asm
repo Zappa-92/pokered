@@ -10,7 +10,8 @@ _CeladonCityText1::
 _CeladonCityText2::
 	text "Heheh! This GYM"
 	line "is great! It's"
-	cont "full of pot!"
+	cont "full of pot"
+	cont "and chicks!"
 	done
 
 _CeladonCityText3::
