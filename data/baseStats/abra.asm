@@ -1,7 +1,7 @@
 db DEX_ABRA ; pokedex id
-db 25 ; base hp
-db 20 ; base attack
-db 15 ; base defense
+db 45 ; base hp
+db 25 ; base attack
+db 20 ; base defense
 db 90 ; base speed
 db 105 ; base special
 db PSYCHIC ; species type 1
