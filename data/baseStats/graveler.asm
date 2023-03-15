@@ -1,7 +1,7 @@
 db DEX_GRAVELER ; pokedex id
-db 55 ; base hp
+db 75 ; base hp
 db 95 ; base attack
-db 115 ; base defense
+db 110 ; base defense
 db 35 ; base speed
 db 45 ; base special
 db ROCK ; species type 1
