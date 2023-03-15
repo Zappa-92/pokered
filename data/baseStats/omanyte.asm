@@ -1,5 +1,5 @@
 db DEX_OMANYTE ; pokedex id
-db 35 ; base hp
+db 55 ; base hp
 db 40 ; base attack
 db 100 ; base defense
 db 35 ; base speed
