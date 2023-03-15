@@ -98,7 +98,7 @@ _CeladonGymEndBattleText2::
 _CeladonGymAfterBattleText2::
 	text "Bummer!"
 	line "I hope ERIKA"
-	cont "skokes you out!"
+	cont "smokes you out!"
 	done
 
 _CeladonGymBattleText3::
