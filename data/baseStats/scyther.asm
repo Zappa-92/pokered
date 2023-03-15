@@ -1,9 +1,9 @@
 db DEX_SCYTHER ; pokedex id
-db 70 ; base hp
+db 80 ; base hp
 db 110 ; base attack
 db 80 ; base defense
 db 105 ; base speed
-db 55 ; base special
+db 65 ; base special
 db BUG ; species type 1
 db FLYING ; species type 2
 db 70 ; catch rate
