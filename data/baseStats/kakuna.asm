@@ -1,9 +1,9 @@
 db DEX_KAKUNA ; pokedex id
-db 45 ; base hp
-db 25 ; base attack
+db 50 ; base hp
+db 35 ; base attack
 db 50 ; base defense
 db 35 ; base speed
-db 25 ; base special
+db 35 ; base special
 db BUG ; species type 1
 db POISON ; species type 2
 db 120 ; catch rate
