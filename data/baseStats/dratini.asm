@@ -1,9 +1,9 @@
 db DEX_DRATINI ; pokedex id
-db 41 ; base hp
+db 51 ; base hp
 db 64 ; base attack
-db 45 ; base defense
+db 50 ; base defense
 db 50 ; base speed
-db 50 ; base special
+db 55 ; base special
 db DRAGON ; species type 1
 db DRAGON ; species type 2
 db 60 ; catch rate
