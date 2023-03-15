@@ -1,9 +1,9 @@
 db DEX_KRABBY ; pokedex id
-db 30 ; base hp
+db 45 ; base hp
 db 105 ; base attack
 db 90 ; base defense
 db 50 ; base speed
-db 25 ; base special
+db 35 ; base special
 db WATER ; species type 1
 db WATER ; species type 2
 db 225 ; catch rate
