@@ -1,9 +1,9 @@
 db DEX_POLIWHIRL ; pokedex id
-db 65 ; base hp
-db 65 ; base attack
+db 70 ; base hp
+db 60 ; base attack
 db 65 ; base defense
 db 90 ; base speed
-db 50 ; base special
+db 60 ; base special
 db WATER ; species type 1
 db WATER ; species type 2
 db 120 ; catch rate
