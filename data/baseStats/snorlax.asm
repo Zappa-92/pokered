@@ -1,8 +1,8 @@
 db DEX_SNORLAX ; pokedex id
-db 160 ; base hp
+db 150 ; base hp
 db 110 ; base attack
-db 65 ; base defense
-db 30 ; base speed
+db 75 ; base defense
+db 50 ; base speed
 db 65 ; base special
 db NORMAL ; species type 1
 db NORMAL ; species type 2
