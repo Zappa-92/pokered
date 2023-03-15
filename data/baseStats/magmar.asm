@@ -1,7 +1,7 @@
 db DEX_MAGMAR ; pokedex id
-db 65 ; base hp
+db 80 ; base hp
 db 95 ; base attack
-db 57 ; base defense
+db 62 ; base defense
 db 93 ; base speed
 db 85 ; base special
 db FIRE ; species type 1
