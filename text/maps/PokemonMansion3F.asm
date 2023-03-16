@@ -30,8 +30,11 @@ _Mansion3AfterBattleText2::
 
 _Mansion3Text5::
 	text "Diary: Feb. 6"
-	line "MEW gave birth."
-
-	para "We named the"
-	line "newborn MEWTWO."
+	line "MEW DNA collected."
+	cont "Going to free MEW."
+	
+	para "As soon as we"
+	line "arribed to the lab"
+	cont "we started with the"
+	cont "MEWTWO project"
 	done
