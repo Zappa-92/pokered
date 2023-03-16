@@ -30,10 +30,22 @@ _Mansion4AfterBattleText2::
 
 _Mansion4Text7::
 	text "Diary; Sept. 1"
-	line "MEWTWO is far too"
-	cont "powerful."
+	line "The project succeded."
+	cont "MEWTWO was created."
 
-	para "We have failed to"
-	line "curb its vicious"
-	cont "tendencies..."
+	para "The combined DNA"
+	line "of human & #MON"
+	cont "have created a truly"
+	cont "intelligent and strong"
+	cont "MONSTER"
+	
+	para "We cannot control it,"
+	line "its psychic powers"
+	cont "are far too powerful."
+	
+	para "We contacted SILPH Co"
+	line "to start the production"
+	cont "of a new BALL prototype"
+	cont "it could be our only"
+	cont "chance to catch it."
 	done
