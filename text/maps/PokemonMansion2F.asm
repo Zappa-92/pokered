@@ -20,16 +20,18 @@ _Mansion2Text3::
 	line "Guyana,"
 	cont "South America"
 
-	para "A new #MON was"
-	line "discovered deep"
-	cont "in the jungle."
+	para "we discovered"
+	line "The lengendary #MON"
+	cont "deep in the jungle."
 	done
 
 _Mansion2Text4::
-	text "Diary: July 10"
-	line "We christened the"
-	cont "newly discovered"
-	cont "#MON, MEW."
+	text "The natives call it"
+	cont "MEW"
+	
+	para "It's really strong"
+	line "but it's letting us"
+	cont "study it."
 	done
 
 _Mansion2Text_520c2::
