@@ -1,5 +1,5 @@
 Route25Mons:
-	db $0F
+	db $22
 	IF DEF(_RED)
 		db 14,WEEDLE
 		db 15,KAKUNA
