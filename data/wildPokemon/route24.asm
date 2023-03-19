@@ -1,5 +1,5 @@
 Route24Mons:
-	db $19
+	db $16
 	IF DEF(_RED)
 		db 14,WEEDLE
 		db 15,KAKUNA
