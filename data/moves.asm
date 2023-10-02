@@ -51,8 +51,8 @@ MoveEnd:
 	move DOUBLE_EDGE,  RECOIL_EFFECT,               70, NORMAL,   100, 15
 	move TAIL_WHIP,    DEFENSE_DOWN1_EFFECT,         0, NORMAL,   100, 30
 	move POISON_STING, POISON_SIDE_EFFECT1,         11, POISON,   100, 35
-	move TWINEEDLE,    TWINEEDLE_EFFECT,            20, BUG,      100, 20
-	move PIN_MISSILE,  TWO_TO_FIVE_ATTACKS_EFFECT,  11, BUG,       85, 20
+	move TWINEEDLE,    TWINEEDLE_EFFECT,            28, BUG,      100, 20
+	move PIN_MISSILE,  TWO_TO_FIVE_ATTACKS_EFFECT,  14, BUG,       85, 20
 	move LEER,         DEFENSE_DOWN1_EFFECT,         0, NORMAL,   100, 30
 	move BITE,         FLINCH_SIDE_EFFECT1,         42, NORMAL,   100, 25
 	move GROWL,        ATTACK_DOWN1_EFFECT,          0, NORMAL,   100, 40
@@ -151,7 +151,7 @@ MoveEnd:
 	move DREAM_EATER,  DREAM_EATER_EFFECT,          70, PSYCHIC,  100, 15
 	move POISON_GAS,   POISON_EFFECT,                0, POISON,    55, 40
 	move BARRAGE,      TWO_TO_FIVE_ATTACKS_EFFECT,  11, NORMAL,    85, 20
-	move LEECH_LIFE,   DRAIN_HP_EFFECT,             14, BUG,      100, 15
+	move LEECH_LIFE,   DRAIN_HP_EFFECT,             21, BUG,      100, 15
 	move LOVELY_KISS,  SLEEP_EFFECT,                 0, NORMAL,    75, 10
 	move SKY_ATTACK,   CHARGE_EFFECT,               84, FLYING,    90,  5
 	move TRANSFORM,    TRANSFORM_EFFECT,             0, NORMAL,   100, 10
