@@ -1,8 +1,8 @@
 _MewtwoBattleText::
-	text "Mew!@@"
+	text "Mew!"
 
 	para "wait..."
 	line "you are the
 	cont "experiment."
 
-	para "You are Mewtwo!"
+	para "You are Mewtwo!@@"
