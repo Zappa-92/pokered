@@ -16,7 +16,7 @@ _OaksLabText40::
 
 _OaksLabText41::
 	text "<RIVAL>: My"
-	line "#MON looks has"
+	line "#MON has"
 	cont "type advantage."
 	done
 
