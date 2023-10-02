@@ -1,5 +1,5 @@
 _OakSpeechText1::
-	text "Hello there!"
+	text "Hi challenger!"
 	line "Welcome to the"
 	cont "world of #MON!"
 
@@ -9,21 +9,19 @@ _OakSpeechText1::
 	prompt
 
 _OakSpeechText2A::
-	text "This world is"
-	line "inhabited by"
-	cont "creatures called"
-	cont "#MON!@@"
+	text "This game is"
+	line "the same #MON"
+	cont "game you know"
+	cont "but harder!"
 
 _OakSpeechText2B::
-	text $51,"For some people,"
-	line "#MON are"
-	cont "pets. Others use"
-	cont "them for fights."
+	text "So prepare for"
+	line "more challenging"
+	cont "trainers & leaders."
 
-	para "Myself..."
-
-	para "I study #MON"
-	line "as a profession."
+	para "All #MON"
+	line "are available,"
+	cont "find them."
 	prompt
 
 _IntroducePlayerText::
@@ -32,10 +30,8 @@ _IntroducePlayerText::
 	prompt
 
 _IntroduceRivalText::
-	text "This is my grand-"
-	line "son. He's been"
-	cont "your rival since"
-	cont "you were a baby."
+	text "This is your rival."
+	line "He will fight hard."
 
 	para "...Erm, what is"
 	line "his name again?"
