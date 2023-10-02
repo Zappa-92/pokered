@@ -251,7 +251,7 @@ FightingDojoAfterBattleText4:
 FightingDojoText6:
 ; Hitmonlee Poké Ball
 	TX_ASM
-	CheckEitherEventSet EVENT_GOT_HITMONLEE, EVENT_GOT_HITMONCHAN
+	CheckEvent EVENT_GOT_HITMONLEE
 	jr z, .GetMon
 	ld hl, OtherHitmonText
 	call PrintText
@@ -267,7 +267,7 @@ FightingDojoText6:
 	jr nz, .done
 	ld a, [wcf91]
 	ld b, a
-	ld c, 30
+	ld c, 40
 	call GivePokemon
 	jr nc, .done
 
@@ -275,7 +275,7 @@ FightingDojoText6:
 	ld a, HS_FIGHTING_DOJO_GIFT_1
 	ld [wMissableObjectIndex], a
 	predef HideObject
-	SetEvents EVENT_GOT_HITMONLEE, EVENT_DEFEATED_FIGHTING_DOJO
+	SetEvents EVENT_GOT_HITMONLEE
 .done
 	jp TextScriptEnd
 
@@ -286,7 +286,7 @@ WantHitmonleeText:
 FightingDojoText7:
 ; Hitmonchan Poké Ball
 	TX_ASM
-	CheckEitherEventSet EVENT_GOT_HITMONLEE, EVENT_GOT_HITMONCHAN
+	CheckEvent EVENT_GOT_HITMONCHAN
 	jr z, .GetMon
 	ld hl, OtherHitmonText
 	call PrintText
