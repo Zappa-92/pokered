@@ -4,5 +4,6 @@ GoodRodMons:
 	db 22,SHELLDER
 	db 22,SLOWPOKE
 	db 22,KRABBY
-	db 25,HORSEA
+	db 23,HORSEA
 	db 25,MAGIKARP
+	db 18,DRATINI
