@@ -1,9 +1,9 @@
 db DEX_MACHOP ; pokedex id
 db 70 ; base hp
 db 80 ; base attack
-db 50 ; base defense
+db 55 ; base defense
 db 35 ; base speed
-db 35 ; base special
+db 40 ; base special
 db FIGHTING ; species type 1
 db FIGHTING ; species type 2
 db 180 ; catch rate
