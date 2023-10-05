@@ -1,5 +1,5 @@
 db DEX_MEOWTH ; pokedex id
-db 40 ; base hp
+db 55 ; base hp
 db 45 ; base attack
 db 35 ; base defense
 db 90 ; base speed
