@@ -1,8 +1,8 @@
 db DEX_CLEFABLE ; pokedex id
 db 95 ; base hp
-db 70 ; base attack
+db 90 ; base attack
 db 73 ; base defense
-db 60 ; base speed
+db 70 ; base speed
 db 85 ; base special
 db NORMAL ; species type 1
 db NORMAL ; species type 2
