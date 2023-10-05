@@ -399,9 +399,9 @@ RhyhornEvosMoves:
 	db EV_LEVEL, 42, RHYDON
 	db 0
 ; Learnset
-	db 30, STOMP
-	db 35, TAIL_WHIP
-	db 40, FURY_ATTACK
+	db 25, STOMP
+	db 31, TAIL_WHIP
+	db 37, FURY_ATTACK
 	db 45, HORN_DRILL
 	db 50, HORN_CHARGE
 	db 55, TAKE_DOWN
@@ -434,6 +434,7 @@ MewEvosMoves:
 	db 20, MEGA_PUNCH
 	db 30, METRONOME
 	db 40, PSYCHIC_M
+	db 60, TRANSFORM
 	db 0
 
 GyaradosEvosMoves:
