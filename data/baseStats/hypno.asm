@@ -1,7 +1,7 @@
 db DEX_HYPNO ; pokedex id
 db 85 ; base hp
 db 73 ; base attack
-db 70 ; base defense
+db 80 ; base defense
 db 67 ; base speed
 db 115 ; base special
 db PSYCHIC ; species type 1
