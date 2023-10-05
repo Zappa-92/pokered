@@ -1,9 +1,9 @@
 db DEX_NINETALES ; pokedex id
-db 73 ; base hp
-db 76 ; base attack
-db 75 ; base defense
+db 88 ; base hp
+db 81 ; base attack
+db 80 ; base defense
 db 100 ; base speed
-db 100 ; base special
+db 105 ; base special
 db FIRE ; species type 1
 db FIRE ; species type 2
 db 75 ; catch rate
