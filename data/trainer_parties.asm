@@ -141,7 +141,7 @@ SailorData:
 	db 30,PIKACHU,VOLTORB,0
 JrTrainerMData:
 ; Pewter Gym
-	db 16,DIGLETT,SANDSHREW,0
+	db 16,ONIX,RHYHORN,0
 ; Route 24/Route 25
 	db 23,PONYTA,EKANS,0
 ; Route 24
@@ -606,7 +606,7 @@ CooltrainerFData:
 BrunoData:
 	db $FF,59,ONIX,62,HITMONCHAN,62,HITMONLEE,61,GOLEM,65,MACHAMP,0
 BrockData:
-	db $FF,15,GEODUDE,19,RHYHORN,0
+	db $FF,15,GEODUDE,19,KABUTO,0
 MistyData:
 	db $FF,20,SEEL,23,PSYDUCK,24,STARMIE,0
 LtSurgeData:
