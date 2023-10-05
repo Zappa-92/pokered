@@ -5,7 +5,7 @@ Route5Mons:
 		db 19,PIDGEY
 		db 21,BELLSPROUT
 		db 19,MANKEY
-		db 20,MEOWTH
+		db 20,TAUROS
 		db 20,ODDISH
 		db 20,PIDGEY
 		db 21,MANKEY
@@ -17,7 +17,7 @@ Route5Mons:
 		db 19,PIDGEY
 		db 21,ODDISH
 		db 19,MEOWTH
-		db 20,MANKEY
+		db 20,TAUROS
 		db 20,BELLSPROUT
 		db 20,PIDGEY
 		db 21,MEOWTH
