@@ -874,12 +874,12 @@ TaurosEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 21, STOMP
-	db 28, TAIL_WHIP
-	db 35, LEER
-	db 38, HORN_CHARGE
-	db 44, RAGE
-	db 51, TAKE_DOWN
+	db 15, TAIL_WHIP
+	db 23, STOMP
+	db 30, LEER
+	db 35, HORN_CHARGE
+	db 40, RAGE
+	db 45, TAKE_DOWN
 	db 0
 
 MissingNo3DEvosMoves:
