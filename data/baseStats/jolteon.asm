@@ -2,8 +2,8 @@ db DEX_JOLTEON ; pokedex id
 db 75 ; base hp
 db 75 ; base attack
 db 85 ; base defense
-db 110 ; base speed
-db 120 ; base special
+db 105 ; base speed
+db 110 ; base special
 db ELECTRIC ; species type 1
 db ELECTRIC ; species type 2
 db 45 ; catch rate
