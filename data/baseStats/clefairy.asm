@@ -1,8 +1,8 @@
 db DEX_CLEFAIRY ; pokedex id
 db 70 ; base hp
-db 45 ; base attack
+db 55 ; base attack
 db 48 ; base defense
-db 35 ; base speed
+db 45 ; base speed
 db 60 ; base special
 db NORMAL ; species type 1
 db NORMAL ; species type 2
