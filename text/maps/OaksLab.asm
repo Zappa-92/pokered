@@ -124,7 +124,7 @@ _OaksLabGivePokeballsText1::
 	cont "to capture wild"
 	cont "#MON."
 
-	para "<PLAYER> got 5"
+	para "<PLAYER> got some"
 	line "# BALLs!@@"
 
 _OaksLabGivePokeballsText2::
