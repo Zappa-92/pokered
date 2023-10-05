@@ -1,8 +1,8 @@
 db DEX_SANDSHREW ; pokedex id
 db 50 ; base hp
-db 75 ; base attack
+db 70 ; base attack
 db 85 ; base defense
-db 40 ; base speed
+db 50 ; base speed
 db 30 ; base special
 db GROUND ; species type 1
 db GROUND ; species type 2
