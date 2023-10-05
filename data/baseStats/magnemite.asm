@@ -1,8 +1,8 @@
 db DEX_MAGNEMITE ; pokedex id
-db 25 ; base hp
+db 40 ; base hp
 db 35 ; base attack
 db 70 ; base defense
-db 45 ; base speed
+db 55 ; base speed
 db 95 ; base special
 db ELECTRIC ; species type 1
 db ELECTRIC ; species type 2
