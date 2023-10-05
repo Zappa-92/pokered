@@ -1,8 +1,8 @@
 db DEX_MAROWAK ; pokedex id
-db 70 ; base hp
+db 75 ; base hp
 db 95 ; base attack
 db 100 ; base defense
-db 65 ; base speed
+db 75 ; base speed
 db 50 ; base special
 db GROUND ; species type 1
 db GROUND ; species type 2
