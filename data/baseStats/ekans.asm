@@ -1,8 +1,8 @@
 db DEX_EKANS ; pokedex id
 db 35 ; base hp
-db 60 ; base attack
+db 70 ; base attack
 db 44 ; base defense
-db 55 ; base speed
+db 60 ; base speed
 db 40 ; base special
 db POISON ; species type 1
 db POISON ; species type 2
