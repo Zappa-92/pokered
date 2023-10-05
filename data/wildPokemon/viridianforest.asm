@@ -5,20 +5,20 @@ ForestMons:
 		db 8,KAKUNA
 		db 6,PIDGEY
 		db 6,FARFETCHD
-		db 7,KAKUNA
+		db 7,CATERPIE
 		db 7,METAPOD
-		db 6,CATERPIE
+		db 8,PIKACHU
 	ENDC
 	IF DEF(_BLUE)
 		db 6,CATERPIE
 		db 8,METAPOD
 		db 6,SPEAROW
 		db 6,FARFETCHD
-		db 7,METAPOD
+		db 7,WEEDLE
 		db 7,KAKUNA
-		db 5,WEEDLE
+		db 8,PIKACHU
 	ENDC
-	db 7,PIKACHU
-	db 8,PIKACHU
+	db 7,SCYTHER
+	db 7,PINSIR
 	db 12,PIDGEOTTO
 	db $00
