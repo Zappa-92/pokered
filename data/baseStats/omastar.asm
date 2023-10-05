@@ -1,8 +1,8 @@
 db DEX_OMASTAR ; pokedex id
-db 85 ; base hp
-db 60 ; base attack
+db 90 ; base hp
+db 65 ; base attack
 db 125 ; base defense
-db 55 ; base speed
+db 60 ; base speed
 db 115 ; base special
 db ROCK ; species type 1
 db WATER ; species type 2
