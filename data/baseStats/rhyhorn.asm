@@ -12,8 +12,8 @@ INCBIN "pic/bmon/rhyhorn.pic",0,1 ; 77, sprite dimensions
 dw RhyhornPicFront
 dw RhyhornPicBack
 ; attacks known at lvl 0
-db HORN_ATTACK
-db 0
+db 0, ROCK_THROW
+db 0, GROWL
 db 0
 db 0
 db 5 ; growth rate
