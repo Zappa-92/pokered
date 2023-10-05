@@ -1,8 +1,8 @@
 db DEX_MAGNETON ; pokedex id
-db 50 ; base hp
+db 65 ; base hp
 db 60 ; base attack
 db 95 ; base defense
-db 70 ; base speed
+db 80 ; base speed
 db 120 ; base special
 db ELECTRIC ; species type 1
 db ELECTRIC ; species type 2
