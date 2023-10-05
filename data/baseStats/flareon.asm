@@ -1,6 +1,6 @@
 db DEX_FLAREON ; pokedex id
 db 75 ; base hp
-db 110 ; base attack
+db 95 ; base attack
 db 75 ; base defense
 db 85 ; base speed
 db 120 ; base special
