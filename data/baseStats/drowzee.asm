@@ -1,7 +1,7 @@
 db DEX_DROWZEE ; pokedex id
 db 60 ; base hp
 db 48 ; base attack
-db 45 ; base defense
+db 60 ; base defense
 db 42 ; base speed
 db 90 ; base special
 db PSYCHIC ; species type 1
