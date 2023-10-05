@@ -1,9 +1,9 @@
 db DEX_KOFFING ; pokedex id
-db 40 ; base hp
+db 50 ; base hp
 db 65 ; base attack
 db 95 ; base defense
 db 35 ; base speed
-db 60 ; base special
+db 70 ; base special
 db POISON ; species type 1
 db POISON ; species type 2
 db 190 ; catch rate
