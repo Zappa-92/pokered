@@ -8,7 +8,7 @@
 	sudo make install
 	cd ..
 
-	git clone https://github.com/pret/pokered
+	git clone https://github.com/Zappa-92/pokered
 	cd pokered
 
 To build **pokered.gbc** and **pokeblue.gbc**:
