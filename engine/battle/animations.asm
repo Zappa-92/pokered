@@ -1864,7 +1864,15 @@ AnimationMinimizeMon:
 	jp AnimationShowMonPic
 
 MinimizedMonSprite:
-	INCBIN "gfx/minimized_mon_sprite.1bpp"
+; 8x5 partial tile graphic
+pusho
+opt b.X ; . = 0, X = 1
+	db %...XX...
+	db %..XXXX..
+	db %.XXXXXX.
+	db %..XXXX..
+	db %..X..X..
+popo
 MinimizedMonSpriteEnd:
 
 AnimationSlideMonDownAndHide:
