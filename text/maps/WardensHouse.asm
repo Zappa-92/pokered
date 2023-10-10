@@ -64,7 +64,7 @@ _HM04ExplanationText::
 	para "If you do, you"
 	line "win an HM!"
 
-	para "I hear it's the"
+	para "I heard it's the"
 	line "rare SURF HM."
 	done
 
