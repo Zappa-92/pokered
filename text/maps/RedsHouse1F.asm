@@ -1,8 +1,8 @@
 _MomWakeUpText::
 	text "MOM: Right."
-	line "All boys leave"
-	cont "home some day."
-	cont "It said so on TV."
+	line "10 yo boys leave"
+	cont "to fight beasts."
+	cont "It is set in stone"
 
 	para "PROF.OAK, next"
 	line "door, is looking"
@@ -24,10 +24,11 @@ _MomHealText2::
 	done
 
 _StandByMeText::
-	text "There's a movie"
-	line "on TV. Four boys"
-	cont "are walking on"
-	cont "railroad tracks."
+	text "There's a show"
+	line "on TV. Five guys"
+	cont "are fighting in"
+	cont "the desert."
+	cont "ORAORAORAORA..."
 
 	para "I better go too."
 	done
