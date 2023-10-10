@@ -21,7 +21,7 @@ _Mansion2Text3::
 	cont "South America"
 
 	para "we discovered"
-	line "The lengendary #MON"
+	line "The legendary #MON"
 	cont "deep in the jungle."
 	done
 
