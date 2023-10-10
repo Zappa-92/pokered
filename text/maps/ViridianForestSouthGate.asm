@@ -6,8 +6,8 @@ _ViridianForestEntranceText1::
 	done
 
 _ViridianForestEntranceText2::
-	text "RATTATA may be"
-	line "small, but its"
-	cont "bite is wicked!"
+	text "SCHYTHER may be"
+	line "BUG type, but is"
+	cont "a strong #MON"
 	cont "Did you get one?"
 	done
