@@ -14,7 +14,7 @@ _ViridianForestBattleText1::
 
 _ViridianForestEndBattleText1::
 	text "No!"
-	line "CATERPIE can't"
+	line "just bugs can't"
 	cont "cut it!"
 	prompt
 
