@@ -45,8 +45,8 @@ _ViridianCityText_19157::
 _ViridianCityText_19175::
 	text "Oh Grandpa! Don't"
 	line "be so garca!"
-	cont "Todavía está en"
-	cont "pedo."
+	cont "He is still very"
+	cont "drunk."
 	done
 
 _ViridianCityText_1917a::
@@ -59,7 +59,7 @@ _ViridianCityText_1917a::
 
 _ViridianCityText_19191::
 	text "Tomatela!"
-	line "salí pibe!"
+	line "fleta pibe!"
 
 	para "Que vuelvan"
 	line "los milicos!"
@@ -99,8 +99,8 @@ _TM42NoRoomText::
 
 _ViridianCityText_1920a::
 	text "Ahh, ya me tome"
-	line "un feca"
-	cont "Ahora estoy"
+	line "un feca. Ya va."
+	cont "Toy sobrio"
 
 	para "Where is my"
 	line "falcon verde..."
@@ -128,8 +128,9 @@ _ViridianCityText_1920f::
 	done
 
 _ViridianCityText_19214::
-	text "Time is money..."
+	text "Ahhh zurdito..."
 	line "Go along then."
+	cont "Fleta!"
 	done
 
 _ViridianCityText_19219::
