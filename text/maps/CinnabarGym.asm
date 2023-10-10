@@ -1,24 +1,29 @@
 _BlaineBattleText::
 	text "Hah!"
 
-	para "I am BLAINE! I"
-	line "am the LEADER of"
-	cont "CINNABAR GYM!"
+	para "I am BLAINE!"
+	line "SCIENTIST & LEADER"
+	cont "of CINNABAR GYM!"
 
-	para "My fiery #MON"
-	line "will incinerate"
-	cont "all challengers!"
+	para "If you got here"
+	line "You have been to"
+	cont "my old LAB!"
 
-	para "Hah! You better"
-	line "have BURN HEAL!"
+	para "Better not think"
+	line "you can deal"
+	cont "with MEWTWO!"
 	done
 
 _BlaineEndBattleText::
-	text "I have"
-	line "burnt out!"
+	text "You are really"
+	line "strong!"
 
-	para "You have earned"
-	line "the VOLCANOBADGE!@@"
+	para "Beat the ELITE 4"
+	line "and maybe...."
+
+	para "Ok.. for now"
+	line "you have earned"
+	cont "the VOLCANOBADGE!@@"
 
 _BlaineFireBlastText::
 	text "FIRE BLAST is the"
