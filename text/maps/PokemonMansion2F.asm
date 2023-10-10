@@ -29,9 +29,10 @@ _Mansion2Text4::
 	text "The natives call it"
 	cont "MEW"
 	
-	para "It's really strong"
-	line "but it's letting us"
-	cont "study it."
+	para "It's really strong."
+	line "We failed capture,"
+	cont "but we locked it."
+	cont "We just need DNA"
 	done
 
 _Mansion2Text_520c2::
