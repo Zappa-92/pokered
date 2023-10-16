@@ -8,6 +8,11 @@ _FuchsiaHouse3Text_561bd::
 	cont "type of #MON"
 	cont "everywhere."
 
+	para "But with some"
+	line "patience, I"
+	cont "have even hooked"
+	cont "RARE #MON."
+
 	para "Would you like"
 	line "to have it?"
 	done
