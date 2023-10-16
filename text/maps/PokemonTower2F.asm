@@ -26,7 +26,7 @@ _PokemonTower2Text_60637::
 	cont "I just caught a"
 	cont "CUBONE!"
 
-	para "Hay LAPRAS"
+	para "Hay DRATINIS"
 	line "salvajes por ahí."
 	cont "Encontralos!"
 
@@ -40,7 +40,7 @@ _PokemonTower2Text_6063c::
 	cont "I just caught a"
 	cont "CUBONE!"
 
-	para "Hay LAPRAS"
+	para "Hay DRATINIS"
 	line "salvajes por ahí."
 	cont "Encontralos!"
 
