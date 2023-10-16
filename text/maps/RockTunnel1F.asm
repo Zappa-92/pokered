@@ -74,7 +74,7 @@ _RockTunnel1EndBattleText5::
 	prompt
 
 _RockTunnel1AfterBattleText5::
-	text "I saw a MACHOP"
+	text "I saw CHARMANDER"
 	line "in this tunnel!"
 	done
 
