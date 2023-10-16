@@ -3,11 +3,13 @@ _FuchsiaHouse3Text_561bd::
 	line "GURU's older"
 	cont "brother!"
 
-	para "I simply Looove"
-	line "fishing!"
+	para "The GOOD ROD"
+	line "lures the same"
+	cont "type of #MON"
+	cont "everywhere."
 
-	para "Do you like to"
-	line "fish?"
+	para "Would you like"
+	line "to have it?"
 	done
 
 _FuchsiaHouse3Text_561c2::
