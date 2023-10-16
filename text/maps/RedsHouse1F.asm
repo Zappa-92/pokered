@@ -30,7 +30,11 @@ _StandByMeText::
 	cont "the desert."
 	cont "ORAORAORAORA..."
 
-	para "I better go too."
+	para "Now you are"
+	line "gonna say:"
+	cont "I better go now"
+
+	para "I better go now."
 	done
 
 _TVWrongSideText::
