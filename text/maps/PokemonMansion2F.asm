@@ -21,18 +21,26 @@ _Mansion2Text3::
 	cont "South America"
 
 	para "we discovered"
-	line "The legendary #MON"
-	cont "deep in the jungle."
+	line "The legendary"
+	cont "#MON, deep"
+	cont "in the jungle."
 	done
 
 _Mansion2Text4::
-	text "The natives call it"
-	cont "MEW"
+	text "The natives"
+	line "call it MEW"
 	
-	para "It's really strong."
-	line "We failed capture,"
-	cont "but we locked it."
-	cont "We just need DNA"
+	para "It's really"
+	line "strong!"
+	cont "We failed to"
+	cont "capture it."
+	
+	para "But we managed"
+	line "to cage it.."
+	cont "..for now."
+
+	para "We just need"
+	line "its DNA."
 	done
 
 _Mansion2Text_520c2::
