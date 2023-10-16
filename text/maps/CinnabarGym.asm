@@ -2,7 +2,8 @@ _BlaineBattleText::
 	text "Hah!"
 
 	para "I am BLAINE!"
-	line "SCIENTIST & LEADER"
+	line "top SCIENTIST"
+	cont "and the LEADER"
 	cont "of CINNABAR GYM!"
 
 	para "If you got here"
@@ -18,7 +19,7 @@ _BlaineEndBattleText::
 	text "You are really"
 	line "strong!"
 
-	para "Beat the ELITE 4"
+	para "Beat ELITE 4"
 	line "and maybe...."
 
 	para "Ok.. for now"
@@ -60,10 +61,19 @@ _TM38ExplanationText::
 
 	para "Teach it to fire-"
 	line "type #MON!"
-
-	para "CHARMELEON or"
-	line "PONYTA would be"
+	cont "CHARIZARD or"
+	cont "RAPIDASH would be"
 	cont "good bets!"
+
+	para "Also, the"
+	line "legendary #MON"
+	cont "MOLTRES, has been"
+	cont "seen near the"
+	cont "VICTORY ROAD."
+
+	para "You have what it"
+	line "takes to fight"
+	cont "and catch it!"
 	done
 
 _TM38NoRoomText::
