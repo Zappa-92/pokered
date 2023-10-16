@@ -73,9 +73,9 @@ ViridianCityScript1:
 	; set up battle for Old Man
 	ld a, BATTLE_TYPE_OLD_MAN
 	ld [wBattleType], a
-	ld a, 5
+	ld a, 8
 	ld [wCurEnemyLVL], a
-	ld a, WEEDLE
+	ld a, DODUO
 	ld [wCurOpponent], a
 	ld a, $2
 	ld [wViridianCityCurScript], a
