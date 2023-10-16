@@ -1,5 +1,4 @@
 WaterMons:
-	db $00
 	db $05
 	db 20,TENTACOOL
 	db 28,POLIWAG
@@ -10,3 +9,4 @@ WaterMons:
 	db 28,TENTACOOL
 	db 32,LAPRAS
 	db 34,LAPRAS
+	db $00
