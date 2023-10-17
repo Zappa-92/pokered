@@ -4061,13 +4061,13 @@ CheckForDisobedience:
 	ld a, 101
 	jr nz, .next
 	bit 5, [hl]
-	ld a, 70
+	ld a, 75
 	jr nz, .next
 	bit 3, [hl]
-	ld a, 50
+	ld a, 55
 	jr nz, .next
 	bit 1, [hl]
-	ld a, 35
+	ld a, 40
 	jr nz, .next
 	ld a, 25
 .next
