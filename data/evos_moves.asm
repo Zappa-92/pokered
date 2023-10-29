@@ -309,7 +309,9 @@ ExeggutorEvosMoves:
 	db 0
 ; Learnset
 	db 28, STOMP
-	db 42, SOLARBEAM
+	db 40, PSYBEAM
+	db 45, SOLARBEAM
+	db 52, SLEEP_POWDER
 	db 0
 
 LickitungEvosMoves:
@@ -332,9 +334,10 @@ ExeggcuteEvosMoves:
 	db 25, REFLECT
 	db 28, LEECH_SEED
 	db 32, STUN_SPORE
-	db 37, POISONPOWDER
+	db 35, POISONPOWDER
+	db 38, PSYBEAM
 	db 42, SOLARBEAM
-	db 48, SLEEP_POWDER
+	db 47, SLEEP_POWDER
 	db 0
 
 GrimerEvosMoves:
