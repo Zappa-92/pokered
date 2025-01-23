@@ -1001,27 +1001,30 @@ MoltresEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 51, FLAMETHROWER
-	db 55, AGILITY
-	db 60, SKY_ATTACK
+	db 51, AGILITY
+	db 55, DRILL_PECK
+	db 60, FIRE_BLAST
+	db 65, SKY_ATTACK
 	db 0
 
 ArticunoEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 51, BLIZZARD
-	db 55, AGILITY
-	db 60, MIST
+	db 51, AGILITY
+	db 55, DRILL_PECK
+	db 60, BLIZZARD
+	db 65, MIST
 	db 0
 
 ZapdosEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 51, THUNDER
-	db 55, AGILITY
-	db 60, LIGHT_SCREEN
+	db 51, AGILITY
+	db 55, DRILL_PECK
+	db 60, THUNDER
+	db 65, LIGHT_SCREEN
 	db 0
 
 DittoEvosMoves:
@@ -1296,9 +1299,10 @@ FlareonEvosMoves:
 	db 37, TAIL_WHIP
 	db 40, BITE
 	db 42, LEER
-	db 44, FIRE_SPIN
+	db 44, FLAMETHROWER
+	db 46, FIRE_SPIN
 	db 48, RAGE
-	db 54, FLAMETHROWER
+	db 54, FIRE_BLAST
 	db 0
 
 JolteonEvosMoves:
@@ -1310,7 +1314,8 @@ JolteonEvosMoves:
 	db 37, TAIL_WHIP
 	db 40, THUNDER_WAVE
 	db 42, DOUBLE_KICK
-	db 44, AGILITY
+	db 44, THUNDERBOLT
+	db 46, AGILITY
 	db 48, PIN_MISSILE
 	db 54, THUNDER
 	db 0
@@ -1324,7 +1329,9 @@ VaporeonEvosMoves:
 	db 37, TAIL_WHIP
 	db 40, BITE
 	db 42, ACID_ARMOR
-	db 44, HAZE
+	db 44, BUBBLEBEAM
+	db 46, HAZE
+	db 47, AURORA_BEAM
 	db 48, MIST
 	db 54, HYDRO_PUMP
 	db 0
