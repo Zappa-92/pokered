@@ -13,7 +13,7 @@ dw ZapdosPicFront
 dw ZapdosPicBack
 ; attacks known at lvl 0
 db DRILL_PECK
-db THUNDERSHOCK
+db THUNDERBOLT
 db 0
 db 0
 db 5 ; growth rate
