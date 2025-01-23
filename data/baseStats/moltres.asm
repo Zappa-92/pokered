@@ -14,7 +14,7 @@ dw MoltresPicBack
 ; attacks known at lvl 0
 db PECK
 db FIRE_SPIN
-db 0
+db FLAMETHROWER
 db 0
 db 5 ; growth rate
 ; learnset
