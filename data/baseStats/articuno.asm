@@ -14,7 +14,7 @@ dw ArticunoPicBack
 ; attacks known at lvl 0
 db PECK
 db ICE_BEAM
-db 0
+db WATER_GUN
 db 0
 db 5 ; growth rate
 ; learnset
