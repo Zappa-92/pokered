@@ -14,7 +14,7 @@ dw ZapdosPicBack
 ; attacks known at lvl 0
 db DRILL_PECK
 db THUNDERBOLT
-db 0
+db THUNDER_WAVE
 db 0
 db 5 ; growth rate
 ; learnset
