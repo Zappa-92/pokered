@@ -1,9 +1,9 @@
 db DEX_GOLDEEN ; pokedex id
-db 45 ; base hp
+db 55 ; base hp
 db 67 ; base attack
 db 60 ; base defense
 db 63 ; base speed
-db 50 ; base special
+db 60 ; base special
 db WATER ; species type 1
 db WATER ; species type 2
 db 225 ; catch rate
