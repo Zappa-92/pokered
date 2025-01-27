@@ -260,8 +260,9 @@ VoltorbEvosMoves:
 	db EV_LEVEL, 30, ELECTRODE
 	db 0
 ; Learnset
-	db 17, THUNDERSHOCK
+	db 15, SONICBOOM
 	db 22, SELFDESTRUCT
+	db 25, THUNDERSHOCK
 	db 29, LIGHT_SCREEN
 	db 36, SWIFT
 	db 43, EXPLOSION
@@ -1678,8 +1679,9 @@ ElectrodeEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 17, THUNDERSHOCK
+	db 15, SONICBOOM
 	db 22, SELFDESTRUCT
+	db 25, THUNDERSHOCK
 	db 29, LIGHT_SCREEN
 	db 40, SWIFT
 	db 50, EXPLOSION
