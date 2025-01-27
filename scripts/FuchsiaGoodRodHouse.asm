@@ -18,7 +18,7 @@ FuchsiaHouse3Text1:
 	and a
 	jr nz, .refused
 
-	lb bc, GOOD_ROD, 1
+	lb bc, SUPER_ROD, 1
 	call GiveItem
 	jr nc, .full
 
