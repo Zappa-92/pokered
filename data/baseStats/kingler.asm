@@ -1,9 +1,9 @@
 db DEX_KINGLER ; pokedex id
 db 75 ; base hp
-db 120 ; base attack
-db 115 ; base defense
+db 115 ; base attack
+db 105 ; base defense
 db 75 ; base speed
-db 70 ; base special
+db 75 ; base special
 db WATER ; species type 1
 db WATER ; species type 2
 db 60 ; catch rate
