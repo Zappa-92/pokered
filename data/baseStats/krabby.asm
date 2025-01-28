@@ -1,6 +1,6 @@
 db DEX_KRABBY ; pokedex id
 db 45 ; base hp
-db 105 ; base attack
+db 95 ; base attack
 db 90 ; base defense
 db 50 ; base speed
 db 35 ; base special
