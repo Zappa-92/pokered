@@ -35,7 +35,7 @@ MoveEnd:
 	move VINE_WHIP,    NO_ADDITIONAL_EFFECT,        25, GRASS,    100, 10
 	move STOMP,        FLINCH_SIDE_EFFECT2,         49, NORMAL,    90, 20
 	move DOUBLE_KICK,  ATTACK_TWICE_EFFECT,         21, FIGHTING, 100, 25
-	move MEGA_KICK,    NO_ADDITIONAL_EFFECT,        77, NORMAL,    80,  5
+	move MEGA_KICK,    NO_ADDITIONAL_EFFECT,        70, NORMAL,    80,  5
 	move JUMP_KICK,    JUMP_KICK_EFFECT,            49, FIGHTING,  95, 25
 	move ROLLING_KICK, FLINCH_SIDE_EFFECT2,         56, FIGHTING,  85, 15
 	move SAND_ATTACK,  ACCURACY_DOWN1_EFFECT,        0, NORMAL,    90, 15
@@ -99,7 +99,7 @@ MoveEnd:
 	move THUNDER_WAVE, PARALYZE_EFFECT,              0, ELECTRIC, 100, 20
 	move THUNDER,      PARALYZE_SIDE_EFFECT1,       70, ELECTRIC,  85, 10
 	move ROCK_THROW,   NO_ADDITIONAL_EFFECT,        35, ROCK,      95, 15
-	move EARTHQUAKE,   NO_ADDITIONAL_EFFECT,        70, GROUND,   100, 10
+	move EARTHQUAKE,   NO_ADDITIONAL_EFFECT,        70, GROUND,    90, 10
 	move FISSURE,      OHKO_EFFECT,                  1, GROUND,    30,  5
 	move DIG,          CHARGE_EFFECT,               49, GROUND,   100, 10
 	move TOXIC,        POISON_EFFECT,                0, POISON,    85, 10
@@ -160,7 +160,7 @@ MoveEnd:
 	move SPORE,        SLEEP_EFFECT,                 0, GRASS,    100, 15
 	move FLASH,        ACCURACY_DOWN1_EFFECT,        0, ELECTRIC,  90, 20
 	move PSYWAVE,      SPECIAL_DAMAGE_EFFECT,        1, PSYCHIC,   80, 15
-	move SPLASH,       SPLASH_EFFECT,                0, NORMAL,   100, 40
+	move SPLASH,       SPLASH_EFFECT,                0, NORMAL,   100, 15
 	move ACID_ARMOR,   DEFENSE_UP2_EFFECT,           0, POISON,   100, 40
 	move CRABHAMMER,   NO_ADDITIONAL_EFFECT,        70, WATER,     85, 10
 	move EXPLOSION,    EXPLODE_EFFECT,             120, NORMAL,   100,  5
@@ -176,9 +176,9 @@ MoveEnd:
 	move SLASH,        NO_ADDITIONAL_EFFECT,        49, NORMAL,   100, 20
 	move SUBSTITUTE,   SUBSTITUTE_EFFECT,            0, NORMAL,   100, 10
 	move SCYTHE_SWORD, NO_ADDITIONAL_EFFECT,        49, BUG,      100, 15
-	move SHADOW_THIEF, SPECIAL_DOWN_SIDE_EFFECT,    56, GHOST,     90, 15
-	move SLAYER,       DEFENSE_DOWN_SIDE_EFFECT,    42, DRAGON,    95, 20
-	move DRAGON_ANGER, NO_ADDITIONAL_EFFECT,        70, DRAGON,    85, 10
-	move HORN_CHARGE,  CHARGE_EFFECT,               84, BUG,       90, 10
+	move SHADOW_THIEF, SPECIAL_DOWN_SIDE_EFFECT,    42, GHOST,     95, 15
+	move SLAYER,       DEFENSE_DOWN_SIDE_EFFECT,    35, DRAGON,    95, 20
+	move DRAGON_ANGER, NO_ADDITIONAL_EFFECT,        56, DRAGON,    85, 10
+	move HORN_CHARGE,  CHARGE_EFFECT,               70, BUG,       95, 10
 	move STRUGGLE,     RECOIL_EFFECT,               35, NORMAL,   100, 10
 
