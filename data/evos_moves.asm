@@ -239,6 +239,7 @@ ClefairyEvosMoves:
 	db 18, DOUBLESLAP
 	db 24, MINIMIZE
 	db 31, METRONOME
+	db 35, SKULL_BASH
 	db 39, DEFENSE_CURL
 	db 48, LIGHT_SCREEN
 	db 0
@@ -1691,7 +1692,10 @@ ClefableEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 0
+	db 34, METRONOME
+	db 39, SKULL_BASH
+	db 44, DEFENSE_CURL
+	db 55, LIGHT_SCREEN
 
 WeezingEvosMoves:
 ; Evolutions
@@ -1985,6 +1989,10 @@ PorygonEvosMoves:
 	db 28, RECOVER
 	db 35, AGILITY
 	db 42, TRI_ATTACK
+	db 44, SHARPEN
+	db 52, HYPER_BEAM
+	db 57, CONVERSION
+	db 62, RECOVER
 	db 0
 
 AerodactylEvosMoves:
@@ -2011,7 +2019,8 @@ MagnemiteEvosMoves:
 	db 21, SONICBOOM
 	db 25, THUNDERSHOCK
 	db 29, SUPERSONIC
-	db 35, THUNDER_WAVE
+	db 33, THUNDER_WAVE
+	db 37, THUNDERBOLT
 	db 41, SWIFT
 	db 47, SCREECH
 	db 0
@@ -2149,7 +2158,7 @@ VileplumeEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 15, POISONPOWDER
+	db 15, ACID
 	db 17, STUN_SPORE
 	db 19, SLEEP_POWDER
 	db 38, PETAL_DANCE
@@ -2187,8 +2196,8 @@ VictreebelEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 13, WRAP
+	db 13, SLAM
 	db 15, POISONPOWDER
-	db 18, SLEEP_POWDER
+	db 18, ACID
 	db 38, RAZOR_LEAF
 	db 0
