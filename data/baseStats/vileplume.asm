@@ -15,7 +15,7 @@ dw VileplumePicBack
 db STUN_SPORE
 db SLEEP_POWDER
 db ACID
-db PETAL_DANCE
+db SOLARBEAM
 db 3 ; growth rate
 ; learnset
 	tmlearn 3,6,8
