@@ -668,6 +668,12 @@ HandlePoisonBurnLeechSeed_DecreaseOwnHP:
 .playersTurn
 	bit BADLY_POISONED, [hl]
 	jr z, .noToxic
+	srl c         ; c = max HP/16 (assumption: HP < 1024)
+	ld a, c
+	and a
+	jr nz, .nonZeroDamageAgain
+	inc c
+.nonZeroDamageAgain
 	ld a, [de]    ; increment toxic counter
 	inc a
 	ld [de], a
