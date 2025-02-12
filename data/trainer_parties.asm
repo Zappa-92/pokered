@@ -59,7 +59,7 @@ TrainerDataPointers:
 YoungsterData:
 ; Route 3
 	db 19,RATTATA,EKANS,0
-	db 24,DRATINI,0
+	db 21,DRATINI,0
 ; Mt. Moon 1F
 	db 19,PIKACHU,MACHOP,ZUBAT,0
 ; Route 24
