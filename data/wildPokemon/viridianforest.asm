@@ -18,7 +18,6 @@ ForestMons:
 		db 7,KAKUNA
 		db 8,PIKACHU
 	ENDC
-	db 7,SCYTHER
-	db 7,PINSIR
+	db 7,DODUO
 	db 12,PIDGEOTTO
 	db $00
