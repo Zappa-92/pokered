@@ -95,7 +95,5 @@ FishingGroup9:
 
 FishingGroup10:
 	db 4
-	db 36,GYARADOS
+	db 36,SLOWPOKE
 	db 34,KRABBY
-	db 30,KABUTO
-	db 30,OMANYTE
