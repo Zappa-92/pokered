@@ -94,6 +94,6 @@ FishingGroup9:
 	db 41,SEADRA
 
 FishingGroup10:
-	db 4
+	db 2
 	db 36,SLOWPOKE
 	db 34,KRABBY
