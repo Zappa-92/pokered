@@ -6,4 +6,4 @@ GoodRodMons:
 	db 22,KRABBY
 	db 23,HORSEA
 	db 25,MAGIKARP
-	db 18,DRATINI
+	db 18,KRABBY
