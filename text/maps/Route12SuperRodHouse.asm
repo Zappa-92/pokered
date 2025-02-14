@@ -42,11 +42,10 @@ _Route12HouseText_564d4::
 	text "Hello there,"
 	line "<PLAYER>!"
 
-	para "Use the GOOD ROD"
-	line "in any water!"
-	cont "You can catch"
-	cont "different kinds"
-	cont "of #MON."
+	para "The GOOD ROD"
+	line "lures the same"
+	cont "type of #MON"
+	cont "everywhere."
 
 	para "Try fishing"
 	line "wherever you can!"
