@@ -3,7 +3,7 @@ _FuchsiaHouse3Text_561bd::
 	line "GURU's older"
 	cont "brother!"
 
-	para "The GOOD ROD"
+	para "The SUPER ROD"
 	line "lures the same"
 	cont "type of #MON"
 	cont "everywhere."
