@@ -47,8 +47,10 @@ _Route12HouseText_564d4::
 	cont "type of #MON"
 	cont "everywhere."
 
-	para "Try fishing"
-	line "wherever you can!"
+	para "But with some"
+	line "patience, I"
+	cont "have even hooked"
+	cont "RARE #MON."
 	done
 
 _Route12HouseText_564d9::
