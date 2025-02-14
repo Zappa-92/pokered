@@ -3,12 +3,13 @@ _FuchsiaHouse3Text_561bd::
 	line "GURU's older"
 	cont "brother!"
 
-	para "The SUPER ROD"
-	line "lures the same"
-	cont "type of #MON"
-	cont "everywhere."
+	para "Use the SUPER ROD"
+	line "in any water!"
+	cont "You can catch"
+	cont "different kinds"
+	cont "of #MON."
 
-	para "But with some"
+	para "And with some"
 	line "patience, I"
 	cont "have even hooked"
 	cont "RARE #MON."
