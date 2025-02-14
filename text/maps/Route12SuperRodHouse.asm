@@ -42,7 +42,7 @@ _Route12HouseText_564d4::
 	text "Hello there,"
 	line "<PLAYER>!"
 
-	para "Use the SUPER ROD"
+	para "Use the GOOD ROD"
 	line "in any water!"
 	cont "You can catch"
 	cont "different kinds"
