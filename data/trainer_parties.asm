@@ -294,7 +294,7 @@ EngineerData:
 ; Unused
 	db 21,VOLTORB,MAGNEMITE,0
 ; Route 11
-	db 32,PORYGON,0
+	db 28,PORYGON,0
 	db 25,MAGNEMITE,VOLTORB,MAGNETON,0
 Juggler1Data:
 ; none
