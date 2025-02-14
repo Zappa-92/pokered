@@ -1,7 +1,7 @@
 _MewtwoBattleText::
 	text "Mew!"
 
-	para "wait..."
+	para "wait...no"
 	line "you are the"
 	cont "experiment."
 
