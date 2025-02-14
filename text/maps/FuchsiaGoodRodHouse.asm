@@ -9,10 +9,8 @@ _FuchsiaHouse3Text_561bd::
 	cont "different kinds"
 	cont "of #MON."
 
-	para "And with some"
-	line "patience, I"
-	cont "have even hooked"
-	cont "RARE #MON."
+	para "Try fishing"
+	line "wherever you can!"
 
 	para "Would you like"
 	line "to have it?"
