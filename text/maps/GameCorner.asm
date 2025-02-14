@@ -158,7 +158,7 @@ _CeladonGameCornerText_48e98::
 	done
 
 _CeladonGameCornerText_48ece::
-	text "This is mine"
+	text "This is my"
 	line "RICARDO MONTANER"
 	cont "poster!"
 	cont "Go away, or else!"
@@ -170,15 +170,16 @@ _CeladonGameCornerText_48ed3::
 
 _CeladonGameCornerText_48ed8::
 	text "Me vaaaa a "
-	line "extrañarrrrr!"
+	line "extraniarrr!"
 	cont "better tell BOSS!"
 	done
 
 _CeladonGameCornerText_48f09::
 	text "Hey!"
 
-	para "A RICARDO MONTANER"
-	line "poster!?"
+	para "A RICARDO 
+	line "MONTANER"
+	cont "poster!??"
 	cont "Let's push it!@@"
 
 _CeladonGameCornerText_48f19::
