@@ -1217,9 +1217,9 @@ SandshrewEvosMoves:
 	db 0
 ; Learnset
 	db 10, SAND_ATTACK
-	db 17, SLASH
 	db 24, POISON_STING
-	db 31, SWIFT
+	db 28, SWIFT
+	db 31, SLASH
 	db 38, FURY_SWIPES
 	db 42, SLAYER
 	db 0
@@ -1228,12 +1228,11 @@ SandslashEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 10, SAND_ATTACK
-	db 17, SLASH
 	db 27, POISON_STING
-	db 36, SWIFT
-	db 43, FURY_SWIPES
-	db 47, SLAYER
+	db 33, SWIFT
+	db 35, SLASH
+	db 42, FURY_SWIPES
+	db 45, SLAYER
 	db 0
 
 OmanyteEvosMoves:
