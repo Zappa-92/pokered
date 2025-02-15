@@ -740,11 +740,11 @@ PsyduckEvosMoves:
 ; Learnset
 	db 10, SCRATCH
 	db 16, WATER_GUN
-	db 24, TAIL_WHIP
-	db 31, DISABLE
-	db 36, CONFUSION
-	db 43, FURY_SWIPES
-	db 47, PSYCHIC_M
+	db 23, TAIL_WHIP
+	db 28, DISABLE
+	db 32, CONFUSION
+	db 38, FURY_SWIPES
+	db 44, PSYCHIC_M
 	db 52, HYDRO_PUMP
 	db 0
 
@@ -856,11 +856,11 @@ SeelEvosMoves:
 	db EV_LEVEL, 34, DEWGONG
 	db 0
 ; Learnset
-	db 30, GROWL
-	db 35, AURORA_BEAM
-	db 40, REST
-	db 45, TAKE_DOWN
-	db 50, ICE_BEAM
+	db 20, GROWL
+	db 25, AURORA_BEAM
+	db 30, REST
+	db 35, TAKE_DOWN
+	db 40, ICE_BEAM
 	db 0
 
 DiglettEvosMoves:
@@ -1493,11 +1493,11 @@ DewgongEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 30, GROWL
-	db 35, AURORA_BEAM
-	db 44, REST
-	db 50, TAKE_DOWN
-	db 56, ICE_BEAM
+	db 20, GROWL
+	db 25, AURORA_BEAM
+	db 30, REST
+	db 37, TAKE_DOWN
+	db 44, ICE_BEAM
 	db 0
 
 MissingNo79EvosMoves:
@@ -1560,12 +1560,13 @@ GolduckEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 28, TAIL_WHIP
-	db 31, DISABLE
-	db 39, CONFUSION
-	db 48, FURY_SWIPES
-	db 53, PSYCHIC_M
-	db 59, HYDRO_PUMP
+	db 16, WATER_GUN
+	db 23, TAIL_WHIP
+	db 28, DISABLE
+	db 32, CONFUSION
+	db 44, FURY_SWIPES
+	db 50, PSYCHIC_M
+	db 57, HYDRO_PUMP
 	db 0
 
 HypnoEvosMoves:
@@ -1849,7 +1850,8 @@ GoldeenEvosMoves:
 	db 0
 ; Learnset
 	db 19, SUPERSONIC
-	db 24, HORN_ATTACK
+	db 23, HORN_ATTACK
+	db 27, WATER_GUN
 	db 30, FURY_ATTACK
 	db 37, WATERFALL
 	db 45, HORN_DRILL
@@ -1998,8 +2000,9 @@ AerodactylEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 33, SUPERSONIC
-	db 38, BITE
+	db 33, BITE
+	db 37, SUPERSONIC
+	db 41, ROCK_THROW
 	db 45, TAKE_DOWN
 	db 54, HYPER_BEAM
 	db 0
