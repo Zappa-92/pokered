@@ -473,7 +473,7 @@ ItemUseBall:
 	ld hl, wEnemyBattleStatus3
 	bit TRANSFORMED, [hl]
 	jr z, .notTransformed
-	ld a, DITTO
+	ld a,[wLastSeenMon] ; BANDERA DE CAPTURA DE POKEMON VISTO AL INICIAR BATALLA en lugar de un ditto
 	ld [wEnemyMonSpecies2], a
 	jr .skip6
 
