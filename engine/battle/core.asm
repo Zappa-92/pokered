@@ -1525,6 +1525,7 @@ EnemySendOutFirstMon:
 	coord hl, 15, 6
 	predef AnimateSendingOutMon
 	ld a, [wEnemyMonSpecies2]
+	ld [wLastSeenMon],a ; AGREGO BANDERA PARA EVITAR CAPTURAR UN DITTO EN CASO DE OPONENTE USE MOV TRANSFORMAR
 	call PlayCry
 	call DrawEnemyHUDAndHPBar
 	ld a, [wCurrentMenuItem]
