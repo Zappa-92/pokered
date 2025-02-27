@@ -50,7 +50,7 @@ _SaffronGateText_FirstDrinkNoBadge::
 	cont "Gulp..."
 	cont "Ahh..refreshing"
 
-	para "But wait!
+	para "But wait!"
 	line "Team Rocket"
 	cont "has invaded"
 	cont "Saffron! Only"
