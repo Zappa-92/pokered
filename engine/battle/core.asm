@@ -4713,16 +4713,13 @@ CriticalHitTest:
 	dec hl
 	ld c, [hl]                   ; read move id
 	ld a, [de]
-	bit GETTING_PUMPED, a         ; test for focus energy
-	jr z, .focusEnergyUsed      ; bug: using focus energy causes a shift to the right instead of left,
-	                             ; resulting in 1/4 the usual crit chance
-	sla b                        ; (effective (base speed/2)*2)
+	bit GETTING_PUMPED, a         ; Test for Focus Energy
+	jr z, .noFocusEnergyUsed      ; Jump if not active (Z set)
+.focusEnergyUsed:
+	sla b                         ; Double crit chance (x2) when active
 	jr nc, .noFocusEnergyUsed
-	ld b, $ff                    ; cap at 255/256
-	jr .noFocusEnergyUsed
-.focusEnergyUsed
-	srl b
-.noFocusEnergyUsed
+	ld b, $ff                     ; Cap at 255
+.noFocusEnergyUsed:
 	ld hl, HighCriticalMoves     ; table of high critical hit moves
 .Loop
 	ld a, [hli]                  ; read move from move table
