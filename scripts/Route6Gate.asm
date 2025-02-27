@@ -97,6 +97,9 @@ Route6GateScript_1e0a1:
 	ret
 
 Route6Gate_TextPointers:
-	dw Route6GateText1
-	dw Route6GateText2
-	dw Route6GateText3
+	dw _SaffronGateText_1dfe7            ; ID 1 (unused in script, but kept for safety)
+	dw _SaffronGateText_1dfe7            ; ID 2 ("I'm thirsty... trouble ahead!")
+    	dw _SaffronGateText_8aaa9            ; ID 3 ("Thanks!" + "Glug glug...")
+    	dw _SaffronGateText_1dff6            ; ID 4 ("Thanks... keep on!")
+    	dw _SaffronGateText_FirstDrinkNoBadge ; ID 5 ("Glug glug... Team Rocket!")
+    	dw _SaffronGateText_NoBadgeAfterDrink ; ID 6 ("Thanks, but Team Rocket...")
