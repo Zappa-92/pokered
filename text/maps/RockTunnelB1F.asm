@@ -106,3 +106,14 @@ _RockTunnel2EndBattleText8::
 	text "Fired"
 	line "away!"
 	prompt
+
+RockTunnelB1FTextFossilFound:
+    text "Found a fossil"
+    line "in the rocks!"
+    prompt
+    done
+
+RockTunnelB1FTextFossilGone:
+    text "Just rocks here"
+    line "now..."
+    done
