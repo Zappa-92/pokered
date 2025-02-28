@@ -292,7 +292,7 @@ const_value = 0
 	const EVENT_121                                  ; 121, (D76B, bit 1)
 	const EVENT_122                                  ; 122, (D76B, bit 2)
 	const EVENT_123                                  ; 123, (D76B, bit 3)
-	const EVENT_124                                  ; 124, (D76B, bit 4)
+	const EVENT_GOT_ROCK_TUNNEL_FOSSIL		 ; 124, (D76B, bit 4)
 	const EVENT_125                                  ; 125, (D76B, bit 5)
 	const EVENT_126                                  ; 126, (D76B, bit 6)
 	const EVENT_127                                  ; 127, (D76B, bit 7)
@@ -2560,3 +2560,4 @@ const_value = 0
 	const EVENT_9FD                                  ; 9FD, (D886, bit 5)
 	const EVENT_9FE                                  ; 9FE, (D886, bit 6)
 	const EVENT_9FF                                  ; 9FF, (D886, bit 7)
+
