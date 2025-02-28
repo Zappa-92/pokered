@@ -21,6 +21,7 @@ RockTunnelB1F_TextPointers:
 	dw RockTunnel2Text6
 	dw RockTunnel2Text7
 	dw RockTunnel2Text8
+	dw RockTunnelB1FTextFossil    ; ID 9 (Fossil)
 
 RockTunnel2TrainerHeader0:
 	dbEventFlagBit EVENT_BEAT_ROCK_TUNNEL_2_TRAINER_0
@@ -143,6 +144,34 @@ RockTunnel2Text8:
 	ld hl, RockTunnel2TrainerHeader7
 	call TalkToTrainer
 	jp TextScriptEnd
+
+RockTunnelB1FTextFossil:
+    TX_ASM
+    CheckEvent EVENT_GOT_ROCK_TUNNEL_FOSSIL
+    jr nz, .alreadyGotFossil
+    CheckEvent EVENT_GOT_HELIX_FOSSIL
+    jr nz, .giveDome
+    CheckEvent EVENT_GOT_DOME_FOSSIL
+    jr nz, .giveHelix
+    ; Default if no choice made
+    ld a, HELIX_FOSSIL
+    jr .setFossil
+.giveDome:
+    ld a, DOME_FOSSIL
+    jr .setFossil
+.giveHelix:
+    ld a, HELIX_FOSSIL
+.setFossil:
+    ld [wItemReceived], a
+    call ReceiveItem
+    SetEvent EVENT_GOT_ROCK_TUNNEL_FOSSIL
+    ld hl, RockTunnelB1FTextFossilFound
+    call PrintText
+    jp TextScriptEnd
+.alreadyGotFossil:
+    ld hl, RockTunnelB1FTextFossilGone
+    call PrintText
+    jp TextScriptEnd
 
 RockTunnel2BattleText2:
 	TX_FAR _RockTunnel2BattleText2
