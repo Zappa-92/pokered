@@ -9,7 +9,7 @@ RockTunnelB1F_Object:
 
 	db 0 ; signs
 
-	db 8 ; objects
+	db 9 ; objects
 	object SPRITE_LASS, 11, 13, STAY, DOWN, 1, OPP_JR_TRAINER_F, 9
 	object SPRITE_HIKER, 6, 10, STAY, DOWN, 2, OPP_HIKER, 9
 	object SPRITE_BLACK_HAIR_BOY_2, 3, 5, STAY, DOWN, 3, OPP_POKEMANIAC, 3
@@ -18,6 +18,7 @@ RockTunnelB1F_Object:
 	object SPRITE_LASS, 14, 28, STAY, RIGHT, 6, OPP_JR_TRAINER_F, 10
 	object SPRITE_HIKER, 33, 5, STAY, RIGHT, 7, OPP_HIKER, 11
 	object SPRITE_BLACK_HAIR_BOY_2, 26, 30, STAY, DOWN, 8, OPP_POKEMANIAC, 5
+	object SPRITE_OMANYTE, 15, 25, STAY, NONE, 9 ; person
 
 	; warp-to
 	warp_to 33, 25, ROCK_TUNNEL_B1F_WIDTH ; ROCK_TUNNEL_1F
