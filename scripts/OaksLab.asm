@@ -29,6 +29,7 @@ OaksLab_ScriptPointers:
 	dw OaksLabScript16
 	dw OaksLabScript17
 	dw OaksLabScript18
+	dw OaksLabScript19
 
 OaksLabScript0:
 	CheckEvent EVENT_OAK_APPEARED_IN_PALLET
@@ -650,6 +651,27 @@ OaksLabScript17:
 OaksLabScript18:
 	ret
 
+OaksLabScript19:
+    ld a, PROF_OAK
+    ld [wCurOpponent], a
+    ld a, 1  ; Team 1
+    ld [wTrainerNo], a
+    ld a, 8  ; Oak’s sprite ID (adjust if needed)
+    ld [wSpriteIndex], a
+    call GetSpritePosition1
+    ld hl, OaksLabOakLoseText
+    ld de, OaksLabOakWinText
+    call SaveEndBattleTextPointers
+    ld hl, wd72d
+    set 6, [hl]
+    set 7, [hl]
+    xor a
+    ld [wJoyIgnore], a
+    ld a, PLAYER_DIR_UP
+    ld [wPlayerMovingDirection], a
+    SetEvent EVENT_BEAT_OAK
+    ret
+
 OaksLabScript_RemoveParcel:
 	ld hl, wBagItems
 	ld bc, $0000
@@ -964,7 +986,6 @@ OaksLabText32:
 
 OaksLabText5:
     TX_ASM
-    ; Existing early-game checks
     CheckEvent EVENT_PALLET_AFTER_GETTING_POKEBALLS
     jr nz, .showDexRating
     ld hl, wPokedexOwned
@@ -976,28 +997,18 @@ OaksLabText5:
     CheckEvent EVENT_GOT_POKEDEX
     jr z, .noPokeballsYet
 .showDexRating
-    ; Oak battle check
     CheckEvent EVENT_BEAT_OAK
     jr nz, .postBattle
     ld hl, wPokedexOwned
-    ld b, 150 / 8  ; 19 bytes
+    ld b, 150 / 8
     call CountSetBits
     ld a, [wNumSetBits]
     cp 150
     jr nz, .notEnoughPokemon
-    ; Show intro text and start battle
-    ld hl, OakBattleIntroText
+    ld hl, OaksLabOakBattleIntroText
     call PrintText
-    ld a, PROF_OAK
-    ld [wTrainerClass], a
-    ld a, 1  ; Team 1
-    ld [wTrainerNo], a
-    ; Override battle text
-    ld hl, OakBattleBeforeText
-    ld de, OakBattleEndText
-    call SaveEndBattleTextPointers  ; Sets custom before/end text
-    call TalkToTrainer
-    SetEvent EVENT_BEAT_OAK
+    ld a, 19
+    ld [wOaksLabCurScript], a
     jp TextScriptEnd
 .notEnoughPokemon
     ld hl, OaksLabText_1d31d
@@ -1007,7 +1018,7 @@ OaksLabText5:
     predef DisplayDexRating
     jp TextScriptEnd
 .postBattle
-    ld hl, OakPostBattleText
+    ld hl, OaksLabOakPostBattleText
     call PrintText
     jp TextScriptEnd
 .noPokeballsYet
@@ -1258,3 +1269,18 @@ OaksLabText10:
 OaksLabText_1d405:
 	TX_FAR _OaksLabText_1d405
 	db "@"
+
+  TX_FAR _OaksLabOakBattleIntroText
+    db "@"
+
+OaksLabOakLoseText:
+    TX_FAR _OaksLabOakLoseText
+    db "@"
+
+OaksLabOakWinText:
+    TX_FAR _OaksLabOakWinText
+    db "@"
+
+OaksLabOakPostBattleText:
+    TX_FAR _OaksLabOakPostBattleText
+    db "@"
