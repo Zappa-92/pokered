@@ -964,7 +964,7 @@ OaksLabText32:
 
 OaksLabText5:
     TX_ASM
-    ; Existing checks for story progression
+    ; Existing early-game checks
     CheckEvent EVENT_PALLET_AFTER_GETTING_POKEBALLS
     jr nz, .showDexRating
     ld hl, wPokedexOwned
@@ -976,27 +976,31 @@ OaksLabText5:
     CheckEvent EVENT_GOT_POKEDEX
     jr z, .noPokeballsYet
 .showDexRating
-    ; Check for Oak battle first
+    ; Oak battle check
     CheckEvent EVENT_BEAT_OAK
     jr nz, .postBattle
     ld hl, wPokedexOwned
-    ld b, 150 / 8  ; 19 bytes (150 bits, rounded up)
+    ld b, 150 / 8  ; 19 bytes
     call CountSetBits
     ld a, [wNumSetBits]
     cp 150
     jr nz, .notEnoughPokemon
-    ; Trigger Oak battle
+    ; Show intro text and start battle
     ld hl, OakBattleIntroText
     call PrintText
     ld a, PROF_OAK
     ld [wTrainerClass], a
-    ld a, 1  ; Team 1 (Tauros, Exeggutor, Arcanine, Blastoise, Raichu, Gyarados)
+    ld a, 1  ; Team 1
     ld [wTrainerNo], a
+    ; Override battle text
+    ld hl, OakBattleBeforeText
+    ld de, OakBattleEndText
+    call SaveEndBattleTextPointers  ; Sets custom before/end text
     call TalkToTrainer
     SetEvent EVENT_BEAT_OAK
     jp TextScriptEnd
 .notEnoughPokemon
-    ld hl, OaksLabText_1d31d  ; Dex rating text
+    ld hl, OaksLabText_1d31d
     call PrintText
     ld a, $1
     ld [wDoNotWaitForButtonPressAfterDisplayingText], a
