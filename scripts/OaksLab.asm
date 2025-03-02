@@ -996,6 +996,8 @@ OaksLabText5:
     CheckEvent EVENT_GOT_POKEDEX
     jr z, .noPokeballsYet
 .showDexRating
+    CheckEvent EVENT_GOT_MEW
+    jr nz, .finalDialogue
     CheckEvent EVENT_BEAT_OAK
     jr nz, .postBattle
     ld hl, wPokedexOwned
@@ -1019,6 +1021,11 @@ OaksLabText5:
 .postBattle
     ld hl, OaksLabOakPostBattleText
     call PrintText
+    jp TextScriptEnd
+.finalDialogue
+    ld hl, OaksLabOakFinalText
+    call PrintText
+    call EndGameCredits  ; Trigger credits
     jp TextScriptEnd
 .noPokeballsYet
     ; Existing logic for early game
@@ -1269,7 +1276,6 @@ OaksLabText_1d405:
 	TX_FAR _OaksLabText_1d405
 	db "@"
 
- 
 OaksLabOakBattleIntroText:
     TX_FAR _OaksLabOakBattleIntroText
     db "@"
@@ -1286,5 +1292,9 @@ OaksLabOakWinText:
 
 OaksLabOakPostBattleText:
     TX_FAR _OaksLabOakPostBattleText
+    db "@"
+
+OaksLabOakFinalText:
+    TX_FAR _OaksLabOakFinalText
     db "@"
 
