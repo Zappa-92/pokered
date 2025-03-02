@@ -293,7 +293,7 @@ const_value = 0
 	const EVENT_122                                  ; 122, (D76B, bit 2)
 	const EVENT_123                                  ; 123, (D76B, bit 3)
 	const EVENT_GOT_ROCK_TUNNEL_FOSSIL		 ; 124, (D76B, bit 4)
-	const EVENT_125                                  ; 125, (D76B, bit 5)
+	const EVENT_BEAT_OAK                             ; 125, (D76B, bit 5)
 	const EVENT_126                                  ; 126, (D76B, bit 6)
 	const EVENT_127                                  ; 127, (D76B, bit 7)
 	const EVENT_GOT_POKE_FLUTE                       ; 128, (D76C, bit 0)
