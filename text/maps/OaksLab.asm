@@ -478,33 +478,45 @@ _OaksLabText_4424c::
 	done
 
 _OaksLabOakBattleIntroText::
-    text "OAK: So, you’ve"
-    line "caught all 150"
-    cont "POKéMON! A true"
-    cont "feat!"
+    	text "OAK: So, you’ve"
+    	line "caught all 150"
+    	cont "POKéMON! A true"
+    	cont "feat!"
 
-    para "Now let’s see"
-    line "if you can beat"
-    cont "me, <PLAYER>!"
-    prompt
+    	para "Now let’s see"
+    	line "if you can beat"
+    	cont "me, <PLAYER>!"
+    	prompt
 
 _OaksLabOakLoseText::  ; Player loses
-    text "OAK: Haha! Still"
-    line "much to learn,"
-    cont "<PLAYER>!"
-    prompt
+    	text "OAK: Haha! Still"
+    	line "much to learn,"
+    	cont "<PLAYER>!"
+    	prompt
 
 _OaksLabOakWinText::  ; Player wins
-    text "OAK: Well fought!"
-    line "your journey paid"
-    cont "off, <PLAYER>!"
-    prompt
+    	text "OAK: Well fought!"
+    	line "your journey paid"
+    	cont "off, <PLAYER>!"
+    	prompt
 
 _OaksLabOakPostBattleText::
-    text "OAK: Incredible!"
-    line "You’ve surpassed"
-    cont "me as a TRAINER!"
+    	text "OAK: Incredible!"
+    	line "You’ve surpassed"
+    	cont "me as a TRAINER!"
+    	cont "You’re a true"
+    	cont "POKéMON Master!"
 
-    para "You’re a true"
-    line "POKéMON Master!"
-    done
+    	para "Now, face the"
+    	line "mightiest gym"
+    	cont "leaders once more"
+	cont "at their full"
+	cont "POWER"
+
+    	para "Then seek the"
+    	line "primigenial"
+    	cont "#MON, the most"
+    	cont "elusive of all:"
+	cont "MEW."
+    	done
+    
