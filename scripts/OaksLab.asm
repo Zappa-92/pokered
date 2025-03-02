@@ -1269,7 +1269,9 @@ OaksLabText_1d405:
 	TX_FAR _OaksLabText_1d405
 	db "@"
 
-  TX_FAR _OaksLabOakBattleIntroText
+ 
+OaksLabOakBattleIntroText:
+    TX_FAR _OaksLabOakBattleIntroText
     db "@"
 
 OaksLabOakLoseText:
@@ -1278,8 +1280,11 @@ OaksLabOakLoseText:
 
 OaksLabOakWinText:
     TX_FAR _OaksLabOakWinText
-    db "@"
+    TX_ASM
+    SetEvent EVENT_BEAT_OAK
+    jp TextScriptEnd
 
 OaksLabOakPostBattleText:
     TX_FAR _OaksLabOakPostBattleText
     db "@"
+
