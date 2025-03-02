@@ -669,7 +669,6 @@ OaksLabScript19:
     ld [wJoyIgnore], a
     ld a, PLAYER_DIR_UP
     ld [wPlayerMovingDirection], a
-    SetEvent EVENT_BEAT_OAK
     ret
 
 OaksLabScript_RemoveParcel:
