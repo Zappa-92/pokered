@@ -129,3 +129,36 @@ _CeruleanGymText_5c82f::
 	line "we make a pretty"
 	cont "darn good team!"
 	done
+
+_CeruleanGymMistyRematchText::
+    	text "So, back again.."
+	line "CHAMP?!"
+
+    	para "This time won't"
+    	cont "be that easy!"
+    	done
+
+_CeruleanGymMistyRematchLoseText::
+    	text "MISTY: Told you!"
+    	line "Don't under-"
+	cont "estimate me!"
+    	done
+
+ _CeruleanGymMistyRematchWinText::
+    	text "MISTY: You’ve"
+    	line "beaten me again—"
+    	cont "impressive!"
+    	done
+
+_CeruleanGymMistyPostRematchText::
+	text "You've been"
+	line "to Cerulean Cave?"
+	cont "It gives me"
+	cont "the shivers!"
+
+	para "OK! Keep going"
+    	line "I heard from"
+	cont "Prof. OAK, you"
+	cont "are on a real"
+	cont "hard quest!"
+    	done
