@@ -34,6 +34,7 @@ SaffronGym_ScriptPointers:
 	dw DisplayEnemyTrainerTextAndStartBattle
 	dw EndTrainerBattle
 	dw SaffronGymScript3
+	dw SaffronGymSabrinaRematchPostBattle  ; New rematch script
 
 SaffronGymScript3:
 	ld a, [wIsInBattle]
@@ -69,6 +70,17 @@ SaffronGymText_5d068:
 	SetEventRange EVENT_BEAT_SAFFRON_GYM_TRAINER_0, EVENT_BEAT_SAFFRON_GYM_TRAINER_6
 
 	jp SaffronGymText_5d048
+
+SaffronGymSabrinaRematchPostBattle:  ; Handles rematch outcome
+    	ld a, [wIsInBattle]
+    	cp $ff
+    	jp z, SaffronGymText_5d048  ; Reset on loss
+    	SetEvent EVENT_BEAT_SABRINA_REMATCH  ; Set on victory
+	xor a
+	ldtgl [wJoyIgnore], a
+	ld [wSaffronGymCurScript], a
+	ld [wCurMapScript], a
+	ret
 
 SaffronGym_TextPointers:
 	dw SaffronGymText1
@@ -150,7 +162,30 @@ SaffronGymTrainerHeader6:
 	db $ff
 
 SaffronGymText1:
-	TX_ASM
+    	TX_ASM
+    	CheckEvent EVENT_BEAT_OAK
+    	jr z, .originalBattle
+    	CheckEvent EVENT_BEAT_SABRINA_REMATCH
+    	jr nz, .postRematch
+    	ld hl, SaffronGymSabrinaRematchText
+    	call PrintText
+    	ld hl, wd72d
+    	set 6, [hl]
+    	set 7, [hl]
+    	ld hl, SaffronGymSabrinaRematchLoseText
+    	ld de, SaffronGymSabrinaRematchWinText
+    	call SaveEndBattleTextPointers
+    	ld a, OPP_SABRINA  ; $0C
+    	ld [wCurOpponent], a
+    	ld a, $2  ; Rematch team
+    	ld [wTrainerNo], a
+    	xor a
+    	ld [wGymLeaderNo], a
+    	ld a, $4
+    	ld [wSaffronGymCurScript], a
+    	ld [wCurMapScript], a
+    	jp TextScriptEnd
+.originalBattle
 	CheckEvent EVENT_BEAT_SABRINA
 	jr z, .beginBattle
 	CheckEventReuseA EVENT_GOT_TM46
@@ -209,6 +244,22 @@ SaffronGymText11:
 SaffronGymText12:
 	TX_FAR _TM46NoRoomText
 	db "@"
+
+SaffronGymSabrinaRematchText:
+    TX_FAR _SaffronGymSabrinaRematchText
+    db "@"
+
+SaffronGymSabrinaRematchLoseText:
+    TX_FAR _SaffronGymSabrinaRematchLoseText
+    db "@"
+
+SaffronGymSabrinaRematchWinText:
+    TX_FAR _SaffronGymSabrinaRematchWinText
+    db "@"
+
+SaffronGymSabrinaPostRematchText:
+    TX_FAR _SaffronGymSabrinaPostRematchText
+    db "@"
 
 SaffronGymText2:
 	TX_ASM
