@@ -34,6 +34,7 @@ CeruleanGym_ScriptPointers:
 	dw DisplayEnemyTrainerTextAndStartBattle
 	dw EndTrainerBattle
 	dw CeruleanGymScript3
+	dw CeruleanGymScript4
 
 CeruleanGymScript3:
 	ld a, [wIsInBattle]
@@ -70,6 +71,17 @@ CeruleanGymScript_5c70d:
 
 	jp CeruleanGymScript_5c6ed
 
+CeruleanGymScript4:
+    	ld a, [wIsInBattle]
+    	cp $ff
+    	jp z, CeruleanGymScript_Reset
+    	SetEvent EVENT_BEAT_MISTY_REMATCH
+    	xor a
+    	ld [wJoyIgnore], a
+    	ld [wCeruleanGymCurScript], a
+    	ld [wCurMapScript], a
+    	ret
+
 CeruleanGym_TextPointers:
 	dw CeruleanGymText1
 	dw CeruleanGymText2
@@ -100,39 +112,35 @@ CeruleanGymTrainerHeader1:
 	db $ff
 
 CeruleanGymText1:
-	TX_ASM
-	CheckEvent EVENT_BEAT_MISTY
-	jr z, .beginBattle
-	CheckEventReuseA EVENT_GOT_TM11
-	jr nz, .afterVictory
-	call z, CeruleanGymScript_5c70d
-	call DisableWaitingAfterTextDisplay
-	jr .done
-.afterVictory
-	ld hl, CeruleanGymText_5c7c3
-	call PrintText
-	jr .done
-.beginBattle
-	ld hl, CeruleanGymText_5c7be
-	call PrintText
-	ld hl, wd72d
-	set 6, [hl]
-	set 7, [hl]
-	ld hl, CeruleanGymText_5c7d8
-	ld de, CeruleanGymText_5c7d8
-	call SaveEndBattleTextPointers
-	ld a, [H_SPRITEINDEX]
-	ld [wSpriteIndex], a
-	call EngageMapTrainer
-	call InitBattleEnemyParameters
-	ld a, $2
-	ld [wGymLeaderNo], a
-	xor a
-	ld [hJoyHeld], a
-	ld a, $3
-	ld [wCeruleanGymCurScript], a
-.done
-	jp TextScriptEnd
+    TX_ASM
+    CheckEvent EVENT_BEAT_OAK
+    jr z, .originalBattle
+    CheckEvent EVENT_BEAT_MISTY_REMATCH
+    jr nz, .postRematch
+    ld hl, CeruleanGymMistyRematchText
+    call PrintText
+    ld hl, wd72d
+    set 6, [hl]
+    set 7, [hl]
+    ld hl, CeruleanGymMistyRematchLoseText
+    ld de, CeruleanGymMistyRematchWinText
+    call SaveEndBattleTextPointers
+    ld a, OPP_MISTY  ; $08
+    ld [wCurOpponent], a
+    ld a, $2
+    ld [wTrainerNo], a
+    xor a
+    ld [wGymLeaderNo], a
+    ld a, $4
+    ld [wCeruleanGymCurScript], a
+    ld [wCurMapScript], a
+    jp TextScriptEnd
+.originalBattle
+    ; ... (original Misty logic) ...
+.postRematch
+    ld hl, CeruleanGymMistyPostRematchText
+    call PrintText
+    jp TextScriptEnd
 
 CeruleanGymText_5c7be:
 	TX_FAR _CeruleanGymText_5c7be
@@ -217,3 +225,19 @@ CeruleanGymText_5c82a:
 CeruleanGymText_5c82f:
 	TX_FAR _CeruleanGymText_5c82f
 	db "@"
+
+CeruleanGymMistyRematchText:
+    TX_FAR _CeruleanGymMistyRematchText
+    db "@"
+
+CeruleanGymMistyRematchLoseText:
+    TX_FAR _CeruleanGymMistyRematchLoseText
+    db "@"
+
+CeruleanGymMistyRematchWinText:
+    TX_FAR _CeruleanGymMistyRematchWinText
+    db "@"
+
+CeruleanGymMistyPostRematchText:
+    TX_FAR _CeruleanGymMistyPostRematchText
+    db "@"
