@@ -136,11 +136,42 @@ CeruleanGymText1:
     ld [wCurMapScript], a
     jp TextScriptEnd
 .originalBattle
-    ; ... (original Misty logic) ...
+	CheckEvent EVENT_BEAT_MISTY
+    	jr z, .beginBattle
+    	CheckEventReuseA EVENT_GOT_TM11
+    	jr nz, .afterVictory
+    	call z, CeruleanGymScript_5c70d
+    	call DisableWaitingAfterTextDisplay
+    	jr .done
+.afterVictory
+    	ld hl, CeruleanGymText_5c7c3
+    	call PrintText
+    	jr .done
+.beginBattle
+    	ld hl, CeruleanGymText_5c7be
+    	call PrintText
+    	ld hl, wd72d
+    	set 6, [hl]
+    	set 7, [hl]
+    	ld hl, CeruleanGymText_5c7d8
+    	ld de, CeruleanGymText_5c7d8
+    	call SaveEndBattleTextPointers
+    	ld a, [H_SPRITEINDEX]
+    	ld [wSpriteIndex], a
+    	call EngageMapTrainer
+    	call InitBattleEnemyParameters
+    	ld a, $2
+    	ld [wGymLeaderNo], a
+    	xor a
+    	ld [hJoyHeld], a
+    	ld a, $3
+    	ld [wCeruleanGymCurScript], a
+.done
+    	jp TextScriptEnd
 .postRematch
-    ld hl, CeruleanGymMistyPostRematchText
-    call PrintText
-    jp TextScriptEnd
+    	ld hl, CeruleanGymMistyPostRematchText
+    	call PrintText
+    	jp TextScriptEnd
 
 CeruleanGymText_5c7be:
 	TX_FAR _CeruleanGymText_5c7be
