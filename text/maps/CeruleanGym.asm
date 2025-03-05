@@ -144,7 +144,7 @@ _CeruleanGymMistyRematchLoseText::
 	cont "estimate me!"
     	done
 
- _CeruleanGymMistyRematchWinText::
+_CeruleanGymMistyRematchWinText::
     	text "MISTY: You’ve"
     	line "beaten me again—"
     	cont "impressive!"
