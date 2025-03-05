@@ -24,3 +24,31 @@ _KogaAfterBattleText::
 	para "Here! Take the"
 	line "SOULBADGE!"
 	prompt
+
+_FuchsiaGymKogaRematchText::
+    	text "You return?!"
+    	line "I'm going with"
+	cont "all I got now!"
+    	
+	para "Let's see"
+	line "How much stronger"
+	cont "you got!"
+    	done
+
+_FuchsiaGymKogaRematchLoseText::
+    	text "KOGA: My poison"
+    	line "still works"
+	cont "on you!"
+    	done
+
+_FuchsiaGymKogaRematchWinText::
+    	text "KOGA: My poison"
+    	line "fade before your"
+    	cont "might!"
+    	done
+
+_FuchsiaGymKogaPostRematchText::
+    	text "You are a"
+    	line "master of the"
+    	cont "shadows!"
+    	done
