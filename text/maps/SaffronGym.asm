@@ -235,3 +235,43 @@ _SaffronGymAfterBattleText7::
 	line "used telepathy to"
 	cont "read your mind!"
 	done
+
+_SaffronGymSabrinaRematchText::
+    	text "I foresaw"
+    	line "your return. My"
+    	cont "mind is sharper"
+    	cont "than ever!"
+    	done
+
+_SaffronGymSabrinaRematchLoseText::
+    	text "SABRINA: Your will"
+    	line "is weak. I saw"
+    	cont "that coming!"
+    	done
+
+_SaffronGymSabrinaRematchWinText::
+    	text "SABRINA: My vision"
+    	line "failed, you’ve"
+    	cont "outshone me!"
+    	done
+
+_SaffronGymSabrinaPostRematchText::
+    	text "Your mind"
+    	line "is a force beyond"
+    	cont "prediction!"
+	cont "But reading it.."
+	cont "lets see..."
+
+	para "So YOU caught"
+	line "IT, the thing.."
+	cont "..the abnormality"
+
+	para ""
+	line "MEWTWO"
+
+	para "What are you"
+	line "after now?!"
+	cont "I have blurred"
+	cont "visions about"
+	cont "your future.."
+    	done
