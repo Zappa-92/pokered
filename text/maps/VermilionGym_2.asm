@@ -142,3 +142,28 @@ _VermilionGymFanPostBattleText::
 	text "Whew! That match"
 	line "was electric!"
 	done
+
+_VermilionGymSurgeRematchText::
+    	text "Back again?"
+    	line "What a shocker!"
+    	cont "My team’s fully"
+    	cont "charged now!"
+    	done
+
+_VermilionGymSurgeRematchLoseText::
+    	text "LT.SURGE: You’re"
+    	line "not amped up"
+    	cont "enough yet!"
+    	done
+
+_VermilionGymSurgeRematchWinText::
+    	text "LT.SURGE: ZAP!"
+    	line "Shocking victory"
+    	done
+
+_VermilionGymSurgePostRematchText::
+    	text "You’re"
+    	line "electerrific!"
+    	cont "I'm low on"
+	cont "battery now!"
+    	done
