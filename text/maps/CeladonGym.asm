@@ -220,7 +220,7 @@ _CeladonGymAfterBattleText8::
 
 _CeladonGymErikaRematchText::
 	text "Oh, back so"
-	line "soon? My garden"
+	line "soon? My pot"
 	cont "is in full"
 	cont "bloom now!"
 
@@ -231,7 +231,7 @@ _CeladonGymErikaRematchText::
 _CeladonGymErikaRematchLoseText::
 	text "ERIKA: You need"
 	line "more time to"
-	cont "blossom, dear!"
+	cont "smoke, dear!"
 	done
 
 _CeladonGymErikaRematchWinText::
@@ -244,6 +244,9 @@ _CeladonGymErikaPostRematchText::
 	text "You’re a"
 	line "rare flower"
 	cont "indeed!"
+
+	para "Like a"
+	line "citric Indica."
 
 	para "niiice"
 	done
