@@ -142,3 +142,25 @@ _PewterGymText_5c529::
 	line "You're #MON"
 	cont "champ material!"
 	done
+
+_PewterGymBrockRematchText::
+    	text "Back for more?"
+    	line "This won't be"
+    	cont "as easy, so be"
+    	cont "ready!"
+    	done
+
+_PewterGymBrockRematchLoseText::
+    	text "BROCK: You’re not"
+    	line "rock-solid enough!"
+    	done
+
+_PewterGymBrockRematchWinText::
+    	text "BROCK: Crushed"
+    	line "again, well done!"
+    	done
+
+_PewterGymBrockPostRematchText::
+    	text "BROCK: You’re"
+    	line "unbreakable!"
+    	done
