@@ -35,6 +35,7 @@ FuchsiaGym_ScriptPointers:
 	dw DisplayEnemyTrainerTextAndStartBattle
 	dw EndTrainerBattle
 	dw FuchsiaGymScript3
+	dw FuchsiaGymKogaRematchPostBattle  ; New rematch script
 
 FuchsiaGymScript3:
 	ld a, [wIsInBattle]
@@ -69,6 +70,17 @@ FuchsiaGymScript3_75497:
 	SetEventRange EVENT_BEAT_FUCHSIA_GYM_TRAINER_0, EVENT_BEAT_FUCHSIA_GYM_TRAINER_5
 
 	jp FuchsiaGymScript_75477
+
+FuchsiaGymKogaRematchPostBattle:  ; Handles rematch outcome
+    	ld a, [wIsInBattle]
+    	cp $ff
+    	jp z, FuchsiaGymScript_75477  ; Reset on loss
+    	SetEvent EVENT_BEAT_KOGA_REMATCH  ; Set on victory
+    	xor a
+    	ld [wJoyIgnore], a
+    	ld [wFuchsiaGymCurScript], a
+    	ld [wCurMapScript], a
+    	ret
 
 FuchsiaGym_TextPointers:
 	dw FuchsiaGymText1
@@ -141,6 +153,29 @@ FuchsiaGymTrainerHeader5:
 
 FuchsiaGymText1:
 	TX_ASM
+    	CheckEvent EVENT_BEAT_OAK
+    	jr z, .originalBattle
+    	CheckEvent EVENT_BEAT_KOGA_REMATCH
+    	jr nz, .postRematch
+    	ld hl, FuchsiaGymKogaRematchText
+    	call PrintText
+    	ld hl, wd72d
+    	set 6, [hl]
+    	set 7, [hl]
+    	ld hl, FuchsiaGymKogaRematchLoseText
+    	ld de, FuchsiaGymKogaRematchWinText
+    	call SaveEndBattleTextPointers
+    	ld a, OPP_KOGA  ; $0B
+    	ld [wCurOpponent], a
+    	ld a, $2  ; Rematch team
+    	ld [wTrainerNo], a
+    	xor a
+    	ld [wGymLeaderNo], a
+    	ld a, $4
+    	ld [wFuchsiaGymCurScript], a
+    	ld [wCurMapScript], a
+    	jp TextScriptEnd
+.originalBattle
 	CheckEvent EVENT_BEAT_KOGA
 	jr z, .beginBattle
 	CheckEventReuseA EVENT_GOT_TM06
@@ -201,6 +236,22 @@ TM06ExplanationText:
 FuchsiaGymText11:
 	TX_FAR _TM06NoRoomText
 	db "@"
+
+FuchsiaGymKogaRematchText:
+    	TX_FAR _FuchsiaGymKogaRematchText
+    	db "@"
+
+FuchsiaGymKogaRematchLoseText:
+    	TX_FAR _FuchsiaGymKogaRematchLoseText
+    	db "@"
+
+FuchsiaGymKogaRematchWinText:
+    	TX_FAR _FuchsiaGymKogaRematchWinText
+    	db "@"
+
+FuchsiaGymKogaPostRematchText:
+    	TX_FAR _FuchsiaGymKogaPostRematchText
+    	db "@"
 
 FuchsiaGymText2:
 	TX_ASM
