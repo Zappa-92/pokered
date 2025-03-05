@@ -217,3 +217,33 @@ _CeladonGymAfterBattleText8::
 	para "Wait 'til next"
 	line "time!"
 	done
+
+_CeladonGymErikaRematchText::
+	text "Oh, back so"
+	line "soon? My garden"
+	cont "is in full"
+	cont "bloom now!"
+
+	para "let's light"
+	line "it up"
+	done
+
+_CeladonGymErikaRematchLoseText::
+	text "ERIKA: You need"
+	line "more time to"
+	cont "blossom, dear!"
+	done
+
+_CeladonGymErikaRematchWinText::
+	text "ERIKA: My flowers"
+	line "wilt before your"
+	cont "strength!"
+	done
+
+_CeladonGymErikaPostRematchText::
+	text "You’re a"
+	line "rare flower"
+	cont "indeed!"
+
+	para "niiice"
+	done
