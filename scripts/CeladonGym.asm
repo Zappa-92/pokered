@@ -34,6 +34,7 @@ CeladonGym_ScriptPointers:
 	dw DisplayEnemyTrainerTextAndStartBattle
 	dw EndTrainerBattle
 	dw CeladonGymScript3
+	dw CeladonGymErikaRematchPostBattle  ; New rematch script
 
 CeladonGymScript3:
 	ld a, [wIsInBattle]
@@ -69,6 +70,17 @@ CeladonGymText_48963:
 	SetEventRange EVENT_BEAT_CELADON_GYM_TRAINER_0, EVENT_BEAT_CELADON_GYM_TRAINER_6
 
 	jp CeladonGymText_48943
+
+CeladonGymErikaRematchPostBattle:
+    ld a, [wIsInBattle]
+    cp $ff
+    jp z, CeladonGymResetScripts  ; Reset on loss
+    SetEvent EVENT_BEAT_ERIKA_REMATCH  ; Set on victory
+    xor a
+    ld [wJoyIgnore], a
+    ld [wCeladonGymCurScript], a
+    ld [wCurMapScript], a
+    ret
 
 CeladonGym_TextPointers:
 	dw CeladonGymText1
@@ -149,7 +161,30 @@ CeladonGymTrainerHeader6:
 	db $ff
 
 CeladonGymText1:
-	TX_ASM
+    TX_ASM
+    CheckEvent EVENT_BEAT_OAK
+    jr z, .originalBattle
+    CheckEvent EVENT_BEAT_ERIKA_REMATCH
+    jr nz, .postRematch
+    ld hl, CeladonGymErikaRematchText
+    call PrintText
+    ld hl, wd72d
+    set 6, [hl]
+    set 7, [hl]
+    ld hl, CeladonGymErikaRematchLoseText
+    ld de, CeladonGymErikaRematchWinText
+    call SaveEndBattleTextPointers
+    ld a, OPP_ERIKA  ; $0A
+    ld [wCurOpponent], a
+    ld a, $2  ; Rematch team
+    ld [wTrainerNo], a
+    xor a
+    ld [wGymLeaderNo], a
+    ld a, $4
+    ld [wCeladonGymCurScript], a
+    ld [wCurMapScript], a
+    jp TextScriptEnd
+.originalBattle
 	CheckEvent EVENT_BEAT_ERIKA
 	jr z, .beginBattle
 	CheckEventReuseA EVENT_GOT_TM21
@@ -207,6 +242,22 @@ TM21Text:
 TM21NoRoomText:
 	TX_FAR _TM21NoRoomText
 	db "@"
+
+CeladonGymErikaRematchText:
+    TX_FAR _CeladonGymErikaRematchText
+    db "@"
+
+CeladonGymErikaRematchLoseText:
+    TX_FAR _CeladonGymErikaRematchLoseText
+    db "@"
+
+CeladonGymErikaRematchWinText:
+    TX_FAR _CeladonGymErikaRematchWinText
+    db "@"
+
+CeladonGymErikaPostRematchText:
+    TX_FAR _CeladonGymErikaPostRematchText
+    db "@"
 
 CeladonGymText2:
 	TX_ASM
