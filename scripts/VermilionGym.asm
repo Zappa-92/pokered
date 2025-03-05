@@ -53,6 +53,7 @@ VermilionGym_ScriptPointers:
 	dw DisplayEnemyTrainerTextAndStartBattle
 	dw EndTrainerBattle
 	dw VermilionGymLTSurgePostBattle
+	dw VermilionGymLTSurgeRematchPostBattle  ; New rematch script
 
 VermilionGymLTSurgePostBattle:
 	ld a, [wIsInBattle]
@@ -89,8 +90,19 @@ VermilionGymReceiveTM24:
 
 	jp VermilionGymResetScripts
 
+VermilionGymLTSurgeRematchPostBattle:
+    ld a, [wIsInBattle]
+    cp $ff
+    jp z, VermilionGymResetScripts  ; Reset on loss
+    SetEvent EVENT_BEAT_SURGE_REMATCH  ; Set on victory
+    xor a
+    ld [wJoyIgnore], a
+    ld [wVermilionGymCurScript], a
+    ld [wCurMapScript], a
+    ret
+
 VermilionGym_TextPointers:
-	dw LTSurgeText
+	dw VermilionGymText1
 	dw VermilionGymTrainerText1
 	dw VermilionGymTrainerText2
 	dw VermilionGymTrainerText3
@@ -128,41 +140,63 @@ VermilionGymTrainerHeader2:
 
 	db $ff
 
-LTSurgeText:
+VermilionGymText1:
 	TX_ASM
-	CheckEvent EVENT_BEAT_LT_SURGE
-	jr z, .beforeBeat
-	CheckEventReuseA EVENT_GOT_TM24
-	jr nz, .afterBeat
-	call z, VermilionGymReceiveTM24
-	call DisableWaitingAfterTextDisplay
-	jr .done
+    	CheckEvent EVENT_BEAT_OAK
+    	jr z, .originalBattle
+    	CheckEvent EVENT_BEAT_SURGE_REMATCH
+    	jr nz, .postRematch
+    	ld hl, VermilionGymSurgeRematchText
+    	call PrintText
+    	ld hl, wd72d
+   	set 6, [hl]
+    	set 7, [hl]
+    	ld hl, VermilionGymSurgeRematchLoseText
+    	ld de, VermilionGymSurgeRematchWinText
+    	call SaveEndBattleTextPointers
+    	ld a, OPP_LTSURGE  ; $09
+    	ld [wCurOpponent], a
+    	ld a, $2  ; Rematch team
+    	ld [wTrainerNo], a
+    	xor a
+    	ld [wGymLeaderNo], a
+    	ld a, $4
+    	ld [wVermilionGymCurScript], a
+    	ld [wCurMapScript], a
+    	jp TextScriptEnd
+.originalBattle
+    	CheckEvent EVENT_BEAT_LT_SURGE
+    	jr z, .beforeBeat
+    	CheckEventReuseA EVENT_GOT_TM24
+    	jr nz, .afterBeat
+    	call z, VermilionGymReceiveTM24
+    	call DisableWaitingAfterTextDisplay
+    	jr .done
 .afterBeat
-	ld hl, LTSurgePostBattleAdviceText
-	call PrintText
-	jr .done
+    	ld hl, LTSurgePostBattleAdviceText
+    	call PrintText
+    	jr .done
 .beforeBeat
-	ld hl, LTSurgePreBattleText
-	call PrintText
-	ld hl, wd72d
-	set 6, [hl]
-	set 7, [hl]
-	ld hl, ReceivedThunderbadgeText
-	ld de, ReceivedThunderbadgeText
-	call SaveEndBattleTextPointers
-	ld a, [H_SPRITEINDEX]
-	ld [wSpriteIndex], a
-	call EngageMapTrainer
-	call InitBattleEnemyParameters
-	ld a, $3
-	ld [wGymLeaderNo], a
-	xor a
-	ld [hJoyHeld], a
-	ld a, $3 ; set script index to LT Surge post-battle script
-	ld [wVermilionGymCurScript], a
-	ld [wCurMapScript], a
+    	ld hl, LTSurgePreBattleText
+    	call PrintText
+    	ld hl, wd72d
+    	set 6, [hl]
+    	set 7, [hl]
+    	ld hl, ReceivedThunderbadgeText
+   	ld de, ReceivedThunderbadgeText
+    	call SaveEndBattleTextPointers
+    	ld a, [H_SPRITEINDEX]
+    	ld [wSpriteIndex], a
+    	call EngageMapTrainer
+    	call InitBattleEnemyParameters
+    	ld a, $3
+    	ld [wGymLeaderNo], a
+    	xor a
+    	ld [hJoyHeld], a
+    	ld a, $3
+    	ld [wVermilionGymCurScript], a
 .done
-	jp TextScriptEnd
+    	jp TextScriptEnd
 
 LTSurgePreBattleText:
 	TX_FAR _LTSurgePreBattleText
@@ -189,6 +223,22 @@ TM24NoRoomText:
 ReceivedThunderbadgeText:
 	TX_FAR _ReceivedThunderbadgeText
 	db "@"
+
+VermilionGymSurgeRematchText:
+    TX_FAR _VermilionGymSurgeRematchText
+    db "@"
+
+VermilionGymSurgeRematchLoseText:
+    TX_FAR _VermilionGymSurgeRematchLoseText
+    db "@"
+
+VermilionGymSurgeRematchWinText:
+    TX_FAR _VermilionGymSurgeRematchWinText
+    db "@"
+
+VermilionGymSurgePostRematchText:
+    TX_FAR _VermilionGymSurgePostRematchText
+    db "@"
 
 VermilionGymTrainerText1:
 	TX_ASM
