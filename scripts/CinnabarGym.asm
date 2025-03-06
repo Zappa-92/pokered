@@ -225,47 +225,54 @@ CinnabarGymScript_758b7:
 	jp TextScriptEnd
 
 CinnabarGymText1:
-	TX_ASM
-CheckEvent EVENT_BEAT_OAK
-    	jr z, .originalBattle
-    	CheckEvent EVENT_BEAT_BLAINE_REMATCH
-    	jr nz, .postRematch
-    	ld hl, CinnabarGymBlaineRematchText
-    	call PrintText
-    	ld hl, CinnabarGymBlaineRematchLoseText
-    	ld de, CinnabarGymBlaineRematchWinText
-    	call SaveEndBattleTextPointers
-    	ld a, OPP_BLAINE  ; $0D
-    	ld [wCurOpponent], a
-    	ld a, $2  ; Rematch team
-    	ld [wTrainerNo], a
-    	xor a
-    	ld [wGymLeaderNo], a
-    	ld a, $4
-    	ld [wCinnabarGymCurScript], a
-    	ld [wCurMapScript], a
-    	jp TextScriptEnd
+    TX_ASM
+    CheckEvent EVENT_BEAT_GIOVANNI_CAVE_REMATCH
+    jr nz, .gone
+    CheckEvent EVENT_BEAT_OAK
+    jr z, .originalBattle
+    CheckEvent EVENT_BEAT_BLAINE_REMATCH
+    jr nz, .postRematch
+    ld hl, CinnabarGymBlaineRematchText
+    call PrintText
+    ld hl, CinnabarGymBlaineRematchLoseText
+    ld de, CinnabarGymBlaineRematchWinText
+    call SaveEndBattleTextPointers
+    ld a, OPP_BLAINE  ; $0D
+    ld [wCurOpponent], a
+    ld a, $2  ; Rematch team
+    ld [wTrainerNo], a
+    xor a
+    ld [wGymLeaderNo], a
+    ld a, $4
+    ld [wCinnabarGymCurScript], a
+    ld [wCurMapScript], a
+    jr .done
 .originalBattle
-	CheckEvent EVENT_BEAT_BLAINE
-	jr z, .beginBattle
-	CheckEventReuseA EVENT_GOT_TM38
-	jr nz, .afterVictory
-	call z, CinnabarGymScript3_75857
-	call DisableWaitingAfterTextDisplay
-	jp TextScriptEnd
+    CheckEvent EVENT_BEAT_BLAINE
+    jr z, .beginBattle
+    CheckEventReuseA EVENT_GOT_TM38
+    jr nz, .afterVictory
+    call z, CinnabarGymScript3_75857
+    call DisableWaitingAfterTextDisplay
+    jr .done
 .afterVictory
-	ld hl, BlaineFireBlastText
-	call PrintText
-	jp TextScriptEnd
+    ld hl, BlaineFireBlastText
+    call PrintText
+    jr .done
 .beginBattle
-	ld hl, BlaineBattleText
-	call PrintText
-	ld hl, BlaineEndBattleText
-	ld de, BlaineEndBattleText
-	call SaveEndBattleTextPointers
-	ld a, $7
-	ld [wGymLeaderNo], a
-	jp CinnabarGymScript_758b7
+    ld hl, BlaineBattleText
+    call PrintText
+    ld hl, BlaineEndBattleText
+    ld de, BlaineEndBattleText
+    call SaveEndBattleTextPointers
+    ld a, $7
+    ld [wGymLeaderNo], a
+    call CinnabarGymScript_758b7
+    jr .done
+.gone
+    ; No text, just end
+.done
+    jp TextScriptEnd
 
 BlaineBattleText:
 	TX_FAR _BlaineBattleText
