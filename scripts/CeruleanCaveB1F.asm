@@ -70,6 +70,10 @@ MewtwoText:
     ld a, HS_CERULEAN_CAVE_B1F_GIOVANNI
     ld [wMissableObjectIndex], a
     predef ShowObject
+    ; Check for Mewtwo in party
+    ld a, MEWTWO
+    call IsPokemonInParty
+    jr z, .noMewtwo
     ; Giovanni battle
     ld hl, CeruleanCaveGiovanniBattleText
     call PrintText
@@ -84,13 +88,17 @@ MewtwoText:
     ld [wCeruleanCaveB1FCurScript], a
     ld [wCurMapScript], a
     jr .done
+.noMewtwo
+    ld hl, CeruleanCaveGiovanniNoMewtwoText
+    call PrintText
+    jr .done
 .postGiovanni
     ld hl, CeruleanCaveGiovanniPostText
     call PrintText
     jr .done
 .noGiovanni
-    ld hl, CeruleanCaveNoGiovanniText
-    call PrintText
+    ; Silence if neither Mewtwo nor Giovanni
+    jr .done
 .done
     jp TextScriptEnd
 
@@ -118,6 +126,6 @@ CeruleanCaveGiovanniPostText:
     TX_FAR _CeruleanCaveGiovanniPostText
     db "@"
 
-CeruleanCaveNoGiovanniText:
-    TX_FAR _CeruleanCaveNoGiovanniText
+CeruleanCaveGiovanniNoMewtwoText:
+    TX_FAR _CeruleanCaveGiovanniNoMewtwoText
     db "@"
