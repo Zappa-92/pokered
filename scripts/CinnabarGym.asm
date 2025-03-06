@@ -45,6 +45,7 @@ CinnabarGym_ScriptPointers:
 	dw CinnabarGymScript1
 	dw CinnabarGymScript2
 	dw CinnabarGymScript3
+	dw CinnabarGymBlaineRematchPostBattle  ; New rematch script
 
 CinnabarGymScript0:
 	ld a, [wOpponentAfterWrongAnswer]
@@ -170,6 +171,17 @@ CinnabarGymScript3_75857:
 
 	jp CinnabarGymScript_75792
 
+CinnabarGymBlaineRematchPostBattle:  ; Handles rematch outcome
+	ld a, [wIsInBattle]
+	cp $ff
+	jp z, CinnabarGymScript_75792  ; Reset on loss
+	SetEvent EVENT_BEAT_BLAINE_REMATCH  ; Set on victory
+	xor a
+	ld [wJoyIgnore], a
+	ld [wCinnabarGymCurScript], a
+	ld [wCurMapScript], a
+	ret
+
 CinnabarGym_TextPointers:
 	dw CinnabarGymText1
 	dw CinnabarGymText2
@@ -206,6 +218,26 @@ CinnabarGymScript_758b7:
 
 CinnabarGymText1:
 	TX_ASM
+CheckEvent EVENT_BEAT_OAK
+    	jr z, .originalBattle
+    	CheckEvent EVENT_BEAT_BLAINE_REMATCH
+    	jr nz, .postRematch
+    	ld hl, CinnabarGymBlaineRematchText
+    	call PrintText
+    	ld hl, CinnabarGymBlaineRematchLoseText
+    	ld de, CinnabarGymBlaineRematchWinText
+    	call SaveEndBattleTextPointers
+    	ld a, OPP_BLAINE  ; $0D
+    	ld [wCurOpponent], a
+    	ld a, $2  ; Rematch team
+    	ld [wTrainerNo], a
+    	xor a
+    	ld [wGymLeaderNo], a
+    	ld a, $4
+    	ld [wCinnabarGymCurScript], a
+    	ld [wCurMapScript], a
+    	jp TextScriptEnd
+.originalBattle
 	CheckEvent EVENT_BEAT_BLAINE
 	jr z, .beginBattle
 	CheckEventReuseA EVENT_GOT_TM38
@@ -254,6 +286,22 @@ ReceivedTM38Text:
 TM38NoRoomText:
 	TX_FAR _TM38NoRoomText
 	db "@"
+
+CinnabarGymBlaineRematchText:
+    	TX_FAR _CinnabarGymBlaineRematchText
+    	db "@"
+
+CinnabarGymBlaineRematchLoseText:
+    	TX_FAR _CinnabarGymBlaineRematchLoseText
+    	db "@"
+
+CinnabarGymBlaineRematchWinText:
+    	TX_FAR _CinnabarGymBlaineRematchWinText
+    	db "@"
+
+CinnabarGymBlainePostRematchText:
+    	TX_FAR _CinnabarGymBlainePostRematchText
+    	db "@"
 
 CinnabarGymText2:
 	TX_ASM
