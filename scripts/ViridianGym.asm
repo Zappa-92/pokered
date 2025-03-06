@@ -8,6 +8,34 @@ ViridianGym_Script:
 	ld a, [wViridianGymCurScript]
 	call ExecuteCurMapScriptInTable
 	ld [wViridianGymCurScript], a
+ 	; Dynamic hide/show
+    	CheckEvent EVENT_BEAT_VIRIDIAN_GYM_GIOVANNI
+    	ret z  ; Giovanni still active, keep default
+    	; Hide Giovanni regardless of .postGiovanniFade
+    	ld a, HS_VIRIDIAN_GYM_GIOVANNI  ; $D3
+    	ld [wMissableObjectIndex], a
+    	predef HideObject
+    	; Check if Rival should appear
+    	CheckEvent EVENT_BEAT_OAK
+    	ret z
+    	CheckEvent EVENT_BEAT_BROCK_REMATCH
+    	ret z
+    	CheckEvent EVENT_BEAT_MISTY_REMATCH
+    	ret z
+    	CheckEvent EVENT_BEAT_SURGE_REMATCH
+    	ret z
+    	CheckEvent EVENT_BEAT_ERIKA_REMATCH
+    	ret z
+    	CheckEvent EVENT_BEAT_KOGA_REMATCH
+    	ret z
+    	CheckEvent EVENT_BEAT_SABRINA_REMATCH
+    	ret z
+    	CheckEvent EVENT_BEAT_BLAINE_REMATCH
+    	ret z
+    	; All rematches done, show Rival
+    	ld a, HS_VIRIDIAN_GYM_RIVAL     ; $D4
+    	ld [wMissableObjectIndex], a
+    	predef ShowObject
 	ret
 
 Gym8CityName:
