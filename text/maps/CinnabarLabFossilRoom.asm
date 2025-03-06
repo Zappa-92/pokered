@@ -76,3 +76,58 @@ _Lab4Text_610bd::
 	text "Aiyah! You come"
 	line "again!"
 	done
+
+_BlaineLabIntroText::
+    	text "BLAINE: Back again,"
+   	line "eh?.."
+	cont "I'm studying the"
+	cont "DITTO. I know"
+	cont "they hold the key"
+
+	para "So GIOVANNI is OK"
+	line "kwowing MEWTWO"
+	cont "is in your hands?"
+
+	para "He must have"
+	line "matured."
+	cont "I'm glad"
+
+	para "Yes… I worked"
+	line "on the project,"
+	cont "but I wasn’t the"
+    	cont "one in charge"
+
+	para "At first we were"
+	line "making ground-"
+	cont "breaking discoveries"
+	cont "But then.."
+
+	para "Failed clones."
+    	line "Hundreds."
+	cont "Pain and torture"
+    	cont "It was horrible"
+
+    	para "Then the disaster.."
+    	line "Cinnabar erupted"
+	cont "when its psychic"
+	cont "powers unleashed"
+
+	para "So much damage"
+
+    	para "The only man who"
+    	line "faced MEW has"
+    	cont "retired. He was"
+	cont "the one who led"
+    	cont "MEWTWO project"
+
+	para "He now takes"
+    	line "care of abandoned"
+    	cont "and sick POKéMON"
+    	cont "at his new home."
+
+    	para "I see you met him—"
+    	line "that was his flute,"
+    	cont "the one he played"
+    	cont "for MEWTWO so"
+    	cont "often."
+    	done
