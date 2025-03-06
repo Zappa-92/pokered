@@ -3,7 +3,15 @@ CinnabarGym_Script:
 	call EnableAutoTextBoxDrawing
 	ld hl, CinnabarGym_ScriptPointers
 	ld a, [wCinnabarGymCurScript]
-	jp CallFunctionInTable
+	call ExecuteCurMapScriptInTable
+    	ld [wCinnabarGymCurScript], a
+    	; Hide Blaine after Giovanni battle
+    	CheckEvent EVENT_BEAT_GIOVANNI_CAVE_REMATCH
+    	ret z
+    	ld a, HS_CINNABAR_GYM_BLAINE  ; Define in hide_show_constants.asm
+    	ld [wMissableObjectIndex], a
+    	predef HideObject
+    	ret
 
 CinnabarGymScript_75759:
 	ld hl, wCurrentMapScriptFlags
