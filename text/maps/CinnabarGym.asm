@@ -11,8 +11,8 @@ _BlaineBattleText::
 	cont "my old LAB!"
 
 	para "Better not think"
-	line "you can deal"
-	cont "with MEWTWO!"
+	line "you can deal with"
+	cont "that #MON!"
 	done
 
 _BlaineEndBattleText::
@@ -67,8 +67,8 @@ _TM38ExplanationText::
 
 	para "Also, the"
 	line "legendary #MON"
-	cont "MOLTRES, has been"
-	cont "seen near the"
+	cont "MOLTRES, was"
+	cont "spotted near the"
 	cont "VICTORY ROAD."
 
 	para "You have what it"
@@ -191,6 +191,10 @@ _CinnabarGymText_75a72::
 _CinnabarGymText_75a9d::
 	text "Fire is weak"
 	line "against H2O!"
+
+	para "..is talking like"
+	line "this the reason I"
+	cont "don't have friends?"
 	done
 
 _CinnabarGymText_75aa2::
@@ -223,3 +227,35 @@ _CinnabarGymText_75ac7::
 	text "<PLAYER>! You beat"
 	line "that fire brand!"
 	done
+
+_CinnabarGymBlaineRematchText::
+    	text "Back for more"
+    	line "heat?...."
+
+	para "..."
+
+	para "You did it?!"
+	line "You caught MEWTWO?
+
+	para "I have to check you"
+	line "out again then!"
+    	cont "My flames burn"
+    	cont "hotter than ever!"
+    	done
+
+_CinnabarGymBlaineRematchLoseText::
+    	text "BLAINE: Pathetic."
+	line "You’re not"
+    	cont "fired up enough!"
+    	done
+
+_CinnabarGymBlaineRematchWinText::
+    	text "BLAINE: My blaze"
+    	line "got extinguished!"
+    	cont "Great job!"
+    	done
+
+_CinnabarGymBlainePostRematchText::
+    	text "You’re a"
+    	line "true inferno now!"
+    	done
