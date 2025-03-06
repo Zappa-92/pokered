@@ -235,7 +235,7 @@ _CinnabarGymBlaineRematchText::
 	para "..."
 
 	para "You did it?!"
-	line "You caught MEWTWO?
+	line "You caught MEWTWO?"
 
 	para "I have to check you"
 	line "out again then!"
