@@ -1,9 +1,17 @@
 CinnabarLabFossilRoom_Script:
-	jp EnableAutoTextBoxDrawing
+	call EnableAutoTextBoxDrawing
+    	; Show Blaine post-Giovanni
+    	CheckEvent EVENT_BEAT_GIOVANNI_CAVE_REMATCH
+    	ret z
+    	ld a, HS_CINNABAR_LAB_BLAINE  ; $C2
+    	ld [wMissableObjectIndex], a
+    	predef ShowObject
+    	ret
 
 CinnabarLabFossilRoom_TextPointers:
 	dw Lab4Text1
 	dw Lab4Text2
+    	dw BlaineLabText
 
 Lab4Script_GetFossilsInBag:
 ; construct a list of all fossils in the player's bag
@@ -104,6 +112,17 @@ Lab4Text2:
 	ld [wWhichTrade], a
 	predef DoInGameTradeDialogue
 	jp TextScriptEnd
+
+BlaineLabText:
+    	TX_ASM
+    	CheckEvent EVENT_BEAT_GIOVANNI_CAVE_REMATCH
+    	jr z, .noBlaine
+    	ld hl, BlaineLabIntroText
+    	call PrintText
+    	jr .done
+.noBlaine
+.done
+    	jp TextScriptEnd
 
 LoadFossilItemAndMonNameBank1D:
 	jpba LoadFossilItemAndMonName
