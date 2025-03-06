@@ -36,7 +36,7 @@ _CeruleanCaveGiovanniWinText::
     	done
 
 _CeruleanCaveGiovanniPostText::    
-	text "GIOVANNI: So you’re"
+	text "GIOVANNI: You’re"
     	line "set to face MEW?"
 
     	para "Find the scientist,"
