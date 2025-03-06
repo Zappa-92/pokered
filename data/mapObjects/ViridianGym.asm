@@ -9,7 +9,7 @@ ViridianGym_Object:
 
 	db 11 ; objects
 	object SPRITE_GIOVANNI, 2, 1, STAY, DOWN, 1, OPP_GIOVANNI, 3
-	object SPRITE_RIVAL, 2, 2, STAY, DOWN, 2, OPP_SONY3, 4  ; Rival added
+	object SPRITE_BLUE, 2, 2, STAY, DOWN, 2, OPP_SONY3, 4  ; Rival added
 	object SPRITE_BLACK_HAIR_BOY_1, 12, 7, STAY, DOWN, 2, OPP_COOLTRAINER_M, 9
 	object SPRITE_HIKER, 11, 11, STAY, UP, 3, OPP_BLACKBELT, 6
 	object SPRITE_ROCKER, 10, 7, STAY, DOWN, 4, OPP_TAMER, 3
