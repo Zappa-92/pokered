@@ -10,6 +10,7 @@ CeruleanCaveB1F_Object:
 	object SPRITE_SLOWBRO, 27, 13, STAY, DOWN, 1, MEWTWO, 85
 	object SPRITE_BALL, 16, 9, STAY, NONE, 2, ULTRA_BALL
 	object SPRITE_BALL, 18, 1, STAY, NONE, 3, MAX_REVIVE
+	object SPRITE_GIOVANNI, 27, 13, STAY, DOWN, 4, OPP_GIOVANNI, 4  ; Updated to team 4
 
 	; warp-to
 	warp_to 3, 6, CERULEAN_CAVE_B1F_WIDTH ; CERULEAN_CAVE_1F
