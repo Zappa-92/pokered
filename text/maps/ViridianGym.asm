@@ -235,3 +235,52 @@ _ViridianGymText_74bd9::
 	line "GIOVANNI was the"
 	cont "GYM LEADER here?"
 	done
+
+_ViridianGymRivalRematchText::
+    	text "Hey <PLAYER>!"
+    	line "I’m the new GYM"
+    	cont "LEADER here."
+
+    	para "Got an invitation"
+    	line "from the #MON"
+    	cont "league."
+
+	para "I also got a"
+	line "message for you"
+	cont "from the former"
+	cont "GYM LEADER."
+	cont "Beat me and"
+	cont "find it out"
+    	done
+
+_ViridianGymRivalRematchLoseText::
+    text "<RIVAL>: Ha! You"
+    line "thought you’d win"
+    cont "that easily?"
+    done
+
+_ViridianGymRivalRematchWinText::
+    text "<RIVAL>: What?!"
+    line "No way!"
+    cont "Beat again"
+    done
+
+_ViridianGymRivalPostRematchText::
+    text "Fine, you win"
+    line "GIOVANNI sent"
+    cont "word from CERULEAN"
+    cont "#MON CENTER"
+    cont "He is looking"
+    cont "for you."
+    done
+
+_ViridianGymRivalPostRematchTextStatic::
+    	text "You're onto"
+    	line "something big,"
+    	cont "Right <PLAYER>?"
+    
+	para "Wasn't CERULEAN"
+    	line "where you caught"
+	cont "that strange"
+	cont "#MON?"
+    	done
