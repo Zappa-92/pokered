@@ -44,7 +44,7 @@ _ViridianCityText_19157::
 
 _ViridianCityText_19175::
 	text "Oh Grandpa! Don't"
-	line "be so garca!"
+	line "be so mean!"
 	cont "He is still very"
 	cont "drunk."
 	done
@@ -58,11 +58,12 @@ _ViridianCityText_1917a::
 	done
 
 _ViridianCityText_19191::
-	text "Tomatela!"
-	line "fleta pibe!"
+	text "Scram!"
+	line "Go away pibe!"
 
-	para "Que vuelvan"
-	line "los milicos!"
+	para "I was much"
+	line "better off with"
+	cont "MENEM!"
 	done
 
 _ViridianCityText_191ca::
@@ -98,13 +99,9 @@ _TM42NoRoomText::
 	done
 
 _ViridianCityText_1920a::
-	text "Ahh, ya me tome"
-	line "un feca. Ya va."
-	cont "Toy sobrio"
-
-	para "Where is my"
-	line "falcon verde..."
-	cont "???"
+	text "Ahh, now I'm"
+	line "better. God"
+	cont "bless coffee!"
 
 	para "Are you in a"
 	line "hurry?"
@@ -128,9 +125,8 @@ _ViridianCityText_1920f::
 	done
 
 _ViridianCityText_19214::
-	text "Ahhh zurdito..."
-	line "Go along then."
-	cont "Fleta!"
+	text "Go along then."
+	line "Fleta boton!"
 	done
 
 _ViridianCityText_19219::
