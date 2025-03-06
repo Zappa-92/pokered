@@ -258,4 +258,12 @@ _CinnabarGymBlaineRematchWinText::
 _CinnabarGymBlainePostRematchText::
     	text "You’re a"
     	line "true inferno now!"
+
+	para "I still can't"
+	line "believe you"
+	cont "tamed MEWTWO"
+
+	para "I know you"
+	line "are set to find"
+	cont "MEW! Go ahead"
     	done
