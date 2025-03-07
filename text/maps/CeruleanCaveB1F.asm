@@ -36,17 +36,25 @@ _CeruleanCaveGiovanniWinText::
     	done
 
 _CeruleanCaveGiovanniPostText::    
-	text "GIOVANNI: You’re"
-    	line "set to face MEW?"
+	text "GIOVANNI: MEW"
+    	line "is the reason"
+	cont "MEWTWO was hidden"
+	cont "in this cave"
 
-    	para "Find the scientist,"
-    	line "the only one that"
-	cont "encountered it."
+	para "It got angry"
+	line "at humans trying"
+	cont "to copy life."
 
-	para "Back then, he"
-    	line "lived in Cinnabar."
-	cont "And he lead the"
-	cont "MEWTWO project."
+	para "MEWTWO won't"
+	line "be safe until"
+	cont "MEW is beaten."
+
+	para "Look for the"
+	line "lead scientist"
+	cont "of the MEWTWO"
+	cont "project."
+
+	para "BLAINE"
     	done
 
 _CeruleanCaveGiovanniNoMewtwoText::
