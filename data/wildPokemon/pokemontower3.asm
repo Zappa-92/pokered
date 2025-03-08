@@ -9,5 +9,5 @@ TowerMons3:
 	db 31,GASTLY
 	db 27,CUBONE
 	db 28,CUBONE
-	db 32,HAUNTER
+	db 29,HAUNTER
 	db $00
