@@ -36,25 +36,25 @@ _CeruleanCaveGiovanniWinText::
     	done
 
 _CeruleanCaveGiovanniPostText::    
-	text "GIOVANNI: MEW"
-    	line "is the reason"
-	cont "MEWTWO was hidden"
-	cont "in this cave"
+    	text "GIOVANNI: MEWTWO"
+    	line "created an habitat"
+    	cont "for itself here"
+    	cont "in this cave"
 
-	para "It got angry"
-	line "at humans trying"
-	cont "to copy life."
+    	para "Its powers were"
+    	line "too dangerous"
+    	cont "for even itself"
+    	cont "to control."
 
-	para "MEWTWO won't"
-	line "be safe until"
-	cont "MEW is beaten."
+    	para "So it waited"
+    	line "for the strongest"
+    	cont "trainer to come."
 
-	para "Look for the"
-	line "lead scientist"
-	cont "of the MEWTWO"
-	cont "project."
-
-	para "BLAINE"
+    	para "Now go,"
+    	line "look for the"
+    	cont "lead scientist"
+    	cont "of the MEWTWO"
+    	cont "project."
     	done
 
 _CeruleanCaveGiovanniNoMewtwoText::
@@ -65,3 +65,20 @@ _CeruleanCaveGiovanniNoMewtwoText::
 
 	para "I'll wait."
     	done
+
+_CeruleanCaveGiovanniPostFadeText::
+    text "GIOVANNI: You had"
+    line "an amazing journey"
+    cont "<PLAYER>, you’re"
+    cont "strong enough to"
+    cont "face MEW. Go find"
+    cont "it. Use this."
+    done
+
+_ReceivedHiggsFossilText::
+    text "Received a"
+    line "HIGGS FOSSIL!@"
+
+_HiggsFossilNoRoomText::
+    text "No room for the"
+    line "HIGGS FOSSIL!@"
