@@ -78,56 +78,89 @@ _Lab4Text_610bd::
 	done
 
 _BlaineLabIntroText::
-    	text "BLAINE: Back again,"
-   	line "eh?.."
-	cont "I'm studying the"
-	cont "DITTO. I know"
-	cont "they hold the key"
+    	text "BLAINE: Yes, I"
+    	line "was a scientist"
+    	cont "researching MEW."
+    	cont "But I wasn’t the"
+    	cont "leader back then,"
+	cont "DR FUJI was."
 
-	para "So GIOVANNI is OK"
-	line "kwowing MEWTWO"
-	cont "is in your hands?"
+    	para "After years of"
+    	line "research, we" 
+	cont "found a fossil"
+    	cont "with MEW DNA"
 
-	para "He must have"
-	line "matured."
-	cont "I'm glad"
+    	para "We started the"
+    	line "cloning process"
+	cont "but the genome"
+    	cont "was incomplete."
+	
+    	para "Thus to create"
+	line "MEWTWO, I also"
+    	cont "used my own"
+    	cont "human cells."
 
-	para "Yes… I worked"
-	line "on the project,"
-	cont "but I wasn’t the"
-    	cont "one in charge"
+	para "Then the dissaster"
+    	line "MEWTWO was too"
+	cont "powerful, and"
+	cont "we couldn’t keep"
+    	cont "it under control"
+    	cont "It destroyed"
+	cont "the enitre lab."
 
-	para "At first we were"
-	line "making ground-"
-	cont "breaking discoveries"
-	cont "But then.."
+	para "Then left.."
+    	cont "and hid."
+    	done
 
-	para "Failed clones."
-    	line "Hundreds."
-	cont "Pain and torture"
-    	cont "It was horrible"
+_BlaineLabHiggsText::
+    	text "BLAINE: GIOVANNI"
+    	line "gave you this?!"
+    	cont "This is another"
+    	cont "fossil with MEW"
+    	cont "DNA!"
 
-    	para "Then the disaster.."
-    	line "Cinnabar erupted"
-	cont "when its psychic"
-	cont "powers unleashed"
+    	para "I won’t create"
+    	line "anything like"
+    	cont "MEWTWO again, I"
+    	cont "promise, but let"
+    	cont "me work with it."
+    	prompt
 
-	para "So much damage"
+_BlaineLabWaitText::
+    	text "BLAINE: Be patient."
+    	line "Let me work a"
+    	cont "little longer."
+    	done
 
-    	para "The only man who"
-    	line "faced MEW has"
-    	cont "retired. He was"
-	cont "the one who led"
-    	cont "MEWTWO project"
+_BlaineLabHiggsFailedText::
+    	text "BLAINE: It’s"
+    	line "useless—"
+    	cont "incomplete, like"
+    	cont "last time. MEW"
+    	cont "can’t be cloned"
+    	cont "with this alone."
 
-	para "He now takes"
-    	line "care of abandoned"
-    	cont "and sick POKéMON"
-    	cont "at his new home."
+    	para "Only DR. FUJI"
+    	line "could work"
+	cont "it out."
+    	done
 
-    	para "I see you met him—"
-    	line "that was his flute,"
-    	cont "the one he played"
-    	cont "for MEWTWO so"
-    	cont "often."
+_BlaineLabDNAText::
+    	text "BLAINE: These DNA"
+    	line "CODES… Incredible!"
+    	cont "Let me try again."
+    	prompt
+
+_BlaineLabMewText::
+    	text "BLAINE: It’s"
+    	cont "done! Finally"
+	cont "Here’s your"
+    	cont "cloned MEW!"
+    	prompt
+
+_BlainePostMewText::
+    	text "BLAINE: I’m busy"
+    	line "working! …Hmm so"
+    	cont "this DNA chain"
+    	cont "here.."
     	done
