@@ -96,3 +96,6 @@ ItemNames:
 	db "10F@"
 	db "11F@"
 	db "B4F@"
+    	db "HIGGS FOSSIL@"
+    	db "ANCIENTFLUTE@"
+    	db "DNA CODES@"
