@@ -6,6 +6,31 @@ CinnabarLabFossilRoom_Script:
     	ld a, HS_CINNABAR_LAB_BLAINE  ; $C2
     	ld [wMissableObjectIndex], a
     	predef ShowObject
+    	; Higgs revival steps
+    	CheckEvent EVENT_GAVE_HIGGS_TO_BLAINE
+    	jr z, .checkDNA
+    	CheckEvent EVENT_HIGGS_STILL_REVIVING
+    	jr z, .checkDNA
+    	ld a, [wWalkCounter]
+    	and a
+    	ret z
+    	dec a
+    	ld [wWalkCounter], a
+    	ret nz
+    	ResetEvent EVENT_HIGGS_STILL_REVIVING
+.checkDNA
+    	; DNA revival steps
+    	CheckEvent EVENT_GAVE_DNA_TO_BLAINE
+    	ret z
+    	CheckEvent EVENT_DNA_STILL_REVIVING
+    	ret z
+    	ld a, [wWalkCounter]
+    	and a
+    	ret z
+    	dec a
+    	ld [wWalkCounter], a
+    	ret nz
+    	ResetEvent EVENT_DNA_STILL_REVIVING
     	ret
 
 CinnabarLabFossilRoom_TextPointers:
@@ -52,6 +77,7 @@ FossilsList:
 	db DOME_FOSSIL
 	db HELIX_FOSSIL
 	db OLD_AMBER
+    	db HIGGS_FOSSIL  ; Added MEW fossil
 	db $00
 
 Lab4Text1:
@@ -84,7 +110,7 @@ Lab4Text1:
 	SetEvent EVENT_LAB_HANDING_OVER_FOSSIL_MON
 	ld a, [wFossilMon]
 	ld b, a
-	ld c, 45
+	ld c, 35
 	call GivePokemon
 	jr nc, .asm_75d93
 	ResetEvents EVENT_GAVE_FOSSIL_TO_LAB, EVENT_LAB_STILL_REVIVING_FOSSIL, EVENT_LAB_HANDING_OVER_FOSSIL_MON
@@ -114,15 +140,63 @@ Lab4Text2:
 	jp TextScriptEnd
 
 BlaineLabText:
-    	TX_ASM
-    	CheckEvent EVENT_BEAT_GIOVANNI_CAVE_REMATCH
-    	jr z, .noBlaine
-    	ld hl, BlaineLabIntroText
-    	call PrintText
-    	jr .done
-.noBlaine
+    TX_ASM
+    CheckEvent EVENT_BEAT_GIOVANNI_CAVE_REMATCH
+    jr z, .done
+    CheckEvent EVENT_GAVE_DNA_TO_BLAINE
+    jr nz, .dnaReviving
+    CheckEvent EVENT_GAVE_HIGGS_TO_BLAINE
+    jr nz, .higgsReviving
+    ; Intro dialogue
+    ld hl, BlaineLabIntroText
+    call PrintText
+    ld a, HIGGS_FOSSIL
+    ld [wItemToRemove], a
+    predef ItemFinderLoopBag
+    jr nc, .done
+    ld hl, BlaineLabHiggsText
+    call PrintText
+    predef RemoveItemFromBag
+    SetEvent EVENT_GAVE_HIGGS_TO_BLAINE
+    ld a, 240  ; 4x normal fossil steps
+    ld [wWalkCounter], a
+    SetEvent EVENT_HIGGS_STILL_REVIVING
+    jr .done
+.higgsReviving
+    CheckEvent EVENT_HIGGS_STILL_REVIVING
+    jr nz, .wait
+    ld hl, BlaineLabHiggsFailedText
+    call PrintText
+    ; Check DNA Codes after Higgs fails
+    ld a, DNA_CODES
+    ld [wItemToRemove], a
+    predef ItemFinderLoopBag
+    jr nc, .done
+    ld hl, BlaineLabDNAText
+    call PrintText
+    predef RemoveItemFromBag
+    SetEvent EVENT_GAVE_DNA_TO_BLAINE
+    ld a, 240  ; Changed from 60 to 240 (4x steps)
+    ld [wWalkCounter], a
+    SetEvent EVENT_DNA_STILL_REVIVING
+    jr .done
+.wait
+    ld hl, BlaineLabWaitText
+    call PrintText
+    jr .done
+.dnaReviving
+    CheckEvent EVENT_DNA_STILL_REVIVING
+    jr nz, .wait
+    ld hl, BlaineLabMewText
+    call PrintText
+    lb bc, MEW, 30  ; Level 30 Mew
+    call GivePokemon
+    jr nc, .done
+    ld hl, BlainePostMewText
+    call PrintText
+    ResetEvents EVENT_GAVE_DNA_TO_BLAINE, EVENT_DNA_STILL_REVIVING
 .done
-    	jp TextScriptEnd
+    jp TextScriptEnd
 
 LoadFossilItemAndMonNameBank1D:
 	jpba LoadFossilItemAndMonName
