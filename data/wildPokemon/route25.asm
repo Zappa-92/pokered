@@ -6,9 +6,9 @@ Route25Mons:
 		db 18,PIDGEY
 		db 17,ODDISH
 		db 13,ABRA
-		db 19,ODDISH
+		db 19,BELLSPROUT
 		db 14,ABRA
-		db 13,ODDISH
+		db 13,POLIWAG
 		db 14,CATERPIE
 	ENDC
 	IF DEF(_BLUE)
@@ -17,7 +17,7 @@ Route25Mons:
 		db 18,PIDGEY
 		db 17,BELLSPROUT
 		db 13,ABRA
-		db 19,BELLSPROUT
+		db 19,ODDISH
 		db 14,ABRA
 		db 13,POLIWAG
 		db 14,WEEDLE
