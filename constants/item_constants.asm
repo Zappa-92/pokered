@@ -99,6 +99,9 @@ SAFARI_ROCK           EQU $16 ; overload
 	const FLOOR_10F     ; $5F
 	const FLOOR_11F     ; $60
 	const FLOOR_B4F     ; $61
+	const HIGGS_FOSSIL  ; $62
+	const ANCIENT_FLUTE ; $63
+	const DNA_CODES     ; $64
 
 const_value = $C4
 
