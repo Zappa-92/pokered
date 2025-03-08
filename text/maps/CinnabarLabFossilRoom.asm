@@ -153,7 +153,7 @@ _BlaineLabDNAText::
 
 _BlaineLabMewText::
     	text "BLAINE: It’s"
-    	cont "done! Finally"
+    	line "finally done!"
 	cont "Here’s your"
     	cont "cloned MEW!"
     	prompt
