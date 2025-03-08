@@ -1,27 +1,27 @@
 IslandMonsB3:
 	db $0A
 	IF DEF(_RED)
-		db 38,SLOWPOKE
-		db 37,SEEL
-		db 38,PSYDUCK
-		db 37,STARYU
-		db 37,HORSEA
-		db 38,JYNX
-		db 37,KRABBY
-		db 36,SHELLDER
-		db 41,SEADRA
-		db 43,DEWGONG
+		db 34,SLOWPOKE
+		db 33,SEEL
+		db 34,PSYDUCK
+		db 34,STARYU
+		db 33,HORSEA
+		db 34,JYNX
+		db 34,KRABBY
+		db 33,SHELLDER
+		db 38,SEADRA
+		db 37,DEWGONG
 	ENDC
 	IF DEF(_BLUE)
-		db 38,PSYDUCK
-		db 37,SEEL
-		db 38,SLOWPOKE
-		db 37,SHELLDER
-		db 37,KRABBY
-		db 38,JYNX
-		db 37,HORSEA
-		db 36,STARYU
-		db 41,KINGLER
-		db 43,DEWGONG
+		db 34,PSYDUCK
+		db 33,SEEL
+		db 34,SLOWPOKE
+		db 34,SHELLDER
+		db 33,KRABBY
+		db 34,JYNX
+		db 34,HORSEA
+		db 33,STARYU
+		db 38,KINGLER
+		db 37,DEWGONG
 	ENDC
 	db $00
