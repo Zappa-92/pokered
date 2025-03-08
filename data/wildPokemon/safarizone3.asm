@@ -6,7 +6,7 @@ ZoneMons3:
 		db 33,VENONAT
 		db 34,EXEGGCUTE
 		db 43,NIDORINO
-		db 36,EXEGGCUTE
+		db 34,TAUROS
 		db 35,EEVEE
 		db 41,VENOMOTH
 		db 36,TAUROS
@@ -18,7 +18,7 @@ ZoneMons3:
 		db 33,VENONAT
 		db 34,EXEGGCUTE
 		db 43,NIDORINA
-		db 36,EXEGGCUTE
+		db 34,TAUROS
 		db 35,EEVEE
 		db 41,VENOMOTH
 		db 36,TAUROS
