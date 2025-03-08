@@ -96,3 +96,6 @@ ItemPrices:
 	money 0     ; FLOOR_10F
 	money 0     ; FLOOR_11F
 	money 0     ; FLOOR_B4F
+	money 0     ; HIGGS_FOSSIL
+	money 0     ; ANCIENT_FLUTE
+	money 0     ; DNA_CODES
