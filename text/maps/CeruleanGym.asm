@@ -155,10 +155,4 @@ _CeruleanGymMistyPostRematchText::
 	line "to Cerulean Cave?"
 	cont "It gives me"
 	cont "the shivers!"
-
-	para "OK! Keep going"
-    	line "I heard from"
-	cont "Prof. OAK, you"
-	cont "are on a real"
-	cont "hard quest!"
     	done
