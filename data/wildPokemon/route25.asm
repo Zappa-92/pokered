@@ -4,7 +4,7 @@ Route25Mons:
 		db 14,WEEDLE
 		db 15,KAKUNA
 		db 18,PIDGEY
-		db 17,ODDISH
+		db 17,BELLSPROUT
 		db 13,ABRA
 		db 19,BELLSPROUT
 		db 14,ABRA
@@ -15,7 +15,7 @@ Route25Mons:
 		db 14,CATERPIE
 		db 15,METAPOD
 		db 18,PIDGEY
-		db 17,BELLSPROUT
+		db 17,ODDISH
 		db 13,ABRA
 		db 19,ODDISH
 		db 14,ABRA
