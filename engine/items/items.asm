@@ -99,6 +99,23 @@ ItemUsePtrTable:
 	dw ItemUsePPRestore  ; MAX_ETHER
 	dw ItemUsePPRestore  ; ELIXER
 	dw ItemUsePPRestore  ; MAX_ELIXER
+	dw UnusableItem
+	dw UnusableItem
+	dw UnusableItem
+	dw UnusableItem
+	dw UnusableItem
+	dw UnusableItem
+	dw UnusableItem
+	dw UnusableItem
+	dw UnusableItem
+	dw UnusableItem
+	dw UnusableItem
+	dw UnusableItem
+	dw UnusableItem
+	dw UnusableItem
+	dw UnusableItem     ; HIGGS FOSSIL
+	dw ItemUsePokeflute ; ANCIENT FLUTE
+	dw UnusableItem     ; DNA CODES
 
 ItemUseBall:
 
@@ -1791,6 +1808,69 @@ ItemUsePokeflute:
 ; [wWereAnyMonsAsleep] should be initialized to 0
 ; OUTPUT:
 ; [wWereAnyMonsAsleep]: set to 1 if any pokemon were asleep
+
+ItemUseAncientFlute:
+    ld a, [wIsInBattle]
+    and a
+    jr nz, .inBattle
+; Out of battle
+    call ItemUseReloadOverworldData
+    ld hl, PlayedFluteHadEffectText
+    call PrintText
+    ld a, $ff
+    call PlaySound ; turn off music
+    ld a, SFX_POKEFLUTE
+    ld c, BANK(SFX_Pokeflute)
+    call PlayMusic
+.musicWaitLoop
+    ld a, [wChannelSoundIDs + Ch3]
+    cp SFX_POKEFLUTE
+    jr z, .musicWaitLoop
+    call PlayDefaultMusic ; resume normal music
+    jr .done
+.inBattle
+    xor a
+    ld [wWereAnyMonsAsleep], a
+    ld b, ~SLP & $ff
+    ld hl, wPartyMon1Status
+    call WakeUpEntireParty
+    ld a, [wIsInBattle]
+    dec a ; trainer battle?
+    jr z, .skipEnemy
+    ld hl, wEnemyMon1Status
+    call WakeUpEntireParty
+.skipEnemy
+    ld hl, wBattleMonStatus
+    ld a, [hl]
+    and b ; remove Sleep status
+    ld [hl], a
+    ld hl, wEnemyMonStatus
+    ld a, [hl]
+    and b ; remove Sleep status
+    ld [hl], a
+    call LoadScreenTilesFromBuffer2 ; restore screen
+    ld a, [wWereAnyMonsAsleep]
+    and a
+    ld hl, PlayedFluteNoEffectText
+    jp z, PrintText
+; If asleep
+    ld hl, PlayedFluteHadEffectText
+    call PrintText
+    ld a, [wLowHealthAlarm]
+    and $80
+    jr nz, .skipMusic
+    call WaitForSoundToFinish
+    callba Music_PokeFluteInBattle
+.musicBattleLoop
+    ld a, [wChannelSoundIDs + Ch7]
+    and a
+    jr nz, .musicBattleLoop
+.skipMusic
+    ld hl, FluteWokeUpText
+    jp PrintText
+.done
+    ret
+
 WakeUpEntireParty:
 	ld de, 44
 	ld c, 6
@@ -1856,6 +1936,7 @@ PlayedFluteHadEffectText:
 	call PlayDefaultMusic ; start playing normal music again
 .done
 	jp TextScriptEnd ; end text
+
 
 ItemUseCoinCase:
 	ld a, [wIsInBattle]
