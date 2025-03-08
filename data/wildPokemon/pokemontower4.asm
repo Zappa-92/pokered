@@ -6,7 +6,7 @@ TowerMons4:
 	db 29,GASTLY
 	db 30,GASTLY
 	db 25,GASTLY
-	db 32,HAUNTER
+	db 28,HAUNTER
 	db 27,CUBONE
 	db 26,CUBONE
 	db 31,GASTLY
