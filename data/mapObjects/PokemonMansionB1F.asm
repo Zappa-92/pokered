@@ -18,6 +18,7 @@ PokemonMansionB1F_Object:
         object SPRITE_SLOWBRO, 4, 18, STAY, DOWN, 9 ; Mew shrine
     	; Mew (hidden until battle)
     	object SPRITE_SLOWBRO, 4, 18, STAY, DOWN, 10, HS_MANSION_B1F_MEW
+	object SPRITE_BALL, 4, 20, STAY, NONE, 11, DNA_CODES, HS_MANSION_B1F_DNA_CODES
 
 	; warp-to
 	warp_to 23, 22, POKEMON_MANSION_B1F_WIDTH ; POKEMON_MANSION_1F
