@@ -996,7 +996,7 @@ OaksLabText5:
     CheckEvent EVENT_GOT_POKEDEX
     jr z, .noPokeballsYet
 .showDexRating
-    CheckEvent EVENT_GOT_MEW
+    CheckEvent EVENT_BEAT_MEW
     jr nz, .finalDialogue
     CheckEvent EVENT_BEAT_OAK
     jr nz, .postBattle
