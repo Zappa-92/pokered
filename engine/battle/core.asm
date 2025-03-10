@@ -4716,27 +4716,29 @@ CriticalHitTest:
 	bit GETTING_PUMPED, a         ; Test for Focus Energy
 	jr z, .noFocusEnergyUsed      ; Jump if not active (Z set)
 .focusEnergyUsed:
-	sla b                         ; Double crit chance (x2) when active
-	jr nc, .noFocusEnergyUsed
-	ld b, $ff                     ; Cap at 255
+    sla b                        ; x2
+    jr nc, .doubleNoCarry
+    ld b, $ff
+.doubleNoCarry
+    sla b                        ; x4 total for Focus Energy
+    jr nc, .noFocusEnergyUsed
+    ld b, $ff
 .noFocusEnergyUsed:
-	ld hl, HighCriticalMoves     ; table of high critical hit moves
+    ld hl, HighCriticalMoves
 .Loop
-	ld a, [hli]                  ; read move from move table
-	cp c                         ; does it match the move about to be used?
-	jr z, .HighCritical          ; if so, the move about to be used is a high critical hit ratio move
-	inc a                        ; move on to the next move, FF terminates loop
-	jr nz, .Loop                 ; check the next move in HighCriticalMoves
-	srl b                        ; /2 for regular move (effective (base speed / 2))
-	jr .SkipHighCritical         ; continue as a normal move
+    ld a, [hli]
+    cp c
+    jr z, .HighCritical
+    inc a
+    jr nz, .Loop
+    srl b                        ; /2 for regular moves (base speed / 2)
+    jr .SkipHighCritical
 .HighCritical
-	sla b                        ; *2 for high critical hit moves
-	jr nc, .noCarry
-	ld b, $ff                    ; cap at 255/256
+    sla b                        ; x2 for high crit (x4 without Focus, x8 with Focus)
+    jr nc, .noCarry
+    ld b, $ff
 .noCarry
-	sla b                        ; *4 for high critical move (effective (base speed/2)*8))
-	jr nc, .SkipHighCritical
-	ld b, $ff
+    ; Removed second sla b here
 .SkipHighCritical
 	call BattleRandom            ; generates a random value, in "a"
 	rlc a
