@@ -57,6 +57,7 @@ PokemonMansionB1F_ScriptPointers:
 	dw CheckFightingMapTrainers
 	dw DisplayEnemyTrainerTextAndStartBattle
 	dw EndTrainerBattle
+	dw MansionB1FMewBattle
 
 PokemonMansionB1F_TextPointers:
 	dw Mansion4Text1
@@ -68,6 +69,8 @@ PokemonMansionB1F_TextPointers:
 	dw Mansion4Text7
 	dw PickUpItemText
 	dw Mansion3Text6
+	dw MansionB1FMewShrineText
+	dw PickUpItemText  ; DNA Codes
 
 Mansion4TrainerHeader0:
 	dbEventFlagBit EVENT_BEAT_MANSION_4_TRAINER_0
@@ -86,6 +89,15 @@ Mansion4TrainerHeader1:
 	dw Mansion4AfterBattleText2 ; TextAfterBattle
 	dw Mansion4EndBattleText2 ; TextEndBattle
 	dw Mansion4EndBattleText2 ; TextEndBattle
+
+MewTrainerHeader:
+    	dbEventFlagBit EVENT_BEAT_MEW
+    	db ($0 << 4) ; view range
+    	dwEventFlagAddress EVENT_BEAT_MEW
+    	dw MewBattleText ; TextBeforeBattle
+    	dw MewBattleText ; TextAfterBattle
+    	dw MewBattleText ; TextEndBattle
+    	dw MewBattleText ; TextEndBattle
 
 	db $ff
 
@@ -128,3 +140,70 @@ Mansion4AfterBattleText2:
 Mansion4Text7:
 	TX_FAR _Mansion4Text7
 	db "@"
+
+MansionB1FMewShrineText:
+    TX_ASM
+    ld a, ANCIENTFLUTE
+    ld [wItemToRemove], a  ; Check for ANCIENT_FLUTE in bag
+    predef ItemFinderLoopBag
+    jr nc, .noFlute        ; Carry not set = not found
+    CheckEvent EVENT_BEAT_MEW
+    jr nz, .postMew
+    ; With Ancient Flute in bag
+    ld hl, ShrinePatternsText
+    call PrintText
+    ; Play Ancient Flute
+    ld a, $ff
+    call PlaySound
+    ld a, SFX_POKEFLUTE
+    ld c, BANK(SFX_Pokeflute)
+    call PlayMusic
+.musicWaitLoop
+    ld a, [wChannelSoundIDs + Ch3]
+    cp SFX_POKEFLUTE
+    jr z, .musicWaitLoop
+    call PlayDefaultMusic
+    ; Spawn Mew with teleport effect
+    ld a, HS_MANSION_B1F_MEW
+    ld [wMissableObjectIndex], a
+    predef ShowObject
+    callba EnterMapAnim
+    ld hl, MewAppearsText
+    call PrintText
+    ; Start Mew battle
+    ld hl, MewTrainerHeader
+    call TalkToTrainer
+    ld a, 3
+    ld [wPokemonMansionB1FCurScript], a
+    ld [wCurMapScript], a
+    jr .done
+.noFlute
+    	ld hl, ShrineNoFluteText
+    	call PrintText
+    	jr .done
+.postMew
+	ld hl, ShrineNoFluteText
+    	call PrintText
+    	jr .done
+.done
+    jp TextScriptEnd
+
+MewBattleText:
+    TX_FAR _MewBattleText
+    TX_ASM
+    ld a, MEW
+    call PlayCry
+    call WaitForSoundToFinish
+    jp TextScriptEnd
+
+ShrineNoFluteText:
+    TX_FAR _ShrineNoFluteText
+    db "@"
+
+ShrinePatternsText:
+    TX_FAR _ShrinePatternsText
+    db "@"
+
+MewAppearsText:
+    TX_FAR _MewAppearsText
+    db "@"
