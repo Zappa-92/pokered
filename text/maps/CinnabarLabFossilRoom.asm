@@ -124,6 +124,11 @@ _BlaineLabHiggsText::
     	cont "MEWTWO again, I"
     	cont "promise, but let"
     	cont "me work with it."
+
+	para "I'll create a"
+	line "perfect copy"
+	cont "of MEW, just"
+	cont "for you."
     	prompt
 
 _BlaineLabWaitText::
