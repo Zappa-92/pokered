@@ -84,8 +84,8 @@ const_value = 0
 	const HS_FIGHTING_DOJO_GIFT_2          ; 4B
 	const HS_SILPH_CO_1F_RECEPTIONIST      ; 4C
 	const HS_VOLTORB_1                     ; 4D X
-	const HS_VOLTORB_2                     ; 4E X
-	const HS_VOLTORB_3                     ; 4F X
+	const HS_MANSION_B1F_MEW                     ; 4E Added for MEW battle
+	const HS_MANSION_B1F_DNA_CODES               ; 4F Added for after battle with MEW
 	const HS_ELECTRODE_1                   ; 50 X
 	const HS_VOLTORB_4                     ; 51 X
 	const HS_VOLTORB_5                     ; 52 X
