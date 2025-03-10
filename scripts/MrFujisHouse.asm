@@ -70,8 +70,6 @@ LavenderHouse1Text5:
     TX_ASM
     CheckEvent EVENT_RESCUED_MR_FUJI
     jr nz, .rescued
-    ld hl, FujiNotHereText
-    call PrintText
     jr .done
 .rescued
     CheckEvent EVENT_GOT_POKE_FLUTE
@@ -134,10 +132,6 @@ FluteNoRoomText:
 MrFujiAfterFluteText:
 	TX_FAR _MrFujiAfterFluteText
 	db "@"
-
-FujiNotHereText:
-    TX_FAR _FujiNotHereText
-    db "@"
 
 FujiAncientFluteText:
     TX_FAR _FujiAncientFluteText
