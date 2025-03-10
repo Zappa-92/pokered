@@ -521,11 +521,9 @@ _OaksLabOakPostBattleText::
     	done
 
 _OaksLabOakFinalText::
-    	text "OAK: So you're"
+    	text "OAK: You're"
     	line "the ultimate"
     	cont "#MON Master!"
-    	cont "You caught all"
-    	cont "151 #MON!"
     
 	para "Your journey is"
     	line "complete. Well"
