@@ -30,16 +30,13 @@ _Mansion3AfterBattleText2::
 
 _Mansion3Text5::
 	text "Diary: Feb. 6"
-	line "MEW's DNA"
-	cont "is collected"
+	line "MEW's DNA is"
+	cont "incredible"
 
-	para "Just in time."
-	line "MEW escaped"
-	cont "just after that."
-	
-	para "As soon as we"
-	line "arribed to"
-	cont "the LAB, we"
-	cont "started the"
-	cont "MEWTWO project."
+	para "We started to"
+	line "decipher #MON"
+	cont "DNA."
+
+	cont "MEWTWO project"
+	line "begins."
 	done
