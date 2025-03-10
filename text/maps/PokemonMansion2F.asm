@@ -17,13 +17,12 @@ _Mansion2AfterBattleText1::
 
 _Mansion2Text3::
 	text "Diary: July 5"
-	line "Guyana,"
-	cont "South America"
 
 	para "we discovered"
-	line "The legendary"
-	cont "#MON, deep"
-	cont "in the jungle."
+	line "traces of the"
+	cont "legendary #MON,"
+	cont "deep in the"
+	cont "jungle."
 	done
 
 _Mansion2Text4::
@@ -32,15 +31,12 @@ _Mansion2Text4::
 	
 	para "It's really"
 	line "strong!"
-	cont "We failed to"
+	cont "Dr. failed to"
 	cont "capture it."
 	
-	para "But we managed"
-	line "to cage it.."
-	cont "..for now."
-
-	para "We just need"
-	line "its DNA."
+	para "But he managed"
+	line "to get a genetic"
+	cont "sample somehow."
 	done
 
 _Mansion2Text_520c2::
