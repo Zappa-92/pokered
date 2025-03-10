@@ -144,7 +144,7 @@ Mansion4Text7:
 MansionB1FMewShrineText:
     TX_ASM
     ld a, ANCIENTFLUTE
-    ld [wItemToRemove], a  ; Check for ANCIENT_FLUTE in bag
+    ld [wcf91], a          ; Store item ID in wcf91
     predef ItemFinderLoopBag
     jr nc, .noFlute        ; Carry not set = not found
     CheckEvent EVENT_BEAT_MEW
