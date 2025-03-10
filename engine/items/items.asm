@@ -114,7 +114,7 @@ ItemUsePtrTable:
 	dw UnusableItem
 	dw UnusableItem
 	dw UnusableItem     ; HIGGS FOSSIL
-	dw ItemUsePokeflute ; ANCIENT FLUTE
+	dw ItemUsePokeflute ; ANCIENTFLUTE
 	dw UnusableItem     ; DNA CODES
 
 ItemUseBall:
