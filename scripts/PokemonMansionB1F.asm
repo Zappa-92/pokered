@@ -90,15 +90,6 @@ Mansion4TrainerHeader1:
 	dw Mansion4EndBattleText2 ; TextEndBattle
 	dw Mansion4EndBattleText2 ; TextEndBattle
 
-MewTrainerHeader:
-    	dbEventFlagBit EVENT_BEAT_MEW
-    	db ($0 << 4) ; view range
-    	dwEventFlagAddress EVENT_BEAT_MEW
-    	dw MewBattleText ; TextBeforeBattle
-    	dw MewBattleText ; TextAfterBattle
-    	dw MewBattleText ; TextEndBattle
-    	dw MewBattleText ; TextEndBattle
-
 	db $ff
 
 Mansion4Text1:
@@ -170,9 +161,25 @@ MansionB1FMewShrineText:
     callba EnterMapAnim
     ld hl, MewAppearsText
     call PrintText
-    ; Start Mew battle
-    ld hl, MewTrainerHeader
-    call TalkToTrainer
+    ; Set up wild Mew with custom moves
+    ld a, MEW
+    ld [wEnemyMonSpecies], a
+    ld a, 100
+    ld [wEnemyMonLevel], a
+    ; Load custom moves into wEnemyMonMoves
+    ld hl, wEnemyMonMoves
+    ld a, PSYCHIC
+    ld [hli], a
+    ld a, SEISMIC_TOSS
+    ld [hli], a
+    ld a, ICE_BEAM
+    ld [hli], a
+    ld a, SOFTBOILED
+    ld [hl], a
+    ; Start wild battle
+    ld a, 0               ; Wild battle type
+    ld [wBattleType], a
+    predef StartBattle
     ld a, 3
     ld [wPokemonMansionB1FCurScript], a
     ld [wCurMapScript], a
