@@ -58,7 +58,7 @@ FishingGroup4:
 	db 3
 	db 32,KRABBY
 	db 32,SHELLDER
-	db 25,DRATINI
+	db 28,SLOWPOKE
 
 FishingGroup5:
 	db 2
