@@ -90,8 +90,9 @@ _BlaineLabIntroText::
 	cont "found a fossil"
     	cont "with MEW DNA"
 
-    	para "We started the"
-    	line "cloning process"
+    	para "We started to"
+	line "experiment with"
+    	cont "clonation."
 	cont "but the genome"
     	cont "was incomplete."
 	
@@ -100,12 +101,13 @@ _BlaineLabIntroText::
     	cont "used my own"
     	cont "human cells."
 
-	para "Then the dissaster"
-    	line "MEWTWO was too"
+	para "Then came the"
+	line "disaster.."
+    	cont "MEWTWO was too"
 	cont "powerful, and"
 	cont "we couldn’t keep"
     	cont "it under control"
-    	cont "It destroyed"
+    	cont "MEWRWO destroyed"
 	cont "the enitre lab."
 
 	para "Then left.."
