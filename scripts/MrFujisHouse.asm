@@ -67,27 +67,55 @@ LavenderHouse1Text4:
 	jp TextScriptEnd
 
 LavenderHouse1Text5:
-	TX_ASM
-	CheckEvent EVENT_GOT_POKE_FLUTE
-	jr nz, .asm_15ac2
-	ld hl, LavenderHouse1Text_1d94c
-	call PrintText
-	lb bc, POKE_FLUTE, 1
-	call GiveItem
-	jr nc, .BagFull
-	ld hl, ReceivedFluteText
-	call PrintText
-	SetEvent EVENT_GOT_POKE_FLUTE
-	jr .asm_da749
-.BagFull
-	ld hl, FluteNoRoomText
-	call PrintText
-	jr .asm_da749
-.asm_15ac2
-	ld hl, MrFujiAfterFluteText
-	call PrintText
-.asm_da749
-	jp TextScriptEnd
+    TX_ASM
+    CheckEvent EVENT_RESCUED_MR_FUJI
+    jr nz, .rescued
+    ld hl, FujiNotHereText
+    call PrintText
+    jr .done
+.rescued
+    CheckEvent EVENT_GOT_POKE_FLUTE
+    jr nz, .postFlute
+    ld hl, LavenderHouse1Text_1d94c
+    call PrintText
+    lb bc, POKE_FLUTE, 1
+    call GiveItem
+    jr nc, .BagFullPokeFlute
+    ld hl, ReceivedFluteText
+    call PrintText
+    SetEvent EVENT_GOT_POKE_FLUTE
+    jr .postFlute
+.BagFullPokeFlute
+    ld hl, FluteNoRoomText
+    call PrintText
+    jr .postFlute
+.postFlute
+    CheckEvent EVENT_BEAT_GIOVANNI_CAVE_REMATCH
+    jr z, .preGiovanni
+    CheckEvent EVENT_GOT_ANCIENT_FLUTE
+    jr nz, .postAncient
+    ld hl, FujiAncientFluteText
+    call PrintText
+    lb bc, ANCIENT_FLUTE, 1
+    call GiveItem
+    jr nc, .BagFullAncient
+    ld hl, ReceivedAncientFluteText
+    call PrintText
+    SetEvent EVENT_GOT_ANCIENT_FLUTE
+    jr .done
+.BagFullAncient
+    ld hl, AncientFluteNoRoomText
+    call PrintText
+    jr .done
+.postAncient
+    ld hl, FujiPostAncientText
+    call PrintText
+    jr .done
+.preGiovanni
+    ld hl, MrFujiAfterFluteText
+    call PrintText
+.done
+    jp TextScriptEnd
 
 LavenderHouse1Text_1d94c:
 	TX_FAR _LavenderHouse1Text_1d94c
@@ -106,6 +134,27 @@ FluteNoRoomText:
 MrFujiAfterFluteText:
 	TX_FAR _MrFujiAfterFluteText
 	db "@"
+
+FujiNotHereText:
+    TX_FAR _FujiNotHereText
+    db "@"
+
+FujiAncientFluteText:
+    TX_FAR _FujiAncientFluteText
+    db "@"
+
+ReceivedAncientFluteText:
+    TX_FAR _ReceivedAncientFluteText
+    TX_SFX_KEY_ITEM
+    db "@"
+
+AncientFluteNoRoomText:
+    TX_FAR _AncientFluteNoRoomText
+    db "@"
+
+FujiPostAncientText:
+    TX_FAR _FujiPostAncientText
+    db "@"
 
 LavenderHouse1Text6:
 	TX_FAR _LavenderHouse1Text6
