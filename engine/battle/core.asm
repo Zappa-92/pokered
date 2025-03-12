@@ -398,8 +398,20 @@ MainInBattleLoop:
 	and a
 	ret nz ; return if pokedoll was used to escape from battle
 	ld a, [wBattleMonStatus]
-	and (1 << FRZ) | SLP ; is mon frozen or asleep?
-	jr nz, .selectEnemyMove ; if so, jump
+	ld hl, wBattleMonStatus
+	bit FRZ, a
+	jr z, .checkSleep
+	; Check for thawing (20% chance)
+	call BattleRandom
+	cp 51 ; 51/256 ≈ 20%
+	jr nc, .selectEnemyMove ; Still frozen, skip turn
+	; Thaw the Pokémon
+	res FRZ, [hl]
+	ld hl, ThawedOutText
+	call PrintText
+.checkSleep
+	and SLP ; Check sleep mask
+	jr nz, .selectEnemyMove ; If asleep, skip to enemy turn
 	ld a, [wPlayerBattleStatus1]
 	and (1 << STORING_ENERGY) | (1 << USING_TRAPPING_MOVE) ; check player is using Bide or using a multi-turn attack like wrap
 	jr nz, .selectEnemyMove ; if so, jump
@@ -3400,33 +3412,39 @@ CheckPlayerStatusConditions:
 	dec a
 	ld [wBattleMonStatus], a ; decrement number of turns left
 	and a
-	jr z, .WakeUp ; if the number of turns hit 0, wake up
-; fast asleep
-	xor a
-	ld [wAnimationType], a
-	ld a, SLP_ANIM - 1
-	call PlayMoveAnimation
+	jr z, .WakeUp
+	; Still asleep
 	ld hl, FastAsleepText
 	call PrintText
 	jr .sleepDone
 .WakeUp
 	ld hl, WokeUpText
 	call PrintText
+	jr .FrozenCheck ; Continue to next checks
 .sleepDone
 	xor a
 	ld [wPlayerUsedMove], a
-	ld hl, ExecutePlayerMoveDone ; player can't move this turn
+	ld hl, ExecutePlayerMoveDone
 	jp .returnToHL
 
 .FrozenCheck
-	bit FRZ, [hl] ; frozen?
+	bit FRZ, [hl]
 	jr z, .HeldInPlaceCheck
+	; Check for thawing (20% chance)
+	call BattleRandom
+	cp 51 ; 51/256 ≈ 20%
+	jr nc, .stillFrozen
+	; Thaw the Pokémon
+	ld a, [hl]
+	res FRZ, a
+	ld [hl], a
+	ld hl, ThawedOutText
+	call PrintText
+	jr .HeldInPlaceCheck
+.stillFrozen
 	ld hl, IsFrozenText
 	call PrintText
-	xor a
-	ld [wPlayerUsedMove], a
-	ld hl, ExecutePlayerMoveDone ; player can't move this turn
-	jp .returnToHL
+	jr .sleepDone
 
 .HeldInPlaceCheck
 	ld a, [wEnemyBattleStatus1]
@@ -3662,6 +3680,10 @@ WokeUpText:
 
 IsFrozenText:
 	TX_FAR _IsFrozenText
+	db "@"
+
+IsFrozenText:
+	TX_FAR _ThawedOutText
 	db "@"
 
 FullyParalyzedText:
@@ -5912,6 +5934,7 @@ CheckEnemyStatusConditions:
 .wokeUp
 	ld hl, WokeUpText
 	call PrintText
+	jr .checkIfFrozen ; Proceed to next checks
 .sleepDone
 	xor a
 	ld [wEnemyUsedMove], a
@@ -5920,6 +5943,18 @@ CheckEnemyStatusConditions:
 .checkIfFrozen
 	bit FRZ, [hl]
 	jr z, .checkIfTrapped
+	; Check for thawing (20% chance)
+	call BattleRandom
+	cp 51 ; 51/256 ≈ 20%
+	jr nc, .stillFrozen
+	; Thaw the Pokémon
+	ld a, [hl]
+	res FRZ, a
+	ld [hl], a
+	ld hl, ThawedOutText
+	call PrintText
+	jr .checkIfTrapped
+.stillFrozen
 	ld hl, IsFrozenText
 	call PrintText
 	xor a
@@ -7287,8 +7322,8 @@ SleepEffect:
 .setSleepCounter
 ; set target's sleep counter to a random number between 1 and 7
 	call BattleRandom
-	and $7
-	jr z, .setSleepCounter
+	and $3
+	inc a ; 1-4 turns of sleep
 	ld [de], a
 	call PlayCurrentMoveAnimation2
 	ld hl, FellAsleepText
