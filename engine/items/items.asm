@@ -216,126 +216,126 @@ ItemUseBall:
 	cp MASTER_BALL
 	jp z, .captured
 
-; Anything will do for the basic Poké Ball.
-	cp POKE_BALL
-	jr z, .checkForAilments
+; Check ball type and limit R1 accordingly
+    cp POKE_BALL        ; Ball F
+    jr z, .pokeball
+    cp GREAT_BALL       ; Ball E
+    jr z, .greatball
+    cp ULTRA_BALL       ; Ball D
+    jr z, .ultraball
+    ; Assume other balls retry like Ultra Ball or adjust as needed
+    jr .ultraball       ; Default to Ultra Ball behavior
 
-; If it's a Great/Ultra/Safari Ball and Rand1 is greater than 200, try again.
-	ld a, 200
-	cp b
-	jr c, .loop
+.pokeball
+    ld a, 220           ; Ball F: R1 = 0-220
+    cp b
+    jr c, .loop        ; If R1 > 220, retry
+    jr .checkForAilments
 
-; Less than or equal to 200 is good enough for a Great Ball.
-	ld a, [hl]
-	cp GREAT_BALL
-	jr z, .checkForAilments
+.greatball
+    ld a, 130           ; Ball E: R1 = 0-130
+    cp b
+    jr c, .loop        ; If R1 > 130, retry
+    jr .checkForAilments
 
-; If it's an Ultra/Safari Ball and Rand1 is greater than 150, try again.
-	ld a, 150
-	cp b
-	jr c, .loop
+.ultraball
+    ld a, 80            ; Ball D: R1 = 0-80
+    cp b
+    jr c, .loop        ; If R1 > 80, retry
 
 .checkForAilments
-; Pokémon can be caught more easily with a status ailment.
-; Depending on the status ailment, a certain value will be subtracted from
-; Rand1. Let this value be called Status.
-; The larger Status is, the more easily the Pokémon can be caught.
-; no status ailment:     Status = 0
-; Burn/Paralysis/Poison: Status = 12
-; Freeze/Sleep:          Status = 25
-; If Status is greater than Rand1, the Pokémon will be caught for sure.
-	ld a, [wEnemyMonStatus]
-	and a
-	jr z, .skipAilmentValueSubtraction ; no ailments
-	and 1 << FRZ | SLP
-	ld c, 12
-	jr z, .notFrozenOrAsleep
-	ld c, 25
-.notFrozenOrAsleep
-	ld a, b
-	sub c
-	jp c, .captured
-	ld b, a
+; Set S based on status: 0 (no status), 3 (Burn), 5 (Freeze)
+    ld a, [wEnemyMonStatus]
+    and a
+    ld c, 0             ; S = 0 if no status
+    jr z, .gotStatusValue
+    and 1 << FRZ | SLP  ; Check for Freeze or Sleep
+    ld c, 5             ; S = 5 for Freeze/Sleep
+    jr nz, .gotStatusValue
+    ld c, 3             ; S = 3 for Burn/Paralysis/Poison
+.gotStatusValue
+    ld a, b             ; a = R1
+    cp c                ; Compare R1 with S
+    jp c, .captured    ; If R1 < S, capture succeeds
+    ; Check if R1 >= S + C
+    ld a, [wEnemyMonActualCatchRate]  ; a = C
+    add c               ; a = S + C
+    cp b                ; Compare S + C with R1
+    jr nc, .computeHPFactor  ; If S + C > R1 (R1 < S + C), proceed
+    jp .failedToCapture ; If R1 >= S + C, fail
 
-.skipAilmentValueSubtraction
-	push bc ; save (Rand1 - Status)
+.computeHPFactor
+; Calculate MaxHP * 180
+    xor a
+    ld [H_MULTIPLICAND], a
+    ld hl, wEnemyMonMaxHP
+    ld a, [hli]
+    ld [H_MULTIPLICAND + 1], a
+    ld a, [hl]
+    ld [H_MULTIPLICAND + 2], a
+    ld a, 180           ; Changed from 255 to 180
+    ld [H_MULTIPLIER], a
+    call Multiply
 
-; Calculate MaxHP * 255.
-	xor a
-	ld [H_MULTIPLICAND], a
-	ld hl, wEnemyMonMaxHP
-	ld a, [hli]
-	ld [H_MULTIPLICAND + 1], a
-	ld a, [hl]
-	ld [H_MULTIPLICAND + 2], a
-	ld a, 255
-	ld [H_MULTIPLIER], a
-	call Multiply
+; Set BallFactor based on ball type
+    ld a, [wcf91]
+    cp POKE_BALL
+    jr z, .pokeballFactor
+    cp GREAT_BALL
+    jr z, .greatballFactor
+    cp ULTRA_BALL
+    jr z, .ultraballFactor
+    ; Default to Ultra Ball factor for others
+    jr .ultraballFactor
 
-; Determine BallFactor. It's 8 for Great Balls and 12 for the others.
-	ld a, [wcf91]
-	cp GREAT_BALL
-	ld a, 9
-	jr nz, .skip1
-	ld a, 8
+.pokeballFactor
+    ld a, 15            ; Ball F: BallFactor = 15
+    jr .setFactor
 
-.skip1
-; Note that the results of all division operations are floored.
+.greatballFactor
+    ld a, 12            ; Ball E: BallFactor = 12
+    jr .setFactor
 
-; Calculate (MaxHP * 255) / BallFactor.
-	ld [H_DIVISOR], a
-	ld b, 4 ; number of bytes in dividend
-	call Divide
+.ultraballFactor
+    ld a, 8             ; Ball D: BallFactor = 8
 
-; Divide the enemy's current HP by 4. HP is not supposed to exceed 999 so
-; the result should fit in a. If the division results in a quotient of 0,
-; change it to 1.
-	ld hl, wEnemyMonHP
-	ld a, [hli]
-	ld b, a
-	ld a, [hl]
-	srl b
-	rr a
-	srl b
-	rr a
-	and a
-	jr nz, .skip2
-	inc a
+.setFactor
+; Calculate (MaxHP * 180) / BallFactor
+    ld [H_DIVISOR], a
+    ld b, 4
+    call Divide
 
+; Divide current HP by 4, minimum 1
+    ld hl, wEnemyMonHP
+    ld a, [hli]
+    ld b, a
+    ld a, [hl]
+    srl b
+    rr a
+    srl b
+    rr a
+    and a
+    jr nz, .skip2
+    inc a
 .skip2
-; Let W = ((MaxHP * 255) / BallFactor) / max(HP / 4, 1). Calculate W.
-	ld [H_DIVISOR], a
-	ld b, 4
-	call Divide
+; Calculate F = ((MaxHP * 180) / BallFactor) / max(HP / 4, 1)
+    ld [H_DIVISOR], a
+    ld b, 4
+    call Divide
 
-; If W > 255, store 255 in [H_QUOTIENT + 3].
-; Let X = min(W, 255) = [H_QUOTIENT + 3].
-	ld a, [H_QUOTIENT + 2]
-	and a
-	jr z, .skip3
-	ld a, 255
-	ld [H_QUOTIENT + 3], a
-
+; Cap F at 255
+    ld a, [H_QUOTIENT + 2]
+    and a
+    jr z, .skip3
+    ld a, 255
+    ld [H_QUOTIENT + 3], a
 .skip3
-	pop bc ; b = Rand1 - Status
-
-; If Rand1 - Status > CatchRate, the ball fails to capture the Pokémon.
-	ld a, [wEnemyMonActualCatchRate]
-	cp b
-	jr c, .failedToCapture
-
-; If W > 255, the ball captures the Pokémon.
-	ld a, [H_QUOTIENT + 2]
-	and a
-	jr nz, .captured
-
-	call Random ; Let this random number be called Rand2.
-
-; If Rand2 > X, the ball fails to capture the Pokémon.
-	ld b, a
-	ld a, [H_QUOTIENT + 3]
-	cp b
-	jr c, .failedToCapture
+; Generate R2 and check if R2 <= F
+    call Random         ; R2 in a
+    ld b, a             ; b = R2
+    ld a, [H_QUOTIENT + 3]  ; a = F
+    cp b
+    jr c, .failedToCapture  ; If R2 > F, fail
 
 .captured
 	jr .skipShakeCalculations
