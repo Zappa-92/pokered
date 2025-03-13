@@ -768,7 +768,7 @@ const_value = 0
 	const EVENT_2FD                                  ; 2FD, (D7A6, bit 5)
 	const EVENT_2FE                                  ; 2FE, (D7A6, bit 6)
 	const EVENT_2FF                                  ; 2FF, (D7A6, bit 7)
-	const EVENT_300                                  ; 300, (D7A7, bit 0)
+	const EVENT_GAVE_GUARD_DRINK                     ; Faltaba evento
 	const EVENT_301                                  ; 301, (D7A7, bit 1)
 	const EVENT_302                                  ; 302, (D7A7, bit 2)
 	const EVENT_303                                  ; 303, (D7A7, bit 3)
