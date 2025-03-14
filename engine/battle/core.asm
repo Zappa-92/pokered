@@ -436,7 +436,7 @@ MainInBattleLoop:
 	call LoadScreenTilesFromBuffer1
 	call DrawHUDsAndHPBars
 	pop af
-	jr nz, MainInBattleLoop ; if the player didn't select a move, jump
+	jp nz, MainInBattleLoop ; if the player didn't select a move, jump RENAMED to jp due to target out of reach
 .selectEnemyMove
 	call SelectEnemyMove
 	ld a, [wLinkState]
@@ -3682,7 +3682,7 @@ IsFrozenText:
 	TX_FAR _IsFrozenText
 	db "@"
 
-IsFrozenText:
+ThawedOutText:
 	TX_FAR _ThawedOutText
 	db "@"
 
@@ -8777,18 +8777,21 @@ PlayBattleAnimationGotID:
 	pop hl
 	ret
 
-;adding function to check if a pokemon is in party, for GIOVANNI event and MEW event
+;adding function to check if a pokemon is in party, for GIOVANNI event
 IsPokemonInParty:
 ; Input: a = Pokémon ID to check
 ; Output: z flag set if not in party, nz if found
     push bc
     push de
     push hl
+    ld [wcf91], a        ; Store input Pokémon ID
     ld hl, wPartySpecies
     ld b, 6  ; Party size
 .loop
     ld a, [hli]
-    cp a, [wcf91]  ; Compare with input Pokémon ID
+    ld c, a
+    ld a, [wcf91]
+    cp c ; Compare with input Pokémon ID
     jr z, .found
     dec b
     jr nz, .loop
