@@ -77,7 +77,7 @@ SaffronGymSabrinaRematchPostBattle:  ; Handles rematch outcome
     	jp z, SaffronGymText_5d048  ; Reset on loss
     	SetEvent EVENT_BEAT_SABRINA_REMATCH  ; Set on victory
 	xor a
-	ldtgl [wJoyIgnore], a
+	ld [wJoyIgnore], a
 	ld [wSaffronGymCurScript], a
 	ld [wCurMapScript], a
 	ret
