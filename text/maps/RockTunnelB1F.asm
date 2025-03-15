@@ -113,7 +113,7 @@ RockTunnelB1FTextFossilFound:
     prompt
     done
 
-RockTunnelB1FTextFossilGone:
-    text "Just rocks here"
-    line "now..."
+_RockTunnelB1FTextFossilNoRoom::
+    text "No room for the"
+    line "fossil!"
     done
