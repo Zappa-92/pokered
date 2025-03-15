@@ -168,6 +168,10 @@ PewterGymText1:
     	ld a, $3
     	ld [wPewterGymCurScript], a
     	ld [wCurMapScript], a
+ 	jr .done  ; Changed to jr for consistency
+.postRematch
+    	ld hl, PewterGymBrockPostRematchText
+    	call PrintText
 .done
     	jp TextScriptEnd
 
