@@ -307,7 +307,7 @@ ViridianGymTrainerHeader7:
 ViridianGymText1:
     TX_ASM
     CheckEvent EVENT_BEAT_VIRIDIAN_GYM_GIOVANNI
-    jr z, .beginGiovanniBattle
+    jp z, .beginGiovanniBattle
     CheckEvent EVENT_BEAT_OAK
     jr z, .afterGiovanni
     ; Check all gym rematches
