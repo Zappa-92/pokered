@@ -214,6 +214,10 @@ CeladonGymText1:
 	ld a, $3
 	ld [wCeladonGymCurScript], a
 	ld [wCurMapScript], a
+	jr .done  ; Changed to jr for consistency
+.postRematch
+    	ld hl, CeladonGymErikaPostRematchText
+    	call PrintText
 .done
 	jp TextScriptEnd
 
