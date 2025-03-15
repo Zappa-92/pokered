@@ -154,7 +154,7 @@ VermilionGymText1:
     	ld hl, VermilionGymSurgeRematchLoseText
     	ld de, VermilionGymSurgeRematchWinText
     	call SaveEndBattleTextPointers
-    	ld a, OPP_LTSURGE  ; $09
+    	ld a, OPP_LT_SURGE  ; $09
     	ld [wCurOpponent], a
     	ld a, $2  ; Rematch team
     	ld [wTrainerNo], a
