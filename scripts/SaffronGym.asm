@@ -214,6 +214,10 @@ SaffronGymText1:
 	ld [wGymLeaderNo], a
 	ld a, $3
 	ld [wSaffronGymCurScript], a
+ 	jr .done  ; Changed to jr for consistency
+.postRematch
+    	ld hl, SaffronGymSabrinaPostRematchText
+    	call PrintText
 .done
 	jp TextScriptEnd
 
