@@ -18,7 +18,7 @@ RockTunnelB1F_Object:
 	object SPRITE_LASS, 14, 28, STAY, RIGHT, 6, OPP_JR_TRAINER_F, 10
 	object SPRITE_HIKER, 33, 5, STAY, RIGHT, 7, OPP_HIKER, 11
 	object SPRITE_BLACK_HAIR_BOY_2, 26, 30, STAY, DOWN, 8, OPP_POKEMANIAC, 5
-	object SPRITE_OMANYTE, 15, 25, STAY, NONE, 9, RockTunnelB1FTextFossil ; Fossil item
+	object SPRITE_OMANYTE, 4, 26, STAY, NONE, 9, RockTunnelB1FTextFossil ; Fossil item
 
 	; warp-to
 	warp_to 33, 25, ROCK_TUNNEL_B1F_WIDTH ; ROCK_TUNNEL_1F
