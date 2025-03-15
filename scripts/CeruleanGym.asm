@@ -74,7 +74,7 @@ CeruleanGymScript_5c70d:
 CeruleanGymScript4:
     	ld a, [wIsInBattle]
     	cp $ff
-    	jp z, CeruleanGymScript_Reset
+    	jp z, CeruleanGymScript_5c6ed
     	SetEvent EVENT_BEAT_MISTY_REMATCH
     	xor a
     	ld [wJoyIgnore], a
@@ -166,11 +166,11 @@ CeruleanGymText1:
     	ld [hJoyHeld], a
     	ld a, $3
     	ld [wCeruleanGymCurScript], a
-.done
-    	jp TextScriptEnd
+ 	jr .done  ; Changed to jr for consistency
 .postRematch
     	ld hl, CeruleanGymMistyPostRematchText
     	call PrintText
+.done
     	jp TextScriptEnd
 
 CeruleanGymText_5c7be:
