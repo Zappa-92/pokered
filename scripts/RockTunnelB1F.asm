@@ -162,16 +162,33 @@ RockTunnelB1FTextFossil:
 .giveHelix:
     ld a, HELIX_FOSSIL
 .setFossil:
-    ld [wItemReceived], a
-    call ReceiveItem
+    ld [wCurItem], a
+    ld a, 1
+    ld [wItemQuantity], a
+    call GiveItem
+    jr nc, .bagFull
     SetEvent EVENT_GOT_ROCK_TUNNEL_FOSSIL
     ld hl, RockTunnelB1FTextFossilFound
     call PrintText
-    jp TextScriptEnd
-.alreadyGotFossil:
-    ld hl, RockTunnelB1FTextFossilGone
+    ld a, SFX_GET_ITEM_1
+    call PlaySound
+    jr .done
+.bagFull
+    ld hl, RockTunnelB1FTextFossilNoRoom
     call PrintText
+    jr .done
+.alreadyGotFossil
+    ; Silence when fossil is gone
+.done
     jp TextScriptEnd
+
+RockTunnelB1FTextFossilFound:
+    TX_FAR _RockTunnelB1FTextFossilFound
+    db "@"
+
+RockTunnelB1FTextFossilNoRoom:
+    TX_FAR _RockTunnelB1FTextFossilNoRoom
+    db "@"
 
 RockTunnel2BattleText2:
 	TX_FAR _RockTunnel2BattleText2
