@@ -206,6 +206,10 @@ FuchsiaGymText1:
 	ld [hJoyHeld], a
 	ld a, $3
 	ld [wFuchsiaGymCurScript], a
+ 	jr .done  ; Changed to jr for consistency
+.postRematch
+    	ld hl, FuchsiaGymKogaPostRematchText
+    	call PrintText
 .done
 	jp TextScriptEnd
 
