@@ -269,6 +269,10 @@ CinnabarGymText1:
     ld [wGymLeaderNo], a
     call CinnabarGymScript_758b7
     jr .done
+.postRematch
+    ld hl, CeladonGymErikaPostRematchText
+    call PrintText
+    jr .done
 .gone
     ; No text, just end
 .done
