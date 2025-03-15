@@ -110,7 +110,6 @@ _RockTunnel2EndBattleText8::
 RockTunnelB1FTextFossilFound:
     text "Found a fossil"
     line "in the rocks!"
-    prompt
     done
 
 _RockTunnelB1FTextFossilNoRoom::
