@@ -195,6 +195,10 @@ VermilionGymText1:
     	ld [hJoyHeld], a
     	ld a, $3
     	ld [wVermilionGymCurScript], a
+	jr .done  ; Changed to jr for consistency
+.postRematch
+    	ld hl, CeladonGymErikaPostRematchText
+    	call PrintText
 .done
     	jp TextScriptEnd
 
