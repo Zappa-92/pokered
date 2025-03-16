@@ -1025,7 +1025,6 @@ OaksLabText5:
 .finalDialogue
     ld hl, OaksLabOakFinalText
     call PrintText
-    call EndGameCredits  ; Trigger credits
     jp TextScriptEnd
 .noPokeballsYet
     ; Existing logic for early game
