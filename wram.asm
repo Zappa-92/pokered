@@ -3177,6 +3177,7 @@ wDayCareMon:: box_struct wDayCareMon ; da5f
 
 wMainDataEnd::
 
+wLastSeenMon:: ds 1 ; da60
 
 wBoxDataStart::
 
