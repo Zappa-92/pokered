@@ -249,5 +249,5 @@ BlaineLabMewText:
     db "@"
 
 BlainePostMewText:
-    TX_FAR _BlaineLabPostMewText
+    TX_FAR _BlainePostMewText
     db "@"
