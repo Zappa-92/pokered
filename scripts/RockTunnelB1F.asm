@@ -148,23 +148,20 @@ RockTunnel2Text8:
 RockTunnelB1FTextFossil:
     TX_ASM
     CheckEvent EVENT_GOT_ROCK_TUNNEL_FOSSIL
-    jr nz, .alreadyGotFossil
+    jr nz, .done
     CheckEvent EVENT_GOT_HELIX_FOSSIL
     jr nz, .giveDome
     CheckEvent EVENT_GOT_DOME_FOSSIL
     jr nz, .giveHelix
     ; Default if no choice made
-    ld a, HELIX_FOSSIL
+    lb bc, HELIX_FOSSIL, 1
     jr .setFossil
 .giveDome:
-    ld a, DOME_FOSSIL
+    lb bc, DOME_FOSSIL, 1
     jr .setFossil
 .giveHelix:
-    ld a, HELIX_FOSSIL
+    lb bc, HELIX_FOSSIL, 1
 .setFossil:
-    ld [wCurItem], a
-    ld a, 1
-    ld [wItemQuantity], a
     call GiveItem
     jr nc, .bagFull
     SetEvent EVENT_GOT_ROCK_TUNNEL_FOSSIL
@@ -176,9 +173,6 @@ RockTunnelB1FTextFossil:
 .bagFull
     ld hl, RockTunnelB1FTextFossilNoRoom
     call PrintText
-    jr .done
-.alreadyGotFossil
-    ; Silence when fossil is gone
 .done
     jp TextScriptEnd
 
