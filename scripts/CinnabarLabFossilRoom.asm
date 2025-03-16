@@ -205,7 +205,9 @@ BlaineLabScript_RemoveItem:
     ld a, [hli]
     cp $ff
     ret z
-    cp [wcf91]           ; Compare with item ID in wcf91
+    ld b, a             ; Store item ID from bag
+    ld a, [wcf91]       ; Load target item ID
+    cp b                ; Compare with bag item
     jr z, .foundItem
     inc hl
     inc c
