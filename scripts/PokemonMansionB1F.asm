@@ -136,8 +136,8 @@ MansionB1FMewShrineText:
     TX_ASM
     ld a, ANCIENTFLUTE
     ld [wcf91], a          ; Store item ID in wcf91
-    predef ItemFinderLoopBag
-    jr nc, .noFlute        ; Carry not set = not found
+    call IsItemInBag
+    jr z, .noFlute        ; Carry not set = not found
     CheckEvent EVENT_BEAT_MEW
     jr nz, .postMew
     ; With Ancient Flute in bag
@@ -177,9 +177,9 @@ MansionB1FMewShrineText:
     ld a, SOFTBOILED
     ld [hl], a
     ; Start wild battle
-    ld a, 0               ; Wild battle type
+    xor a
     ld [wBattleType], a
-    predef StartBattle
+    call StartBattle
     ld a, 3
     ld [wPokemonMansionB1FCurScript], a
     ld [wCurMapScript], a
