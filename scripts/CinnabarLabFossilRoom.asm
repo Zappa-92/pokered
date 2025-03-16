@@ -142,7 +142,7 @@ Lab4Text2:
 BlaineLabText:
     TX_ASM
     CheckEvent EVENT_BEAT_GIOVANNI_CAVE_REMATCH
-    jr z, .done
+    jp z, .done
     CheckEvent EVENT_GAVE_DNA_TO_BLAINE
     jr nz, .dnaReviving
     CheckEvent EVENT_GAVE_HIGGS_TO_BLAINE
