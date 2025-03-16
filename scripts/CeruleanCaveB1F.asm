@@ -68,7 +68,7 @@ MewtwoText:
     jr nz, .afterMewtwo
     ld hl, MewtwoTrainerHeader
     call TalkToTrainer
-    jr .done
+    jp .done
 .afterMewtwo
     CheckEvent EVENT_BEAT_RIVAL_REMATCH
     jr z, .noGiovanni
