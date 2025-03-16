@@ -57,7 +57,6 @@ PokemonMansionB1F_ScriptPointers:
 	dw CheckFightingMapTrainers
 	dw DisplayEnemyTrainerTextAndStartBattle
 	dw EndTrainerBattle
-	dw MansionB1FMewBattle
 
 PokemonMansionB1F_TextPointers:
 	dw Mansion4Text1
