@@ -151,12 +151,12 @@ BlaineLabText:
     ld hl, BlaineLabIntroText
     call PrintText
     ld a, HIGGS_FOSSIL
-    ld [wItemToRemove], a
-    predef ItemFinderLoopBag
-    jr nc, .done
+    ld [wcf91], a
+    call IsItemInBag
+    jr z, .done           ; Changed to z (not found)
     ld hl, BlaineLabHiggsText
     call PrintText
-    predef RemoveItemFromBag
+    call BlaineLabScript_RemoveItem
     SetEvent EVENT_GAVE_HIGGS_TO_BLAINE
     ld a, 240  ; 4x normal fossil steps
     ld [wWalkCounter], a
@@ -169,14 +169,14 @@ BlaineLabText:
     call PrintText
     ; Check DNA Codes after Higgs fails
     ld a, DNA_CODES
-    ld [wItemToRemove], a
-    predef ItemFinderLoopBag
-    jr nc, .done
+    ld [wcf91], a
+    call IsItemInBag
+    jr z, .done           ; Changed to z (not found)
     ld hl, BlaineLabDNAText
     call PrintText
-    predef RemoveItemFromBag
+    call BlaineLabScript_RemoveItem
     SetEvent EVENT_GAVE_DNA_TO_BLAINE
-    ld a, 240  ; Changed from 60 to 240 (4x steps)
+    ld a, 240  ; 4x steps
     ld [wWalkCounter], a
     SetEvent EVENT_DNA_STILL_REVIVING
     jr .done
@@ -198,5 +198,54 @@ BlaineLabText:
 .done
     jp TextScriptEnd
 
+BlaineLabScript_RemoveItem:
+    ld hl, wBagItems
+    ld bc, $0000
+.loop
+    ld a, [hli]
+    cp $ff
+    ret z
+    cp [wcf91]           ; Compare with item ID in wcf91
+    jr z, .foundItem
+    inc hl
+    inc c
+    jr .loop
+.foundItem
+    ld hl, wNumBagItems
+    ld a, c
+    ld [wWhichPokemon], a
+    ld a, 1
+    ld [wItemQuantity], a
+    jp RemoveItemFromInventory
+
 LoadFossilItemAndMonNameBank1D:
 	jpba LoadFossilItemAndMonName
+
+; Text Pointers
+BlaineLabIntroText:
+    TX_FAR _BlaineLabIntroText
+    db "@"
+
+BlaineLabHiggsText:
+    TX_FAR _BlaineLabHiggsText
+    db "@"
+
+BlaineLabHiggsFailedText:
+    TX_FAR _BlaineLabHiggsFailedText
+    db "@"
+
+BlaineLabDNAText:
+    TX_FAR _BlaineLabDNAText
+    db "@"
+
+BlaineLabWaitText:
+    TX_FAR _BlaineLabWaitText
+    db "@"
+
+BlaineLabMewText:
+    TX_FAR _BlaineLabMewText
+    db "@"
+
+BlainePostMewText:
+    TX_FAR _BlaineLabPostMewText
+    db "@"
