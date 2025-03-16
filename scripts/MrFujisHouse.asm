@@ -94,7 +94,7 @@ LavenderHouse1Text5:
     jr nz, .postAncient
     ld hl, FujiAncientFluteText
     call PrintText
-    lb bc, ANCIENT_FLUTE, 1
+    lb bc, ANCIENTFLUTE, 1
     call GiveItem
     jr nc, .BagFullAncient
     ld hl, ReceivedAncientFluteText
