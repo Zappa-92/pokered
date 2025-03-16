@@ -74,7 +74,7 @@ CeladonGymText_48963:
 CeladonGymErikaRematchPostBattle:
     ld a, [wIsInBattle]
     cp $ff
-    jp z, CeladonGymResetScripts  ; Reset on loss
+    jp z, CeladonGymText_48943  ; Reset on loss
     SetEvent EVENT_BEAT_ERIKA_REMATCH  ; Set on victory
     xor a
     ld [wJoyIgnore], a
