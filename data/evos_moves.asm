@@ -241,7 +241,7 @@ ClefairyEvosMoves:
 	db 31, METRONOME
 	db 35, SKULL_BASH
 	db 39, DEFENSE_CURL
-	db 48, LIGHT_SCREEN
+	db 44, LIGHT_SCREEN
 	db 0
 
 SpearowEvosMoves:
@@ -320,10 +320,10 @@ LickitungEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 7, STOMP
-	db 15, DISABLE
-	db 20, LICK
-	db 23, DEFENSE_CURL
+	db 11, DISABLE
+	db 16, LICK
+	db 23, STOMP
+	db 26, DEFENSE_CURL
 	db 31, SLAM
 	db 39, SCREECH
 	db 0
@@ -333,13 +333,13 @@ ExeggcuteEvosMoves:
 	db EV_ITEM, LEAF_STONE, 1, EXEGGUTOR
 	db 0
 ; Learnset
-	db 25, REFLECT
-	db 28, LEECH_SEED
-	db 32, STUN_SPORE
-	db 35, POISONPOWDER
-	db 38, PSYBEAM
-	db 42, SOLARBEAM
-	db 47, SLEEP_POWDER
+	db 14, LEECH_SEED
+	db 21, REFLECT
+	db 26, STUN_SPORE
+	db 32, POISONPOWDER
+	db 36, PSYBEAM
+	db 41, SOLARBEAM
+	db 46, SLEEP_POWDER
 	db 0
 
 GrimerEvosMoves:
@@ -347,12 +347,12 @@ GrimerEvosMoves:
 	db EV_LEVEL, 38, MUK
 	db 0
 ; Learnset
-	db 30, POISON_GAS
-	db 33, MINIMIZE
-	db 37, SLUDGE
-	db 42, HARDEN
-	db 48, SCREECH
-	db 55, ACID_ARMOR
+	db 10, POISON_GAS
+	db 17, HARDEN
+	db 23, MINIMIZE
+	db 25, SLUDGE
+	db 33, SCREECH
+	db 40, ACID_ARMOR
 	db 0
 
 GengarEvosMoves:
@@ -391,12 +391,12 @@ CuboneEvosMoves:
 	db EV_LEVEL, 28, MAROWAK
 	db 0
 ; Learnset
-	db 1, BONE_CLUB
-	db 25, LEER
-	db 31, FOCUS_ENERGY
-	db 38, THRASH
-	db 43, BONEMERANG
-	db 46, RAGE
+	db 10, LEER
+	db 21, FOCUS_ENERGY
+	db 23, BONE_CLUB
+	db 28, RAGE
+	db 35, THRASH
+	db 41, BONEMERANG
 	db 0
 
 RhyhornEvosMoves:
@@ -461,9 +461,9 @@ ShellderEvosMoves:
 ; Learnset
 	db 18, SUPERSONIC
 	db 23, CLAMP
-	db 30, AURORA_BEAM
-	db 39, LEER
-	db 50, ICE_BEAM
+	db 28, AURORA_BEAM
+	db 34, LEER
+	db 46, ICE_BEAM
 	db 0
 
 TentacoolEvosMoves:
@@ -495,8 +495,8 @@ ScytherEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 17, LEER
-	db 20, FOCUS_ENERGY
+	db 14, LEER
+	db 19, FOCUS_ENERGY
 	db 24, DOUBLE_TEAM
 	db 29, SLASH
 	db 32, SWORDS_DANCE
@@ -510,8 +510,8 @@ StaryuEvosMoves:
 	db 0
 ; Learnset
 	db 17, WATER_GUN
-	db 22, HARDEN
-	db 27, RECOVER
+	db 21, HARDEN
+	db 26, RECOVER
 	db 32, SWIFT
 	db 37, MINIMIZE
 	db 42, LIGHT_SCREEN
@@ -1052,9 +1052,9 @@ KrabbyEvosMoves:
 	db EV_LEVEL, 28, KINGLER
 	db 0
 ; Learnset
-	db 20, VICEGRIP
-	db 25, GUILLOTINE
-	db 30, STOMP
+	db 16, VICEGRIP
+	db 25, STOMP
+	db 30, GUILLOTINE
 	db 35, CRABHAMMER
 	db 40, HARDEN
 	db 0
@@ -1102,11 +1102,11 @@ PikachuEvosMoves:
 	db EV_ITEM, THUNDER_STONE, 1, RAICHU
 	db 0
 ; Learnset
-	db 9, THUNDER_WAVE
+	db 10, THUNDER_WAVE
 	db 16, QUICK_ATTACK
-	db 26, SWIFT
-	db 33, AGILITY
-	db 43, THUNDER
+	db 24, SWIFT
+	db 31, AGILITY
+	db 41, THUNDER
 	db 0
 
 RaichuEvosMoves:
@@ -1133,8 +1133,8 @@ DratiniEvosMoves:
 	db 0
 ; Learnset
 	db 10, THUNDER_WAVE
-	db 20, AGILITY
-	db 30, SLAM
+	db 18, AGILITY
+	db 28, SLAM
 	db 35, DRAGON_RAGE
 	db 42, DRAGON_ANGER
 	db 50, HYPER_BEAM
@@ -1158,10 +1158,10 @@ KabutoEvosMoves:
 	db EV_LEVEL, 40, KABUTOPS
 	db 0
 ; Learnset
-	db 34, ABSORB
-	db 39, SLASH
-	db 44, LEER
-	db 47, SCYTHE_SWORD
+	db 15, ABSORB
+	db 35, SLASH
+	db 40, LEER
+	db 45, SCYTHE_SWORD
 	db 49, HYDRO_PUMP
 	db 0
 
@@ -1169,9 +1169,9 @@ KabutopsEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 34, ABSORB
-	db 39, SLASH
-	db 46, LEER
+	db 15, ABSORB
+	db 35, SLASH
+	db 43, LEER
 	db 49, SCYTHE_SWORD
 	db 53, HYDRO_PUMP
 	db 0
@@ -1637,12 +1637,12 @@ MukEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 30, POISON_GAS
-	db 33, MINIMIZE
-	db 37, SLUDGE
-	db 45, HARDEN
-	db 53, SCREECH
-	db 60, ACID_ARMOR
+	db 10, POISON_GAS
+	db 17, HARDEN
+	db 23, MINIMIZE
+	db 25, SLUDGE
+	db 38, SCREECH
+	db 45, ACID_ARMOR
 	db 0
 
 MissingNo8AEvosMoves:
@@ -1655,19 +1655,19 @@ KinglerEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 20, VICEGRIP
-	db 25, GUILLOTINE
-	db 34, STOMP
-	db 42, CRABHAMMER
-	db 49, HARDEN
+	db 16, VICEGRIP
+	db 25, STOMP
+	db 32, GUILLOTINE
+	db 39, CRABHAMMER
+	db 45, HARDEN
 	db 0
 
 CloysterEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 50, SPIKE_CANNON
-	db 55, ICE_BEAM
+	db 48, SPIKE_CANNON
+	db 51, ICE_BEAM
 	db 0
 
 MissingNo8CEvosMoves:
@@ -1692,10 +1692,11 @@ ClefableEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
+	db 28, MINIMIZE
 	db 34, METRONOME
 	db 39, SKULL_BASH
 	db 44, DEFENSE_CURL
-	db 55, LIGHT_SCREEN
+	db 51, LIGHT_SCREEN
 
 WeezingEvosMoves:
 ; Evolutions
@@ -1723,12 +1724,12 @@ MarowakEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 1, BONE_CLUB
-	db 25, LEER
-	db 33, FOCUS_ENERGY
-	db 41, THRASH
-	db 48, BONEMERANG
-	db 55, RAGE
+	db 10, LEER
+	db 21, FOCUS_ENERGY
+	db 23, BONE_CLUB
+	db 31, RAGE
+	db 39, THRASH
+	db 45, BONEMERANG
 	db 0
 
 MissingNo92EvosMoves:
