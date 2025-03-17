@@ -534,13 +534,13 @@ PinsirEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 25, SEISMIC_TOSS
-	db 30, GUILLOTINE
-	db 33, FOCUS_ENERGY
-	db 37, HORN_CHARGE
-	db 43, HARDEN
-	db 49, SLASH
-	db 54, SWORDS_DANCE
+	db 21, SEISMIC_TOSS
+	db 25, GUILLOTINE
+	db 31, FOCUS_ENERGY
+	db 34, HORN_CHARGE
+	db 39, HARDEN
+	db 44, SLASH
+	db 48, SWORDS_DANCE
 	db 0
 
 TangelaEvosMoves:
