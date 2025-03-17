@@ -12,8 +12,8 @@ INCBIN "pic/bmon/omanyte.pic",0,1 ; 55, sprite dimensions
 dw OmanytePicFront
 dw OmanytePicBack
 ; attacks known at lvl 0
-db WATER_GUN
 db WITHDRAW
+db WATER_GUN
 db 0
 db 0
 db 0 ; growth rate
