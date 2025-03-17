@@ -13,8 +13,8 @@ dw CubonePicFront
 dw CubonePicBack
 ; attacks known at lvl 0
 db GROWL
+db TACKLE
 db BONE_CLUB
-db 0
 db 0
 db 0 ; growth rate
 ; learnset
