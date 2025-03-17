@@ -2,7 +2,7 @@ _MomWakeUpText::
 	text "MOM: Right."
 	line "10 yo boys leave"
 	cont "to fight beasts."
-	cont "It is set in stone"
+	cont "It's set in stone"
 
 	para "PROF.OAK, next"
 	line "door, is looking"
