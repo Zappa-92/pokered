@@ -783,12 +783,11 @@ MagmarEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 32, LEER
-	db 35, FLAMETHROWER
-	db 39, CONFUSE_RAY
-	db 43, FIRE_PUNCH
-	db 48, SMOKESCREEN
-	db 52, SMOG
+	db 19, SMOKESCREEN
+	db 26, FIRE_PUNCH
+	db 34, SMOG
+	db 40, SEISMIC_TOSS
+	db 54, FIRE_BLAST
 	db 0
 
 MissingNo34EvosMoves:
@@ -801,10 +800,10 @@ ElectabuzzEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 34, THUNDERSHOCK
-	db 37, SCREECH
-	db 42, THUNDERPUNCH
-	db 49, LIGHT_SCREEN
+	db 19, SCREECH
+	db 26, THUNDERPUNCH
+	db 34, LIGHT_SCREEN
+	db 40, SEISMIC_TOSS
 	db 54, THUNDER
 	db 0
 
@@ -825,11 +824,11 @@ KoffingEvosMoves:
 	db EV_LEVEL, 35, WEEZING
 	db 0
 ; Learnset
-	db 32, SLUDGE
-	db 37, SMOKESCREEN
-	db 40, SELFDESTRUCT
-	db 45, HAZE
-	db 48, EXPLOSION
+	db 22, SLUDGE
+	db 27, SMOKESCREEN
+	db 33, SELFDESTRUCT
+	db 39, HAZE
+	db 44, EXPLOSION
 	db 0
 
 MissingNo38EvosMoves:
@@ -1703,11 +1702,11 @@ WeezingEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 32, SLUDGE
-	db 39, SMOKESCREEN
-	db 43, SELFDESTRUCT
-	db 49, HAZE
-	db 53, EXPLOSION
+	db 22, SLUDGE
+	db 27, SMOKESCREEN
+	db 33, SELFDESTRUCT
+	db 43, HAZE
+	db 48, EXPLOSION
 	db 0
 
 PersianEvosMoves:
