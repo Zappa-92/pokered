@@ -1240,9 +1240,9 @@ OmanyteEvosMoves:
 	db EV_LEVEL, 40, OMASTAR
 	db 0
 ; Learnset
-	db 34, HORN_ATTACK
-	db 39, LEER
-	db 42, SPIKE_CANNON
+	db 18, HORN_ATTACK
+	db 25, LEER
+	db 35, SPIKE_CANNON
 	db 44, HORN_CHARGE
 	db 46, HYDRO_PUMP
 	db 0
@@ -1251,9 +1251,9 @@ OmastarEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 34, HORN_ATTACK
-	db 39, LEER
-	db 44, SPIKE_CANNON
+	db 31, HORN_ATTACK
+	db 25, LEER
+	db 39, SPIKE_CANNON
 	db 47, HORN_CHARGE
 	db 49, HYDRO_PUMP
 	db 0
@@ -1287,6 +1287,7 @@ EeveeEvosMoves:
 ; Learnset
 	db 27, QUICK_ATTACK
 	db 31, TAIL_WHIP
+	db 34, AGILITY
 	db 37, BITE
 	db 45, TAKE_DOWN
 	db 0
