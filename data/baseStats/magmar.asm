@@ -14,7 +14,7 @@ dw MagmarPicBack
 ; attacks known at lvl 0
 db EMBER
 db CONFUSE_RAY
-db 0
+db QUICK_ATTACK
 db 0
 db 0 ; growth rate
 ; learnset
