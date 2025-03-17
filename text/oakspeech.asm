@@ -13,6 +13,7 @@ _OakSpeechText2A::
 	line "the same #MON"
 	cont "game you know"
 	cont "but harder!"
+	prompt
 
 _OakSpeechText2B::
 	text "So prepare for"
