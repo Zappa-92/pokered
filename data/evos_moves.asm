@@ -787,8 +787,9 @@ MagmarEvosMoves:
 	db 19, SMOKESCREEN
 	db 26, FIRE_PUNCH
 	db 34, SMOG
-	db 40, SEISMIC_TOSS
-	db 54, FIRE_BLAST
+	db 39, SEISMIC_TOSS
+	db 44, AMNESIA
+	db 47, FIRE_BLAST
 	db 0
 
 MissingNo34EvosMoves:
@@ -805,6 +806,7 @@ ElectabuzzEvosMoves:
 	db 26, THUNDERPUNCH
 	db 34, LIGHT_SCREEN
 	db 40, SEISMIC_TOSS
+	db 47, DIZZY_PUNCH
 	db 54, THUNDER
 	db 0
 
