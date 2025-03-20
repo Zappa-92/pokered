@@ -1107,11 +1107,12 @@ PikachuEvosMoves:
 	db EV_ITEM, THUNDER_STONE, 1, RAICHU
 	db 0
 ; Learnset
-	db 10, THUNDER_WAVE
-	db 16, QUICK_ATTACK
-	db 24, SWIFT
-	db 31, AGILITY
-	db 41, THUNDER
+	db 12, QUICK_ATTACK
+	db 15, THUNDER_WAVE
+	db 23, SWIFT
+	db 29, THUNDERBOLT
+	db 32, AGILITY
+	db 40, THUNDER
 	db 0
 
 RaichuEvosMoves:
