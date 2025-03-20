@@ -741,9 +741,9 @@ PsyduckEvosMoves:
 ; Learnset
 	db 10, SCRATCH
 	db 16, WATER_GUN
-	db 23, TAIL_WHIP
-	db 28, DISABLE
-	db 32, CONFUSION
+	db 21, TAIL_WHIP
+	db 26, CONFUSION
+	db 30, DISABLE
 	db 38, FURY_SWIPES
 	db 44, PSYCHIC_M
 	db 52, HYDRO_PUMP
@@ -1564,9 +1564,9 @@ GolduckEvosMoves:
 	db 0
 ; Learnset
 	db 16, WATER_GUN
-	db 23, TAIL_WHIP
-	db 28, DISABLE
-	db 32, CONFUSION
+	db 21, TAIL_WHIP
+	db 26, CONFUSION
+	db 30, DISABLE
 	db 44, FURY_SWIPES
 	db 50, PSYCHIC_M
 	db 57, HYDRO_PUMP
