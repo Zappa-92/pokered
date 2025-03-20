@@ -993,10 +993,13 @@ JynxEvosMoves:
 ; Learnset
 	db 18, LICK
 	db 23, DOUBLESLAP
-	db 31, ICE_PUNCH
-	db 39, BODY_SLAM
-	db 47, THRASH
-	db 58, BLIZZARD
+	db 29, ICE_PUNCH
+	db 32, CONFUSION
+	db 35, BODY_SLAM
+	db 38, LOVELY_KISS
+	db 41, THRASH
+	db 44, BLIZZARD
+	db 48, PSYBEAM
 	db 0
 
 MoltresEvosMoves:
