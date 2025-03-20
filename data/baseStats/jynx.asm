@@ -1,7 +1,7 @@
 db DEX_JYNX ; pokedex id
-db 75 ; base hp
+db 85 ; base hp
 db 65 ; base attack
-db 65 ; base defense
+db 80 ; base defense
 db 95 ; base speed
 db 95 ; base special
 db ICE ; species type 1
