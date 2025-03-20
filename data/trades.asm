@@ -3,7 +3,7 @@ TradeMons:
 	db CLEFAIRY,  PSYDUCK,  0,"CUACKI@@@@@"
 	db PARASECT,  HAUNTER,  0,"HUNT@@@@@@@"
 	db CHARMANDER,CHANSEY,  2,"EGGHEAD@@@@"
-	db POLIWAG,   KADABRA,  0,"BRANIAC@@@@"
+	db POLIWHIRL, KADABRA,  0,"BRANIAC@@@@"
 	db PARASECT,  MACHOKE,  2,"CHAD@@@@@@@"
 	db VULPIX,    LICKITUNG,0,"KISS@@@@@@@"
 	db GOLBAT,    JYNX,     1,"LOLA@@@@@@@"
