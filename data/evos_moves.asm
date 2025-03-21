@@ -986,7 +986,7 @@ PoliwagEvosMoves:
 	db 25, DOUBLESLAP
 	db 31, BODY_SLAM
 	db 38, AMNESIA
-	db 45, HYDRO_PUMP
+	db 43, HYDRO_PUMP
 	db 0
 
 JynxEvosMoves:
@@ -1304,12 +1304,11 @@ FlareonEvosMoves:
 ; Learnset
 	db 27, QUICK_ATTACK
 	db 31, EMBER
-	db 37, TAIL_WHIP
+	db 37, FIRE_SPIN
 	db 40, BITE
 	db 42, LEER
 	db 44, FLAMETHROWER
-	db 46, FIRE_SPIN
-	db 48, RAGE
+	db 48, SMOG
 	db 54, FIRE_BLAST
 	db 0
 
@@ -1319,10 +1318,11 @@ JolteonEvosMoves:
 ; Learnset
 	db 27, QUICK_ATTACK
 	db 31, THUNDERSHOCK
-	db 37, TAIL_WHIP
-	db 40, THUNDER_WAVE
-	db 42, DOUBLE_KICK
-	db 44, THUNDERBOLT
+	db 35, TAIL_WHIP
+	db 38, THUNDER_WAVE
+	db 40, BITE
+	db 42, THUNDERBOLT
+	db 44, DOUBLE_KICK
 	db 46, AGILITY
 	db 48, PIN_MISSILE
 	db 54, THUNDER
@@ -1336,11 +1336,11 @@ VaporeonEvosMoves:
 	db 31, WATER_GUN
 	db 37, TAIL_WHIP
 	db 40, BITE
-	db 42, ACID_ARMOR
+	db 42, MIST
 	db 44, BUBBLEBEAM
 	db 46, HAZE
 	db 47, AURORA_BEAM
-	db 48, MIST
+	db 48, ACID_ARMOR
 	db 54, HYDRO_PUMP
 	db 0
 
@@ -1404,7 +1404,7 @@ PoliwhirlEvosMoves:
 	db 26, DOUBLESLAP
 	db 33, BODY_SLAM
 	db 41, AMNESIA
-	db 49, HYDRO_PUMP
+	db 48, HYDRO_PUMP
 	db 0
 
 PoliwrathEvosMoves:
@@ -1413,9 +1413,11 @@ PoliwrathEvosMoves:
 ; Learnset
 	db 16, HYPNOSIS
 	db 19, WATER_GUN
+	db 31, KARATE_CHOP
 	db 37, BODY_SLAM
 	db 45, AMNESIA
-	db 54, HYDRO_PUMP
+	db 53, HYDRO_PUMP
+	db 64, SEISMIC_TOSS
 	db 0
 
 WeedleEvosMoves:
