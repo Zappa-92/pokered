@@ -519,7 +519,7 @@ RocketData:
 	db 18,POLIWAG,EKANS,0
 	db 21,RATICATE,0
 ; Cerulean City
-	db 28,MACHOP,NIDORINO,0
+	db 23,MACHOP,NIDORINO,0
 ; Route 24
 	db 27,BEEDRILL,VULPIX,0
 ; Game Corner
