@@ -1062,6 +1062,7 @@ KrabbyEvosMoves:
 	db 30, GUILLOTINE
 	db 35, CRABHAMMER
 	db 40, HARDEN
+	db 58, HYPER_BEAM
 	db 0
 
 MissingNo4FEvosMoves:
@@ -1671,6 +1672,7 @@ KinglerEvosMoves:
 	db 32, GUILLOTINE
 	db 39, CRABHAMMER
 	db 45, HARDEN
+	db 63, HYPER_BEAM
 	db 0
 
 CloysterEvosMoves:
