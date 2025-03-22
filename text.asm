@@ -571,25 +571,25 @@ _CinnabarGymQuizIntroText::
 	prompt
 
 _CinnabarQuizQuestionsText1::
-	text "CATERPIE evolves"
-	line "into BUTTERFREE?"
+	text "GEODUDE evolves"
+	line "into GOLEM?"
 	done
 
 _CinnabarQuizQuestionsText2::
-	text "There are 9"
-	line "certified #MON"
-	cont "LEAGUE BADGEs?"
+	text "SABRINA is"
+	line "Fuchsia's GYM"
+	cont "leader?"
 	done
 
 _CinnabarQuizQuestionsText3::
-	text "POLIWAG evolves 3"
-	line "times?"
+	text "CUBONE evolves"
+	line "2 times?"
 	done
 
 _CinnabarQuizQuestionsText4::
-	text "Are thunder moves"
+	text "Are BUG moves"
 	line "effective against"
-	cont "ground element-"
+	cont "Flying bird-"
 	cont "type #MON?"
 	done
 
@@ -601,8 +601,8 @@ _CinnabarQuizQuestionsText5::
 	done
 
 _CinnabarQuizQuestionsText6::
-	text "TM28 contains"
-	line "TOMBSTONER?"
+	text "TM08 contains"
+	line "COUNTER?"
 	done
 
 _CinnabarGymQuizCorrectText::
@@ -805,7 +805,7 @@ _IndigoPlateauHQText::
 
 _RedBedroomSNESText::
 	text "<PLAYER> is"
-	line "playing the SNES!"
+	line "playing STADIUM!"
 	cont "...Okay!"
 	cont "It's time to go!"
 	done
@@ -1027,7 +1027,8 @@ _PokemonBooksText::
 
 _DiglettSculptureText::
 	text "It's a sculpture"
-	line "of DIGLETT."
+	line "of a mythical"
+	cont "#MON"
 	done
 
 _ElevatorText::
@@ -3146,7 +3147,7 @@ _AfterTrade2Text::
 	text " you"
 	line "traded to me"
 
-	para "went and evolved!"
+	para "is incredible!"
 	done
 
 _WannaTrade3Text::
