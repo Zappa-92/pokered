@@ -1249,9 +1249,9 @@ OmanyteEvosMoves:
 ; Learnset
 	db 18, HORN_ATTACK
 	db 25, LEER
-	db 35, SPIKE_CANNON
-	db 44, HORN_CHARGE
-	db 46, HYDRO_PUMP
+	db 31, SPIKE_CANNON
+	db 41, HORN_CHARGE
+	db 45, HYDRO_PUMP
 	db 0
 
 OmastarEvosMoves:
@@ -1260,9 +1260,9 @@ OmastarEvosMoves:
 ; Learnset
 	db 31, HORN_ATTACK
 	db 25, LEER
-	db 39, SPIKE_CANNON
-	db 47, HORN_CHARGE
-	db 49, HYDRO_PUMP
+	db 31, SPIKE_CANNON
+	db 45, HORN_CHARGE
+	db 50, HYDRO_PUMP
 	db 0
 
 JigglypuffEvosMoves:
