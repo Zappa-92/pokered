@@ -266,8 +266,9 @@ VoltorbEvosMoves:
 	db 22, SELFDESTRUCT
 	db 25, THUNDERSHOCK
 	db 29, LIGHT_SCREEN
-	db 36, SWIFT
-	db 43, EXPLOSION
+	db 33, SWIFT
+	db 39, EXPLOSION
+	db 44, THUNDER
 	db 0
 
 NidokingEvosMoves:
@@ -821,12 +822,14 @@ MagnetonEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 21, SONICBOOM
-	db 25, THUNDERSHOCK
-	db 29, SUPERSONIC
-	db 38, THUNDER_WAVE
-	db 46, SWIFT
-	db 54, SCREECH
+	db 21, THUNDERSHOCK
+	db 25, SONICBOOM
+	db 31, THUNDER_WAVE
+	db 35, SUPERSONIC
+	db 40, THUNDERBOLT
+	db 45, SWIFT
+	db 49, SCREECH
+	db 53, THUNDER
 	db 0
 
 KoffingEvosMoves:
@@ -1127,6 +1130,7 @@ RaichuEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
+	db 60, THUNDER
 	db 0
 
 MissingNo56EvosMoves:
@@ -1704,8 +1708,9 @@ ElectrodeEvosMoves:
 	db 22, SELFDESTRUCT
 	db 25, THUNDERSHOCK
 	db 29, LIGHT_SCREEN
-	db 40, SWIFT
-	db 50, EXPLOSION
+	db 37, SWIFT
+	db 44, EXPLOSION
+	db 49, THUNDER
 	db 0
 
 ClefableEvosMoves:
@@ -2040,13 +2045,14 @@ MagnemiteEvosMoves:
 	db EV_LEVEL, 30, MAGNETON
 	db 0
 ; Learnset
-	db 21, SONICBOOM
-	db 25, THUNDERSHOCK
-	db 29, SUPERSONIC
-	db 33, THUNDER_WAVE
+	db 21, THUNDERSHOCK
+	db 25, SONICBOOM
+	db 31, THUNDER_WAVE
+	db 33, SUPERSONIC
 	db 37, THUNDERBOLT
 	db 41, SWIFT
-	db 47, SCREECH
+	db 44, SCREECH
+	db 48, THUNDER
 	db 0
 
 MissingNoAEEvosMoves:
