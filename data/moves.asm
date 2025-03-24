@@ -57,10 +57,10 @@ MoveEnd:
 	move BITE,         FLINCH_SIDE_EFFECT1,         42, NORMAL,   100, 15
 	move GROWL,        ATTACK_DOWN1_EFFECT,          0, NORMAL,   100, 40
 	move ROAR,         SWITCH_AND_TELEPORT_EFFECT,   0, NORMAL,   100, 20
-	move SING,         SLEEP_EFFECT,                 0, NORMAL,    65, 15
+	move SING,         SLEEP_EFFECT,                 0, NORMAL,    75, 15
 	move SUPERSONIC,   CONFUSION_EFFECT,             0, NORMAL,   100, 10
 	move SONICBOOM,    SPECIAL_DAMAGE_EFFECT,        1, NORMAL,    95, 15
-	move DISABLE,      DISABLE_EFFECT,               0, NORMAL,    55, 20
+	move DISABLE,      DISABLE_EFFECT,               0, NORMAL,    80, 20
 	move ACID,         DEFENSE_DOWN_SIDE_EFFECT,    28, POISON,   100, 25
 	move EMBER,        BURN_SIDE_EFFECT1,           28, FIRE,     100, 25
 	move FLAMETHROWER, BURN_SIDE_EFFECT1,           49, FIRE,     100, 15
@@ -87,7 +87,7 @@ MoveEnd:
 	move GROWTH,       SPECIAL_UP1_EFFECT,           0, NORMAL,   100, 40
 	move RAZOR_LEAF,   NO_ADDITIONAL_EFFECT,        39, GRASS,     95, 25
 	move SOLARBEAM,    CHARGE_EFFECT,               84, GRASS,    100, 10
-	move POISONPOWDER, POISON_EFFECT,                0, POISON,    75, 35
+	move POISONPOWDER, POISON_EFFECT,                0, POISON,    75, 30
 	move STUN_SPORE,   PARALYZE_EFFECT,              0, GRASS,     75, 30
 	move SLEEP_POWDER, SLEEP_EFFECT,                 0, GRASS,     75, 15
 	move PETAL_DANCE,  THRASH_PETAL_DANCE_EFFECT,   49, GRASS,    100, 20
@@ -105,7 +105,7 @@ MoveEnd:
 	move TOXIC,        POISON_EFFECT,                0, POISON,    85, 10
 	move CONFUSION,    CONFUSION_SIDE_EFFECT,       35, PSYCHIC,  100, 25
 	move PSYCHIC_M,    SPECIAL_DOWN_SIDE_EFFECT,    56, PSYCHIC,  100, 10
-	move HYPNOSIS,     SLEEP_EFFECT,                 0, PSYCHIC,   70, 20
+	move HYPNOSIS,     SLEEP_EFFECT,                 0, PSYCHIC,   75, 20
 	move MEDITATE,     ATTACK_UP1_EFFECT,            0, PSYCHIC,  100, 40
 	move AGILITY,      SPEED_UP2_EFFECT,             0, PSYCHIC,  100, 30
 	move QUICK_ATTACK, NO_ADDITIONAL_EFFECT,        28, NORMAL,   100, 30
@@ -149,7 +149,7 @@ MoveEnd:
 	move HI_JUMP_KICK, JUMP_KICK_EFFECT,            60, FIGHTING,  90, 20
 	move GLARE,        PARALYZE_EFFECT,              0, NORMAL,    75, 30
 	move DREAM_EATER,  DREAM_EATER_EFFECT,          49, PSYCHIC,  100, 15
-	move POISON_GAS,   POISON_EFFECT,                0, POISON,    55, 40
+	move POISON_GAS,   POISON_EFFECT,                0, POISON,    75, 30
 	move BARRAGE,      TWO_TO_FIVE_ATTACKS_EFFECT,  11, NORMAL,    85, 20
 	move LEECH_LIFE,   DRAIN_HP_EFFECT,             21, BUG,      100, 15
 	move LOVELY_KISS,  SLEEP_EFFECT,                 0, NORMAL,    75, 10
