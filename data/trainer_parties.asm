@@ -502,7 +502,7 @@ ScientistData:
 ; Mansion 3F
 	db 50,RAICHU,MAGNETON,VOLTORB,0
 ; Mansion B1F
-	db 51,PORYGON,ELECTRODE,0
+	db 48,PORYGON,ELECTRODE,0
 GiovanniData:
 ; Rocket Hideout B4F
 	db $FF,37,ONIX,35,RHYHORN,39,KANGASKHAN,0
