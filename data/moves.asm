@@ -58,8 +58,8 @@ MoveEnd:
 	move GROWL,        ATTACK_DOWN1_EFFECT,          0, NORMAL,   100, 40
 	move ROAR,         SWITCH_AND_TELEPORT_EFFECT,   0, NORMAL,   100, 20
 	move SING,         SLEEP_EFFECT,                 0, NORMAL,    65, 15
-	move SUPERSONIC,   CONFUSION_EFFECT,             0, NORMAL,    55, 20
-	move SONICBOOM,    SPECIAL_DAMAGE_EFFECT,        1, NORMAL,    90, 20
+	move SUPERSONIC,   CONFUSION_EFFECT,             0, NORMAL,   100, 10
+	move SONICBOOM,    SPECIAL_DAMAGE_EFFECT,        1, NORMAL,    95, 15
 	move DISABLE,      DISABLE_EFFECT,               0, NORMAL,    55, 20
 	move ACID,         DEFENSE_DOWN_SIDE_EFFECT,    28, POISON,   100, 25
 	move EMBER,        BURN_SIDE_EFFECT1,           28, FIRE,     100, 25
