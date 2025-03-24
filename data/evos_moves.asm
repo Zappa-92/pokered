@@ -550,12 +550,14 @@ TangelaEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 29, ABSORB
-	db 32, POISONPOWDER
-	db 36, STUN_SPORE
-	db 39, SLEEP_POWDER
-	db 45, SLAM
-	db 49, GROWTH
+	db 18, ABSORB
+	db 22, POISONPOWDER
+	db 25, STUN_SPORE
+	db 28, VINE_WHIP
+	db 31, SLEEP_POWDER
+	db 34, SLAM
+	db 43, GROWTH
+	db 48, MEGA_DRAIN
 	db 0
 
 MissingNo1FEvosMoves:
@@ -736,9 +738,9 @@ ParasectEvosMoves:
 	db 13, STUN_SPORE
 	db 20, LEECH_LIFE
 	db 30, SPORE
-	db 39, SLASH
-	db 48, GROWTH
-	db 53, SCYTHE_SWORD
+	db 37, SLASH
+	db 43, GROWTH
+	db 48, SCYTHE_SWORD
 	db 0
 
 PsyduckEvosMoves:
@@ -1401,9 +1403,9 @@ ParasEvosMoves:
 	db 13, STUN_SPORE
 	db 20, LEECH_LIFE
 	db 27, SPORE
-	db 34, SLASH
-	db 41, GROWTH
-	db 45, SCYTHE_SWORD
+	db 32, SLASH
+	db 37, GROWTH
+	db 41, SCYTHE_SWORD
 	db 0
 
 PoliwhirlEvosMoves:
@@ -2168,7 +2170,7 @@ OddishEvosMoves:
 	db 19, SLEEP_POWDER
 	db 24, ACID
 	db 33, PETAL_DANCE
-	db 46, SOLARBEAM
+	db 45, SOLARBEAM
 	db 0
 
 GloomEvosMoves:
@@ -2180,7 +2182,7 @@ GloomEvosMoves:
 	db 17, STUN_SPORE
 	db 19, SLEEP_POWDER
 	db 28, ACID
-	db 38, PETAL_DANCE
+	db 37, PETAL_DANCE
 	db 52, SOLARBEAM
 	db 0
 
@@ -2188,10 +2190,11 @@ VileplumeEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 15, ACID
+	db 15, SLEEP_POWDER
 	db 17, STUN_SPORE
-	db 19, SLEEP_POWDER
-	db 38, PETAL_DANCE
+	db 19, ACID
+	db 37, PETAL_DANCE
+	db 60, SOLARBEAM
 	db 0
 
 BellsproutEvosMoves:
@@ -2203,9 +2206,9 @@ BellsproutEvosMoves:
 	db 15, POISONPOWDER
 	db 18, SLEEP_POWDER
 	db 21, STUN_SPORE
-	db 26, ACID
-	db 33, RAZOR_LEAF
-	db 42, SLAM
+	db 24, ACID
+	db 27, RAZOR_LEAF
+	db 33, SLAM
 	db 0
 
 WeepinbellEvosMoves:
@@ -2217,17 +2220,19 @@ WeepinbellEvosMoves:
 	db 15, POISONPOWDER
 	db 18, SLEEP_POWDER
 	db 23, STUN_SPORE
-	db 29, ACID
-	db 38, RAZOR_LEAF
-	db 49, SLAM
+	db 27, ACID
+	db 31, RAZOR_LEAF
+	db 37, SLAM
 	db 0
 
 VictreebelEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 13, SLAM
 	db 15, POISONPOWDER
-	db 18, ACID
-	db 38, RAZOR_LEAF
+	db 21, RAZOR_LEAF
+	db 26, STUN_SPORE
+	db 31, ACID
+	db 41, SLAM
+	db 60, PETAL_DANCE
 	db 0
