@@ -197,12 +197,13 @@ RhydonEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 30, STOMP
-	db 35, TAIL_WHIP
-	db 40, FURY_ATTACK
-	db 48, HORN_DRILL
-	db 55, HORN_CHARGE
-	db 64, TAKE_DOWN
+	db 26, STOMP
+	db 29, TAIL_WHIP
+	db 32, FURY_ATTACK
+	db 36, ROCK_SLIDE
+	db 40, TAKE_DOWN
+	db 46, HORN_CHARGE
+	db 52, HORN_DRILL
 	db 0
 
 KangaskhanEvosMoves:
@@ -404,12 +405,13 @@ RhyhornEvosMoves:
 	db EV_LEVEL, 42, RHYDON
 	db 0
 ; Learnset
-	db 25, STOMP
-	db 31, TAIL_WHIP
-	db 37, FURY_ATTACK
-	db 45, HORN_DRILL
-	db 50, HORN_CHARGE
-	db 55, TAKE_DOWN
+	db 26, STOMP
+	db 29, TAIL_WHIP
+	db 32, FURY_ATTACK
+	db 35, ROCK_SLIDE
+	db 39, TAKE_DOWN
+	db 43, HORN_CHARGE
+	db 48, HORN_DRILL
 	db 0
 
 LaprasEvosMoves:
@@ -586,8 +588,11 @@ OnixEvosMoves:
 	db 15, BIND
 	db 19, ROCK_THROW
 	db 25, RAGE
-	db 33, SLAM
-	db 43, HARDEN
+	db 29, DIG
+	db 35, SLAM
+	db 38, HARDEN
+	db 45, ROCK_SLIDE
+	db 50, EARTHQUAKE
 	db 0
 
 FearowEvosMoves:
@@ -650,7 +655,8 @@ GravelerEvosMoves:
 	db 21, SELFDESTRUCT
 	db 29, HARDEN
 	db 36, EARTHQUAKE
-	db 43, EXPLOSION
+	db 40, ROCK_SLIDE
+	db 44, EXPLOSION
 	db 0
 
 ChanseyEvosMoves:
@@ -771,7 +777,8 @@ GolemEvosMoves:
 	db 21, SELFDESTRUCT
 	db 29, HARDEN
 	db 36, EARTHQUAKE
-	db 43, EXPLOSION
+	db 40, ROCK_SLIDE
+	db 44, EXPLOSION
 	db 0
 
 MissingNo32EvosMoves:
@@ -1166,10 +1173,10 @@ KabutoEvosMoves:
 	db 0
 ; Learnset
 	db 15, ABSORB
-	db 35, SLASH
-	db 40, LEER
-	db 45, SCYTHE_SWORD
-	db 49, HYDRO_PUMP
+	db 32, SLASH
+	db 36, LEER
+	db 41, SCYTHE_SWORD
+	db 45, HYDRO_PUMP
 	db 0
 
 KabutopsEvosMoves:
@@ -1177,10 +1184,10 @@ KabutopsEvosMoves:
 	db 0
 ; Learnset
 	db 15, ABSORB
-	db 35, SLASH
-	db 43, LEER
-	db 49, SCYTHE_SWORD
-	db 53, HYDRO_PUMP
+	db 32, SLASH
+	db 36, LEER
+	db 43, SCYTHE_SWORD
+	db 49, HYDRO_PUMP
 	db 0
 
 HorseaEvosMoves:
@@ -1993,7 +2000,8 @@ GeodudeEvosMoves:
 	db 21, SELFDESTRUCT
 	db 26, HARDEN
 	db 31, EARTHQUAKE
-	db 36, EXPLOSION
+	db 35, ROCK_SLIDE
+	db 39, EXPLOSION
 	db 0
 
 PorygonEvosMoves:
@@ -2014,9 +2022,9 @@ AerodactylEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 33, BITE
-	db 37, SUPERSONIC
-	db 41, ROCK_THROW
+	db 32, BITE
+	db 35, SUPERSONIC
+	db 41, ROCK_SLIDE
 	db 45, TAKE_DOWN
 	db 54, HYPER_BEAM
 	db 0
