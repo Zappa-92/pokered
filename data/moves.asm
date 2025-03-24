@@ -31,7 +31,7 @@ MoveEnd:
 	move WHIRLWIND,    SWITCH_AND_TELEPORT_EFFECT,   0, NORMAL,    85, 20
 	move FLY,          FLY_EFFECT,                  49, FLYING,    95, 15
 	move BIND,         TRAPPING_EFFECT,             11, NORMAL,    75, 20
-	move SLAM,         NO_ADDITIONAL_EFFECT,        56, NORMAL,    85, 20
+	move SLAM,         NO_ADDITIONAL_EFFECT,        56, NORMAL,    90, 15
 	move VINE_WHIP,    NO_ADDITIONAL_EFFECT,        25, GRASS,    100, 10
 	move STOMP,        FLINCH_SIDE_EFFECT2,         49, NORMAL,    90, 20
 	move DOUBLE_KICK,  ATTACK_TWICE_EFFECT,         21, FIGHTING, 100, 25
@@ -52,7 +52,7 @@ MoveEnd:
 	move TAIL_WHIP,    DEFENSE_DOWN1_EFFECT,         0, NORMAL,   100, 30
 	move POISON_STING, POISON_SIDE_EFFECT1,         11, POISON,   100, 35
 	move TWINEEDLE,    TWINEEDLE_EFFECT,            28, BUG,      100, 20
-	move PIN_MISSILE,  TWO_TO_FIVE_ATTACKS_EFFECT,  14, BUG,       95, 20
+	move PIN_MISSILE,  TWO_TO_FIVE_ATTACKS_EFFECT,  14, BUG,      100, 20
 	move LEER,         DEFENSE_DOWN1_EFFECT,         0, NORMAL,   100, 30
 	move BITE,         FLINCH_SIDE_EFFECT1,         42, NORMAL,   100, 15
 	move GROWL,        ATTACK_DOWN1_EFFECT,          0, NORMAL,   100, 40
