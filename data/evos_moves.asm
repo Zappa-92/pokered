@@ -653,7 +653,8 @@ KadabraEvosMoves:
 	db 16, CONFUSION
 	db 20, DISABLE
 	db 27, PSYBEAM
-	db 31, RECOVER
+	db 31, KINESIS
+	db 33, RECOVER
 	db 38, PSYCHIC_M
 	db 42, REFLECT
 	db 0
@@ -1819,7 +1820,8 @@ AlakazamEvosMoves:
 	db 16, CONFUSION
 	db 20, DISABLE
 	db 27, PSYBEAM
-	db 31, RECOVER
+	db 31, KINESIS
+	db 33, RECOVER
 	db 38, PSYCHIC_M
 	db 42, REFLECT
 	db 0
