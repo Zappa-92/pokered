@@ -16,14 +16,14 @@ MoveEnd:
 	move DOUBLESLAP,   TWO_TO_FIVE_ATTACKS_EFFECT,  12, NORMAL,    85, 10
 	move COMET_PUNCH,  TWO_TO_FIVE_ATTACKS_EFFECT,  13, NORMAL,    85, 15
 	move MEGA_PUNCH,   NO_ADDITIONAL_EFFECT,        49, NORMAL,    90, 15
-	move PAY_DAY,      PAY_DAY_EFFECT,              28, NORMAL,   100, 20
+	move PAY_DAY,      PAY_DAY_EFFECT,              42, NORMAL,   100, 15
 	move FIRE_PUNCH,   BURN_SIDE_EFFECT1,           42, FIRE,      95, 15
 	move ICE_PUNCH,    FREEZE_SIDE_EFFECT,          42, ICE,       95, 15
 	move THUNDERPUNCH, PARALYZE_SIDE_EFFECT1,       42, ELECTRIC,  95, 15
 	move SCRATCH,      NO_ADDITIONAL_EFFECT,        28, NORMAL,   100, 35
 	move VICEGRIP,     NO_ADDITIONAL_EFFECT,        39, NORMAL,   100, 25
 	move GUILLOTINE,   OHKO_EFFECT,                  1, NORMAL,    30,  5
-	move RAZOR_WIND,   CHARGE_EFFECT,               56, FLYING,    95, 10
+	move RAZOR_WIND,   CHARGE_EFFECT,               56, FLYING,   100, 10
 	move SWORDS_DANCE, ATTACK_UP2_EFFECT,            0, NORMAL,   100, 30
 	move CUT,          NO_ADDITIONAL_EFFECT,        35, NORMAL,    95, 30
 	move GUST,         NO_ADDITIONAL_EFFECT,        21, FLYING,   100, 35
@@ -140,7 +140,7 @@ MoveEnd:
 	move WATERFALL,    NO_ADDITIONAL_EFFECT,        56, WATER,    100, 15
 	move CLAMP,        TRAPPING_EFFECT,             25, WATER,     75, 10
 	move SWIFT,        SWIFT_EFFECT,                42, NORMAL,   100, 20
-	move SKULL_BASH,   CHARGE_EFFECT,               70, NORMAL,   100, 15
+	move SKULL_BASH,   CHARGE_EFFECT,               70, NORMAL,   100, 10
 	move SPIKE_CANNON, TWO_TO_FIVE_ATTACKS_EFFECT,  14, NORMAL,   100, 15
 	move CONSTRICT,    SPEED_DOWN_SIDE_EFFECT,       7, NORMAL,   100, 35
 	move AMNESIA,      SPECIAL_UP2_EFFECT,           0, PSYCHIC,  100, 20
@@ -153,7 +153,7 @@ MoveEnd:
 	move BARRAGE,      TWO_TO_FIVE_ATTACKS_EFFECT,  11, NORMAL,    85, 20
 	move LEECH_LIFE,   DRAIN_HP_EFFECT,             21, BUG,      100, 15
 	move LOVELY_KISS,  SLEEP_EFFECT,                 0, NORMAL,    75, 10
-	move SKY_ATTACK,   CHARGE_EFFECT,               70, FLYING,    90,  5
+	move SKY_ATTACK,   CHARGE_EFFECT,               70, FLYING,    95, 10
 	move TRANSFORM,    TRANSFORM_EFFECT,             0, NORMAL,   100, 10
 	move BUBBLE,       SPEED_DOWN_SIDE_EFFECT,      14, WATER,    100, 30
 	move DIZZY_PUNCH,  CONFUSION_SIDE_EFFECT,       49, NORMAL,   100, 10
@@ -179,6 +179,6 @@ MoveEnd:
 	move SHADOW_THIEF, SPECIAL_DOWN_SIDE_EFFECT,    42, GHOST,     95, 15
 	move SLAYER,       DEFENSE_DOWN_SIDE_EFFECT,    35, DRAGON,    95, 20
 	move DRAGON_ANGER, NO_ADDITIONAL_EFFECT,        56, DRAGON,    85, 10
-	move HORN_CHARGE,  CHARGE_EFFECT,               70, BUG,       95, 10
+	move HORN_CHARGE,  CHARGE_EFFECT,               70, BUG,       95,  5
 	move STRUGGLE,     RECOIL_EFFECT,               35, NORMAL,   100, 10
 
