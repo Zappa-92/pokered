@@ -276,9 +276,12 @@ NidokingEvosMoves:
 	db 0
 ; Learnset
 	db 8, HORN_ATTACK
-	db 14, POISON_STING
+	db 10, POISON_STING
+	db 15, DIG
 	db 23, THRASH
+	db 50, DOUBLE_KICK
 	db 55, HORN_CHARGE
+	DB 65, EARTHQUAKE
 	db 0
 
 SlowbroEvosMoves:
@@ -286,12 +289,13 @@ SlowbroEvosMoves:
 	db 0
 ; Learnset
 	db 18, DISABLE
-	db 22, HEADBUTT
-	db 27, GROWL
-	db 33, WATER_GUN
+	db 21, HEADBUTT
+	db 25, GROWL
+	db 29, PSYBEAM
+	db 33, BUBBLEBEAM
 	db 37, WITHDRAW
-	db 44, AMNESIA
-	db 55, PSYCHIC_M
+	db 42, AMNESIA
+	db 53, PSYCHIC_M
 	db 0
 
 IvysaurEvosMoves:
@@ -353,8 +357,9 @@ GrimerEvosMoves:
 	db 17, HARDEN
 	db 23, MINIMIZE
 	db 25, SLUDGE
-	db 33, SCREECH
-	db 40, ACID_ARMOR
+	db 30, SCREECH
+	db 37, ACID_ARMOR
+	db 44, BODY_SLAM
 	db 0
 
 GengarEvosMoves:
@@ -386,6 +391,8 @@ NidoqueenEvosMoves:
 	db 8, SCRATCH
 	db 14, POISON_STING
 	db 23, BODY_SLAM
+	db 27, DIG
+	db 55, SUBMISSION
 	db 0
 
 CuboneEvosMoves:
@@ -399,6 +406,7 @@ CuboneEvosMoves:
 	db 28, RAGE
 	db 35, THRASH
 	db 41, BONEMERANG
+	db 50, SKULL_BASH
 	db 0
 
 RhyhornEvosMoves:
@@ -628,9 +636,11 @@ SlowpokeEvosMoves:
 	db 0
 ; Learnset
 	db 18, DISABLE
-	db 22, HEADBUTT
-	db 27, GROWL
-	db 33, WATER_GUN
+	db 21, HEADBUTT
+	db 25, GROWL
+	db 29, PSYBEAM
+	db 33, BUBBLEBEAM
+	db 37, WITHDRAW
 	db 40, AMNESIA
 	db 48, PSYCHIC_M
 	db 0
@@ -726,9 +736,10 @@ ArbokEvosMoves:
 ; Learnset
 	db 10, POISON_STING
 	db 17, BITE
-	db 27, GLARE
-	db 36, SCREECH
-	db 47, ACID
+	db 26, GLARE
+	db 34, SCREECH
+	db 42, ACID
+	db 55, EARTHQUAKE
 	db 0
 
 ParasectEvosMoves:
@@ -839,11 +850,11 @@ KoffingEvosMoves:
 	db EV_LEVEL, 35, WEEZING
 	db 0
 ; Learnset
-	db 22, SLUDGE
-	db 27, SMOKESCREEN
-	db 33, SELFDESTRUCT
-	db 39, HAZE
-	db 44, EXPLOSION
+	db 23, SELFDESTRUCT
+	db 25, SMOKESCREEN
+	db 27, SLUDGE
+	db 31, HAZE
+	db 36, EXPLOSION
 	db 0
 
 MissingNo38EvosMoves:
@@ -887,6 +898,7 @@ DiglettEvosMoves:
 	db 24, SAND_ATTACK
 	db 31, SLASH
 	db 40, EARTHQUAKE
+	db 50, FISSURE
 	db 0
 
 TaurosEvosMoves:
@@ -937,11 +949,13 @@ VenonatEvosMoves:
 	db EV_LEVEL, 31, VENOMOTH
 	db 0
 ; Learnset
-	db 24, POISONPOWDER
-	db 27, LEECH_LIFE
-	db 30, STUN_SPORE
-	db 35, PSYBEAM
-	db 38, SLEEP_POWDER
+	db 21, POISONPOWDER
+	db 24, LEECH_LIFE
+	db 27, STUN_SPORE
+	db 31, PSYBEAM
+	db 35, ACID
+	db 38, SCYTHE_SWORD
+	db 40, SLEEP_POWDER
 	db 43, PSYCHIC_M
 	db 0
 
@@ -1237,22 +1251,27 @@ SandshrewEvosMoves:
 	db 0
 ; Learnset
 	db 10, SAND_ATTACK
-	db 24, POISON_STING
+	db 23, POISON_STING
 	db 28, SWIFT
-	db 31, SLASH
-	db 38, FURY_SWIPES
+	db 30, FURY_SWIPES
+	db 33, DIG
+	db 38, SLASH
 	db 42, SLAYER
+	db 50, EARTHQUAKE
 	db 0
 
 SandslashEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 27, POISON_STING
-	db 33, SWIFT
-	db 35, SLASH
-	db 42, FURY_SWIPES
+	db 25, POISON_STING
+	db 31, SWIFT
+	db 33, FURY_SWIPES
+	db 36, DIG
+	db 39, SAND_ATTACK
+	db 42, SLASH
 	db 45, SLAYER
+	db 55, EARTHQUAKE
 	db 0
 
 OmanyteEvosMoves:
@@ -1379,8 +1398,10 @@ ZubatEvosMoves:
 	db 10, SUPERSONIC
 	db 15, BITE
 	db 21, CONFUSE_RAY
-	db 28, WING_ATTACK
-	db 36, HAZE
+	db 26, WING_ATTACK
+	db 31, TOXIC
+	db 34, HAZE
+	db 47, HYPER_BEAM
 	db 0
 
 EkansEvosMoves:
@@ -1393,6 +1414,7 @@ EkansEvosMoves:
 	db 24, GLARE
 	db 31, SCREECH
 	db 38, ACID
+	db 49, EARTHQUAKE
 	db 0
 
 ParasEvosMoves:
@@ -1497,20 +1519,23 @@ DugtrioEvosMoves:
 	db 15, GROWL
 	db 19, DIG
 	db 24, SAND_ATTACK
-	db 35, SLASH
-	db 47, EARTHQUAKE
+	db 34, SLASH
+	db 44, EARTHQUAKE
+	db 55, FISSURE
 	db 0
 
 VenomothEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 24, POISONPOWDER
-	db 27, LEECH_LIFE
-	db 30, STUN_SPORE
-	db 38, PSYBEAM
-	db 43, SLEEP_POWDER
-	db 50, PSYCHIC_M
+	db 21, POISONPOWDER
+	db 24, LEECH_LIFE
+	db 27, STUN_SPORE
+	db 31, PSYBEAM
+	db 37, ACID
+	db 41, SCYTHE_SWORD
+	db 44, SLEEP_POWDER
+	db 47, PSYCHIC_M
 	db 0
 
 DewgongEvosMoves:
@@ -1613,8 +1638,10 @@ GolbatEvosMoves:
 	db 10, SUPERSONIC
 	db 15, BITE
 	db 21, CONFUSE_RAY
-	db 32, WING_ATTACK
-	db 43, HAZE
+	db 29, WING_ATTACK
+	db 35, TOXIC
+	db 39, HAZE
+	db 53, HYPER_BEAM
 	db 0
 
 MewtwoEvosMoves:
@@ -1666,8 +1693,9 @@ MukEvosMoves:
 	db 17, HARDEN
 	db 23, MINIMIZE
 	db 25, SLUDGE
-	db 38, SCREECH
-	db 45, ACID_ARMOR
+	db 30, SCREECH
+	db 37, ACID_ARMOR
+	db 47, BODY_SLAM
 	db 0
 
 MissingNo8AEvosMoves:
@@ -1729,11 +1757,11 @@ WeezingEvosMoves:
 ; Evolutions
 	db 0
 ; Learnset
-	db 22, SLUDGE
-	db 27, SMOKESCREEN
-	db 33, SELFDESTRUCT
-	db 43, HAZE
-	db 48, EXPLOSION
+	db 23, SELFDESTRUCT
+	db 25, SMOKESCREEN
+	db 27, SLUDGE
+	db 31, HAZE
+	db 39, EXPLOSION
 	db 0
 
 PersianEvosMoves:
@@ -1754,9 +1782,11 @@ MarowakEvosMoves:
 	db 10, LEER
 	db 21, FOCUS_ENERGY
 	db 23, BONE_CLUB
-	db 31, RAGE
+	db 28, RAGE
+	db 31, LEER
 	db 39, THRASH
 	db 45, BONEMERANG
+	db 55, SKULL_BASH
 	db 0
 
 MissingNo92EvosMoves:
