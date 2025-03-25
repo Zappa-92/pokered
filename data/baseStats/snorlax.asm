@@ -13,7 +13,7 @@ dw SnorlaxPicFront
 dw SnorlaxPicBack
 ; attacks known at lvl 0
 db HEADBUTT
-db AMNESIA
+db HARDEN
 db REST
 db 0
 db 5 ; growth rate
