@@ -1662,7 +1662,7 @@ SnorlaxEvosMoves:
 ; Learnset
 	db 35, BODY_SLAM
 	db 40, HARDEN
-	db 45, DOUBLE_EDGE
+	db 45, MEGA_KICK
 	db 50, HYPER_BEAM
 	db 0
 
