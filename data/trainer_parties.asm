@@ -1,4 +1,4 @@
-TrainerDataPointers:
+°°TrainerDataPointers:
 	dw YoungsterData
 	dw BugCatcherData
 	dw LassData
