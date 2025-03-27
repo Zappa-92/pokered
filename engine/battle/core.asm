@@ -477,6 +477,20 @@ MainInBattleLoop:
 	jr nz, .specialMoveNotUsed
 	ld [wPlayerSelectedMove], a
 .specialMoveNotUsed
+    	ld a, [wPlayerBattleStatus1]         ; Load player battle status again
+    	bit USING_TRAPPING_MOVE, a           ; Check if player is using a trapping move
+    	jr z, .allowLinkSwitch               ; If not, allow switch
+    	ld hl, CantSwitchWhileTrappedText    ; Load "Can't switch while trapped!" text
+    	call PrintText                       ; Display the message
+    	call SelectEnemyMove                 ; Select a move instead
+    	jr .noLinkBattle 	             ; Continue with battle flow
+.allowLinkSwitch
+    	callab SwitchEnemyMon                ; Attempt to switch enemy mon
+    	jr nc, .switchSuccessful             ; If switch succeeded, proceed
+    	; Switch failed (shouldn't happen since we checked above, but handle anyway)
+    	call SelectEnemyMove                 ; Select a move instead
+    	jr .noLinkBattle
+.switchSuccessful
 	callab SwitchEnemyMon
 .noLinkBattle
 	ld a, [wPlayerSelectedMove]
