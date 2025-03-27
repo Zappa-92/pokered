@@ -418,10 +418,20 @@ MainInBattleLoop:
 	ld a, [wEnemyBattleStatus1]
 	bit USING_TRAPPING_MOVE, a ; check if enemy is using a multi-turn attack like wrap
 	jr z, .selectPlayerMove ; if not, jump
-; enemy is using a multi-turn attack like wrap, so player is trapped and cannot execute a move
-	ld a, $ff
-	ld [wPlayerSelectedMove], a
-	jr .selectEnemyMove
+    	; Enemy is using a trapping move, but allow player to attack
+    	ld a, [wPlayerNumAttacksLeft]
+    	dec a
+    	ld [wPlayerNumAttacksLeft], a        ; Decrease trapping move counter
+    	jr z, .endTrappingMove               ; End trapping if counter hits 0
+    	ld hl, TrappedText                   ; Print "Trapped!" message
+    	call PrintText
+    	jr .selectPlayerMove                 ; Allow player to select a move
+.endTrappingMove
+    	ld hl, wEnemyBattleStatus1
+    	res USING_TRAPPING_MOVE, [hl]        ; Clear enemy trapping status
+   	ld hl, TrappingMoveEndedText         ; Print "Trapping move ended!" message
+   	call PrintText
+    	jr .selectPlayerMove
 .selectPlayerMove
 	ld a, [wActionResultOrTookBattleTurn]
 	and a ; has the player already used the turn (e.g. by using an item, trying to run or switching pokemon)
@@ -2508,6 +2518,13 @@ PartyMenuOrRockOrRun:
 .notAlreadyOut
 	call HasMonFainted
 	jp z, .partyMonDeselected ; can't switch to fainted mon
+    	ld a, [wEnemyBattleStatus1]          ; Load enemy battle status
+    	bit USING_TRAPPING_MOVE, a           ; Check if enemy is using a trapping move (e.g., Wrap)
+    	jr z, .allowSwitch                   ; If not, proceed with switch
+    	ld hl, CantSwitchTrappedText    ; Load "Can't switch while trapped!" text
+    	call PrintText                       ; Display the message
+    	jp .partyMonDeselected               ; Return to party menu, preventing the switch
+.allowSwitch
 	ld a, $1
 	ld [wActionResultOrTookBattleTurn], a
 	call GBPalWhiteOut
@@ -2543,6 +2560,10 @@ SwitchPlayerMon:
 
 AlreadyOutText:
 	TX_FAR _AlreadyOutText
+	db "@"
+
+CantSwitchTrappedText:
+	TX_FAR _CantSwitchTrappedText
 	db "@"
 
 BattleMenu_RunWasSelected:
@@ -4704,82 +4725,72 @@ UnusedHighCriticalMoves:
 	db SLASH
 	db $FF
 
-; determines if attack is a critical hit
-; azure heights claims "the fastest pokémon (who are,not coincidentally,
-; among the most popular) tend to CH about 20 to 25% of the time."
 CriticalHitTest:
-	xor a
-	ld [wCriticalHitOrOHKO], a
-	ld a, [H_WHOSETURN]
-	and a
-	ld a, [wEnemyMonSpecies]
-	jr nz, .handleEnemy
-	ld a, [wBattleMonSpecies]
+    xor a
+    ld [wCriticalHitOrOHKO], a              ; Clear crit/OHKO flag
+    ld a, [H_WHOSETURN]
+    and a
+    ld a, [wEnemyMonSpecies]
+    jr nz, .handleEnemy
+    ld a, [wBattleMonSpecies]
 .handleEnemy
-	ld [wd0b5], a
-	call GetMonHeader
-	ld a, [wMonHBaseSpeed]
-	ld b, a
-	srl b                        ; (effective (base speed/2))
-	ld a, [H_WHOSETURN]
-	and a
-	ld hl, wPlayerMovePower
-	ld de, wPlayerBattleStatus2
-	jr z, .calcCriticalHitProbability
-	ld hl, wEnemyMovePower
-	ld de, wEnemyBattleStatus2
+    ld [wd0b5], a                            ; Store species for mon header
+    call GetMonHeader                        ; Load mon data (not needed for crit, but keeping for consistency)
+    ld a, [H_WHOSETURN]
+    and a
+    ld hl, wPlayerMovePower
+    ld de, wPlayerBattleStatus2
+    jr z, .calcCriticalHitProbability
+    ld hl, wEnemyMovePower
+    ld de, wEnemyBattleStatus2
 .calcCriticalHitProbability
-	ld a, [hld]                  ; read base power from RAM
-	and a
-	ret z                        ; do nothing if zero
-	dec hl
-	ld c, [hl]                   ; read move id
-	ld a, [de]
-	bit GETTING_PUMPED, a         ; Test for Focus Energy
-	jr z, .noFocusEnergyUsed      ; Jump if not active (Z set)
-.focusEnergyUsed:
-    sla b                        ; x2
-    jr nc, .doubleNoCarry
-    ld b, $ff
-.doubleNoCarry
-    sla b                        ; x4 total for Focus Energy
-    jr nc, .noFocusEnergyUsed
-    ld b, $ff
-.noFocusEnergyUsed:
-    ld hl, HighCriticalMoves
+    ld a, [hld]                              ; Read base power from RAM
+    and a
+    ret z                                    ; Return if zero (no move)
+    dec hl
+    ld c, [hl]                               ; Read move ID
+    ld a, [de]
+    bit GETTING_PUMPED, a                    ; Test for Focus Energy
+    jr z, .noFocusEnergyUsed                 ; Jump if not active
+.focusEnergyUsed
+    ; Removed Speed scaling, will apply Focus Energy later
+    jr .checkHighCritMoves
+.noFocusEnergyUsed
+    ; Removed Speed scaling entirely
+.checkHighCritMoves
+    ld hl, HighCriticalMoves                 ; Load high-crit move list
 .Loop
     ld a, [hli]
-    cp c
-    jr z, .HighCritical
+    cp c                                     ; Compare move ID
+    jr z, .HighCritical                      ; Jump if high-crit move
     inc a
-    jr nz, .Loop
-    srl b                        ; /2 for regular moves (base speed / 2)
-    jr .SkipHighCritical
+    jr nz, .Loop                             ; Loop until end of list
+    ld b, 19                                 ; Base crit rate: 19/256 (~6.25%)
+    jr .applyCritRate
 .HighCritical
-    sla b                        ; x2 for high crit (x4 without Focus, x8 with Focus)
-    jr nc, .noCarry
-    ld b, $ff
-.noCarry
-    ; Removed second sla b here
-.SkipHighCritical
-	call BattleRandom            ; generates a random value, in "a"
-	rlc a
-	rlc a
-	rlc a
-	cp b                         ; check a against calculated crit rate
-	ret nc                       ; no critical hit if no borrow
-	ld a, $1
-	ld [wCriticalHitOrOHKO], a   ; set critical hit flag
-	ret
+    ld b, 38                                 ; High-crit rate: 38/256 (~30%)
+.applyCritRate
+    ld a, [de]                               ; Reload battle status
+    bit GETTING_PUMPED, a                    ; Check Focus Energy again
+    jr z, .noFocusBoost                      ; Skip if not active
+    sla b                                    ; Double crit rate for Focus Energy
+    jr nc, .noFocusCarry                     ; Check for overflow
+    ld b, $ff                                ; Cap at 255/256 if overflow
+.noFocusCarry
+.noFocusBoost
+    call BattleRandom                        ; Generate random value in a
+    cp b                                     ; Compare against crit rate
+    ret nc                                   ; No crit if random >= crit rate
+    ld a, $1
+    ld [wCriticalHitOrOHKO], a               ; Set crit flag
+    ret
 
-; high critical hit moves
 HighCriticalMoves:
-	db KARATE_CHOP
-	db RAZOR_LEAF
-	db CRABHAMMER
-	db SLASH
-	db $FF
-
+    db SLASH
+    db RAZOR_LEAF
+    db CRABHAMMER
+    db KARATE_CHOP
+    db $ff                                    ; End of list
 
 ; function to determine if Counter hits and if so, how much damage it does
 HandleCounterMove:
