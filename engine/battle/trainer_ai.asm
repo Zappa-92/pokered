@@ -421,6 +421,14 @@ TrainerAIPointers:
 	dbw 1,LanceAI ; lance
 
 JugglerAI:
+    ld a, [wPlayerBattleStatus1]         ; Load player battle status
+    bit USING_TRAPPING_MOVE, a           ; Check if player is using a trapping move
+    jr z, .notTrapped                    ; If not, proceed with switch
+    ; Switch blocked, fall back to move selection
+    call SelectEnemyMove                 ; Select a move instead
+    xor a                                ; Clear carry flag
+    ret
+.notTrapped
 	cp 25 percent + 1
 	ret nc
 	jp AISwitchIfEnoughMons
@@ -448,6 +456,14 @@ CooltrainerFAI:
 	ld a, 5
 	call AICheckIfHPBelowFraction
 	ret nc
+    	ld a, [wPlayerBattleStatus1]         ; Load player battle status
+    	bit USING_TRAPPING_MOVE, a           ; Check if player is using a trapping move
+    	jr z, .notTrapped                    ; If not, proceed with switch
+    	; Switch blocked, fall back to move selection
+    	call SelectEnemyMove                 ; Select a move instead
+    	xor a                                ; Clear carry flag
+    	ret
+.notTrapped
 	jp AISwitchIfEnoughMons
 
 BrockAI:
@@ -527,6 +543,14 @@ BrunoAI:
 
 AgathaAI:
 	cp 8 percent
+    	ld a, [wPlayerBattleStatus1]         ; Load player battle status
+    	bit USING_TRAPPING_MOVE, a           ; Check if player is using a trapping move
+    	jr z, .notTrapped                    ; If not, proceed with switch
+    	; Switch blocked, fall back to move selection
+    	call SelectEnemyMove                 ; Select a move instead
+    	xor a                                ; Clear carry flag
+    	ret
+.notTrapped
 	jp c, AISwitchIfEnoughMons
 	cp 50 percent + 1
 	ret nc
