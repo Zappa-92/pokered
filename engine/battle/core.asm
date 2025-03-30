@@ -594,68 +594,81 @@ MainInBattleLoop:
 	jp MainInBattleLoop
 
 HandlePoisonBurnLeechSeed:
-	ld hl, wBattleMonHP
-	ld de, wBattleMonStatus
-	ld a, [H_WHOSETURN]
-	and a
-	jr z, .playersTurn
-	ld hl, wEnemyMonHP
-	ld de, wEnemyMonStatus
+    ld hl, wBattleMonHP
+    ld de, wBattleMonStatus
+    ld a, [H_WHOSETURN]
+    and a
+    jr z, .playersTurn
+    ld hl, wEnemyMonHP
+    ld de, wEnemyMonStatus
 .playersTurn
-	ld a, [de]
-	and (1 << BRN) | (1 << PSN)
-	jr z, .notBurnedOrPoisoned
-	push hl
-	ld hl, HurtByPoisonText
-	ld a, [de]
-	and 1 << BRN
-	jr z, .poisoned
-	ld hl, HurtByBurnText
+    ; Check for Poison/Burn
+    ld a, [de]
+    and (1 << BRN) | (1 << PSN)
+    jr z, .notBurnedOrPoisoned
+    push hl
+    ld hl, HurtByPoisonText
+    ld a, [de]
+    and 1 << BRN
+    jr z, .poisoned
+    ld hl, HurtByBurnText
 .poisoned
-	call PrintText
-	xor a
-	ld [wAnimationType], a
-	ld a, BURN_PSN_ANIM
-	call PlayMoveAnimation   ; play burn/poison animation
-	pop hl
-	call HandlePoisonBurnLeechSeed_DecreaseOwnHP
+    call PrintText
+    xor a
+    ld [wAnimationType], a
+    ld a, BURN_PSN_ANIM
+    call PlayMoveAnimation   ; Play burn/poison animation
+    pop hl
 .notBurnedOrPoisoned
-	ld de, wPlayerBattleStatus2
-	ld a, [H_WHOSETURN]
-	and a
-	jr z, .playersTurn2
-	ld de, wEnemyBattleStatus2
+    ; Check for Leech Seed
+    ld de, wPlayerBattleStatus2
+    ld a, [H_WHOSETURN]
+    and a
+    jr z, .playersTurn2
+    ld de, wEnemyBattleStatus2
 .playersTurn2
-	ld a, [de]
-	add a
-	jr nc, .notLeechSeeded
-	push hl
-	ld a, [H_WHOSETURN]
-	push af
-	xor $1
-	ld [H_WHOSETURN], a
-	xor a
-	ld [wAnimationType], a
-	ld a, ABSORB
-	call PlayMoveAnimation ; play leech seed animation (from opposing mon)
-	pop af
-	ld [H_WHOSETURN], a
-	pop hl
-	call HandlePoisonBurnLeechSeed_DecreaseOwnHP
-	call HandlePoisonBurnLeechSeed_IncreaseEnemyHP
-	push hl
-	ld hl, HurtByLeechSeedText
-	call PrintText
-	pop hl
+    ld a, [de]
+    add a
+    jr nc, .notLeechSeeded
+    push hl
+    ld a, [H_WHOSETURN]
+    push af
+    xor $1
+    ld [H_WHOSETURN], a
+    xor a
+    ld [wAnimationType], a
+    ld a, ABSORB
+    call PlayMoveAnimation ; Play leech seed animation (from opposing mon)
+    pop af
+    ld [H_WHOSETURN], a
+    pop hl
 .notLeechSeeded
-	ld a, [hli]
-	or [hl]
-	ret nz          ; test if fainted
-	call DrawHUDsAndHPBars
-	ld c, 20
-	call DelayFrames
-	xor a
-	ret
+    ; Calculate and apply all damage (Leech Seed + Poison/Burn)
+    push hl
+    call HandlePoisonBurnLeechSeed_DecreaseOwnHP
+    ; If Leech Seed is active, heal the user
+    ld a, [de]
+    add a
+    jr nc, .noHealing
+    ld a, [wLeechSeedDamage]             ; Load Leech Seed damage (low byte)
+    ld c, a
+    ld a, [wLeechSeedDamage+1]           ; Load Leech Seed damage (high byte)
+    ld b, a
+    call HandlePoisonBurnLeechSeed_IncreaseEnemyHP
+    push hl
+    ld hl, HurtByLeechSeedText
+    call PrintText
+    pop hl
+.noHealing
+    pop hl
+    ld a, [hli]
+    or [hl]
+    ret nz          ; Test if fainted
+    call DrawHUDsAndHPBars
+    ld c, 20
+    call DelayFrames
+    xor a
+    ret
 
 HurtByPoisonText:
 	TX_FAR _HurtByPoisonText
@@ -674,75 +687,152 @@ HurtByLeechSeedText:
 ; hl: HP pointer
 ; bc (out): total damage
 HandlePoisonBurnLeechSeed_DecreaseOwnHP:
-	push hl
-	push hl
-	ld bc, $e      ; skip to max HP
-	add hl, bc
-	ld a, [hli]    ; load max HP
-	ld [wHPBarMaxHP+1], a
-	ld b, a
-	ld a, [hl]
-	ld [wHPBarMaxHP], a
-	ld c, a
-	srl b
-	rr c
-	srl b
-	rr c
-	srl c         ; c = max HP/8 (assumption: HP < 1024)
-	ld a, c
-	and a
-	jr nz, .nonZeroDamage
-	inc c         ; damage is at least 1
-.nonZeroDamage
-	ld hl, wPlayerBattleStatus3
-	ld de, wPlayerToxicCounter
-	ld a, [H_WHOSETURN]
-	and a
-	jr z, .playersTurn
-	ld hl, wEnemyBattleStatus3
-	ld de, wEnemyToxicCounter
+    push hl
+    push hl
+    ld bc, $e                            ; Skip to max HP
+    add hl, bc
+    ld a, [hli]                          ; Load max HP (high byte)
+    ld [wHPBarMaxHP+1], a
+    ld b, a
+    ld a, [hl]                           ; Load max HP (low byte)
+    ld [wHPBarMaxHP], a
+    ld c, a
+    srl b
+    rr c
+    srl b
+    rr c
+    srl c                                ; c = max HP/8 (assumption: HP < 1024)
+    ld a, c
+    and a
+    jr nz, .nonZeroBaseDamage
+    inc c                                ; Base damage is at least 1
+.nonZeroBaseDamage
+    ; Store base damage for Poison/Burn
+    ld a, c
+    ld [wTempDamage], a                  ; Store max HP/8 for Poison/Burn
+    ; Calculate Leech Seed damage (always max HP/16, unaffected by Toxic)
+    ld a, b
+    ld b, c                              ; bc = max HP
+    srl b
+    rr c                                 ; bc = max HP/2
+    srl b
+    rr c                                 ; bc = max HP/4
+    srl b
+    rr c                                 ; bc = max HP/8
+    srl b
+    rr c                                 ; bc = max HP/16 (Leech Seed damage)
+    ld a, c
+    and a
+    jr nz, .nonZeroLeechDamage
+    inc c                                ; Leech Seed damage is at least 1
+.nonZeroLeechDamage
+    ld a, [H_WHOSETURN]
+    and a
+    ld hl, wPlayerBattleStatus2
+    ld de, wPlayerToxicCounter
+    jr z, .playersTurn
+    ld hl, wEnemyBattleStatus2
+    ld de, wEnemyToxicCounter
 .playersTurn
-	bit BADLY_POISONED, [hl]
-	jr z, .noToxic
-	srl c         ; c = max HP/16 (assumption: HP < 1024)
-	ld a, c
-	and a
-	jr nz, .nonZeroDamageAgain
-	inc c
-.nonZeroDamageAgain
-	ld a, [de]    ; increment toxic counter
-	inc a
-	ld [de], a
-	ld hl, $0000
+    ; Check for Leech Seed
+    ld a, 0                              ; Initialize total damage (low byte)
+    ld [wTotalDamage], a
+    ld a, 0                              ; Initialize total damage (high byte)
+    ld [wTotalDamage+1], a
+    ld a, 0                              ; Initialize Leech Seed damage (low byte)
+    ld [wLeechSeedDamage], a
+    ld a, 0                              ; Initialize Leech Seed damage (high byte)
+    ld [wLeechSeedDamage+1], a
+    bit SEEDED, [hl]                     ; Check if target is seeded
+    jr z, .noLeechSeed
+    ld a, c                              ; Load Leech Seed damage (max HP/16)
+    ld [wTotalDamage], a                 ; Add to total damage (low byte)
+    ld [wLeechSeedDamage], a             ; Store for healing
+    ld a, b
+    ld [wTotalDamage+1], a               ; Add to total damage (high byte)
+    ld [wLeechSeedDamage+1], a           ; Store for healing
+.noLeechSeed
+    ; Check for Poison/Burn with Toxic scaling
+    ld hl, wPlayerBattleStatus3
+    ld a, [H_WHOSETURN]
+    and a
+    jr z, .playersTurnPoison
+    ld hl, wEnemyBattleStatus3
+.playersTurnPoison
+    bit BADLY_POISONED, [hl]             ; Check if target is badly poisoned
+    jr z, .noToxic
+    ld a, [wTempDamage]                  ; Load base damage (max HP/8)
+    ld c, a
+    srl c                                ; c = max HP/16 (base Toxic damage)
+    ld a, c
+    and a
+    jr nz, .nonZeroToxicDamage
+    inc c                                ; Toxic damage is at least 1
+.nonZeroToxicDamage
+    ld a, [de]                           ; Increment Toxic counter
+    inc a
+    ld [de], a
+    ld hl, $0000
 .toxicTicksLoop
-	add hl, bc
-	dec a
-	jr nz, .toxicTicksLoop
-	ld b, h       ; bc = damage * toxic counter
-	ld c, l
+    add hl, bc                           ; hl = damage * toxic counter
+    dec a
+    jr nz, .toxicTicksLoop
+    ld b, h                              ; bc = Toxic damage
+    ld c, l
+    ; Add Toxic damage to total
+    ld a, [wTotalDamage]
+    add c
+    ld [wTotalDamage], a
+    ld a, [wTotalDamage+1]
+    adc b
+    ld [wTotalDamage+1], a
+    jr .applyDamage
 .noToxic
-	pop hl
-	inc hl
-	ld a, [hl]    ; subtract total damage from current HP
-	ld [wHPBarOldHP], a
-	sub c
-	ld [hld], a
-	ld [wHPBarNewHP], a
-	ld a, [hl]
-	ld [wHPBarOldHP+1], a
-	sbc b
-	ld [hl], a
-	ld [wHPBarNewHP+1], a
-	jr nc, .noOverkill
-	xor a         ; overkill: zero HP
-	ld [hli], a
-	ld [hl], a
-	ld [wHPBarNewHP], a
-	ld [wHPBarNewHP+1], a
+    ; Check for regular Poison/Burn (max HP/8)
+    ld a, [H_WHOSETURN]
+    and a
+    ld hl, wBattleMonStatus
+    jr z, .playersTurnStatus
+    ld hl, wEnemyMonStatus
+.playersTurnStatus
+    ld a, [hl]                           ; Load status
+    and (1 << PSN) | (1 << BRN)          ; Check for Poison or Burn
+    jr z, .applyDamage                   ; Skip if no Poison/Burn
+    ld a, [wTempDamage]                  ; Load base damage (max HP/8)
+    ld c, a
+    ld b, 0
+    ; Add Poison/Burn damage to total
+    ld a, [wTotalDamage]
+    add c
+    ld [wTotalDamage], a
+    ld a, [wTotalDamage+1]
+    adc b
+    ld [wTotalDamage+1], a
+.applyDamage
+    pop hl
+    inc hl
+    ld a, [hl]                           ; Subtract total damage from current HP
+    ld [wHPBarOldHP], a
+    ld a, [wTotalDamage]                 ; Load total damage (low byte)
+    sub a
+    ld [hld], a
+    ld [wHPBarNewHP], a
+    ld a, [hl]
+    ld [wHPBarOldHP+1], a
+    ld a, [wTotalDamage+1]               ; Load total damage (high byte)
+    sbc a
+    ld [hl], a
+    ld [wHPBarNewHP+1], a
+    jr nc, .noOverkill
+    xor a                                ; Overkill: zero HP
+    ld [hli], a
+    ld [hl], a
+    ld [wHPBarNewHP], a
+    ld [wHPBarNewHP+1], a
 .noOverkill
-	call UpdateCurMonHPBar
-	pop hl
-	ret
+    call UpdateCurMonHPBar
+    pop hl
+    ret
 
 ; adds bc to enemy HP
 ; bc isn't updated if HP subtracted was capped to prevent overkill
