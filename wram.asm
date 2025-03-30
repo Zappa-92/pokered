@@ -3196,6 +3196,7 @@ wBoxDataEnd::
 
 wTempDamage:: ds 2    ; $DEE3-$DEE4
 wTotalDamage:: ds 2   ; $DEE5-$DEE6
+wLeechSeedDamage:: ds 2 ; $DEE7-$DEE8
 
 SECTION "Stack", WRAM0
 wStack:: ; dfff
