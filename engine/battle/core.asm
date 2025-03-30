@@ -4413,20 +4413,64 @@ GetDamageVarsForPlayerAttack:
 	ld a, [wCriticalHitOrOHKO]
 	and a ; check for critical hit
 	jr z, .scaleStats
-; in the case of a critical hit, reset the player's attack and the enemy's defense to their base values
-	ld c, 3 ; defense stat
-	call GetEnemyMonStat
-	ld a, [H_PRODUCT + 2]
-	ld b, a
-	ld a, [H_PRODUCT + 3]
-	ld c, a
-	push bc
-	ld hl, wPartyMon1Attack
-	ld a, [wPlayerMonNumber]
-	ld bc, wPartyMon2 - wPartyMon1
-	call AddNTimes
-	pop bc
-	jr .scaleStats
+    ; Critical hit: use base Attack, but reapply positive modifiers
+    ld hl, wPartyMon1Attack
+    ld a, [wPlayerMonNumber]
+    ld bc, wPartyMon2 - wPartyMon1
+    call AddNTimes
+    ld a, [hli]
+    ld [wDamage + 1], a
+    ld a, [hl]
+    ld [wDamage], a
+    ; Load Attack modifier
+    ld a, [wPlayerMonStatMods] ; Attack mod
+    ld b, a
+    ; Ignore negative modifiers
+    cp 7
+    jr nc, .applyAttackModifier
+    ld b, 7 ; Neutral modifier
+.applyAttackModifier
+    ; Apply modifier to Attack
+    push bc
+    ld hl, StatModifierRatios
+    dec b
+    sla b
+    ld c, b
+    ld b, 0
+    add hl, bc
+    xor a
+    ld [H_MULTIPLICAND], a
+    ld a, [wDamage + 1]
+    ld [H_MULTIPLICAND + 1], a
+    ld a, [wDamage]
+    ld [H_MULTIPLICAND + 2], a
+    ld a, [hli]
+    ld [H_MULTIPLIER], a
+    call Multiply
+    ld a, [hl]
+    ld [H_DIVISOR], a
+    ld b, 4
+    call Divide
+    ; Cap at 999
+    ld a, [H_PRODUCT + 3]
+    sub 999 % $100
+    ld a, [H_PRODUCT + 2]
+    sbc 999 / $100
+    jr c, .noAttackCap
+    ld a, 999 / $100
+    ld [H_MULTIPLICAND + 1], a
+    ld a, 999 % $100
+    ld [H_MULTIPLICAND + 2], a
+.noAttackCap
+    ld a, [H_PRODUCT + 2]
+    ld [wDamage + 1], a
+    ld a, [H_PRODUCT + 3]
+    ld [wDamage], a
+    ld hl, wDamage
+    ld a, [hli]
+    ld l, [hl]
+    ld h, a
+    jr .scaleStats
 .specialAttack
 	ld hl, wEnemyMonSpecial
 	ld a, [hli]
@@ -4445,22 +4489,64 @@ GetDamageVarsForPlayerAttack:
 	ld a, [wCriticalHitOrOHKO]
 	and a ; check for critical hit
 	jr z, .scaleStats
-; in the case of a critical hit, reset the player's and enemy's specials to their base values
-	ld c, 5 ; special stat
-	call GetEnemyMonStat
-	ld a, [H_PRODUCT + 2]
-	ld b, a
-	ld a, [H_PRODUCT + 3]
-	ld c, a
-	push bc
-	ld hl, wPartyMon1Special
-	ld a, [wPlayerMonNumber]
-	ld bc, wPartyMon2 - wPartyMon1
-	call AddNTimes
-	pop bc
-; if either the offensive or defensive stat is too large to store in a byte, scale both stats by dividing them by 4
-; this allows values with up to 10 bits (values up to 1023) to be handled
-; anything larger will wrap around
+    ; Critical hit: use base Special, but reapply positive modifiers
+    ld hl, wPartyMon1Special
+    ld a, [wPlayerMonNumber]
+    ld bc, wPartyMon2 - wPartyMon1
+    call AddNTimes
+    ld a, [hli]
+    ld [wDamage + 1], a
+    ld a, [hl]
+    ld [wDamage], a
+    ; Load Special modifier
+    ld a, [wPlayerMonStatMods + 4] ; Special mod
+    ld b, a
+    ; Ignore negative modifiers
+    cp 7
+    jr nc, .applySpecialModifier
+    ld b, 7 ; Neutral modifier
+.applySpecialModifier
+    ; Apply modifier to Special
+    push bc
+    ld hl, StatModifierRatios
+    dec b
+    sla b
+    ld c, b
+    ld b, 0
+    add hl, bc
+    xor a
+    ld [H_MULTIPLICAND], a
+    ld a, [wDamage + 1]
+    ld [H_MULTIPLICAND + 1], a
+    ld a, [wDamage]
+    ld [H_MULTIPLICAND + 2], a
+    ld a, [hli]
+    ld [H_MULTIPLIER], a
+    call Multiply
+    ld a, [hl]
+    ld [H_DIVISOR], a
+    ld b, 4
+    call Divide
+    ; Cap at 999
+    ld a, [H_PRODUCT + 3]
+    sub 999 % $100
+    ld a, [H_PRODUCT + 2]
+    sbc 999 / $100
+    jr c, .noSpecialCap
+    ld a, 999 / $100
+    ld [H_MULTIPLICAND + 1], a
+    ld a, 999 % $100
+    ld [H_MULTIPLICAND + 2], a
+.noSpecialCap
+    ld a, [H_PRODUCT + 2]
+    ld [wDamage + 1], a
+    ld a, [H_PRODUCT + 3]
+    ld [wDamage], a
+    ld hl, wDamage
+    ld a, [hli]
+    ld l, [hl]
+    ld h, a
+    jr .scaleStats
 .scaleStats
 	ld a, [hli]
 	ld l, [hl]
@@ -4526,20 +4612,64 @@ GetDamageVarsForEnemyAttack:
 	ld a, [wCriticalHitOrOHKO]
 	and a ; check for critical hit
 	jr z, .scaleStats
-; in the case of a critical hit, reset the player's defense and the enemy's attack to their base values
-	ld hl, wPartyMon1Defense
-	ld a, [wPlayerMonNumber]
-	ld bc, wPartyMon2 - wPartyMon1
-	call AddNTimes
-	ld a, [hli]
-	ld b, a
-	ld c, [hl]
-	push bc
-	ld c, 2 ; attack stat
-	call GetEnemyMonStat
-	ld hl, H_PRODUCT + 2
-	pop bc
-	jr .scaleStats
+    ; Critical hit: use base Attack, but reapply positive modifiers
+    push bc
+    ld c, 2 ; attack stat
+    call GetEnemyMonStat
+    ld hl, H_PRODUCT + 2
+    ld a, [hli]
+    ld [wDamage + 1], a
+    ld a, [hl]
+    ld [wDamage], a
+    ; Load Attack modifier
+    ld a, [wEnemyMonStatMods] ; Attack mod
+    ld b, a
+    ; Ignore negative modifiers
+    cp 7
+    jr nc, .applyAttackModifier
+    ld b, 7 ; Neutral modifier
+.applyAttackModifier
+    ; Apply modifier to Attack
+    ld hl, StatModifierRatios
+    dec b
+    sla b
+    ld c, b
+    ld b, 0
+    add hl, bc
+    xor a
+    ld [H_MULTIPLICAND], a
+    ld a, [wDamage + 1]
+    ld [H_MULTIPLICAND + 1], a
+    ld a, [wDamage]
+    ld [H_MULTIPLICAND + 2], a
+    ld a, [hli]
+    ld [H_MULTIPLIER], a
+    call Multiply
+    ld a, [hl]
+    ld [H_DIVISOR], a
+    ld b, 4
+    call Divide
+    ; Cap at 999
+    ld a, [H_PRODUCT + 3]
+    sub 999 % $100
+    ld a, [H_PRODUCT + 2]
+    sbc 999 / $100
+    jr c, .noAttackCap
+    ld a, 999 / $100
+    ld [H_MULTIPLICAND + 1], a
+    ld a, 999 % $100
+    ld [H_MULTIPLICAND + 2], a
+.noAttackCap
+    ld a, [H_PRODUCT + 2]
+    ld [wDamage + 1], a
+    ld a, [H_PRODUCT + 3]
+    ld [wDamage], a
+    ld hl, wDamage
+    ld a, [hli]
+    ld l, [hl]
+    ld h, a
+    pop bc
+    jr .scaleStats
 .specialAttack
 	ld hl, wBattleMonSpecial
 	ld a, [hli]
@@ -4558,22 +4688,63 @@ GetDamageVarsForEnemyAttack:
 	ld a, [wCriticalHitOrOHKO]
 	and a ; check for critical hit
 	jr z, .scaleStats
-; in the case of a critical hit, reset the player's and enemy's specials to their base values
-	ld hl, wPartyMon1Special
-	ld a, [wPlayerMonNumber]
-	ld bc, wPartyMon2 - wPartyMon1
-	call AddNTimes
-	ld a, [hli]
-	ld b, a
-	ld c, [hl]
-	push bc
-	ld c, 5 ; special stat
-	call GetEnemyMonStat
-	ld hl, H_PRODUCT + 2
-	pop bc
-; if either the offensive or defensive stat is too large to store in a byte, scale both stats by dividing them by 4
-; this allows values with up to 10 bits (values up to 1023) to be handled
-; anything larger will wrap around
+    ; Critical hit: use base Special, but reapply positive modifiers
+    push bc
+    ld c, 5 ; special stat
+    call GetEnemyMonStat
+    ld hl, H_PRODUCT + 2
+    ld a, [hli]
+    ld [wDamage + 1], a
+    ld a, [hl]
+    ld [wDamage], a
+    ; Load Special modifier
+    ld a, [wEnemyMonStatMods + 4] ; Special mod
+    ld b, a
+    ; Ignore negative modifiers
+    cp 7
+    jr nc, .applySpecialModifier
+    ld b, 7 ; Neutral modifier
+.applySpecialModifier
+    ; Apply modifier to Special
+    ld hl, StatModifierRatios
+    dec b
+    sla b
+    ld c, b
+    ld b, 0
+    add hl, bc
+    xor a
+    ld [H_MULTIPLICAND], a
+    ld a, [wDamage + 1]
+    ld [H_MULTIPLICAND + 1], a
+    ld a, [wDamage]
+    ld [H_MULTIPLICAND + 2], a
+    ld a, [hli]
+    ld [H_MULTIPLIER], a
+    call Multiply
+    ld a, [hl]
+    ld [H_DIVISOR], a
+    ld b, 4
+    call Divide
+    ; Cap at 999
+    ld a, [H_PRODUCT + 3]
+    sub 999 % $100
+    ld a, [H_PRODUCT + 2]
+    sbc 999 / $100
+    jr c, .noSpecialCap
+    ld a, 999 / $100
+    ld [H_MULTIPLICAND + 1], a
+    ld a, 999 % $100
+    ld [H_MULTIPLICAND + 2], a
+.noSpecialCap
+    ld a, [H_PRODUCT + 2]
+    ld [wDamage + 1], a
+    ld a, [H_PRODUCT + 3]
+    ld [wDamage], a
+    ld hl, wDamage
+    ld a, [hli]
+    ld l, [hl]
+    ld h, a
+    pop bc
 .scaleStats
 	ld a, [hli]
 	ld l, [hl]
@@ -7777,7 +7948,6 @@ StatModifierUpEffect:
 	jr nc, .checkIf999
 	inc d ; de = unmodified (original) stat
 .checkIf999
-	pop bc
 	ld a, [hld]
 	sub 999 % $100 ; check if stat is already 999
 	jr nz, .recalculateStat
@@ -7809,24 +7979,182 @@ StatModifierUpEffect:
 	ld [H_DIVISOR], a
 	ld b, $4
 	call Divide
+	pop bc
 	pop hl
-; cap at 999
-	ld a, [H_PRODUCT + 3]
-	sub 999 % $100
-	ld a, [H_PRODUCT + 2]
-	sbc 999 / $100
-	jp c, UpdateStat
-	ld a, 999 / $100
-	ld [H_MULTIPLICAND + 1], a
-	ld a, 999 % $100
-	ld [H_MULTIPLICAND + 2], a
 
-UpdateStat:
-	ld a, [H_PRODUCT + 2]
-	ld [hli], a
-	ld a, [H_PRODUCT + 3]
-	ld [hl], a
-	pop hl
+; Cap at 999
+    ld a, [H_DIVIDEND + 3]
+    sub 999 % $100
+    ld a, [H_DIVIDEND + 2]
+    sbc 999 / $100
+    jr c, .storeStat
+    ld a, 999 / $100
+    ld [H_DIVIDEND + 2], a
+    ld a, 999 % $100
+    ld [H_DIVIDEND + 3], a
+.storeStat
+    ld a, [H_DIVIDEND + 2]
+    ld [hli], a
+    ld a, [H_DIVIDEND + 3]
+    ld [hl], a
+
+    ; Apply badge boost (player only, for this stat)
+    ld a, [H_WHOSETURN]
+    and a
+    jr nz, .skipBadgeBoost ; Skip if enemy turn
+    push hl
+    push bc
+    ld a, [wLinkState]
+    cp LINK_STATE_BATTLING
+    jr z, .noBadgeBoost ; Skip in link battles
+    ld a, [wObtainedBadges]
+    ld b, a
+    ld hl, wBattleMonAttack
+    ld a, c ; c = stat index * 2 (0 = Attack, 4 = Speed)
+    cp 0
+    jr z, .checkBoulder
+    cp 4
+    jr z, .checkThunder
+    jr .noBadgeBoost
+.checkBoulder
+    bit 0, b ; Boulder Badge (Attack)
+    jr z, .noBadgeBoost
+    jr .applyBoost
+.checkThunder
+    bit 2, b ; Thunder Badge (Speed)
+    jr z, .noBadgeBoost
+    inc hl
+    inc hl ; Move to Speed
+.applyBoost
+    ld a, [hli]
+    ld d, a
+    ld e, [hl]
+    srl d
+    rr e
+    srl d
+    rr e
+    srl d
+    rr e ; 1/8 = 0.125
+    ld a, [hl]
+    add e
+    ld [hld], a
+    ld a, [hl]
+    adc d
+    ld [hli], a
+    ld a, [hld]
+    sub 999 % $100
+    ld a, [hl]
+    sbc 999 / $100
+    jr c, .noBadgeBoost
+    ld a, 999 / $100
+    ld [hli], a
+    ld a, 999 % $100
+    ld [hld], a
+.noBadgeBoost
+    pop bc
+    pop hl
+
+.skipBadgeBoost
+    ; Apply status penalties (Burn or Paralysis)
+    ld a, [H_WHOSETURN]
+    and a
+    jr nz, .enemyTurn
+    ; Player turn
+    ld a, c
+    cp 0 ; Attack
+    jr z, .applyBurnPlayer
+    cp 4 ; Speed
+    jr z, .applyParalysisPlayer
+    jr .doneStatUpdate
+.applyBurnPlayer
+    ld a, [wBattleMonStatus]
+    and 1 << BRN
+    jr z, .doneStatUpdate
+    ld a, [wBattleMonAttack]
+    ld d, a
+    ld a, [wBattleMonAttack + 1]
+    ld e, a
+    srl d
+    rr e
+    ld a, d
+    ld [wBattleMonAttack], a
+    or e
+    jr nz, .storePlayerAttack
+    ld e, 1
+.storePlayerAttack
+    ld a, e
+    ld [wBattleMonAttack + 1], a
+    jr .doneStatUpdate
+.applyParalysisPlayer
+    ld a, [wBattleMonStatus]
+    and 1 << PAR
+    jr z, .doneStatUpdate
+    ld a, [wBattleMonSpeed]
+    ld d, a
+    ld a, [wBattleMonSpeed + 1]
+    ld e, a
+    srl d
+    rr e
+    srl d
+    rr e
+    ld a, d
+    ld [wBattleMonSpeed], a
+    or e
+    jr nz, .storePlayerSpeed
+    ld e, 1
+.storePlayerSpeed
+    ld a, e
+    ld [wBattleMonSpeed + 1], a
+    jr .doneStatUpdate
+.enemyTurn
+    ld a, c
+    cp 0 ; Attack
+    jr z, .applyBurnEnemy
+    cp 4 ; Speed
+    jr z, .applyParalysisEnemy
+    jr .doneStatUpdate
+.applyBurnEnemy
+    ld a, [wEnemyMonStatus]
+    and 1 << BRN
+    jr z, .doneStatUpdate
+    ld a, [wEnemyMonAttack]
+    ld d, a
+    ld a, [wEnemyMonAttack + 1]
+    ld e, a
+    srl d
+    rr e
+    ld a, d
+    ld [wEnemyMonAttack], a
+    or e
+    jr nz, .storeEnemyAttack
+    ld e, 1
+.storeEnemyAttack
+    ld a, e
+    ld [wEnemyMonAttack + 1], a
+    jr .doneStatUpdate
+.applyParalysisEnemy
+    ld a, [wEnemyMonStatus]
+    and 1 << PAR
+    jr z, .doneStatUpdate
+    ld a, [wEnemyMonSpeed]
+    ld d, a
+    ld a, [wEnemyMonSpeed + 1]
+    ld e, a
+    srl d
+    rr e
+    srl d
+    rr e
+    ld a, d
+    ld [wEnemyMonSpeed], a
+    or e
+    jr nz, .storeEnemySpeed
+    ld e, 1
+.storeEnemySpeed
+    ld a, e
+    ld [wEnemyMonSpeed + 1], a
+.doneStatUpdate
+    pop hl ; Restore stat mods pointer
+
 UpdateStatDone:
 	ld b, c
 	inc b
@@ -7858,7 +8186,7 @@ UpdateStatDone:
 	call PlayCurrentMoveAnimation
 	ld a, [de]
 	cp MINIMIZE
-	jr nz, .applyBadgeBoostsAndStatusPenalties
+	jr nz, .done
 	pop bc
 	ld a, $1
 	ld [bc], a
@@ -7866,17 +8194,10 @@ UpdateStatDone:
 	ld b, BANK(ReshowSubstituteAnim)
 	pop af
 	call nz, Bankswitch
-.applyBadgeBoostsAndStatusPenalties
-	ld a, [H_WHOSETURN]
-	and a
-	call z, ApplyBadgeStatBoosts ; whenever the player uses a stat-up move, badge boosts get reapplied again to every stat,
-	                             ; even to those not affected by the stat-up move (will be boosted further)
+.done
 	ld hl, MonsStatsRoseText
 	call PrintText
-
-; these shouldn't be here
-	call QuarterSpeedDueToParalysis ; apply speed penalty to the player whose turn is not, if it's paralyzed
-	jp HalveAttackDueToBurn ; apply attack penalty to the player whose turn is not, if it's burned
+	ret
 
 RestoreOriginalStatModifier:
 	pop hl
@@ -7971,7 +8292,6 @@ StatModifierDownEffect:
 	cp $4
 	jr nc, UpdateLoweredStatDone ; jump for evasion/accuracy
 	push hl
-	push de
 	ld hl, wEnemyMonAttack + 1
 	ld de, wEnemyMonUnmodifiedAttack
 	ld a, [H_WHOSETURN]
@@ -7999,7 +8319,6 @@ StatModifierDownEffect:
 	jp z, CantLowerAnymore_Pop
 .recalculateStat
 ; recalculate affected stat
-; paralysis and burn penalties, as well as badge boosts are ignored
 	push hl
 	push bc
 	ld hl, StatModifierRatios
@@ -8008,7 +8327,6 @@ StatModifierDownEffect:
 	ld c, b
 	ld b, $0
 	add hl, bc
-	pop bc
 	xor a
 	ld [H_MULTIPLICAND], a
 	ld a, [de]
@@ -8023,23 +8341,183 @@ StatModifierDownEffect:
 	ld [H_DIVISOR], a
 	ld b, $4
 	call Divide
-	pop hl
-	ld a, [H_PRODUCT + 3]
-	ld b, a
-	ld a, [H_PRODUCT + 2]
-	or b
-	jp nz, UpdateLoweredStat
-	ld [H_MULTIPLICAND + 1], a
-	ld a, $1
-	ld [H_MULTIPLICAND + 2], a
+	pop bc
+    	pop hl
+    ; Ensure minimum of 1
+    ld a, [H_DIVIDEND + 3]
+    ld b, a
+    ld a, [H_DIVIDEND + 2]
+    or b
+    jr nz, .storeStat
+    ld a, 0
+    ld [H_DIVIDEND + 2], a
+    ld a, 1
+    ld [H_DIVIDEND + 3], a
+.storeStat
+    ld a, [H_DIVIDEND + 2]
+    ld [hli], a
+    ld a, [H_DIVIDEND + 3]
+    ld [hl], a
 
-UpdateLoweredStat:
-	ld a, [H_PRODUCT + 2]
-	ld [hli], a
-	ld a, [H_PRODUCT + 3]
-	ld [hl], a
-	pop de
-	pop hl
+    ; Apply badge boost (player only, for this stat)
+    ld a, [H_WHOSETURN]
+    and a
+    jr z, .skipBadgeBoost ; Skip if player turn (enemy is target)
+    push hl
+    push bc
+    ld a, [wLinkState]
+    cp LINK_STATE_BATTLING
+    jr z, .noBadgeBoost
+    ld a, [wObtainedBadges]
+    ld b, a
+    ld hl, wBattleMonAttack
+    ld a, c ; c = stat index * 2 (0 = Attack, 4 = Speed)
+    cp 0
+    jr z, .checkBoulder
+    cp 4
+    jr z, .checkThunder
+    jr .noBadgeBoost
+.checkBoulder
+    bit 0, b ; Boulder Badge (Attack)
+    jr z, .noBadgeBoost
+    jr .applyBoost
+.checkThunder
+    bit 2, b ; Thunder Badge (Speed)
+    jr z, .noBadgeBoost
+    inc hl
+    inc hl
+.applyBoost
+    ld a, [hli]
+    ld d, a
+    ld e, [hl]
+    srl d
+    rr e
+    srl d
+    rr e
+    srl d
+    rr e
+    ld a, [hl]
+    add e
+    ld [hld], a
+    ld a, [hl]
+    adc d
+    ld [hli], a
+    ld a, [hld]
+    sub 999 % $100
+    ld a, [hl]
+    sbc 999 / $100
+    jr c, .noBadgeBoost
+    ld a, 999 / $100
+    ld [hli], a
+    ld a, 999 % $100
+    ld [hld], a
+.noBadgeBoost
+    pop bc
+    pop hl
+
+.skipBadgeBoost
+    ; Apply status penalties (Burn or Paralysis) to target
+    ld a, [H_WHOSETURN]
+    and a
+    jr nz, .playerTarget
+    ; Enemy turn, enemy is target
+    ld a, c
+    cp 0 ; Attack
+    jr z, .applyBurnEnemy
+    cp 4 ; Speed
+    jr z, .applyParalysisEnemy
+    jr .doneStatUpdate
+.applyBurnEnemy
+    ld a, [wEnemyMonStatus]
+    and 1 << BRN
+    jr z, .doneStatUpdate
+    ld a, [wEnemyMonAttack]
+    ld d, a
+    ld a, [wEnemyMonAttack + 1]
+    ld e, a
+    srl d
+    rr e
+    ld a, d
+    ld [wEnemyMonAttack], a
+    or e
+    jr nz, .storeEnemyAttack
+    ld e, 1
+.storeEnemyAttack
+    ld a, e
+    ld [wEnemyMonAttack + 1], a
+    jr .doneStatUpdate
+.applyParalysisEnemy
+    ld a, [wEnemyMonStatus]
+    and 1 << PAR
+    jr z, .doneStatUpdate
+    ld a, [wEnemyMonSpeed]
+    ld d, a
+    ld a, [wEnemyMonSpeed + 1]
+    ld e, a
+    srl d
+    rr e
+    srl d
+    rr e
+    ld a, d
+    ld [wEnemyMonSpeed], a
+    or e
+    jr nz, .storeEnemySpeed
+    ld e, 1
+.storeEnemySpeed
+    ld a, e
+    ld [wEnemyMonSpeed + 1], a
+    jr .doneStatUpdate
+.playerTarget
+    ; Player turn, player is target
+    ld a, c
+    cp 0 ; Attack
+    jr z, .applyBurnPlayer
+    cp 4 ; Speed
+    jr z, .applyParalysisPlayer
+    jr .doneStatUpdate
+.applyBurnPlayer
+    ld a, [wBattleMonStatus]
+    and 1 << BRN
+    jr z, .doneStatUpdate
+    ld a, [wBattleMonAttack]
+    ld d, a
+    ld a, [wBattleMonAttack + 1]
+    ld e, a
+    srl d
+    rr e
+    ld a, d
+    ld [wBattleMonAttack], a
+    or e
+    jr nz, .storePlayerAttack
+    ld e, 1
+.storePlayerAttack
+    ld a, e
+    ld [wBattleMonAttack + 1], a
+    jr .doneStatUpdate
+.applyParalysisPlayer
+    ld a, [wBattleMonStatus]
+    and 1 << PAR
+    jr z, .doneStatUpdate
+    ld a, [wBattleMonSpeed]
+    ld d, a
+    ld a, [wBattleMonSpeed + 1]
+    ld e, a
+    srl d
+    rr e
+    srl d
+    rr e
+    ld a, d
+    ld [wBattleMonSpeed], a
+    or e
+    jr nz, .storePlayerSpeed
+    ld e, 1
+.storePlayerSpeed
+    ld a, e
+    ld [wBattleMonSpeed + 1], a
+
+.doneStatUpdate
+    pop hl
+
 UpdateLoweredStatDone:
 	ld b, c
 	inc b
@@ -8050,24 +8528,14 @@ UpdateLoweredStatDone:
 	cp $44
 	jr nc, .ApplyBadgeBoostsAndStatusPenalties
 	call PlayCurrentMoveAnimation2
-.ApplyBadgeBoostsAndStatusPenalties
-	ld a, [H_WHOSETURN]
-	and a
-	call nz, ApplyBadgeStatBoosts ; whenever the player uses a stat-down move, badge boosts get reapplied again to every stat,
-	                              ; even to those not affected by the stat-up move (will be boosted further)
-	ld hl, MonsStatsFellText
-	call PrintText
-
-; These where probably added given that a stat-down move affecting speed or attack will override
-; the stat penalties from paralysis and burn respectively.
-; But they are always called regardless of the stat affected by the stat-down move.
-	call QuarterSpeedDueToParalysis
-	jp HalveAttackDueToBurn
+.done
+    ld hl, MonsStatsFellText
+    call PrintText
+    ret ; Remove unconditional penalty calls
 
 CantLowerAnymore_Pop:
 	pop de
 	pop hl
-	inc [hl]
 
 CantLowerAnymore:
 	ld a, [de]
