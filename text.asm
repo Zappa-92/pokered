@@ -2149,6 +2149,11 @@ _WasBlownAwayText::
 	line "was blown away!"
 	prompt
 
+_TeleportSwitchedText::
+	text "<USER>"
+	line "switch #MON"
+	prompt
+
 _ChargeMoveEffectText::
 	text "<USER>@@"
 
