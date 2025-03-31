@@ -368,230 +368,245 @@ EnemyRanText:
 	db "@"
 
 MainInBattleLoop:
-	call ReadPlayerMonCurHPAndStatus
-	ld hl, wBattleMonHP
-	ld a, [hli]
-	or [hl] ; is battle mon HP 0?
-	jp z, HandlePlayerMonFainted  ; if battle mon HP is 0, jump
-	ld hl, wEnemyMonHP
-	ld a, [hli]
-	or [hl] ; is enemy mon HP 0?
-	jp z, HandleEnemyMonFainted ; if enemy mon HP is 0, jump
-	call SaveScreenTilesToBuffer1
-	xor a
-	ld [wFirstMonsNotOutYet], a
-	ld a, [wPlayerBattleStatus2]
-	and (1 << NEEDS_TO_RECHARGE) | (1 << USING_RAGE) ; check if the player is using Rage or needs to recharge
-	jr nz, .selectEnemyMove
-; the player is not using Rage and doesn't need to recharge
-	ld hl, wEnemyBattleStatus1
-	res FLINCHED, [hl] ; reset flinch bit
-	ld hl, wPlayerBattleStatus1
-	res FLINCHED, [hl] ; reset flinch bit
-	ld a, [hl]
-	and (1 << THRASHING_ABOUT) | (1 << CHARGING_UP) ; check if the player is thrashing about or charging for an attack
-	jr nz, .selectEnemyMove ; if so, jump
-; the player is neither thrashing about nor charging for an attack
-	call DisplayBattleMenu ; show battle menu
-	ret c ; return if player ran from battle
-	ld a, [wEscapedFromBattle]
-	and a
-	ret nz ; return if pokedoll was used to escape from battle
-	ld a, [wBattleMonStatus]
-	ld hl, wBattleMonStatus
-	bit FRZ, a
-	jr z, .checkSleep
-	; Check for thawing (20% chance)
-	call BattleRandom
-	cp 51 ; 51/256 ≈ 20%
-	jr nc, .selectEnemyMove ; Still frozen, skip turn
-	; Thaw the Pokémon
-	res FRZ, [hl]
-	ld hl, ThawedOutText
-	call PrintText
+    call ReadPlayerMonCurHPAndStatus
+    ld hl, wBattleMonHP
+    ld a, [hli]
+    or [hl]
+    jp z, HandlePlayerMonFainted
+    ld hl, wEnemyMonHP
+    ld a, [hli]
+    or [hl]
+    jp z, HandleEnemyMonFainted
+    call SaveScreenTilesToBuffer1
+    xor a
+    ld [wFirstMonsNotOutYet], a
+    ld a, [wPlayerBattleStatus2]
+    and (1 << NEEDS_TO_RECHARGE) | (1 << USING_RAGE)
+    jr nz, .selectEnemyMove
+    ld hl, wEnemyBattleStatus1
+    res FLINCHED, [hl]
+    ld hl, wPlayerBattleStatus1
+    res FLINCHED, [hl]
+    ld a, [hl]
+    and (1 << THRASHING_ABOUT) | (1 << CHARGING_UP)
+    jr nz, .selectEnemyMove
+    call DisplayBattleMenu
+    ret c
+    ld a, [wEscapedFromBattle]
+    and a
+    ret nz
+    ld a, [wPlayerSwitched]
+    and a
+    jr nz, .playerSwitched
+    ld a, [wBattleMonStatus]
+    ld hl, wBattleMonStatus
+    bit FRZ, a
+    jr z, .checkSleep
+    call BattleRandom
+    cp 51
+    jr nc, .selectEnemyMove
+    res FRZ, [hl]
+    ld hl, ThawedOutText
+    call PrintText
 .checkSleep
-	and SLP ; Check sleep mask
-	jr nz, .selectEnemyMove ; If asleep, skip to enemy turn
-	ld a, [wPlayerBattleStatus1]
-	and (1 << STORING_ENERGY) | (1 << USING_TRAPPING_MOVE) ; check player is using Bide or using a multi-turn attack like wrap
-	jr nz, .selectEnemyMove ; if so, jump
-	ld a, [wEnemyBattleStatus1]
-	bit USING_TRAPPING_MOVE, a ; check if enemy is using a multi-turn attack like wrap
-	jr z, .selectPlayerMove ; if not, jump
-    	; Enemy is using a trapping move, but allow player to attack
-    	ld a, [wPlayerNumAttacksLeft]
-    	dec a
-    	ld [wPlayerNumAttacksLeft], a        ; Decrease trapping move counter
-    	jr z, .endTrappingMove               ; End trapping if counter hits 0
-    	ld hl, TrappedText                   ; Print "Trapped!" message
-    	call PrintText
-    	jr .selectPlayerMove                 ; Allow player to select a move
+    and SLP
+    jr nz, .selectEnemyMove
+    ld a, [wPlayerBattleStatus1]
+    and (1 << STORING_ENERGY) | (1 << USING_TRAPPING_MOVE)
+    jr nz, .selectEnemyMove
+    ld a, [wEnemyBattleStatus1]
+    bit USING_TRAPPING_MOVE, a
+    jr z, .selectPlayerMove
+    ld a, [wPlayerNumAttacksLeft]
+    dec a
+    ld [wPlayerNumAttacksLeft], a
+    jr z, .endTrappingMove
+    ld hl, TrappedText
+    call PrintText
+    jr .selectPlayerMove
 .endTrappingMove
-    	ld hl, wEnemyBattleStatus1
-    	res USING_TRAPPING_MOVE, [hl]        ; Clear enemy trapping status
-   	ld hl, TrappingMoveEndedText         ; Print "Trapping move ended!" message
-   	call PrintText
-    	jr .selectPlayerMove
+    ld hl, wEnemyBattleStatus1
+    res USING_TRAPPING_MOVE, [hl]
+    ld hl, TrappingMoveEndedText
+    call PrintText
+    jr .selectPlayerMove
 .selectPlayerMove
-	ld a, [wActionResultOrTookBattleTurn]
-	and a ; has the player already used the turn (e.g. by using an item, trying to run or switching pokemon)
-	jr nz, .selectEnemyMove
-	ld [wMoveMenuType], a
-	inc a
-	ld [wAnimationID], a
-	xor a
-	ld [wMenuItemToSwap], a
-	call MoveSelectionMenu
-	push af
-	call LoadScreenTilesFromBuffer1
-	call DrawHUDsAndHPBars
-	pop af
-	jp nz, MainInBattleLoop ; if the player didn't select a move, jump RENAMED to jp due to target out of reach
+    ld a, [wActionResultOrTookBattleTurn]
+    and a
+    jr nz, .selectEnemyMove
+    ld [wMoveMenuType], a
+    inc a
+    ld [wAnimationID], a
+    xor a
+    ld [wMenuItemToSwap], a
+    call MoveSelectionMenu
+    push af
+    call LoadScreenTilesFromBuffer1
+    call DrawHUDsAndHPBars
+    pop af
+    jp nz, MainInBattleLoop
 .selectEnemyMove
-	call SelectEnemyMove
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	jr nz, .noLinkBattle
-; link battle
-	ld a, [wSerialExchangeNybbleReceiveData]
-	cp LINKBATTLE_RUN
-	jp z, EnemyRan
-	cp LINKBATTLE_STRUGGLE
-	jr z, .noLinkBattle
-	cp LINKBATTLE_NO_ACTION
-	jr z, .noLinkBattle
-	sub 4
-	jr c, .noLinkBattle
-; the link battle enemy has switched mons
-	ld a, [wPlayerBattleStatus1]
-	bit USING_TRAPPING_MOVE, a ; check if using multi-turn move like Wrap
-	jr z, .specialMoveNotUsed
-	ld a, [wPlayerMoveListIndex]
-	ld hl, wBattleMonMoves
-	ld c, a
-	ld b, 0
-	add hl, bc
-	ld a, [hl]
-	cp METRONOME ; a MIRROR MOVE check is missing, might lead to a desync in link battles
-	             ; when combined with multi-turn moves
-	jr nz, .specialMoveNotUsed
-	ld [wPlayerSelectedMove], a
-.specialMoveNotUsed
-    	ld a, [wPlayerBattleStatus1]         ; Load player battle status again
-    	bit USING_TRAPPING_MOVE, a           ; Check if player is using a trapping move
-    	jr z, .allowLinkSwitch               ; If not, allow switch
-    	ld hl, CantSwitchWhileTrappedText    ; Load "Can't switch while trapped!" text
-    	call PrintText                       ; Display the message
-    	call SelectEnemyMove                 ; Select a move instead
-    	jr .noLinkBattle 	             ; Continue with battle flow
+    call SelectEnemyMove
+    ld a, [wForceEnemyToSwitch] ; Added: Check enemy switch flag
+    and a
+    jr nz, .forceEnemySwitch    ; Added: Handle Whirlwind/Roar
+    ld a, [wLinkState]
+    cp LINK_STATE_BATTLING
+    jr nz, .noLinkBattle
+    ld a, [wSerialExchangeNybbleReceiveData]
+    cp LINKBATTLE_RUN
+    jp z, EnemyRan
+    cp LINKBATTLE_STRUGGLE
+    jr z, .noLinkBattle
+    cp LINKBATTLE_NO_ACTION
+    jr z, .noLinkBattle
+    sub 4
+    jr c, .noLinkBattle
+    ld a, [wPlayerBattleStatus1]
+    bit USING_TRAPPING_MOVE, a
+    jr z, .allowLinkSwitch
+    ld hl, CantSwitchWhileTrappedText
+    call PrintText
+    call SelectEnemyMove
+    jr .noLinkBattle
 .allowLinkSwitch
-    	callab SwitchEnemyMon                ; Attempt to switch enemy mon
-    	jr nc, .switchSuccessful             ; If switch succeeded, proceed
-    	; Switch failed (shouldn't happen since we checked above, but handle anyway)
-    	call SelectEnemyMove                 ; Select a move instead
-    	jr .noLinkBattle
+    callab SwitchEnemyMon
+    jr nc, .switchFailed
+    jr .switchSuccessful
+.switchFailed
+    call SelectEnemyMove
+    jr .noLinkBattle
 .switchSuccessful
-	callab SwitchEnemyMon
+    callab SwitchEnemyMon
 .noLinkBattle
-	ld a, [wPlayerSelectedMove]
-	cp QUICK_ATTACK
-	jr nz, .playerDidNotUseQuickAttack
-	ld a, [wEnemySelectedMove]
-	cp QUICK_ATTACK
-	jr z, .compareSpeed  ; if both used Quick Attack
-	jp .playerMovesFirst ; if player used Quick Attack and enemy didn't
+    ld a, [wEnemySwitched]
+    and a
+    jr nz, .enemySwitched
+    ld a, [wForcePlayerToSwitch] ; Added: Check player switch flag
+    and a
+    jr nz, .forcePlayerSwitch    ; Added: Handle enemy Whirlwind/Roar
+    ; Priority checks
+    ld a, [wPlayerSelectedMove]
+    cp QUICK_ATTACK
+    jr nz, .playerDidNotUseQuickAttack
+    ld a, [wEnemySelectedMove]
+    cp QUICK_ATTACK
+    jr z, .compareSpeed
+    jp .playerMovesFirst
 .playerDidNotUseQuickAttack
-	ld a, [wEnemySelectedMove]
-	cp QUICK_ATTACK
-	jr z, .enemyMovesFirst ; if enemy used Quick Attack and player didn't
-	ld a, [wPlayerSelectedMove]
-	cp COUNTER
-	jr nz, .playerDidNotUseCounter
-	ld a, [wEnemySelectedMove]
-	cp COUNTER
-	jr z, .compareSpeed ; if both used Counter
-	jr .enemyMovesFirst ; if player used Counter and enemy didn't
+    ld a, [wEnemySelectedMove]
+    cp QUICK_ATTACK
+    jr z, .enemyMovesFirst
+    ld a, [wPlayerSelectedMove]
+    cp COUNTER
+    jr nz, .playerDidNotUseCounter
+    ld a, [wEnemySelectedMove]
+    cp COUNTER
+    jr z, .compareSpeed
+    jr .enemyMovesFirst
 .playerDidNotUseCounter
-	ld a, [wEnemySelectedMove]
-	cp COUNTER
-	jr z, .playerMovesFirst ; if enemy used Counter and player didn't
+    ld a, [wEnemySelectedMove]
+    cp COUNTER
+    jr z, .playerMovesFirst
 .compareSpeed
-	ld de, wBattleMonSpeed ; player speed value
-	ld hl, wEnemyMonSpeed ; enemy speed value
-	ld c, $2
-	call StringCmp ; compare speed values
-	jr z, .speedEqual
-	jr nc, .playerMovesFirst ; if player is faster
-	jr .enemyMovesFirst ; if enemy is faster
-.speedEqual ; 50/50 chance for both players
-	ld a, [hSerialConnectionStatus]
-	cp USING_INTERNAL_CLOCK
-	jr z, .invertOutcome
-	call BattleRandom
-	cp $80
-	jr c, .playerMovesFirst
-	jr .enemyMovesFirst
+    ld de, wBattleMonSpeed
+    ld hl, wEnemyMonSpeed
+    ld c, $2
+    call StringCmp
+    jr z, .speedEqual
+    jr nc, .playerMovesFirst
+    jr .enemyMovesFirst
+.speedEqual
+    ld a, [hSerialConnectionStatus]
+    cp USING_INTERNAL_CLOCK
+    jr z, .invertOutcome
+    call BattleRandom
+    cp $80
+    jr c, .playerMovesFirst
+    jr .enemyMovesFirst
 .invertOutcome
-	call BattleRandom
-	cp $80
-	jr c, .enemyMovesFirst
-	jr .playerMovesFirst
+    call BattleRandom
+    cp $80
+    jr c, .enemyMovesFirst
+    jr .playerMovesFirst
+.forceEnemySwitch
+    xor a
+    ld [wForceEnemyToSwitch], a ; Added: Clear flag
+    callab SwitchEnemyMon        ; Added: Execute switch
+    call DrawHUDsAndHPBars       ; Added: Refresh display
+    jp MainInBattleLoop          ; Added: Restart loop
+.forcePlayerSwitch
+    xor a
+    ld [wForcePlayerToSwitch], a ; Added: Clear flag
+    callab SwitchPlayerMon       ; Added: Execute switch (random)
+    call DrawHUDsAndHPBars       ; Added: Refresh display
+    jp .selectEnemyMove          ; Added: Enemy turn after forced switch
+.playerSwitched
+    xor a
+    ld [wPlayerSwitched], a
+    call DrawHUDsAndHPBars
+    jp .selectEnemyMove
 .enemyMovesFirst
-	ld a, $1
-	ld [H_WHOSETURN], a
-	callab TrainerAI
-	jr c, .AIActionUsedEnemyFirst
-	call ExecuteEnemyMove
-	ld a, [wEscapedFromBattle]
-	and a ; was Teleport, Road, or Whirlwind used to escape from battle?
-	ret nz ; if so, return
-	ld a, b
-	and a
-	jp z, HandlePlayerMonFainted
+    ld a, $1
+    ld [H_WHOSETURN], a
+    callab TrainerAI
+    jr c, .AIActionUsedEnemyFirst
+    call ExecuteEnemyMove
+    ld a, [wEscapedFromBattle]
+    and a
+    ret nz
+    ld a, b
+    and a
+    jp z, HandlePlayerMonFainted
 .AIActionUsedEnemyFirst
-	call HandlePoisonBurnLeechSeed
-	jp z, HandleEnemyMonFainted
-	call DrawHUDsAndHPBars
-	call ExecutePlayerMove
-	ld a, [wEscapedFromBattle]
-	and a ; was Teleport, Road, or Whirlwind used to escape from battle?
-	ret nz ; if so, return
-	ld a, b
-	and a
-	jp z, HandleEnemyMonFainted
-	call HandlePoisonBurnLeechSeed
-	jp z, HandlePlayerMonFainted
-	call DrawHUDsAndHPBars
-	call CheckNumAttacksLeft
-	jp MainInBattleLoop
+    call HandlePoisonBurnLeechSeed
+    jp z, HandleEnemyMonFainted
+    call DrawHUDsAndHPBars
+    call ExecutePlayerMove
+    ld a, [wEscapedFromBattle]
+    and a
+    ret nz
+    ld a, b
+    and a
+    jp z, HandleEnemyMonFainted
+    call HandlePoisonBurnLeechSeed
+    jp z, HandlePlayerMonFainted
+    call DrawHUDsAndHPBars
+    call CheckNumAttacksLeft
+    jp MainInBattleLoop
 .playerMovesFirst
-	call ExecutePlayerMove
-	ld a, [wEscapedFromBattle]
-	and a ; was Teleport, Road, or Whirlwind used to escape from battle?
-	ret nz ; if so, return
-	ld a, b
-	and a
-	jp z, HandleEnemyMonFainted
-	call HandlePoisonBurnLeechSeed
-	jp z, HandlePlayerMonFainted
-	call DrawHUDsAndHPBars
-	ld a, $1
-	ld [H_WHOSETURN], a
-	callab TrainerAI
-	jr c, .AIActionUsedPlayerFirst
-	call ExecuteEnemyMove
-	ld a, [wEscapedFromBattle]
-	and a ; was Teleport, Road, or Whirlwind used to escape from battle?
-	ret nz ; if so, return
-	ld a, b
-	and a
-	jp z, HandlePlayerMonFainted
+    call ExecutePlayerMove
+    ld a, [wEscapedFromBattle]
+    and a
+    ret nz
+    ld a, b
+    and a
+    jp z, HandleEnemyMonFainted
+    call HandlePoisonBurnLeechSeed
+    jp z, HandlePlayerMonFainted
+    call DrawHUDsAndHPBars
+    ld a, $1
+    ld [H_WHOSETURN], a
+    callab TrainerAI
+    jr c, .AIActionUsedPlayerFirst
+    call ExecuteEnemyMove
+    ld a, [wEscapedFromBattle]
+    and a
+    ret nz
+    ld a, b
+    and a
+    jp z, HandlePlayerMonFainted
 .AIActionUsedPlayerFirst
-	call HandlePoisonBurnLeechSeed
-	jp z, HandleEnemyMonFainted
-	call DrawHUDsAndHPBars
-	call CheckNumAttacksLeft
-	jp MainInBattleLoop
+    call HandlePoisonBurnLeechSeed
+    jp z, HandleEnemyMonFainted
+    call DrawHUDsAndHPBars
+    call CheckNumAttacksLeft
+    jp MainInBattleLoop
+.enemySwitched
+    xor a
+    ld [wEnemySwitched], a
+    call DrawHUDsAndHPBars
+    jp MainInBattleLoop
 
 HandlePoisonBurnLeechSeed:
     ld hl, wBattleMonHP
@@ -1188,37 +1203,81 @@ PlayBattleVictoryMusic:
 	jp Delay3
 
 HandlePlayerMonFainted:
-	ld a, 1
-	ld [wInHandlePlayerMonFainted], a
-	call RemoveFaintedPlayerMon
-	call AnyPartyAlive     ; test if any more mons are alive
-	ld a, d
-	and a
-	jp z, HandlePlayerBlackOut
-	ld hl, wEnemyMonHP
-	ld a, [hli]
-	or [hl] ; is enemy mon's HP 0?
-	jr nz, .doUseNextMonDialogue ; if not, jump
-; the enemy mon has 0 HP
-	call FaintEnemyPokemon
-	ld a, [wIsInBattle]
-	dec a
-	ret z            ; if wild encounter, battle is over
-	call AnyEnemyPokemonAliveCheck
-	jp z, TrainerBattleVictory
+    ld a, 1
+    ld [wInHandlePlayerMonFainted], a
+    call RemoveFaintedPlayerMon
+    call AnyPartyAlive         ; Test if any more mons are alive
+    ld a, d
+    and a
+    jp z, HandlePlayerBlackOut
+    call UpdatePartyAlive      ; Added: Update wPartyAlive after faint
+    ld hl, wEnemyMonHP
+    ld a, [hli]
+    or [hl]                    ; Is enemy mon's HP 0?
+    jr nz, .doUseNextMonDialogue ; If not, jump
+    ; Enemy mon has 0 HP
+    call FaintEnemyPokemon
+    ld a, [wIsInBattle]
+    dec a
+    ret z                      ; If wild encounter, battle is over
+    call AnyEnemyPokemonAliveCheck
+    call UpdateEnemyNumAlive   ; Added: Update wEnemyNumAlive after enemy faint check
+    jp z, TrainerBattleVictory
 .doUseNextMonDialogue
-	call DoUseNextMonDialogue
-	ret c ; return if the player ran from battle
-	call ChooseNextMon
-	jp nz, MainInBattleLoop ; if the enemy mon has more than 0 HP, go back to battle loop
-; the enemy mon has 0 HP
-	ld a, $1
-	ld [wActionResultOrTookBattleTurn], a
-	call ReplaceFaintedEnemyMon
-	jp z, EnemyRan ; if enemy ran from battle rather than sending out another mon, jump
-	xor a
-	ld [wActionResultOrTookBattleTurn], a
-	jp MainInBattleLoop
+    call DoUseNextMonDialogue
+    ret c                      ; Return if player ran
+    call ChooseNextMon
+    jp nz, MainInBattleLoop    ; If enemy has HP, back to loop
+    ; Enemy mon has 0 HP
+    ld a, $1
+    ld [wActionResultOrTookBattleTurn], a
+    call ReplaceFaintedEnemyMon
+    call UpdateEnemyNumAlive   ; Added: Update wEnemyNumAlive after replacement
+    jp z, EnemyRan             ; If enemy ran, jump
+    xor a
+    ld [wActionResultOrTookBattleTurn], a
+    jp MainInBattleLoop
+
+UpdatePartyAlive:              ; Added: Count alive player Pokémon
+    ld hl, wPartyMon1HP
+    ld de, wPartyMon2HP - wPartyMon1HP
+    ld b, 0                    ; Counter for alive Pokémon
+    ld c, 6                    ; Check all 6 party slots
+.loop
+    ld a, [hli]
+    or [hl]                    ; Check HP (high byte | low byte)
+    jr z, .next                ; If 0, skip to next
+    inc b                      ; Increment alive count
+.next
+    dec hl                     ; Back to high byte
+    add hl, de                 ; Move to next Pokémon’s HP
+    dec c
+    jr nz, .loop
+    ld a, b
+    ld [wPartyAlive], a        ; Store alive count
+    ret
+
+UpdateEnemyNumAlive:           ; Added: Count alive enemy Pokémon
+    ld hl, wEnemyMon1
+    ld de, wEnemyMon2 - wEnemyMon1
+    ld b, 0                    ; Counter for alive Pokémon
+    ld a, [wEnemyPartyCount]   ; Number of enemy Pokémon
+    ld c, a
+    and a
+    ret z                      ; Return if no Pokémon (safety)
+.loop
+    ld a, [hli]
+    or [hl]                    ; Check HP
+    jr z, .next
+    inc b                      ; Increment alive count
+.next
+    dec hl
+    add hl, de                 ; Next Pokémon
+    dec c
+    jr nz, .loop
+    ld a, b
+    ld [wEnemyNumAlive], a     ; Store alive count
+    ret
 
 ; resets flags, slides mon's pic down, plays cry, and prints fainted message
 RemoveFaintedPlayerMon:
@@ -8663,107 +8722,256 @@ ThrashPetalDanceEffect:
 	jp PlayBattleAnimation2
 
 SwitchAndTeleportEffect:
-	ld a, [H_WHOSETURN]
-	and a
-	jr nz, .handleEnemy
-	ld a, [wIsInBattle]
-	dec a
-	jr nz, .notWildBattle1
-	ld a, [wCurEnemyLVL]
-	ld b, a
-	ld a, [wBattleMonLevel]
-	cp b ; is the player's level greater than the enemy's level?
-	jr nc, .playerMoveWasSuccessful ; if so, teleport will always succeed
-	add b
-	ld c, a
-	inc c ; c = sum of player level and enemy level
+    ld a, [H_WHOSETURN]
+    and a
+    jr nz, .handleEnemy
+.handlePlayer
+    ld a, [wIsInBattle]
+    dec a                    ; 0 = wild, 1 = trainer
+    jr nz, .trainerBattlePlayer
+    ; Wild battle
+    ld a, [wCurEnemyLVL]
+    ld b, a
+    ld a, [wBattleMonLevel]
+    cp b
+    jr nc, .playerMoveWasSuccessful
+    add b
+    ld c, a
+    inc c
 .rejectionSampleLoop1
-	call BattleRandom
-	cp c ; get a random number between 0 and c
-	jr nc, .rejectionSampleLoop1
-	srl b
-	srl b  ; b = enemyLevel / 4
-	cp b ; is rand[0, playerLevel + enemyLevel) >= (enemyLevel / 4)?
-	jr nc, .playerMoveWasSuccessful ; if so, allow teleporting
-	ld c, 50
-	call DelayFrames
-	ld a, [wPlayerMoveNum]
-	cp TELEPORT
-	jp nz, PrintDidntAffectText
-	jp PrintButItFailedText_
+    call BattleRandom
+    cp c
+    jr nc, .rejectionSampleLoop1
+    srl b
+    srl b
+    cp b
+    jr nc, .playerMoveWasSuccessful
+    ld c, 50
+    call DelayFrames
+    ld a, [wPlayerMoveNum]
+    cp TELEPORT
+    jp nz, PrintDidntAffectText
+    jp PrintButItFailedText_
 .playerMoveWasSuccessful
-	call ReadPlayerMonCurHPAndStatus
-	xor a
-	ld [wAnimationType], a
-	inc a
-	ld [wEscapedFromBattle], a
-	ld a, [wPlayerMoveNum]
-	jr .playAnimAndPrintText
-.notWildBattle1
-	ld c, 50
-	call DelayFrames
-	ld hl, IsUnaffectedText
-	ld a, [wPlayerMoveNum]
-	cp TELEPORT
-	jp nz, PrintText
-	jp PrintButItFailedText_
+    call ReadPlayerMonCurHPAndStatus
+    xor a
+    ld [wAnimationType], a
+    inc a
+    ld [wEscapedFromBattle], a
+    ld a, [wPlayerMoveNum]
+    cp TELEPORT
+    jr z, .wildTeleportSuccess
+    jr .playAnimAndPrintText
+.wildTeleportSuccess
+    ld hl, RanFromBattleText
+    call PrintText
+    ret
+.trainerBattlePlayer
+    ld a, [wPlayerMoveNum]
+    cp TELEPORT
+    jr z, .teleportPlayer
+    ; Whirlwind/Roar: Force enemy switch
+    ld a, [wEnemyMonPartyPos]
+    ld hl, wEnemyMon1
+    ld bc, wEnemyMon2 - wEnemyMon1
+    call AddNTimes           ; Current enemy mon
+    ld a, [hli]
+    or [hl]                  ; Check HP
+    jr z, .failPlayer        ; Fail if fainted
+    ld a, [wEnemyNumAlive]
+    cp 2                     ; Need 2+ Pokémon
+    jr c, .failPlayer
+    call Random              ; Random switch
+    ld b, a
+    ld a, [wEnemyNumAlive]
+    dec a
+    call Modulo
+    ld c, a
+    ld a, [wEnemyMonPartyPos]
+    ld b, a
+.findNewMonPlayer
+    inc c
+    ld a, c
+    cp b
+    jr z, .findNewMonPlayer
+    ld hl, wEnemyMon1
+    ld de, wEnemyMon2 - wEnemyMon1
+    ld a, c
+    call AddNTimes
+    ld a, [hli]
+    or [hl]
+    jr z, .findNewMonPlayer
+    ld a, c
+    ld [wEnemyMonPartyPos], a
+    ld a, 1
+    ld [wForceEnemyToSwitch], a
+    jr .playAnimAndPrintText
+.teleportPlayer
+    ld a, [wPartyAlive]
+    cp 2                     ; Need 2+ Pokémon
+    jr c, .failPlayer
+    ld a, [wEnemyBattleStatus1]
+    bit USING_TRAPPING_MOVE, a
+    jr z, .noTrapPlayer
+    res USING_TRAPPING_MOVE, a
+    ld [wEnemyBattleStatus1], a
+    xor a
+    ld [wEnemyNumAttacksLeft], a
+.noTrapPlayer
+    callab SwitchPlayerMon   ; Player selects Pokémon
+    jr nc, .failPlayer       ; Fail if cancelled
+    ld a, 1
+    ld [wPlayerSwitched], a
+    ld hl, TeleportSwitchedText
+    call PrintText
+    ret
+.failPlayer
+    ld c, 50
+    call DelayFrames
+    ld hl, ButItFailedText
+    call PrintText
+    ret
 .handleEnemy
-	ld a, [wIsInBattle]
-	dec a
-	jr nz, .notWildBattle2
-	ld a, [wBattleMonLevel]
-	ld b, a
-	ld a, [wCurEnemyLVL]
-	cp b
-	jr nc, .enemyMoveWasSuccessful
-	add b
-	ld c, a
-	inc c
+    ld a, [wIsInBattle]
+    dec a
+    jr nz, .trainerBattleEnemy
+    ; Wild battle
+    ld a, [wBattleMonLevel]
+    ld b, a
+    ld a, [wCurEnemyLVL]
+    cp b
+    jr nc, .enemyMoveWasSuccessful
+    add b
+    ld c, a
+    inc c
 .rejectionSampleLoop2
-	call BattleRandom
-	cp c
-	jr nc, .rejectionSampleLoop2
-	srl b
-	srl b
-	cp b
-	jr nc, .enemyMoveWasSuccessful
-	ld c, 50
-	call DelayFrames
-	ld a, [wEnemyMoveNum]
-	cp TELEPORT
-	jp nz, PrintDidntAffectText
-	jp PrintButItFailedText_
+    call BattleRandom
+    cp c
+    jr nc, .rejectionSampleLoop2
+    srl b
+    srl b
+    cp b
+    jr nc, .enemyMoveWasSuccessful
+    ld c, 50
+    call DelayFrames
+    ld a, [wEnemyMoveNum]
+    cp TELEPORT
+    jp nz, PrintDidntAffectText
+    jp PrintButItFailedText_
 .enemyMoveWasSuccessful
-	call ReadPlayerMonCurHPAndStatus
-	xor a
-	ld [wAnimationType], a
-	inc a
-	ld [wEscapedFromBattle], a
-	ld a, [wEnemyMoveNum]
-	jr .playAnimAndPrintText
-.notWildBattle2
-	ld c, 50
-	call DelayFrames
-	ld hl, IsUnaffectedText
-	ld a, [wEnemyMoveNum]
-	cp TELEPORT
-	jp nz, PrintText
-	jp ConditionalPrintButItFailed
+    call ReadPlayerMonCurHPAndStatus
+    xor a
+    ld [wAnimationType], a
+    inc a
+    ld [wEscapedFromBattle], a
+    ld a, [wEnemyMoveNum]
+    jr .playAnimAndPrintText
+.trainerBattleEnemy
+    ld a, [wEnemyMoveNum]
+    cp TELEPORT
+    jr z, .teleportEnemy
+    ; Whirlwind/Roar: Force player switch
+    ld a, [wPartyAlive]      ; Added: Check player’s alive Pokémon
+    cp 2                     ; Added: Need 2+ Pokémon
+    jr c, .failEnemy         ; Added: Fail if only 1 left
+    ld a, [wPlayerBattleStatus1]
+    bit USING_TRAPPING_MOVE, a ; Added: Check player trapping
+    jr z, .noTrapEnemyForce  ; Added: Skip if not trapping
+    res USING_TRAPPING_MOVE, a ; Added: Clear trapping
+    ld [wPlayerBattleStatus1], a ; Added: Update status
+    xor a
+    ld [wPlayerNumAttacksLeft], a ; Added: Reset counter
+.noTrapEnemyForce
+    call Random              ; Added: Random player switch
+    ld b, a
+    ld a, [wPartyAlive]
+    dec a
+    call Modulo
+    ld c, a
+    ld a, [wWhichPokemon]    ; Added: Current player mon index
+    ld b, a
+.findNewMonEnemy
+    inc c
+    ld a, c
+    cp b
+    jr z, .findNewMonEnemy
+    ld hl, wPartyMon1HP
+    ld de, wPartyMon2HP - wPartyMon1HP
+    ld a, c
+    call AddNTimes
+    ld a, [hli]
+    or [hl]
+    jr z, .findNewMonEnemy
+    ld a, c
+    ld [wWhichPokemon], a   ; Added: Update active mon
+    ld a, 1
+    ld [wForcePlayerToSwitch], a ; Added: New flag for player switch
+    jr .playAnimAndPrintText
+.teleportEnemy
+    ld a, [wEnemyNumAlive]
+    cp 2
+    jr c, .failEnemy
+    ld a, [wPlayerBattleStatus1]
+    bit USING_TRAPPING_MOVE, a
+    jr z, .noTrapEnemy
+    res USING_TRAPPING_MOVE, a
+    ld [wPlayerBattleStatus1], a
+    xor a
+    ld [wPlayerNumAttacksLeft], a
+.noTrapEnemy
+    call Random              ; Edited: Random enemy switch (instead of SwitchEnemyMon)
+    ld b, a
+    ld a, [wEnemyNumAlive]
+    dec a
+    call Modulo
+    ld c, a
+    ld a, [wEnemyMonPartyPos]
+    ld b, a
+.findNewMonEnemyTeleport
+    inc c
+    ld a, c
+    cp b
+    jr z, .findNewMonEnemyTeleport
+    ld hl, wEnemyMon1
+    ld de, wEnemyMon2 - wEnemyMon1
+    ld a, c
+    call AddNTimes
+    ld a, [hli]
+    or [hl]
+    jr z, .findNewMonEnemyTeleport
+    ld a, c
+    ld [wEnemyMonPartyPos], a ; Edited: Update enemy index directly
+    ld a, 1
+    ld [wEnemySwitched], a
+    ld hl, TeleportSwitchedText
+    call PrintText
+    ret
+.failEnemy
+    ld c, 50
+    call DelayFrames
+    ld hl, ButItFailedText
+    call PrintText
+    ret
 .playAnimAndPrintText
-	push af
-	call PlayBattleAnimation
-	ld c, 20
-	call DelayFrames
-	pop af
-	ld hl, RanFromBattleText
-	cp TELEPORT
-	jr z, .printText
-	ld hl, RanAwayScaredText
-	cp ROAR
-	jr z, .printText
-	ld hl, WasBlownAwayText
+    push af
+    call PlayBattleAnimation
+    ld c, 20
+    call DelayFrames
+    pop af
+    cp TELEPORT
+    ld hl, RanFromBattleText
+    jr z, .printText
+    cp ROAR
+    ld hl, RanAwayScaredText
+    jr z, .printText
+    ld hl, WasBlownAwayText
 .printText
-	jp PrintText
+    call PrintText
+    ret
+
+TeleportSwitchedText:         ; Added: New text for Teleport switch
+    	TX_FAR _TeleportSwitchedText
+	db "@"
 
 RanFromBattleText:
 	TX_FAR _RanFromBattleText
