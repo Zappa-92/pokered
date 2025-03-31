@@ -3335,7 +3335,16 @@ LinkBattleExchangeData:
 
 ExecutePlayerMove:
 	xor a
-	ld [H_WHOSETURN], a ; set player's turn
+    ld [H_WHOSETURN], a         ; Set player's turn
+    ; Check if player needs to recharge from Hyper Beam
+    ld hl, wPlayerBattleStatus2
+    bit NEEDS_TO_RECHARGE, [hl] ; Added: Check recharge flag
+    jr z, .noRecharge           ; Added: Skip if no recharge needed
+    res NEEDS_TO_RECHARGE, [hl] ; Added: Clear flag after recharge turn
+    ld hl, MustRechargeText     ; Added: Display recharge message
+    call PrintText
+    jr ExecutePlayerMoveDone    ; Added: Skip move execution
+.noRecharge
 	ld a, [wPlayerSelectedMove]
 	inc a
 	jp z, ExecutePlayerMoveDone ; for selected move = FF, skip most of player's turn
@@ -6042,6 +6051,16 @@ RandomizeDamage:
 
 ; for more detailed commentary, see equivalent function for player side (ExecutePlayerMove)
 ExecuteEnemyMove:
+    ld a, $1                    ; Added: Set enemy’s turn (assumed, not in snippet)
+    ld [H_WHOSETURN], a         ; Added: Ensure turn is set
+    ; Check if enemy needs to recharge from Hyper Beam
+    ld hl, wEnemyBattleStatus2
+    bit NEEDS_TO_RECHARGE, [hl] ; Added: Check recharge flag
+    jr z, .noRecharge           ; Added: Skip if no recharge needed
+    res NEEDS_TO_RECHARGE, [hl] ; Added: Clear flag after recharge turn
+    ld hl, MustRechargeText     ; Added: Display recharge message
+    call PrintText
+    jr ExecuteEnemyMoveDone     ; Added: Skip move execution
 	ld a, [wEnemySelectedMove]
 	inc a
 	jp z, ExecuteEnemyMoveDone
@@ -9158,8 +9177,6 @@ TrappingEffect:
 .trappingEffect
 	bit USING_TRAPPING_MOVE, [hl]
 	ret nz
-	call ClearHyperBeam ; since this effect is called before testing whether the move will hit,
-                        ; the target won't need to recharge even if the trapping move missed
 	set USING_TRAPPING_MOVE, [hl] ; mon is now using a trapping move
 	call BattleRandom ; 3/8 chance for 2 and 3 attacks, and 1/8 chance for 4 and 5 attacks
 	and $3
@@ -9170,7 +9187,29 @@ TrappingEffect:
 .setTrappingCounter
 	inc a
 	ld [de], a
-	ret
+    ; Check if Hyper Beam was used and caused a KO
+    ld a, [H_WHOSETURN]
+    and a
+    ld a, [wPlayerSelectedMove] ; Player’s move
+    jr z, .checkHyperBeam
+    ld a, [wEnemySelectedMove]  ; Enemy’s move
+.checkHyperBeam
+    cp HYPER_BEAM              ; Is it Hyper Beam?
+    jr nz, .clearHyperBeam     ; If not, clear recharge
+    ; Check if opponent fainted
+    ld a, [H_WHOSETURN]
+    and a
+    ld hl, wEnemyMonHP         ; Enemy HP if player’s turn
+    jr z, .checkFaint
+    ld hl, wBattleMonHP        ; Player HP if enemy’s turn
+.checkFaint
+    ld a, [hli]
+    or [hl]                    ; HP = 0?
+    jr nz, .clearHyperBeam     ; If not fainted, clear recharge
+    ret                        ; If Hyper Beam KO’d, keep recharge
+.clearHyperBeam
+    call ClearHyperBeam        ; Clear recharge if no KO or not Hyper Beam
+    ret
 
 MistEffect:
 	jpab MistEffect_
