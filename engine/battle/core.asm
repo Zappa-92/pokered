@@ -5468,10 +5468,21 @@ AttackSubstitute:
 	ld a, [de]
 	sub [hl]
 	ld [de], a
-	ret nc
+	jr nc, .preserveRecharge    ; Added: Handle non-breaking case
+    	jr .substituteBroke
+.preserveRecharge               ; Added
+    	ld h, b
+    	ld l, c
+    	bit NEEDS_TO_RECHARGE, [hl] ; Check if Hyper Beam used
+    	ret z                       ; Return if not
+    	res NEEDS_TO_RECHARGE, [hl] ; Temporarily clear
+    	set NEEDS_TO_RECHARGE, [hl] ; Restore flag
+    	ret
 .substituteBroke
 ; If the target's Substitute breaks, wDamage isn't updated with the amount of HP
 ; the Substitute had before being attacked.
+	xor a
+	ld [de], a
 	ld h, b
 	ld l, c
 	res HAS_SUBSTITUTE_UP, [hl] ; unset the substitute bit
@@ -5847,7 +5858,7 @@ MoveHitTest:
 	jr z, .checkForDigOrFlyStatus
 ; this code is buggy. it's supposed to prevent HP draining moves from working on substitutes.
 ; since $7b79 overwrites a with either $00 or $01, it never works.
-	ld a,[de] ; NUEVA linea para arreglar BUG
+	ld a,[de] ; NUEVA linea para arreglar ese BUG
 	cp DRAIN_HP_EFFECT
 	jp z, .moveMissed
 	cp DREAM_EATER_EFFECT
@@ -7661,6 +7672,8 @@ SleepEffect:
 	ld bc, wPlayerBattleStatus2
 
 .sleepEffect
+	call CheckTargetSubstitute  ; Added: Check Substitute
+    	jr nz, .didntAffect        ; Added: Fail if Substitute up
 	ld a, [bc]
 	bit NEEDS_TO_RECHARGE, a ; does the target need to recharge? (hyper beam)
 	res NEEDS_TO_RECHARGE, a ; target no longer needs to recharge
@@ -7801,23 +7814,43 @@ DrainHPEffect:
 	jpab DrainHPEffect_
 
 ExplodeEffect:
-	ld hl, wBattleMonHP
-	ld de, wPlayerBattleStatus2
-	ld a, [H_WHOSETURN]
-	and a
-	jr z, .faintUser
-	ld hl, wEnemyMonHP
-	ld de, wEnemyBattleStatus2
+    ; Apply damage to target
+    ld a, [H_WHOSETURN]
+    and a
+    jr nz, .enemyTurn
+    call ApplyDamageToEnemyPokemon
+    jr .faintUser
+.enemyTurn
+    call ApplyDamageToPlayerPokemon
 .faintUser
-	xor a
-	ld [hli], a ; set the mon's HP to 0
-	ld [hli], a
-	inc hl
-	ld [hl], a ; set mon's status to 0
-	ld a, [de]
-	res SEEDED, a ; clear mon's leech seed status
-	ld [de], a
-	ret
+    ld hl, wBattleMonHP
+    ld de, wPlayerBattleStatus2
+    ld bc, wPlayerSubstituteHP  ; Added: Clear Substitute if present
+    ld a, [H_WHOSETURN]
+    and a
+    jr z, .setFaint
+    ld hl, wEnemyMonHP
+    ld de, wEnemyBattleStatus2
+    ld bc, wEnemySubstituteHP   ; Added: Clear Substitute if present
+.setFaint
+    xor a
+    ld [hli], a                 ; Set user HP to 0
+    ld [hli], a
+    inc hl
+    ld [hl], a                 ; Clear status
+    ld a, [de]
+    res SEEDED, a              ; Clear Leech Seed
+    res HAS_SUBSTITUTE_UP, a   ; Added: Clear Substitute flag
+    ld [de], a
+    ld [bc], a                 ; Added: Clear Substitute HP
+    ld hl, PlayerMonFaintedText
+    ld a, [H_WHOSETURN]
+    and a
+    jr z, .printFaint
+    ld hl, EnemyMonFaintedText
+.printFaint
+    call PrintText
+    jp DrawHUDsAndHPBars       ; Update HUD after faint
 
 FreezeBurnParalyzeEffect:
 	xor a
@@ -8790,6 +8823,9 @@ SwitchAndTeleportEffect:
     cp TELEPORT
     jr z, .teleportPlayer
     ; Whirlwind/Roar: Force enemy switch
+    ld hl, wEnemyBattleStatus2  ; Added: Check enemy Substitute
+    bit HAS_SUBSTITUTE_UP, [hl] ; Added
+    jr nz, .failPlayer          ; Added: Fail if Substitute up
     ld a, [wEnemyMonPartyPos]
     ld hl, wEnemyMon1
     ld bc, wEnemyMon2 - wEnemyMon1
@@ -8890,6 +8926,9 @@ SwitchAndTeleportEffect:
     cp TELEPORT
     jr z, .teleportEnemy
     ; Whirlwind/Roar: Force player switch
+    ld hl, wPlayerBattleStatus2 ; Added: Check player Substitute
+    bit HAS_SUBSTITUTE_UP, [hl] ; Added
+    jr nz, .failEnemy           ; Added: Fail if Substitute up
     ld a, [wPartyAlive]      ; Added: Check player’s alive Pokémon
     cp 2                     ; Added: Need 2+ Pokémon
     jr c, .failEnemy         ; Added: Fail if only 1 left
