@@ -26,24 +26,44 @@ SubstituteEffect_:
 	push de
 	ld de, wBattleMonHP - wBattleMonMaxHP
 	add hl, de ; point hl to current HP low byte
-	pop de
-	ld a, b
-	ld [de], a ; save copy of HP to subtract in ccd7/ccd8 [how much HP substitute has]
-	ld a, [hld]
-; subtract [max hp / 4] to current HP
-	sub b
-	ld d, a
-	ld a, [hl]
-	sbc 0
-	pop bc
-	jr c, .notEnoughHP ; underflow means user would be left with negative health
-                           ; bug: since it only branches on carry, it will possibly leave user with 0 HP
-.userHasZeroOrMoreHP
-	ldi [hl], a ; save resulting HP after subtraction into current HP
-	ld [hl], d
-	ld h, b
-	ld l, c
-	set HAS_SUBSTITUTE_UP, [hl]
+    ld a, [hli]
+    ld d, a                    ; d = HP high
+    ld a, [hl]
+    sub b                      ; Low byte - 25%
+    ld e, a                    ; e = result low
+    ld a, d
+    sbc 0                      ; High byte carry
+    jr c, .notEnoughHP         ; Fail if HP < 25%
+    ld a, e
+    cp b
+    jr z, .notEnoughHP         ; Fail if HP = 25% (low bytes match)
+    ld a, d
+    sub 0                      ; Check high byte
+    jr nz, .subtractHP         ; Proceed if high byte differs
+    ld a, e
+    cp 1                       ; If HP - 25% = 0, adjust
+    jr nz, .subtractHP
+    inc b                      ; Increase cost to leave 1 HP
+.subtractHP
+    ld a, [hld]
+    sub b
+    ld [hli], a                ; Update HP low
+    ld a, [hl]
+    sbc 0
+    ld [hld], a                ; Update HP high
+    jr nc, .setSubstitute
+    inc a
+    ld [hli], a                ; Set HP to 1 if underflow
+    inc a
+    ld [hl], a
+.setSubstitute
+    pop de
+    ld a, b
+    ld [de], a                 ; Substitute HP = 25%
+    pop bc
+    ld h, b
+    ld l, c
+    set HAS_SUBSTITUTE_UP, [hl]
 	ld a, [wOptions]
 	bit 7, a ; battle animation is enabled?
 	ld hl, PlayCurrentMoveAnimation
