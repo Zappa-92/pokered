@@ -5729,6 +5729,8 @@ AdjustDamageForMoveType:
 	ld hl, wDamageMultipliers
 	set 7, [hl]
 .skipSameTypeAttackBonus
+	ld a, $0A
+    	ld [wDamageMultipliers], a
 	ld a, [wMoveType]
 	ld b, a
 	ld hl, TypeEffects
@@ -5749,35 +5751,48 @@ AdjustDamageForMoveType:
 	push hl
 	push bc
 	inc hl
-	ld a, [wDamageMultipliers]
-	and $20
-	ld b, a
-	ld a, [hl] ; a = damage multiplier
-	ld [H_MULTIPLIER], a
-	add b
-	ld [wDamageMultipliers], a
-	xor a
-	ld [H_MULTIPLICAND], a
-	ld hl, wDamage
-	ld a, [hli]
-	ld [H_MULTIPLICAND + 1], a
-	ld a, [hld]
-	ld [H_MULTIPLICAND + 2], a
-	call Multiply
-	ld a, 10
-	ld [H_DIVISOR], a
-	ld b, $04
-	call Divide
-	ld a, [H_QUOTIENT + 2]
-	ld [hli], a
-	ld b, a
-	ld a, [H_QUOTIENT + 3]
-	ld [hl], a
-	or b ; is damage 0?
-	jr nz, .skipTypeImmunity
+ld a, [hl]  ; Multiplier ($0F, $05, $00)
+    ld [H_MULTIPLIER], a
+    cp $00
+    jr z, .typeImmunity
+    push de
+    ld hl, wDamageMultipliers
+    ld a, [hl]
+    ld [H_MULTIPLICAND + 2], a
+    xor a
+    ld [H_MULTIPLICAND], a
+    ld [H_MULTIPLICAND + 1], a
+    call Multiply
+    ld a, 10
+    ld [H_DIVISOR], a
+    ld b, 4
+    call Divide
+    ld a, [H_QUOTIENT + 3]
+    ld [wDamageMultipliers], a
+    pop de
+    ld a, [H_MULTIPLIER]
+    xor a
+    ld [H_MULTIPLICAND], a
+    ld hl, wDamage
+    ld a, [hli]
+    ld [H_MULTIPLICAND + 1], a
+    ld a, [hld]
+    ld [H_MULTIPLICAND + 2], a
+    call Multiply
+    ld a, 10
+    ld [H_DIVISOR], a
+    ld b, $04
+    call Divide
+    ld a, [H_QUOTIENT + 2]
+    ld [hli], a
+    ld b, a
+    ld a, [H_QUOTIENT + 3]
+    ld [hl], a
+    or b
+    jr nz, .skipTypeImmunity
 .typeImmunity
-; if damage is 0, make the move miss
-; this only occurs if a move that would do 2 or 3 damage is 0.25x effective against the target
+    ld a, $0A
+    ld [wDamageMultipliers], a
 	inc a
 	ld [wMoveMissed], a
 .skipTypeImmunity
