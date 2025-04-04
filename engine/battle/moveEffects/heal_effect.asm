@@ -11,12 +11,14 @@ HealEffect_:
 .healEffect
     ld b, a                    ; Save move ID
     ld a, [de]
-    cp [hl]                    ; Compare HP high bytes
+    sub [hl]                    ; Compare HP high bytes
     inc de
     inc hl
     ld a, [de]
     sbc [hl]                   ; Compare HP low bytes
-    jp z, .failed              ; Fail if HP is maxed
+    jp nc, .failed              ; Fail if HP is maxed
+    dec de
+    dec hl
     ld a, b                    ; Restore move ID
     cp REST
     jr nz, .healHP             ; Skip Rest-specific logic
