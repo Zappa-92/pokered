@@ -1421,6 +1421,11 @@ _BuildingRageText::
 	line "RAGE is building!"
 	prompt
 
+_RageEndedText::
+    	text "<USER>'s"
+	line "RAGE cooled off"
+	prompt
+
 _MirrorMoveFailedText::
 	text "The MIRROR MOVE"
 	next "failed!"
