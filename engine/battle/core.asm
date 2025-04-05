@@ -3842,17 +3842,45 @@ CheckPlayerStatusConditions:
 	jp .returnToHL
 
 .RageCheck
-	ld a, [wPlayerBattleStatus2]
-	bit USING_RAGE, a ; is mon using rage?
-	jp z, .checkPlayerStatusConditionsDone ; if we made it this far, mon can move normally this turn
-	ld a, RAGE
-	ld [wd11e], a
-	call GetMoveName
-	call CopyStringToCF4B
-	xor a
-	ld [wPlayerMoveEffect], a
-	ld hl, PlayerCanExecuteMove
-	jp .returnToHL
+    ld a, [wPlayerBattleStatus2]
+    bit USING_TRAPPING_MOVE, [hl]
+    jp nz, .multiturnMove
+    bit USING_RAGE, a
+    jp z, .checkPlayerStatusConditionsDone
+    ld a, [wRageTurnsLeft]
+    and a
+    jr z, .rageEnded
+    dec a
+    ld [wRageTurnsLeft], a
+    jr nz, .continueRage
+.rageEnded
+    res USING_RAGE, [hl]
+    xor a
+    ld [wRageCounter], a
+    ld hl, RageEndedText
+    call PrintText
+    jp .checkPlayerStatusConditionsDone
+.continueRage
+    ld a, RAGE
+    ld [wd11e], a
+    call GetMoveName
+    call CopyStringToCF4B
+    ; Reset accuracy to initial value to prevent stacking
+    ld a, [wRageAccuracy]
+    ld [wPlayerMoveAccuracy], a
+    xor a
+    ld [wPlayerMoveEffect], a
+    ld hl, PlayerCanExecuteMove
+    jp [hl]
+.multiturnMove
+    ld hl, AttackContinuesText
+    call PrintText
+    ld a, [wPlayerNumAttacksLeft]
+    dec a
+    ld [wPlayerNumAttacksLeft], a
+    ld hl, getPlayerAnimationType
+    jp nz, [hl]
+    jp [hl]
 
 .returnToHL
 	xor a
@@ -5054,6 +5082,7 @@ CalculateDamage:
 	and a
 	ret
 
+
 JumpToOHKOMoveEffect:
 	call JumpMoveEffect
 	ld a, [wMoveMissed]
@@ -5514,48 +5543,48 @@ SubstituteBrokeText:
 	TX_FAR _SubstituteBrokeText
 	db "@"
 
-; this function raises the attack modifier of a pokemon using Rage when that pokemon is attacked
 HandleBuildingRage:
-; values for the player turn
-	ld hl, wEnemyBattleStatus2
-	ld de, wEnemyMonStatMods
-	ld bc, wEnemyMoveNum
-	ld a, [H_WHOSETURN]
-	and a
-	jr z, .next
-; values for the enemy turn
-	ld hl, wPlayerBattleStatus2
-	ld de, wPlayerMonStatMods
-	ld bc, wPlayerMoveNum
+    ld hl, wEnemyBattleStatus2
+    ld de, wEnemyMonStatMods
+    ld bc, wEnemyMoveNum
+    ld a, [H_WHOSETURN]
+    and a
+    jr z, .next
+    ld hl, wPlayerBattleStatus2
+    ld de, wPlayerMonStatMods
+    ld bc, wPlayerMoveNum
 .next
-	bit USING_RAGE, [hl] ; is the pokemon being attacked under the effect of Rage?
-	ret z ; return if not
-	ld a, [de]
-	cp $0d ; maximum stat modifier value
-	ret z ; return if attack modifier is already maxed
-	ld a, [H_WHOSETURN]
-	xor $01 ; flip turn for the stat modifier raising function
-	ld [H_WHOSETURN], a
-; temporarily change the target pokemon's move to $00 and the effect to the one
-; that causes the attack modifier to go up one stage
-	ld h, b
-	ld l, c
-	ld [hl], $00 ; null move number
-	inc hl
-	ld [hl], ATTACK_UP1_EFFECT
-	push hl
-	ld hl, BuildingRageText
-	call PrintText
-	call StatModifierUpEffect ; stat modifier raising function
-	pop hl
-	xor a
-	ldd [hl], a ; null move effect
-	ld a, RAGE
-	ld [hl], a ; restore the target pokemon's move number to Rage
-	ld a, [H_WHOSETURN]
-	xor $01 ; flip turn back to the way it was
-	ld [H_WHOSETURN], a
-	ret
+    bit USING_RAGE, [hl]
+    ret z
+    ld a, [wRageCounter]
+    cp 255
+    ret z
+    inc a
+    ld [wRageCounter], a
+    ld a, [de]
+    cp $0d
+    ret z
+    ld a, [H_WHOSETURN]
+    xor $01
+    ld [H_WHOSETURN], a
+    ld h, b
+    ld l, c
+    ld [hl], $00
+    inc hl
+    ld [hl], ATTACK_UP1_EFFECT
+    push hl
+    ld hl, BuildingRageText
+    call PrintText
+    call StatModifierUpEffect
+    pop hl
+    xor a
+    ldd [hl], a
+    ld a, RAGE
+    ld [hl], a
+    ld a, [H_WHOSETURN]
+    xor $01
+    ld [H_WHOSETURN], a
+    ret
 
 BuildingRageText:
 	TX_FAR _BuildingRageText
@@ -6581,24 +6610,48 @@ CheckEnemyStatusConditions:
 	jp nz, .enemyReturnToHL
 	jp .enemyReturnToHL
 .checkIfUsingRage
-	ld a, [wEnemyBattleStatus2]
-	bit USING_RAGE, a ; is mon using rage?
-	jp z, .checkEnemyStatusConditionsDone ; if we made it this far, mon can move normally this turn
-	ld a, RAGE
-	ld [wd11e], a
-	call GetMoveName
-	call CopyStringToCF4B
-	xor a
-	ld [wEnemyMoveEffect], a
-	ld hl, EnemyCanExecuteMove
-	jp .enemyReturnToHL
+    ld a, [wEnemyBattleStatus2]
+    bit USING_RAGE, a
+    jp z, .checkEnemyStatusConditionsDone
+    ld a, [wRageTurnsLeft]
+    and a
+    jr z, .rageEndedEnemy
+    dec a
+    ld [wRageTurnsLeft], a
+    jr nz, .continueRageEnemy
+.rageEndedEnemy
+    res USING_RAGE, [hl]
+    xor a
+    ld [wRageCounter], a
+    ld hl, RageEndedText
+    call PrintText
+    jp .checkEnemyStatusConditionsDone
+.continueRageEnemy
+    ld a, RAGE
+    ld [wd11e], a
+    call GetMoveName
+    call CopyStringToCF4B
+    ld a, [wRageAccuracy]
+    ld [wEnemyMoveAccuracy], a
+    xor a
+    ld [wEnemyMoveEffect], a
+    ld hl, EnemyCanExecuteMove
+    jp .enemyReturnToHL
+.enemyMultiturnMove
+    ld hl, AttackContinuesText
+    call PrintText
+    ld hl, wEnemyNumAttacksLeft
+    dec [hl]
+    ld hl, GetEnemyAnimationType
+    jp nz, .enemyReturnToHL
+    jp .enemyReturnToHL
 .enemyReturnToHL
-	xor a ; set Z flag
-	ret
+    xor a
+    ret
 .checkEnemyStatusConditionsDone
-	ld a, $1
-	and a ; clear Z flag
-	ret
+    ld a, $1
+    and a
+    ret
 
 GetCurrentMove:
 	ld a, [H_WHOSETURN]
@@ -9354,14 +9407,42 @@ ClearHyperBeam:
 	ret
 
 RageEffect:
-	ld hl, wPlayerBattleStatus2
-	ld a, [H_WHOSETURN]
-	and a
-	jr z, .player
-	ld hl, wEnemyBattleStatus2
+    ld hl, wPlayerBattleStatus2
+    ld de, wBattleMonType1
+    ld a, [H_WHOSETURN]
+    and a
+    jr z, .player
+    ld hl, wEnemyBattleStatus2
+    ld de, wEnemyMonType1
 .player
-	set USING_RAGE, [hl] ; mon is now in "rage" mode
-	ret
+    set USING_RAGE, [hl]
+    call Random
+    and $03
+    add 3
+    cp 6
+    jr nz, .setTurns
+    dec a
+.setTurns
+    ld [wRageTurnsLeft], a
+    ld a, 1
+    ld [wRageCounter], a
+    ; Set initial accuracy
+    ld a, [wPlayerMoveAccuracy]
+    ld [wRageAccuracy], a
+    ld a, [H_WHOSETURN]
+    and a
+    jr z, .setType
+    ld a, [wEnemyMoveAccuracy]
+    ld [wRageAccuracy], a
+.setType
+    ld a, [de]
+    ld [wPlayerMoveType], a
+    ld a, [H_WHOSETURN]
+    and a
+    jr z, .done
+    ld [wEnemyMoveType], a
+.done
+    ret
 
 MimicEffect:
 	ld c, 50
