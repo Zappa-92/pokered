@@ -3829,17 +3829,29 @@ CheckPlayerStatusConditions:
 	jp .returnToHL
 
 .MultiturnMoveCheck
-	bit USING_TRAPPING_MOVE, [hl] ; is mon using multi-turn move?
-	jp z, .RageCheck
-	ld hl, AttackContinuesText
-	call PrintText
-	ld a, [wPlayerNumAttacksLeft]
-	dec a ; did multi-turn move end?
-	ld [wPlayerNumAttacksLeft], a
-	ld hl, getPlayerAnimationType ; if it didn't, skip damage calculation (deal damage equal to last hit),
-	                ; DecrementPP and MoveHitTest
-	jp nz, .returnToHL
-	jp .returnToHL
+    ld hl, wPlayerBattleStatus1
+    bit ATTACKING_MULTIPLE_TIMES, [hl]
+    jp z, .RageCheck
+    ; Continuing multi-hit move
+    ld hl, AttackContinuesText
+    call PrintText
+    ld a, [wPlayerNumAttacksLeft]
+    dec a
+    ld [wPlayerNumAttacksLeft], a
+    jr z, .lastHit
+    ; Recalculate damage for each hit
+    call GetDamageVarsForPlayerAttack
+    jr z, .skipDamage  ; Skip if move power is 0
+    call CriticalHitTest
+    call CalculateDamage
+    call ApplyDamageToEnemyPokemon
+.skipDamage
+    ld hl, getPlayerAnimationType
+    jp .returnToHL
+.lastHit
+    res ATTACKING_MULTIPLE_TIMES, [hl]
+    ld hl, getPlayerAnimationType
+    jp .returnToHL
 
 .RageCheck
     ld a, [wPlayerBattleStatus2]
@@ -5073,15 +5085,38 @@ CalculateDamage:
 	ld a, [hl]
 	add 2
 	ld [hld], a
-	jr nc, .done
+	jr nc, .applyCrit
 	inc [hl]
-
+.applyCrit
+    ld a, [wCriticalHitOrOHKO]
+    and a
+    jr z, .rageBoost
+    ld a, [hli]
+    ld h, [hl]
+    ld l, a
+    add hl, hl
+    ld a, h
+    ld [wDamage], a
+    ld a, l
+    ld [wDamage + 1], a
+    cp 999 / $100
+    jr c, .rageBoost
+    jr nz, .capDamage
+    ld a, l
+    cp 999 % $100
+    jr c, .rageBoost
+.capDamage
+    ld a, 999 / $100
+    ld [wDamage], a
+    ld a, 999 % $100
+    ld [wDamage + 1], a
+.rageBoost
+    call CalculateRageDamage
+    call AdjustDamageForMoveType
 .done
-; minimum damage is 1
-	ld a, 1
-	and a
-	ret
-
+    ld a, 1
+    and a
+    ret
 
 JumpToOHKOMoveEffect:
 	call JumpMoveEffect
@@ -6599,16 +6634,26 @@ CheckEnemyStatusConditions:
 	pop hl ; skip DecrementPP
 	jp .enemyReturnToHL
 .checkIfUsingMultiturnMove
-	bit USING_TRAPPING_MOVE, [hl] ; is mon using multi-turn move?
-	jp z, .checkIfUsingRage
-	ld hl, AttackContinuesText
-	call PrintText
-	ld hl, wEnemyNumAttacksLeft
-	dec [hl] ; did multi-turn move end?
-	ld hl, GetEnemyAnimationType ; if it didn't, skip damage calculation (deal damage equal to last hit),
-	                             ; DecrementPP and MoveHitTest
-	jp nz, .enemyReturnToHL
-	jp .enemyReturnToHL
+    ld hl, wEnemyBattleStatus1
+    bit ATTACKING_MULTIPLE_TIMES, [hl]
+    jp z, .checkIfUsingRage
+    ld hl, AttackContinuesText
+    call PrintText
+    ld hl, wEnemyNumAttacksLeft
+    dec [hl]
+    jr z, .enemyLastHit
+    call GetDamageVarsForEnemyAttack
+    jr z, .enemySkipDamage
+    call CriticalHitTest
+    call CalculateDamage
+    call ApplyDamageToPlayerPokemon
+.enemySkipDamage
+    ld hl, GetEnemyAnimationType
+    jp .enemyReturnToHL
+.enemyLastHit
+    res ATTACKING_MULTIPLE_TIMES, [hl]
+    ld hl, GetEnemyAnimationType
+    jp .enemyReturnToHL
 .checkIfUsingRage
     ld a, [wEnemyBattleStatus2]
     bit USING_RAGE, a
