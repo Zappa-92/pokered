@@ -3378,13 +3378,21 @@ CheckIfPlayerNeedsToChargeUp:
 	jp z, JumpMoveEffect
 	jr PlayerCanExecuteMove
 
-; in-battle stuff
 PlayerCanExecuteChargingMove:
-	ld hl, wPlayerBattleStatus1
-	res CHARGING_UP, [hl] ; reset charging up and invulnerability statuses if mon was charging up for an attack
-	                    ; being fully paralyzed or hurting oneself in confusion removes charging up status
-	                    ; resulting in the Pokemon being invulnerable for the whole battle
-	res INVULNERABLE, [hl]
+    ld hl, wPlayerBattleStatus1
+    bit CHARGING_UP, [hl]
+    jr z, .noCharge  ; No Fly/Dig in progress
+    ld a, [wPlayerNumAttacksLeft]
+    and a
+    jr z, .noCharge  ; Already in attack phase, don’t reset yet
+    ; Charging phase interrupted (paralyzed/confused)
+    res CHARGING_UP, [hl]
+    res INVULNERABLE, [hl]
+    xor a
+    ld [wPlayerNumAttacksLeft], a  ; Ensure reset
+.noCharge
+    ret
+
 PlayerCanExecuteMove:
 	call PrintMonName1Text
 	ld hl, DecrementPP
@@ -3734,26 +3742,33 @@ CheckPlayerStatusConditions:
 	call PrintText
 
 .MonHurtItselfOrFullyParalysed
-	ld hl, wPlayerBattleStatus1
-	ld a, [hl]
-	; clear bide, thrashing, charging up, and trapping moves such as warp (already cleared for confusion damage)
-	and $ff ^ ((1 << STORING_ENERGY) | (1 << THRASHING_ABOUT) | (1 << CHARGING_UP) | (1 << USING_TRAPPING_MOVE))
-	ld [hl], a
-	ld a, [wPlayerMoveEffect]
-	cp FLY_EFFECT
-	jr z, .FlyOrChargeEffect
-	cp CHARGE_EFFECT
-	jr z, .FlyOrChargeEffect
-	jr .NotFlyOrChargeEffect
-
-.FlyOrChargeEffect
-	xor a
-	ld [wAnimationType], a
-	ld a, STATUS_AFFECTED_ANIM
-	call PlayMoveAnimation
-.NotFlyOrChargeEffect
-	ld hl, ExecutePlayerMoveDone
-	jp .returnToHL ; if using a two-turn move, we need to recharge the first turn
+    ld hl, wPlayerBattleStatus1
+    bit CHARGING_UP, [hl]
+    jr z, .clearOtherStatuses
+    ; Fly/Dig interrupted: Attempt attack phase
+    ld a, [wPlayerNumAttacksLeft]
+    and a
+    jr z, .clearOtherStatuses  ; Already completed
+    res CHARGING_UP, [hl]
+    res INVULNERABLE, [hl]
+    xor a
+    ld [wPlayerNumAttacksLeft], a
+    ld a, [wChargeMoveNum]
+    ld [wPlayerMoveNum], a
+    call MoveHitTest
+    jr c, .hitFailed
+    call GetDamageVarsForPlayerAttack
+    jr z, .hitFailed
+    call CriticalHitTest
+    call CalculateDamage
+    call ApplyDamageToEnemyPokemon
+.hitFailed
+.clearOtherStatuses
+    ld a, [hl]
+    and $ff ^ ((1 << STORING_ENERGY) | (1 << THRASHING_ABOUT) | (1 << USING_TRAPPING_MOVE))
+    ld [hl], a
+    ld hl, ExecutePlayerMoveDone
+    jp .returnToHL
 
 .BideCheck
 	ld hl, wPlayerBattleStatus1
@@ -5332,6 +5347,37 @@ ApplyAttackToEnemyPokemon:
 	ld [hl], a
 
 ApplyDamageToEnemyPokemon:
+; Last lines before addition
+	; (Assuming this is the start, similar to ApplyDamageToPlayerPokemon)
+	; New code
+    ld a, [wPlayerMoveNum]
+    cp THUNDER
+    jr z, .checkEnemyFlyHit
+    cp EARTHQUAKE
+    jr z, .checkEnemyDigHit
+    jr .enemyApplyDamage
+.checkEnemyFlyHit
+    ld a, [wEnemyMoveNum]
+    cp FLY
+    jr z, .enemyResetChargeMove
+    jr .enemyApplyDamage
+.checkEnemyDigHit
+    ld a, [wEnemyMoveNum]
+    cp DIG
+    jr z, .enemyResetChargeMove
+    jr .enemyApplyDamage
+.enemyResetChargeMove
+    ld hl, wEnemyBattleStatus1
+    res CHARGING_UP, [hl]
+    res INVULNERABLE, [hl]
+    xor a
+    ld [wEnemyNumAttacksLeft], a
+    ld hl, GotHitText
+    call PrintText
+    ld a, ANIM_HIT  ; Adjust to your ROM’s hit animation constant
+    call PlayBattleAnimation
+.enemyApplyDamage
+	; First lines of existing code after addition
 	ld hl, wDamage
 	ld a, [hli]
 	ld b, a
@@ -5453,6 +5499,34 @@ ApplyAttackToPlayerPokemon:
 	ld [hl], a
 
 ApplyDamageToPlayerPokemon:
+ld a, [wEnemyMoveNum]
+    cp THUNDER
+    jr z, .checkFlyHit
+    cp EARTHQUAKE
+    jr z, .checkDigHit
+    jr .applyDamage
+.checkFlyHit
+    ld a, [wPlayerMoveNum]
+    cp FLY
+    jr z, .resetChargeMove
+    jr .applyDamage
+.checkDigHit
+    ld a, [wPlayerMoveNum]
+    cp DIG
+    jr z, .resetChargeMove
+    jr .applyDamage
+.resetChargeMove
+    ld hl, wPlayerBattleStatus1
+    res CHARGING_UP, [hl]
+    res INVULNERABLE, [hl]
+    xor a
+    ld [wPlayerNumAttacksLeft], a
+    ld hl, GotHitText
+    call PrintText
+    ld a, ANIM_HIT  ; Adjust to your ROM’s hit animation constant
+    call PlayBattleAnimation
+.applyDamage
+	; First lines of existing code after addition
 	ld hl, wDamage
 	ld a, [hli]
 	ld b, a
@@ -5503,6 +5577,10 @@ ApplyDamageToPlayerPokemon:
 	predef UpdateHPBar2 ; animate the HP bar shortening
 ApplyAttackToPlayerPokemonDone:
 	jp DrawHUDsAndHPBars
+
+GotHitText:
+	TX_FAR _GotHitText
+	db "@"
 
 AttackSubstitute:
 ; Unlike the two ApplyAttackToPokemon functions, Attack Substitute is shared by player and enemy.
@@ -5944,10 +6022,46 @@ MoveHitTest:
 	jp z, .moveMissed
 .checkForDigOrFlyStatus
 	bit INVULNERABLE, [hl]
-	jp nz, .moveMissed
+jr z, .playerTurn  ; <--- Last line before addition
+	; New code to allow Thunder/Earthquake to hit Fly/Dig
+	ld a, [de]
+	cp SWIFT_EFFECT
+	ret z
 	ld a, [H_WHOSETURN]
 	and a
-	jr nz, .enemyTurn
+	ld a, [wPlayerMoveNum]  ; Player attacking
+	jr z, .checkThunderEq
+	ld a, [wEnemyMoveNum]   ; Enemy attacking
+.checkThunderEq
+	cp THUNDER
+	jr z, .checkFlyTarget
+	cp EARTHQUAKE
+	jr z, .checkDigTarget
+	jp .moveMissed
+.checkFlyTarget
+	ld a, [H_WHOSETURN]
+	and a
+	ld a, [wEnemyMoveNum]   ; Enemy using Fly/Dig
+	jr z, .playerTargetFly
+	ld a, [wPlayerMoveNum]  ; Player using Fly/Dig
+.playerTargetFly
+	cp FLY
+	jr z, .canHit
+	jp .moveMissed
+.checkDigTarget
+	ld a, [H_WHOSETURN]
+	and a
+	ld a, [wEnemyMoveNum]
+	jr z, .playerTargetDig
+	ld a, [wPlayerMoveNum]
+.playerTargetDig
+	cp DIG
+	jr z, .canHit
+	jp .moveMissed
+.canHit
+	xor a  ; Clear carry = hit
+	ret
+	; End of new code
 .playerTurn
 ; this checks if the move effect is disallowed by mist
 	ld a, [wPlayerMoveEffect]
