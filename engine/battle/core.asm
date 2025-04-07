@@ -6812,6 +6812,10 @@ CheckEnemyStatusConditions:
     and a
     ret
 
+RageEndedText:
+	TX_FAR _RageEndedText
+	db "@"
+
 GetCurrentMove:
 	ld a, [H_WHOSETURN]
 	and a
