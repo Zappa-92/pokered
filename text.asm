@@ -1405,6 +1405,11 @@ _IgnoredOrdersText::
 	line "ignored orders!"
 	prompt
 
+_GotHitText:
+	text "<USER>"
+	line "got hit!"
+	prompt
+
 _SubstituteTookDamageText::
 	text "The SUBSTITUTE"
 	line "took damage for"
