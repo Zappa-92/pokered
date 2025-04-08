@@ -6505,14 +6505,19 @@ CheckEnemyStatusConditions:
 	call PlayMoveAnimation
 	jr .sleepDone
 .wokeUp
-	ld hl, WokeUpText
-	call PrintText
-	jr .checkIfFrozen ; Proceed to next checks
+    ld hl, WokeUpText
+    call PrintText
+    ; Clear last move to force new selection
+    xor a
+    ld [wEnemySelectedMove], a
+    ; Jump to enemy move execution (AI picks new move)
+    ld hl, EnemyCanExecuteMove
+    jp .enemyReturnToHL
 .sleepDone
-	xor a
-	ld [wEnemyUsedMove], a
-	ld hl, ExecuteEnemyMoveDone ; enemy can't move this turn
-	jp .enemyReturnToHL
+    xor a
+    ld [wEnemyUsedMove], a
+    ld hl, ExecuteEnemyMoveDone
+    jp .enemyReturnToHL
 .checkIfFrozen
 	bit FRZ, [hl]
 	jr z, .checkIfTrapped
