@@ -3621,7 +3621,12 @@ CheckPlayerStatusConditions:
 .WakeUp
 	ld hl, WokeUpText
 	call PrintText
-	jr .FrozenCheck ; Continue to next checks
+	; Clear last move to force new selection
+    	xor a
+	ld [wPlayerSelectedMove], a
+    	; Jump to move selection
+    	ld hl, MoveSelectionMenu  ; Sets up move menu, calls SelectMenuItem
+    	jp .returnToHL
 .sleepDone
 	xor a
 	ld [wPlayerUsedMove], a
