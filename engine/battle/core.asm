@@ -3903,7 +3903,7 @@ CheckPlayerStatusConditions:
     xor a
     ld [wPlayerMoveEffect], a
     ld hl, PlayerCanExecuteMove
-    jp [hl]
+    jp hl
 .multiturnMove
     ld hl, AttackContinuesText
     call PrintText
@@ -3911,8 +3911,8 @@ CheckPlayerStatusConditions:
     dec a
     ld [wPlayerNumAttacksLeft], a
     ld hl, getPlayerAnimationType
-    jp nz, [hl]
-    jp [hl]
+    jp nz, hl
+    jp hl
 
 .returnToHL
 	xor a
