@@ -22,7 +22,8 @@ OneHitKOEffect_:
     sub b                                ; a = target's level - user's level
     jr nc, .targetHigher                 ; If target's level >= user's level
     ; User's level is higher
-    neg a                                ; a = user's level - target's level (positive)
+    cpl         ; Invert bits (one’s complement)
+    inc a       ; Add 1 (two’s complement)
     ld b, a                              ; b = level difference
     sla a                                ; a = level difference * 2
     add b                                ; a = level difference * 3 (3% per level)
