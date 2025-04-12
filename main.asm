@@ -927,7 +927,7 @@ INCLUDE "engine/menu/pokedex.asm"
 INCLUDE "engine/trade.asm"
 INCLUDE "engine/intro.asm"
 INCLUDE "engine/trade2.asm"
-
+INCLUDE "engine/battle/status_effects.asm"
 
 SECTION "bank11", ROMX
 
