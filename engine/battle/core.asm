@@ -3359,7 +3359,7 @@ ExecutePlayerMove:
 	jp nz, ExecutePlayerMoveDone
 	call PrintGhostText
 	jp z, ExecutePlayerMoveDone
-	call CheckPlayerStatusConditions
+	callab CheckPlayerStatusConditions
 	jr nz, .playerHasNoSpecialCondition
 	jp hl
 .playerHasNoSpecialCondition
@@ -3601,10 +3601,6 @@ IsGhostBattle:
 	ld a, 1
 	and a
 	ret
-
-CheckPlayerStatusConditions:
-    callab CheckPlayerStatusConditions  ; Far call to bank $10
-    ret                                 ; Return Z flag to caller
 
 FastAsleepText:
 	TX_FAR _FastAsleepText
