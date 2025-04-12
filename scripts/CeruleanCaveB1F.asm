@@ -83,7 +83,7 @@ MewtwoText:
     predef ShowObject
     ; Check for Mewtwo in party
     ld a, MEWTWO
-    call IsPokemonInParty
+    callab IsPokemonInParty
     jr z, .noMewtwo
     ; Giovanni battle
     ld hl, CeruleanCaveGiovanniBattleText
