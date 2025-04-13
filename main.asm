@@ -929,6 +929,7 @@ INCLUDE "engine/intro.asm"
 INCLUDE "engine/trade2.asm"
 INCLUDE "engine/battle/status_effects.asm"
 INCLUDE "engine/overworld/pokemon_party.asm"
+INCLUDE "engine/overworld/pokemon_party.asm"
 
 SECTION "bank11", ROMX
 
