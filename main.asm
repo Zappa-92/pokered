@@ -930,6 +930,7 @@ INCLUDE "engine/trade2.asm"
 INCLUDE "engine/battle/status_effects.asm"
 INCLUDE "engine/overworld/pokemon_party.asm"
 INCLUDE "engine/battle/adjust_damage"
+INCLUDE "engine/battle/battle_animations.asm"
 
 SECTION "bank11", ROMX
 
