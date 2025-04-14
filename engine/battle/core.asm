@@ -2672,7 +2672,7 @@ SwitchPlayerMon:
 	callab RetreatMon
 	ld c, 50
 	call DelayFrames
-	call AnimateRetreatingPlayerMon
+	callab AnimateRetreatingPlayerMon
 	ld a, [wWhichPokemon]
 	ld [wPlayerMonNumber], a
 	ld c, a
