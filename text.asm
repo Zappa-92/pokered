@@ -1314,10 +1314,6 @@ _Used1Text::
 	text ""
 	line "used @@"
 
-_Used2Text::
-	text ""
-	line "used @@"
-
 _InsteadText::
 	text "instead,"
 	cont "@@"
