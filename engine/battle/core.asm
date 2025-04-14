@@ -465,7 +465,7 @@ MainInBattleLoop:
     ld a, [wPlayerBattleStatus1]
     bit USING_TRAPPING_MOVE, a
     jr z, .allowLinkSwitch
-    ld hl, CantSwitchWhileTrappedText
+    ld hl, CantSwitchTrappedText
     call PrintText
     call SelectEnemyMove
     jr .noLinkBattle
@@ -8292,7 +8292,7 @@ ThrashPetalDanceEffect:
 SwitchAndTeleportEffect:
     ld a, [H_WHOSETURN]
     and a
-    jr nz, .handleEnemy
+    jp nz, .handleEnemy
 .handlePlayer
     ld a, [wIsInBattle]
     dec a                    ; 0 = wild, 1 = trainer
@@ -8329,7 +8329,7 @@ SwitchAndTeleportEffect:
     ld a, [wPlayerMoveNum]
     cp TELEPORT
     jr z, .wildTeleportSuccess
-    jr .playAnimAndPrintText
+    jp .playAnimAndPrintText
 .wildTeleportSuccess
     ld hl, RanFromBattleText
     call PrintText
@@ -8376,7 +8376,7 @@ SwitchAndTeleportEffect:
     ld [wEnemyMonPartyPos], a
     ld a, 1
     ld [wForceEnemyToSwitch], a
-    jr .playAnimAndPrintText
+    jp .playAnimAndPrintText
 .teleportPlayer
     ld a, [wPartyAlive]
     cp 2                     ; Need 2+ Pokémon
@@ -8436,7 +8436,7 @@ SwitchAndTeleportEffect:
     inc a
     ld [wEscapedFromBattle], a
     ld a, [wEnemyMoveNum]
-    jr .playAnimAndPrintText
+    jp .playAnimAndPrintText
 .trainerBattleEnemy
     ld a, [wEnemyMoveNum]
     cp TELEPORT
@@ -8444,10 +8444,10 @@ SwitchAndTeleportEffect:
     ; Whirlwind/Roar: Force player switch
     ld hl, wPlayerBattleStatus2 ; Added: Check player Substitute
     bit HAS_SUBSTITUTE_UP, [hl] ; Added
-    jr nz, .failEnemy           ; Added: Fail if Substitute up
+    jp nz, .failEnemy           ; Added: Fail if Substitute up
     ld a, [wPartyAlive]      ; Added: Check player’s alive Pokémon
     cp 2                     ; Added: Need 2+ Pokémon
-    jr c, .failEnemy         ; Added: Fail if only 1 left
+    jp c, .failEnemy         ; Added: Fail if only 1 left
     ld a, [wPlayerBattleStatus1]
     bit USING_TRAPPING_MOVE, a ; Added: Check player trapping
     jr z, .noTrapEnemyForce  ; Added: Skip if not trapping
