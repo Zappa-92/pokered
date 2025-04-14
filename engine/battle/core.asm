@@ -2072,7 +2072,7 @@ DrawPlayerHUDAndHPBar:
 	ld [hl], $73
 	ld de, wBattleMonNick
 	coord hl, 10, 7
-	call CenterMonName
+	callab CenterMonName
 	call PlaceString
 	ld hl, wBattleMonSpecies
 	ld de, wLoadedMon
@@ -2131,7 +2131,7 @@ DrawEnemyHUDAndHPBar:
 	callab PlaceEnemyHUDTiles
 	ld de, wEnemyMonNick
 	coord hl, 1, 0
-	call CenterMonName
+	callab CenterMonName
 	call PlaceString
 	coord hl, 4, 1
 	push hl
@@ -2220,32 +2220,6 @@ GetBattleHealthBarColor:
 	ret z
 	ld b, SET_PAL_BATTLE
 	jp RunPaletteCommand
-
-; center's mon's name on the battle screen
-; if the name is 1 or 2 letters long, it is printed 2 spaces more to the right than usual
-; (i.e. for names longer than 4 letters)
-; if the name is 3 or 4 letters long, it is printed 1 space more to the right than usual
-; (i.e. for names longer than 4 letters)
-CenterMonName:
-	push de
-	inc hl
-	inc hl
-	ld b, $2
-.loop
-	inc de
-	ld a, [de]
-	cp "@"
-	jr z, .done
-	inc de
-	ld a, [de]
-	cp "@"
-	jr z, .done
-	dec hl
-	dec b
-	jr nz, .loop
-.done
-	pop de
-	ret
 
 DisplayBattleMenu:
 	call LoadScreenTilesFromBuffer1 ; restore saved screen
@@ -7330,7 +7304,7 @@ PoisonEffect:
 	cp POISON_EFFECT
 	jr z, .regularPoisonEffect
 	ld a, b
-	call PlayBattleAnimation2
+	callab PlayBattleAnimation2
 	jp PrintText
 .regularPoisonEffect
 	call PlayCurrentMoveAnimation2
@@ -7836,7 +7810,7 @@ UpdateStatDone:
 	call nz, Bankswitch
 	pop de
 .asm_3f4f9
-	call PlayCurrentMoveAnimation
+	callab PlayCurrentMoveAnimation
 	ld a, [de]
 	cp MINIMIZE
 	jr nz, .done
@@ -8294,7 +8268,7 @@ BideEffect:
 	ld [bc], a ; set Bide counter to 2 or 3 at random
 	ld a, [H_WHOSETURN]
 	add XSTATITEM_ANIM
-	jp PlayBattleAnimation2
+	jpab PlayBattleAnimation2
 
 ThrashPetalDanceEffect:
 	ld hl, wPlayerBattleStatus1
@@ -8313,7 +8287,7 @@ ThrashPetalDanceEffect:
 	ld [de], a ; set thrash/petal dance counter to 2 or 3 at random
 	ld a, [H_WHOSETURN]
 	add ANIM_B0
-	jp PlayBattleAnimation2
+	jpab PlayBattleAnimation2
 
 SwitchAndTeleportEffect:
     ld a, [H_WHOSETURN]
@@ -8984,7 +8958,7 @@ MimicEffect:
 	ld [hl], a
 	ld [wd11e], a
 	call GetMoveName
-	call PlayCurrentMoveAnimation
+	callab PlayCurrentMoveAnimation
 	ld hl, MimicLearnedMoveText
 	jp PrintText
 .mimicMissed
@@ -8998,7 +8972,7 @@ LeechSeedEffect:
 	jpab LeechSeedEffect_
 
 SplashEffect:
-	call PlayCurrentMoveAnimation
+	callab PlayCurrentMoveAnimation
 	jp PrintNoEffectText
 
 DisableEffect:
@@ -9175,44 +9149,6 @@ PlayCurrentMoveAnimation2:
 	and a
 	ret z
 
-PlayBattleAnimation2:
-; play animation ID at a and animation type 6 or 3
-	ld [wAnimationID], a
-	ld a, [H_WHOSETURN]
-	and a
-	ld a, $6
-	jr z, .storeAnimationType
-	ld a, $3
-.storeAnimationType
-	ld [wAnimationType], a
-	jp PlayBattleAnimationGotID
-
-PlayCurrentMoveAnimation:
-; animation at MOVENUM will be played unless MOVENUM is 0
-; resets wAnimationType
-	xor a
-	ld [wAnimationType], a
-	ld a, [H_WHOSETURN]
-	and a
-	ld a, [wPlayerMoveNum]
-	jr z, .notEnemyTurn
-	ld a, [wEnemyMoveNum]
-.notEnemyTurn
-	and a
-	ret z
-
 PlayBattleAnimation:
 ; play animation ID at a and predefined animation type
 	ld [wAnimationID], a
-
-PlayBattleAnimationGotID:
-; play animation at wAnimationID
-	push hl
-	push de
-	push bc
-	predef MoveAnimation
-	pop bc
-	pop de
-	pop hl
-	ret
-
