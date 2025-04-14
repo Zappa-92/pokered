@@ -2045,36 +2045,6 @@ SendOutMon:
 	call PrintEmptyString
 	jp SaveScreenTilesToBuffer1
 
-; show 2 stages of the player mon getting smaller before disappearing
-AnimateRetreatingPlayerMon:
-	coord hl, 1, 5
-	lb bc, 7, 7
-	call ClearScreenArea
-	coord hl, 3, 7
-	lb bc, 5, 5
-	xor a
-	ld [wDownscaledMonSize], a
-	ld [hBaseTileID], a
-	predef CopyDownscaledMonTiles
-	ld c, 4
-	call DelayFrames
-	call .clearScreenArea
-	coord hl, 4, 9
-	lb bc, 3, 3
-	ld a, 1
-	ld [wDownscaledMonSize], a
-	xor a
-	ld [hBaseTileID], a
-	predef CopyDownscaledMonTiles
-	call Delay3
-	call .clearScreenArea
-	ld a, $4c
-	Coorda 5, 11
-.clearScreenArea
-	coord hl, 1, 5
-	lb bc, 7, 7
-	jp ClearScreenArea
-
 ; reads player's current mon's HP into wBattleMonHP
 ReadPlayerMonCurHPAndStatus:
 	ld a, [wPlayerMonNumber]
@@ -3452,7 +3422,7 @@ playPlayerMoveAnimation:
 	ld [wAnimationType], a
 	ld a, [wPlayerMoveNum]
 	call PlayMoveAnimation
-	call HandleExplodingAnimation
+	callab HandleExplodingAnimation
 	call DrawPlayerHUDAndHPBar
 	ld a, [wPlayerBattleStatus2]
 	bit HAS_SUBSTITUTE_UP, a
@@ -5750,7 +5720,7 @@ playEnemyMoveAnimation:
 	ld [wAnimationType], a
 	ld a, [wEnemyMoveNum]
 	call PlayMoveAnimation
-	call HandleExplodingAnimation
+	callab HandleExplodingAnimation
 	call DrawEnemyHUDAndHPBar
 	ld a, [wEnemyBattleStatus2]
 	bit HAS_SUBSTITUTE_UP, a ; does mon have a substitute?
@@ -6833,38 +6803,6 @@ BattleRandom:
 	pop bc
 	pop hl
 	ret
-
-
-HandleExplodingAnimation:
-	ld a, [H_WHOSETURN]
-	and a
-	ld hl, wEnemyMonType1
-	ld de, wEnemyBattleStatus1
-	ld a, [wPlayerMoveNum]
-	jr z, .player
-	ld hl, wBattleMonType1
-	ld de, wEnemyBattleStatus1
-	ld a, [wEnemyMoveNum]
-.player
-	cp SELFDESTRUCT
-	jr z, .isExplodingMove
-	cp EXPLOSION
-	ret nz
-.isExplodingMove
-	ld a, [de]
-	bit INVULNERABLE, a ; fly/dig
-	ret nz
-	ld a, [hli]
-	cp GHOST
-	ret z
-	ld a, [hl]
-	cp GHOST
-	ret z
-	ld a, [wMoveMissed]
-	and a
-	ret nz
-	ld a, 5
-	ld [wAnimationType], a
 
 PlayMoveAnimation:
 	ld [wAnimationID], a
