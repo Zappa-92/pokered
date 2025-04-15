@@ -8283,14 +8283,13 @@ SwitchAndTeleportEffect:
     ld a, [wEnemyNumAlive]
     cp 2                     ; Need 2+ Pokémon
     jr c, .failPlayer
-    call Random              ; Random switch
-    ld b, a
-    ld a, [wEnemyNumAlive]
-    dec a
-    call Modulo
-    ld c, a
     ld a, [wEnemyMonPartyPos]
     ld b, a
+    inc a
+    ld c, a
+    cp [wEnemyNumAlive]
+    jr c, .findNewMonPlayer
+    ld c, 0
 .findNewMonPlayer
     inc c
     ld a, c
@@ -8387,14 +8386,13 @@ SwitchAndTeleportEffect:
     xor a
     ld [wPlayerNumAttacksLeft], a ; Added: Reset counter
 .noTrapEnemyForce
-    call Random              ; Added: Random player switch
+    ld a, [wWhichPokemon]
     ld b, a
-    ld a, [wPartyAlive]
-    dec a
-    call Modulo
+    inc a
     ld c, a
-    ld a, [wWhichPokemon]    ; Added: Current player mon index
-    ld b, a
+    cp [wPartyAlive]
+    jr c, .findNewMonEnemy
+    ld c, 0
 .findNewMonEnemy
     inc c
     ld a, c
@@ -8424,14 +8422,13 @@ SwitchAndTeleportEffect:
     xor a
     ld [wPlayerNumAttacksLeft], a
 .noTrapEnemy
-    call Random              ; Edited: Random enemy switch (instead of SwitchEnemyMon)
-    ld b, a
-    ld a, [wEnemyNumAlive]
-    dec a
-    call Modulo
-    ld c, a
     ld a, [wEnemyMonPartyPos]
     ld b, a
+    inc a
+    ld c, a
+    cp [wEnemyNumAlive]
+    jr c, .findNewMonEnemyTeleport
+    ld c, 0
 .findNewMonEnemyTeleport
     inc c
     ld a, c
