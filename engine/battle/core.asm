@@ -8084,7 +8084,7 @@ UpdateLoweredStatDone:
 	pop de
 	ld a, [de]
 	cp $44
-	jr nc, .ApplyBadgeBoostsAndStatusPenalties
+	jr nc, .done
 	call PlayCurrentMoveAnimation2
 .done
     ld hl, MonsStatsFellText
