@@ -421,7 +421,7 @@ MainInBattleLoop:
     dec a
     ld [wPlayerNumAttacksLeft], a
     jr z, .endTrappingMove
-    ld hl, TrappedText
+    ld hl, CantMoveText
     call PrintText
     jr .selectPlayerMove
 .endTrappingMove
