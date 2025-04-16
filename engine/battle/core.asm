@@ -8476,6 +8476,10 @@ TeleportSwitchedText:         ; Added: New text for Teleport switch
     	TX_FAR _TeleportSwitchedText
 	db "@"
 
+TrappingMoveEndedText:
+    	TX_FAR _TrappingMoveEndedText
+	db "@"
+
 RanFromBattleText:
 	TX_FAR _RanFromBattleText
 	db "@"
