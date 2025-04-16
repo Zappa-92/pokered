@@ -4747,7 +4747,7 @@ ApplyDamageToEnemyPokemon:
     ld [wEnemyNumAttacksLeft], a
     ld hl, GotHitText
     call PrintText
-    ld a, ANIM_HIT  ; Adjust to your ROM’s hit animation constant
+    ld a, [wPlayerMoveNum]  ; Use THUNDER or EARTHQUAKE animation
     call PlayBattleAnimation
 .enemyApplyDamage
 	; First lines of existing code after addition
@@ -4896,7 +4896,7 @@ ld a, [wEnemyMoveNum]
     ld [wPlayerNumAttacksLeft], a
     ld hl, GotHitText
     call PrintText
-    ld a, ANIM_HIT  ; Adjust to your ROM’s hit animation constant
+    ld a, [wEnemyMoveNum]  ; Use THUNDER or EARTHQUAKE animation, alt POOF_ANIM
     call PlayBattleAnimation
 .applyDamage
 	; First lines of existing code after addition
