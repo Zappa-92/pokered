@@ -2144,6 +2144,11 @@ _TeleportSwitchedText::
 	line "switch #MON"
 	prompt
 
+_TrappingMoveEndedText::
+	text "The #MON"
+	line "got released!"
+	prompt
+
 _ChargeMoveEffectText::
 	text "<USER>@@"
 
