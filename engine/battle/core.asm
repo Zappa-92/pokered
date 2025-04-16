@@ -5508,6 +5508,7 @@ ExecuteEnemyMove:
     ld hl, MustRechargeText     ; Added: Display recharge message
     call PrintText
     jr ExecuteEnemyMoveDone     ; Added: Skip move execution
+.noRecharge
 	ld a, [wEnemySelectedMove]
 	inc a
 	jp z, ExecuteEnemyMoveDone
@@ -7848,7 +7849,7 @@ StatModifierDownEffect:
 	ld [hl], b ; save modified mod
 	ld a, c
 	cp $4
-	jr nc, UpdateLoweredStatDone ; jump for evasion/accuracy
+	jp nc, UpdateLoweredStatDone ; jump for evasion/accuracy
 	push hl
 	ld hl, wEnemyMonAttack + 1
 	ld de, wEnemyMonUnmodifiedAttack
