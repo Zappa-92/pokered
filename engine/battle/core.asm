@@ -8288,8 +8288,10 @@ SwitchAndTeleportEffect:
     ld b, a
     inc a
     ld c, a
-    ld b, [wEnemyNumAlive]
-    cp b
+	ld a, [wEnemyNumAlive]
+	ld b, a
+	ld a, c
+	cp b
     jr c, .findNewMonPlayer
     ld c, 0
 .findNewMonPlayer
@@ -8392,8 +8394,10 @@ SwitchAndTeleportEffect:
     ld b, a
     inc a
     ld c, a
-    ld b, [wPartyAlive]
-    cp b
+	ld a, [wPartyAlive]
+	ld b, a
+	ld a, c
+	cp b
     jr c, .findNewMonEnemy
     ld c, 0
 .findNewMonEnemy
@@ -8429,8 +8433,10 @@ SwitchAndTeleportEffect:
     ld b, a
     inc a
     ld c, a
-    ld b, [wEnemyNumAlive]
-    cp b
+	ld a, [wEnemyNumAlive]
+	ld b, a
+	ld a, c
+	cp b
     jr c, .findNewMonEnemyTeleport
     ld c, 0
 .findNewMonEnemyTeleport
