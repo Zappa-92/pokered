@@ -151,7 +151,7 @@ RestoreStat:
     ld de, wBattleMonDVs       ; Player’s DVs
     ld a, [wBattleMonLevel]    ; Player’s level
     jr z, .setLevel
-    ld hl, wEnemyMonHPExp - 1  ; Enemy’s stat exp base
+    ld hl, 0                   ; Enemy: Zero stat exp
     ld de, wEnemyMonDVs        ; Enemy’s DVs
     ld a, [wCurEnemyLVL]       ; Enemy’s level
 .setLevel
