@@ -1385,7 +1385,7 @@ _IgnoredOrdersText::
 	line "ignored orders!"
 	prompt
 
-_GotHitText:
+_GotHitText::
 	text "<USER>"
 	line "got hit!"
 	prompt
