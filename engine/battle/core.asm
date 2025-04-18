@@ -382,7 +382,7 @@ MainInBattleLoop:
     ld [wFirstMonsNotOutYet], a
     ld a, [wPlayerBattleStatus2]
     and (1 << NEEDS_TO_RECHARGE) | (1 << USING_RAGE)
-    jr nz, .selectEnemyMove
+    jp nz, .selectEnemyMove
     ld hl, wEnemyBattleStatus1
     res FLINCHED, [hl]
     ld hl, wPlayerBattleStatus1
@@ -397,7 +397,7 @@ MainInBattleLoop:
     ret nz
     ld a, [wPlayerSwitched]
     and a
-    jr nz, .playerSwitched
+    jp nz, .playerSwitched
     ld a, [wBattleMonStatus]
     ld hl, wBattleMonStatus
     bit FRZ, a
@@ -449,7 +449,7 @@ MainInBattleLoop:
     call SelectEnemyMove
     ld a, [wForceEnemyToSwitch] ; Added: Check enemy switch flag
     and a
-    jr nz, .forceEnemySwitch    ; Added: Handle Whirlwind/Roar
+    jp nz, .forceEnemySwitch    ; Added: Handle Whirlwind/Roar
     ld a, [wLinkState]
     cp LINK_STATE_BATTLING
     jr nz, .noLinkBattle
@@ -481,7 +481,7 @@ MainInBattleLoop:
 .noLinkBattle
     ld a, [wEnemySwitched]
     and a
-    jr nz, .enemySwitched
+    jp nz, .enemySwitched
     ld a, [wForcePlayerToSwitch] ; Added: Check player switch flag
     and a
     jr nz, .forcePlayerSwitch    ; Added: Handle enemy Whirlwind/Roar
@@ -507,14 +507,14 @@ MainInBattleLoop:
 .playerDidNotUseCounter
     ld a, [wEnemySelectedMove]
     cp COUNTER
-    jr z, .playerMovesFirst
+    jp z, .playerMovesFirst
 .compareSpeed
     ld de, wBattleMonSpeed
     ld hl, wEnemyMonSpeed
     ld c, $2
     call StringCmp
     jr z, .speedEqual
-    jr nc, .playerMovesFirst
+    jp nc, .playerMovesFirst
     jr .enemyMovesFirst
 .speedEqual
     ld a, [hSerialConnectionStatus]
@@ -3287,7 +3287,7 @@ ExecutePlayerMove:
     res NEEDS_TO_RECHARGE, [hl] ; Added: Clear flag after recharge turn
     ld hl, MustRechargeText     ; Added: Display recharge message
     call PrintText
-    jr ExecutePlayerMoveDone    ; Added: Skip move execution
+    jp ExecutePlayerMoveDone    ; Added: Skip move execution
 .noRecharge
 	ld a, [wPlayerSelectedMove]
 	inc a
@@ -4078,7 +4078,7 @@ GetDamageVarsForPlayerAttack:
 	ret z ; return if move power is zero
 	ld a, [hl] ; a = [wPlayerMoveType]
 	cp FIRE ; types >= FIRE are all special
-	jr nc, .specialAttack
+	jp nc, .specialAttack
 .physicalAttack
 	ld hl, wEnemyMonDefense
 	ld a, [hli]
@@ -4094,7 +4094,7 @@ GetDamageVarsForPlayerAttack:
 	ld hl, wBattleMonAttack
 	ld a, [wCriticalHitOrOHKO]
 	and a ; check for critical hit
-	jr z, .scaleStats
+	jp z, .scaleStats
     ; Critical hit: use base Attack, but reapply positive modifiers
     ld hl, wPartyMon1Attack
     ld a, [wPlayerMonNumber]
@@ -4152,7 +4152,7 @@ GetDamageVarsForPlayerAttack:
     ld a, [hli]
     ld l, [hl]
     ld h, a
-    jr .scaleStats
+    jp .scaleStats
 .specialAttack
 	ld hl, wEnemyMonSpecial
 	ld a, [hli]
@@ -4293,7 +4293,7 @@ GetDamageVarsForEnemyAttack:
 	ld hl, wEnemyMonAttack
 	ld a, [wCriticalHitOrOHKO]
 	and a ; check for critical hit
-	jr z, .scaleStats
+	jp z, .scaleStats
     ; Critical hit: use base Attack, but reapply positive modifiers
     push bc
     ld c, 2 ; attack stat
@@ -5507,7 +5507,7 @@ ExecuteEnemyMove:
     res NEEDS_TO_RECHARGE, [hl] ; Added: Clear flag after recharge turn
     ld hl, MustRechargeText     ; Added: Display recharge message
     call PrintText
-    jr ExecuteEnemyMoveDone     ; Added: Skip move execution
+    jp ExecuteEnemyMoveDone     ; Added: Skip move execution
 .noRecharge
 	ld a, [wEnemySelectedMove]
 	inc a
@@ -7487,7 +7487,7 @@ StatModifierUpEffect:
 	ld [hl], b
 	ld a, c
 	cp $4
-	jr nc, UpdateStatDone ; jump if mod affected is evasion/accuracy
+	jp nc, UpdateStatDone ; jump if mod affected is evasion/accuracy
 	push hl
 	ld hl, wBattleMonAttack + 1
 	ld de, wPlayerMonUnmodifiedAttack
@@ -7624,11 +7624,11 @@ StatModifierUpEffect:
     jr z, .applyBurnPlayer
     cp 4 ; Speed
     jr z, .applyParalysisPlayer
-    jr .doneStatUpdate
+    jp .doneStatUpdate
 .applyBurnPlayer
     ld a, [wBattleMonStatus]
     and 1 << BRN
-    jr z, .doneStatUpdate
+    jp z, .doneStatUpdate
     ld a, [wBattleMonAttack]
     ld d, a
     ld a, [wBattleMonAttack + 1]
@@ -7985,11 +7985,11 @@ StatModifierDownEffect:
     jr z, .applyBurnEnemy
     cp 4 ; Speed
     jr z, .applyParalysisEnemy
-    jr .doneStatUpdate
+    jp .doneStatUpdate
 .applyBurnEnemy
     ld a, [wEnemyMonStatus]
     and 1 << BRN
-    jr z, .doneStatUpdate
+    jp z, .doneStatUpdate
     ld a, [wEnemyMonAttack]
     ld d, a
     ld a, [wEnemyMonAttack + 1]
