@@ -130,6 +130,49 @@ ld a, [hl]  ; Multiplier ($0F, $05, $00)
 .done
 	ret
 
+CalculateRageDamage:
+    ld a, [H_WHOSETURN]
+    and a
+    ld hl, wPlayerBattleStatus2
+    jr z, .playerRage
+    ld hl, wEnemyBattleStatus2
+.playerRage
+    bit USING_RAGE, [hl]
+    ret z  ; Return if not using Rage
+    ld a, [wRageCounter]
+    and a
+    ret z  ; Return if counter is 0
+    dec a  ; Number of boosts (counter - 1)
+    ret z  ; Return if no boosts
+    ld b, a  ; Store boosts in b
+    ld a, [wDamage + 1]  ; Low byte of damage
+    ld c, a  ; Save original damage
+    ld a, b
+    add a  ; Multiply counter by 2
+    add a  ; Multiply by 4
+    add a  ; Multiply by 8
+    add b  ; Multiply by 9
+    add b  ; Multiply by 10
+    add c  ; Add to original damage
+    ld [wDamage + 1], a  ; Store low byte
+    ld a, [wDamage]  ; High byte
+    adc 0  ; Add carry
+    ld [wDamage], a
+    ; Cap at 999
+    cp 999 / $100
+    jr c, .noCap
+    jr nz, .capDamage
+    ld a, [wDamage + 1]
+    cp 999 % $100
+    jr c, .noCap
+.capDamage
+    ld a, 999 / $100
+    ld [wDamage], a
+    ld a, 999 % $100
+    ld [wDamage + 1], a
+.noCap
+    ret
+
 CalculateDamage:
 ; input:
 ;   b: attack
@@ -137,154 +180,154 @@ CalculateDamage:
 ;   d: base power
 ;   e: level
 
-	ld a, [H_WHOSETURN] ; whose turn?
-	and a
-	ld a, [wPlayerMoveEffect]
-	jr z, .effect
-	ld a, [wEnemyMoveEffect]
+    ld a, [H_WHOSETURN] ; whose turn?
+    and a
+    ld a, [wPlayerMoveEffect]
+    jr z, .effect
+    ld a, [wEnemyMoveEffect]
 .effect
 
 ; EXPLODE_EFFECT halves defense.
-	cp EXPLODE_EFFECT
-	jr nz, .ok
-	srl c
-	jr nz, .ok
-	inc c ; ...with a minimum value of 1 (used as a divisor later on)
+    cp EXPLODE_EFFECT
+    jr nz, .ok
+    srl c
+    jr nz, .ok
+    inc c ; ...with a minimum value of 1 (used as a divisor later on)
 .ok
 
 ; Multi-hit attacks may or may not have 0 bp.
-	cp TWO_TO_FIVE_ATTACKS_EFFECT
-	jr z, .skipbp
-	cp $1e
-	jr z, .skipbp
+    cp TWO_TO_FIVE_ATTACKS_EFFECT
+    jr z, .skipbp
+    cp $1e
+    jr z, .skipbp
 
 ; Calculate OHKO damage based on remaining HP.
-	cp OHKO_EFFECT
-	jp z, JumpToOHKOMoveEffect
+    cp OHKO_EFFECT
+    jp z, JumpToOHKOMoveEffect
 
 ; Don't calculate damage for moves that don't do any.
-	ld a, d ; base power
-	and a
-	ret z
+    ld a, d ; base power
+    and a
+    ret z
 .skipbp
 
-	xor a
-	ld hl, H_DIVIDEND
-	ldi [hl], a
-	ldi [hl], a
-	ld [hl], a
+    xor a
+    ld hl, H_DIVIDEND
+    ldi [hl], a
+    ldi [hl], a
+    ld [hl], a
 
 ; Multiply level by 2
-	ld a, e ; level
-	add a
-	jr nc, .nc
-	push af
-	ld a, 1
-	ld [hl], a
-	pop af
+    ld a, e ; level
+    add a
+    jr nc, .nc
+    push af
+    ld a, 1
+    ld [hl], a
+    pop af
 .nc
-	inc hl
-	ldi [hl], a
+    inc hl
+    ldi [hl], a
 
 ; Divide by 5
-	ld a, 5
-	ldd [hl], a
-	push bc
-	ld b, 4
-	call Divide
-	pop bc
+    ld a, 5
+    ldd [hl], a
+    push bc
+    ld b, 4
+    call Divide
+    pop bc
 
 ; Add 2
-	inc [hl]
-	inc [hl]
+    inc [hl]
+    inc [hl]
 
-	inc hl ; multiplier
+    inc hl ; multiplier
 
 ; Multiply by attack base power
-	ld [hl], d
-	call Multiply
+    ld [hl], d
+    call Multiply
 
 ; Multiply by attack stat
-	ld [hl], b
-	call Multiply
+    ld [hl], b
+    call Multiply
 
 ; Divide by defender's defense stat
-	ld [hl], c
-	ld b, 4
-	call Divide
+    ld [hl], c
+    ld b, 4
+    call Divide
 
 ; Divide by 50
-	ld [hl], 50
-	ld b, 4
-	call Divide
+    ld [hl], 50
+    ld b, 4
+    call Divide
 
-	ld hl, wDamage
-	ld b, [hl]
-	ld a, [H_QUOTIENT + 3]
-	add b
-	ld [H_QUOTIENT + 3], a
-	jr nc, .asm_3dfd0
+    ld hl, wDamage
+    ld b, [hl]
+    ld a, [H_QUOTIENT + 3]
+    add b
+    ld [H_QUOTIENT + 3], a
+    jr nc, .asm_3dfd0
 
-	ld a, [H_QUOTIENT + 2]
-	inc a
-	ld [H_QUOTIENT + 2], a
-	and a
-	jr z, .asm_3e004
+    ld a, [H_QUOTIENT + 2]
+    inc a
+    ld [H_QUOTIENT + 2], a
+    and a
+    jr z, .asm_3e004
 
 .asm_3dfd0
-	ld a, [H_QUOTIENT]
-	ld b, a
-	ld a, [H_QUOTIENT + 1]
-	or a
-	jr nz, .asm_3e004
+    ld a, [H_QUOTIENT]
+    ld b, a
+    ld a, [H_QUOTIENT + 1]
+    or a
+    jr nz, .asm_3e004
 
-	ld a, [H_QUOTIENT + 2]
-	cp 998 / $100
-	jr c, .asm_3dfe8
-	cp 998 / $100 + 1
-	jr nc, .asm_3e004
-	ld a, [H_QUOTIENT + 3]
-	cp 998 % $100
-	jr nc, .asm_3e004
+    ld a, [H_QUOTIENT + 2]
+    cp 998 / $100
+    jr c, .asm_3dfe8
+    cp 998 / $100 + 1
+    jr nc, .asm_3e004
+    ld a, [H_QUOTIENT + 3]
+    cp 998 % $100
+    jr nc, .asm_3e004
 
 .asm_3dfe8
-	inc hl
-	ld a, [H_QUOTIENT + 3]
-	ld b, [hl]
-	add b
-	ld [hld], a
+    inc hl
+    ld a, [H_QUOTIENT + 3]
+    ld b, [hl]
+    add b
+    ld [hld], a
 
-	ld a, [H_QUOTIENT + 2]
-	ld b, [hl]
-	adc b
-	ld [hl], a
-	jr c, .asm_3e004
+    ld a, [H_QUOTIENT + 2]
+    ld b, [hl]
+    adc b
+    ld [hl], a
+    jr c, .asm_3e004
 
-	ld a, [hl]
-	cp 998 / $100
-	jr c, .asm_3e00a
-	cp 998 / $100 + 1
-	jr nc, .asm_3e004
-	inc hl
-	ld a, [hld]
-	cp 998 % $100
-	jr c, .asm_3e00a
+    ld a, [hl]
+    cp 998 / $100
+    jr c, .asm_3e00a
+    cp 998 / $100 + 1
+    jr nc, .asm_3e004
+    inc hl
+    ld a, [hld]
+    cp 998 % $100
+    jr c, .asm_3e00a
 
 .asm_3e004
 ; cap at 997
-	ld a, 997 / $100
-	ld [hli], a
-	ld a, 997 % $100
-	ld [hld], a
+    ld a, 997 / $100
+    ld [hli], a
+    ld a, 997 % $100
+    ld [hld], a
 
 .asm_3e00a
 ; add 2
-	inc hl
-	ld a, [hl]
-	add 2
-	ld [hld], a
-	jr nc, .applyCrit
-	inc [hl]
+    inc hl
+    ld a, [hl]
+    add 2
+    ld [hld], a
+    jr nc, .applyCrit
+    inc [hl]
 .applyCrit
     ld a, [wCriticalHitOrOHKO]
     and a
@@ -309,7 +352,7 @@ CalculateDamage:
     ld a, 999 % $100
     ld [wDamage + 1], a
 .rageBoost
-    callab CalculateRageDamage
+    call CalculateRageDamage
     call AdjustDamageForMoveType
 .done
     ld a, 1
