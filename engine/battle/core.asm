@@ -6270,7 +6270,7 @@ DoBattleTransitionAndInitBattleVariables:
 .next
 	call DelayFrame
 	predef BattleTransition
-	callab LoadHudAndHpBarAndStatusTilePatterns
+	call LoadHudAndHpBarAndStatusTilePatterns
 	ld a, $1
 	ld [H_AUTOBGTRANSFERENABLED], a
 	ld a, $ff
