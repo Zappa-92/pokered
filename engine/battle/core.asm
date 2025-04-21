@@ -609,15 +609,19 @@ MainInBattleLoop:
     jp MainInBattleLoop
 
 HandlePoisonBurnLeechSeed:
+    ld a, [wIsInBattle]
+    and a
+    ret z
     ld hl, wBattleMonHP
     ld de, wBattleMonStatus
+    ld bc, wPlayerBattleStatus2
     ld a, [H_WHOSETURN]
     and a
     jr z, .playersTurn
     ld hl, wEnemyMonHP
     ld de, wEnemyMonStatus
+    ld bc, wEnemyBattleStatus2
 .playersTurn
-    ; Check for Poison/Burn
     ld a, [de]
     and (1 << BRN) | (1 << PSN)
     jr z, .notBurnedOrPoisoned
@@ -632,19 +636,12 @@ HandlePoisonBurnLeechSeed:
     xor a
     ld [wAnimationType], a
     ld a, BURN_PSN_ANIM
-    call PlayMoveAnimation   ; Play burn/poison animation
+    call PlayMoveAnimation
     pop hl
 .notBurnedOrPoisoned
-    ; Check for Leech Seed
-    ld de, wPlayerBattleStatus2
-    ld a, [H_WHOSETURN]
-    and a
-    jr z, .playersTurn2
-    ld de, wEnemyBattleStatus2
-.playersTurn2
-    ld a, [de]
-    add a
-    jr nc, .notLeechSeeded
+    ld a, [bc]
+    bit SEEDED, a
+    jr z, .notLeechSeeded
     push hl
     ld a, [H_WHOSETURN]
     push af
@@ -653,32 +650,27 @@ HandlePoisonBurnLeechSeed:
     xor a
     ld [wAnimationType], a
     ld a, ABSORB
-    call PlayMoveAnimation ; Play leech seed animation (from opposing mon)
+    call PlayMoveAnimation
     pop af
     ld [H_WHOSETURN], a
     pop hl
-.notLeechSeeded
-    ; Calculate and apply all damage (Leech Seed + Poison/Burn)
-    push hl
     call HandlePoisonBurnLeechSeed_DecreaseOwnHP
-    ; If Leech Seed is active, heal the user
-    ld a, [de]
-    add a
-    jr nc, .noHealing
-    ld a, [wLeechSeedDamage]             ; Load Leech Seed damage (low byte)
+    ld a, [bc]
+    bit SEEDED, a
+    jr z, .notLeechSeeded
+    ld a, [wLeechSeedDamage]
     ld c, a
-    ld a, [wLeechSeedDamage+1]           ; Load Leech Seed damage (high byte)
+    ld a, [wLeechSeedDamage + 1]
     ld b, a
     call HandlePoisonBurnLeechSeed_IncreaseEnemyHP
     push hl
     ld hl, HurtByLeechSeedText
     call PrintText
     pop hl
-.noHealing
-    pop hl
+.notLeechSeeded
     ld a, [hli]
     or [hl]
-    ret nz          ; Test if fainted
+    ret nz
     call DrawHUDsAndHPBars
     ld c, 20
     call DelayFrames
@@ -697,49 +689,43 @@ HurtByLeechSeedText:
 	TX_FAR _HurtByLeechSeedText
 	db "@"
 
-; decreases the mon's current HP by 1/16 of the Max HP (multiplied by number of toxic ticks if active)
-; note that the toxic ticks are considered even if the damage is not poison (hence the Leech Seed glitch)
-; hl: HP pointer
-; bc (out): total damage
 HandlePoisonBurnLeechSeed_DecreaseOwnHP:
     push hl
     push hl
-    ld bc, $e                            ; Skip to max HP
+    ld bc, $e
     add hl, bc
-    ld a, [hli]                          ; Load max HP (high byte)
+    ld a, [hli]
     ld [wHPBarMaxHP+1], a
     ld b, a
-    ld a, [hl]                           ; Load max HP (low byte)
+    ld a, [hl]
     ld [wHPBarMaxHP], a
     ld c, a
     srl b
     rr c
     srl b
     rr c
-    srl c                                ; c = max HP/8 (assumption: HP < 1024)
+    srl c
     ld a, c
     and a
     jr nz, .nonZeroBaseDamage
-    inc c                                ; Base damage is at least 1
+    inc c
 .nonZeroBaseDamage
-    ; Store base damage for Poison/Burn
     ld a, c
-    ld [wTempDamage], a                  ; Store max HP/8 for Poison/Burn
-    ; Calculate Leech Seed damage (always max HP/16, unaffected by Toxic)
+    ld [wTempDamage], a
     ld a, b
-    ld b, c                              ; bc = max HP
+    ld b, c
     srl b
-    rr c                                 ; bc = max HP/2
+    rr c
     srl b
-    rr c                                 ; bc = max HP/4
+    rr c
     srl b
-    rr c                                 ; bc = max HP/8
+    rr c
     srl b
-    rr c                                 ; bc = max HP/16 (Leech Seed damage)
+    rr c
     ld a, c
     and a
     jr nz, .nonZeroLeechDamage
-    inc c                                ; Leech Seed damage is at least 1
+    inc c
 .nonZeroLeechDamage
     ld a, [H_WHOSETURN]
     and a
@@ -749,52 +735,58 @@ HandlePoisonBurnLeechSeed_DecreaseOwnHP:
     ld hl, wEnemyBattleStatus2
     ld de, wEnemyToxicCounter
 .playersTurn
-    ; Check for Leech Seed
-    ld a, 0                              ; Initialize total damage (low byte)
+    ld a, 0
     ld [wTotalDamage], a
-    ld a, 0                              ; Initialize total damage (high byte)
     ld [wTotalDamage+1], a
-    ld a, 0                              ; Initialize Leech Seed damage (low byte)
     ld [wLeechSeedDamage], a
-    ld a, 0                              ; Initialize Leech Seed damage (high byte)
     ld [wLeechSeedDamage+1], a
-    bit SEEDED, [hl]                     ; Check if target is seeded
+    bit SEEDED, [hl]
     jr z, .noLeechSeed
-    ld a, c                              ; Load Leech Seed damage (max HP/16)
-    ld [wTotalDamage], a                 ; Add to total damage (low byte)
-    ld [wLeechSeedDamage], a             ; Store for healing
+    ld a, [H_WHOSETURN]
+    and a
+    ld a, c
+    jr nz, .enemySeeded
+    ld a, [wEnemyBattleStatus2]
+    bit SEEDED, a
+    jr z, .noLeechSeed
+    jr .setLeechDamage
+.enemySeeded
+    ld a, [wPlayerBattleStatus2]
+    bit SEEDED, a
+    jr z, .noLeechSeed
+.setLeechDamage
+    ld [wTotalDamage], a
+    ld [wLeechSeedDamage], a
     ld a, b
-    ld [wTotalDamage+1], a               ; Add to total damage (high byte)
-    ld [wLeechSeedDamage+1], a           ; Store for healing
+    ld [wTotalDamage+1], a
+    ld [wLeechSeedDamage+1], a
 .noLeechSeed
-    ; Check for Poison/Burn with Toxic scaling
     ld hl, wPlayerBattleStatus3
     ld a, [H_WHOSETURN]
     and a
     jr z, .playersTurnPoison
     ld hl, wEnemyBattleStatus3
 .playersTurnPoison
-    bit BADLY_POISONED, [hl]             ; Check if target is badly poisoned
+    bit BADLY_POISONED, [hl]
     jr z, .noToxic
-    ld a, [wTempDamage]                  ; Load base damage (max HP/8)
+    ld a, [wTempDamage]
     ld c, a
-    srl c                                ; c = max HP/16 (base Toxic damage)
+    srl c
     ld a, c
     and a
     jr nz, .nonZeroToxicDamage
-    inc c                                ; Toxic damage is at least 1
+    inc c
 .nonZeroToxicDamage
-    ld a, [de]                           ; Increment Toxic counter
+    ld a, [de]
     inc a
     ld [de], a
     ld hl, $0000
 .toxicTicksLoop
-    add hl, bc                           ; hl = damage * toxic counter
+    add hl, bc
     dec a
     jr nz, .toxicTicksLoop
-    ld b, h                              ; bc = Toxic damage
+    ld b, h
     ld c, l
-    ; Add Toxic damage to total
     ld a, [wTotalDamage]
     add c
     ld [wTotalDamage], a
@@ -803,20 +795,18 @@ HandlePoisonBurnLeechSeed_DecreaseOwnHP:
     ld [wTotalDamage+1], a
     jr .applyDamage
 .noToxic
-    ; Check for regular Poison/Burn (max HP/8)
     ld a, [H_WHOSETURN]
     and a
     ld hl, wBattleMonStatus
     jr z, .playersTurnStatus
     ld hl, wEnemyMonStatus
 .playersTurnStatus
-    ld a, [hl]                           ; Load status
-    and (1 << PSN) | (1 << BRN)          ; Check for Poison or Burn
-    jr z, .applyDamage                   ; Skip if no Poison/Burn
-    ld a, [wTempDamage]                  ; Load base damage (max HP/8)
+    ld a, [hl]
+    and (1 << PSN) | (1 << BRN)
+    jr z, .applyDamage
+    ld a, [wTempDamage]
     ld c, a
     ld b, 0
-    ; Add Poison/Burn damage to total
     ld a, [wTotalDamage]
     add c
     ld [wTotalDamage], a
@@ -826,20 +816,20 @@ HandlePoisonBurnLeechSeed_DecreaseOwnHP:
 .applyDamage
     pop hl
     inc hl
-    ld a, [hl]                           ; Subtract total damage from current HP
+    ld a, [hl]
     ld [wHPBarOldHP], a
-    ld a, [wTotalDamage]                 ; Load total damage (low byte)
+    ld a, [wTotalDamage]
     sub a
     ld [hld], a
     ld [wHPBarNewHP], a
     ld a, [hl]
     ld [wHPBarOldHP+1], a
-    ld a, [wTotalDamage+1]               ; Load total damage (high byte)
+    ld a, [wTotalDamage+1]
     sbc a
     ld [hl], a
     ld [wHPBarNewHP+1], a
     jr nc, .noOverkill
-    xor a                                ; Overkill: zero HP
+    xor a
     ld [hli], a
     ld [hl], a
     ld [wHPBarNewHP], a
@@ -849,57 +839,63 @@ HandlePoisonBurnLeechSeed_DecreaseOwnHP:
     pop hl
     ret
 
-; adds bc to enemy HP
-; bc isn't updated if HP subtracted was capped to prevent overkill
+; Adds bc to enemy HP (or player HP if enemy turn).
+; Caps HP at max HP to prevent over-healing.
+; Updates HP bar.
 HandlePoisonBurnLeechSeed_IncreaseEnemyHP:
-	push hl
-	ld hl, wEnemyMonMaxHP
-	ld a, [H_WHOSETURN]
-	and a
-	jr z, .playersTurn
-	ld hl, wBattleMonMaxHP
+    push hl
+    ld hl, wEnemyMonMaxHP
+    ld a, [H_WHOSETURN]
+    and a
+    jr z, .playersTurn
+    ld hl, wBattleMonMaxHP
 .playersTurn
-	ld a, [hli]
-	ld [wHPBarMaxHP+1], a
-	ld a, [hl]
-	ld [wHPBarMaxHP], a
-	ld de, wBattleMonHP - wBattleMonMaxHP
-	add hl, de           ; skip back from max hp to current hp
-	ld a, [hl]
-	ld [wHPBarOldHP], a ; add bc to current HP
-	add c
-	ld [hld], a
-	ld [wHPBarNewHP], a
-	ld a, [hl]
-	ld [wHPBarOldHP+1], a
-	adc b
-	ld [hli], a
-	ld [wHPBarNewHP+1], a
-	ld a, [wHPBarMaxHP]
-	ld c, a
-	ld a, [hld]
-	sub c
-	ld a, [wHPBarMaxHP+1]
-	ld b, a
-	ld a, [hl]
-	sbc b
-	jr c, .noOverfullHeal
-	ld a, b                ; overfull heal, set HP to max HP
-	ld [hli], a
-	ld [wHPBarNewHP+1], a
-	ld a, c
-	ld [hl], a
-	ld [wHPBarNewHP], a
+    ld a, [hli]
+    ld [wHPBarMaxHP+1], a
+    ld a, [hl]
+    ld [wHPBarMaxHP], a
+    ld de, wBattleMonHP - wBattleMonMaxHP
+    add hl, de
+    ; Safeguard: Ensure bc is non-zero
+    ld a, b
+    or c
+    jr z, .noHeal
+    ld a, [hl]
+    ld [wHPBarOldHP], a
+    add c
+    ld [hld], a
+    ld [wHPBarNewHP], a
+    ld a, [hl]
+    ld [wHPBarOldHP+1], a
+    adc b
+    ld [hli], a
+    ld [wHPBarNewHP+1], a
+    ld a, [wHPBarMaxHP]
+    ld c, a
+    ld a, [hld]
+    sub c
+    ld a, [wHPBarMaxHP+1]
+    ld b, a
+    ld a, [hl]
+    sbc b
+    jr c, .noOverfullHeal
+    ld a, b
+    ld [hli], a
+    ld [wHPBarNewHP+1], a
+    ld a, c
+    ld [hl], a
+    ld [wHPBarNewHP], a
 .noOverfullHeal
-	ld a, [H_WHOSETURN]
-	xor $1
-	ld [H_WHOSETURN], a
-	call UpdateCurMonHPBar
-	ld a, [H_WHOSETURN]
-	xor $1
-	ld [H_WHOSETURN], a
-	pop hl
-	ret
+    ld a, [H_WHOSETURN]
+    xor $1
+    ld [H_WHOSETURN], a
+    call UpdateCurMonHPBar
+    ld a, [H_WHOSETURN]
+    xor $1
+    ld [H_WHOSETURN], a
+.noHeal
+    pop hl
+    ret
 
 UpdateCurMonHPBar:
 	coord hl, 10, 9    ; tile pointer to player HP bar
@@ -3278,228 +3274,212 @@ LinkBattleExchangeData:
 	ret
 
 ExecutePlayerMove:
-	xor a
-    ld [H_WHOSETURN], a         ; Set player's turn
-    ; Check if player needs to recharge from Hyper Beam
+    xor a
+    ld [H_WHOSETURN], a
+    ld [wMoveMissed], a
+    ld [wMonIsDisobedient], a
+    ld [wMoveDidntMiss], a
+    ld [wPlayerMoveEffect], a
     ld hl, wPlayerBattleStatus2
-    bit NEEDS_TO_RECHARGE, [hl] ; Added: Check recharge flag
-    jr z, .noRecharge           ; Added: Skip if no recharge needed
-    res NEEDS_TO_RECHARGE, [hl] ; Added: Clear flag after recharge turn
-    ld hl, MustRechargeText     ; Added: Display recharge message
+    bit NEEDS_TO_RECHARGE, [hl]
+    jr z, .noRecharge
+    res NEEDS_TO_RECHARGE, [hl]
+    ld hl, MustRechargeText
     call PrintText
-    jp ExecutePlayerMoveDone    ; Added: Skip move execution
+    jp ExecutePlayerMoveDone
 .noRecharge
-	ld a, [wPlayerSelectedMove]
-	inc a
-	jp z, ExecutePlayerMoveDone ; for selected move = FF, skip most of player's turn
-	xor a
-	ld [wMoveMissed], a
-	ld [wMonIsDisobedient], a
-	ld [wMoveDidntMiss], a
-	ld a, $a
-	ld [wDamageMultipliers], a
-	ld a, [wActionResultOrTookBattleTurn]
-	and a ; has the player already used the turn (e.g. by using an item, trying to run or switching pokemon)
-	jp nz, ExecutePlayerMoveDone
-	call PrintGhostText
-	jp z, ExecutePlayerMoveDone
-	callab CheckPlayerStatusConditions
-	jr nz, .playerHasNoSpecialCondition
-	jp hl
+    ld a, [wPlayerSelectedMove]
+    inc a
+    jp z, ExecutePlayerMoveDone
+    ld a, $a
+    ld [wDamageMultipliers], a
+    ld a, [wActionResultOrTookBattleTurn]
+    and a
+    jp nz, ExecutePlayerMoveDone
+    call PrintGhostText
+    jp z, ExecutePlayerMoveDone
+    callab CheckPlayerStatusConditions
+    jr nz, .playerHasNoSpecialCondition
+    ld a, [hl]
+    and a
+    jp z, ExecutePlayerMoveDone ; Safeguard: Invalid handler
+    jp hl
 .playerHasNoSpecialCondition
-	call GetCurrentMove
-	ld hl, wPlayerBattleStatus1
-	bit CHARGING_UP, [hl] ; charging up for attack
-	jr nz, PlayerCanExecuteChargingMove
-	call CheckForDisobedience
-	jp z, ExecutePlayerMoveDone
+    call GetCurrentMove
+    ld hl, wPlayerBattleStatus1
+    bit CHARGING_UP, [hl]
+    jr nz, PlayerCanExecuteChargingMove
+    call CheckForDisobedience
+    jp z, ExecutePlayerMoveDone
+    call CheckIfPlayerNeedsToChargeUp
+    jr PlayerCanExecuteMove
 
 CheckIfPlayerNeedsToChargeUp:
-	ld a, [wPlayerMoveEffect]
-	cp CHARGE_EFFECT
-	jp z, JumpMoveEffect
-	cp FLY_EFFECT
-	jp z, JumpMoveEffect
-	jr PlayerCanExecuteMove
+    ld a, [wPlayerMoveEffect]
+    cp CHARGE_EFFECT
+    jp z, JumpMoveEffect
+    cp FLY_EFFECT
+    jp z, JumpMoveEffect
+    ret
 
 PlayerCanExecuteChargingMove:
     ld hl, wPlayerBattleStatus1
     bit CHARGING_UP, [hl]
-    jr z, .noCharge  ; No Fly/Dig in progress
+    jr z, .noCharge
     ld a, [wPlayerNumAttacksLeft]
     and a
-    jr z, .noCharge  ; Already in attack phase, don’t reset yet
-    ; Charging phase interrupted (paralyzed/confused)
+    jr z, .noCharge
     res CHARGING_UP, [hl]
     res INVULNERABLE, [hl]
     xor a
-    ld [wPlayerNumAttacksLeft], a  ; Ensure reset
+    ld [wPlayerNumAttacksLeft], a
 .noCharge
-    ret
+    jp PlayerCanExecuteMove
 
 PlayerCanExecuteMove:
-	call PrintMonName1Text
-	ld hl, DecrementPP
-	ld de, wPlayerSelectedMove ; pointer to the move just used
-	ld b, BANK(DecrementPP)
-	call Bankswitch
-	ld a, [wPlayerMoveEffect] ; effect of the move just used
-	ld hl, ResidualEffects1
-	ld de, 1
-	call IsInArray
-	jp c, JumpMoveEffect ; ResidualEffects1 moves skip damage calculation and accuracy tests
-	                    ; unless executed as part of their exclusive effect functions
-	ld a, [wPlayerMoveEffect]
-	ld hl, SpecialEffectsCont
-	ld de, 1
-	call IsInArray
-	call c, JumpMoveEffect ; execute the effects of SpecialEffectsCont moves (e.g. Wrap, Thrash) but don't skip anything
-PlayerCalcMoveDamage:
-	ld a, [wPlayerMoveEffect]
-	ld hl, SetDamageEffects
-	ld de, 1
-	call IsInArray
-	jp c, .moveHitTest ; SetDamageEffects moves (e.g. Seismic Toss and Super Fang) skip damage calculation
-	call CriticalHitTest
-	call HandleCounterMove
-	jr z, handleIfPlayerMoveMissed
-	call GetDamageVarsForPlayerAttack
-	callab CalculateDamage
-	jp z, playerCheckIfFlyOrChargeEffect ; for moves with 0 BP, skip any further damage calculation and, for now, skip MoveHitTest
-	               ; for these moves, accuracy tests will only occur if they are called as part of the effect itself
-	callab AdjustDamageForMoveType
-	call RandomizeDamage
+    ld a, [wPlayerMoveEffect]
+    ld hl, SetDamageEffects
+    ld de, 1
+    call IsInArray
+    jp c, .moveHitTest
+    call CriticalHitTest
+    call HandleCounterMove
+    jr z, handleIfPlayerMoveMissed
+    call GetDamageVarsForPlayerAttack
+    callab CalculateDamage
+    jp z, playerCheckIfFlyOrChargeEffect
+    callab AdjustDamageForMoveType
+    call RandomizeDamage
 .moveHitTest
-	call MoveHitTest
+    callab MoveHitTest
 handleIfPlayerMoveMissed:
-	ld a, [wMoveMissed]
-	and a
-	jr z, getPlayerAnimationType
-	ld a, [wPlayerMoveEffect]
-	sub EXPLODE_EFFECT
-	jr z, playPlayerMoveAnimation ; don't play any animation if the move missed, unless it was EXPLODE_EFFECT
-	jr playerCheckIfFlyOrChargeEffect
+    ld a, [wMoveMissed]
+    and a
+    jr z, getPlayerAnimationType
+    ld a, [wPlayerMoveEffect]
+    sub EXPLODE_EFFECT
+    jr z, playPlayerMoveAnimation
+    jr playerCheckIfFlyOrChargeEffect
 getPlayerAnimationType:
-	ld a, [wPlayerMoveEffect]
-	and a
-	ld a, 4 ; move has no effect other than dealing damage
-	jr z, playPlayerMoveAnimation
-	ld a, 5 ; move has effect
-playPlayerMoveAnimation:
-	push af
-	ld a, [wPlayerBattleStatus2]
-	bit HAS_SUBSTITUTE_UP, a
-	ld hl, HideSubstituteShowMonAnim
-	ld b, BANK(HideSubstituteShowMonAnim)
-	call nz, Bankswitch
-	pop af
-	ld [wAnimationType], a
-	ld a, [wPlayerMoveNum]
-	call PlayMoveAnimation
-	callab HandleExplodingAnimation
-	call DrawPlayerHUDAndHPBar
-	ld a, [wPlayerBattleStatus2]
-	bit HAS_SUBSTITUTE_UP, a
-	ld hl, ReshowSubstituteAnim
-	ld b, BANK(ReshowSubstituteAnim)
-	call nz, Bankswitch
-	jr MirrorMoveCheck
+    ld a, [wPlayerMoveEffect]
+    and a
+    ld a, 4
+    jr z, playPlayerAnimation
+    ld a, 5
+playPlayerAnimation:
+    push af
+    ld a, [wPlayerBattleStatus2]
+    bit HAS_SUBSTITUTE_UP, a
+    ld hl, HideSubstituteShowMonAnim
+    ld b, BANK(HideSubstituteShowMonAnim)
+    call nz, Bankswitch
+    pop af
+    ld [wAnimationType], a
+    ld a, [wPlayerMoveNum]
+    call PlayMoveAnimation
+    callab HandleExplodingAnimation
+    call DrawPlayerHUDAndHPBar
+    ld a, [wPlayerBattleStatus2]
+    bit HAS_SUBSTITUTE_UP, a
+    ld hl, ReshowSubstituteAnim
+    ld b, BANK(ReshowSubstituteAnim)
+    call nz, Bankswitch
+    jr MirrorMoveCheck
 playerCheckIfFlyOrChargeEffect:
-	ld c, 30
-	call DelayFrames
-	ld a, [wPlayerMoveEffect]
-	cp FLY_EFFECT
-	jr z, .playAnim
-	cp CHARGE_EFFECT
-	jr z, .playAnim
-	jr MirrorMoveCheck
+    ld c, 30
+    call DelayFrames
+    ld a, [wPlayerMoveEffect]
+    cp FLY_EFFECT
+    jr z, .playAnim
+    cp CHARGE_EFFECT
+    jr z, .playAnim
+    jr MirrorMoveCheck
 .playAnim
-	xor a
-	ld [wAnimationType], a
-	ld a, STATUS_AFFECTED_ANIM
-	call PlayMoveAnimation
+    xor a
+    ld [wAnimationType], a
+    ld a, STATUS_AFFECTED_ANIM
+    call PlayMoveAnimation
 MirrorMoveCheck:
-	ld a, [wPlayerMoveEffect]
-	cp MIRROR_MOVE_EFFECT
-	jr nz, .metronomeCheck
-	call MirrorMoveCopyMove
-	jp z, ExecutePlayerMoveDone
-	xor a
-	ld [wMonIsDisobedient], a
-	jp CheckIfPlayerNeedsToChargeUp ; if Mirror Move was successful go back to damage calculation for copied move
+    ld a, [wPlayerMoveEffect]
+    cp MIRROR_MOVE_EFFECT
+    jr nz, .metronomeCheck
+    call MirrorMoveCopyMove
+    jp z, ExecutePlayerMoveDone
+    xor a
+    ld [wMonIsDisobedient], a
+    ld a, [wPlayerMoveEffect]
+    and a
+    jp z, ExecutePlayerMoveDone ; Safeguard: Prevent infinite loop
+    jp CheckIfPlayerNeedsToChargeUp
 .metronomeCheck
-	cp METRONOME_EFFECT
-	jr nz, .next
-	call MetronomePickMove
-	jp CheckIfPlayerNeedsToChargeUp ; Go back to damage calculation for the move picked by Metronome
+    cp METRONOME_EFFECT
+    jr nz, .next
+    call MetronomePickMove
+    ld a, [wPlayerMoveEffect]
+    and a
+    jp z, ExecutePlayerMoveDone ; Safeguard: Prevent infinite loop
+    jp CheckIfPlayerNeedsToChargeUp
 .next
-	ld a, [wPlayerMoveEffect]
-	ld hl, ResidualEffects2
-	ld de, 1
-	call IsInArray
-	jp c, JumpMoveEffect ; done here after executing effects of ResidualEffects2
-	ld a, [wMoveMissed]
-	and a
-	jr z, .moveDidNotMiss
-	call PrintMoveFailureText
-	ld a, [wPlayerMoveEffect]
-	cp EXPLODE_EFFECT ; even if Explosion or Selfdestruct missed, its effect still needs to be activated
-	jr z, .notDone
-	jp ExecutePlayerMoveDone ; otherwise, we're done if the move missed
+    ld a, [wPlayerMoveEffect]
+    ld hl, ResidualEffects2
+    ld de, 1
+    call IsInArray
+    jp c, JumpMoveEffect
+    ld a, [wMoveMissed]
+    and a
+    jr z, .moveDidNotMiss
+    call PrintMoveFailureText
+    ld a, [wPlayerMoveEffect]
+    cp EXPLODE_EFFECT
+    jr z, .notDone
+    jp ExecutePlayerMoveDone
 .moveDidNotMiss
-	call ApplyAttackToEnemyPokemon
-	call PrintCriticalOHKOText
-	callab DisplayEffectiveness
-	ld a, 1
-	ld [wMoveDidntMiss], a
+    call ApplyAttackToEnemyPokemon
+    call PrintCriticalOHKOText
+    callab DisplayEffectiveness
+    ld a, 1
+    ld [wMoveDidntMiss], a
 .notDone
-	ld a, [wPlayerMoveEffect]
-	ld hl, AlwaysHappenSideEffects
-	ld de, 1
-	call IsInArray
-	call c, JumpMoveEffect ; not done after executing effects of AlwaysHappenSideEffects
-	ld hl, wEnemyMonHP
-	ld a, [hli]
-	ld b, [hl]
-	or b
-	ret z ; don't do anything else if the enemy fainted
-	call HandleBuildingRage
-
-	ld hl, wPlayerBattleStatus1
-	bit ATTACKING_MULTIPLE_TIMES, [hl]
-	jr z, .executeOtherEffects
-	ld a, [wPlayerNumAttacksLeft]
-	dec a
-	ld [wPlayerNumAttacksLeft], a
-	jp nz, getPlayerAnimationType ; for multi-hit moves, apply attack until PlayerNumAttacksLeft hits 0 or the enemy faints.
-	                             ; damage calculation and accuracy tests only happen for the first hit
-	res ATTACKING_MULTIPLE_TIMES, [hl] ; clear attacking multiple times status when all attacks are over
-	ld hl, MultiHitText
-	call PrintText
-	xor a
-	ld [wPlayerNumHits], a
+    ld a, [wPlayerMoveEffect]
+    ld hl, AlwaysHappenSideEffects
+    ld de, 1
+    call IsInArray
+    call c, JumpMoveEffect
+    ld hl, wEnemyMonHP
+    ld a, [hli]
+    ld b, [hl]
+    or b
+    ret z
+    call HandleBuildingRage
+    ld hl, wPlayerBattleStatus1
+    bit ATTACKING_MULTIPLE_TIMES, [hl]
+    jr z, .executeOtherEffects
+    ld a, [wPlayerNumAttacksLeft]
+    dec a
+    ld [wPlayerNumAttacksLeft], a
+    jp nz, getPlayerAnimationType
+    res ATTACKING_MULTIPLE_TIMES, [hl]
+    ld hl, MultiHitText
+    call PrintText
+    xor a
+    ld [wPlayerNumHits], a
 .executeOtherEffects
-	ld a, [wPlayerMoveEffect]
-	and a
-	jp z, ExecutePlayerMoveDone
-	ld hl, SpecialEffects
-	ld de, 1
-	call IsInArray
-	call nc, JumpMoveEffect ; move effects not included in SpecialEffects or in either of the ResidualEffect arrays,
-	; which are the effects not covered yet. Rage effect will be executed for a second time (though it's irrelevant).
-	; Includes side effects that only need to be called if the target didn't faint.
-	; Responsible for executing Twineedle's second side effect (poison).
-	jp ExecutePlayerMoveDone
+    ld a, [wPlayerMoveEffect]
+    and a
+    jp z, ExecutePlayerMoveDone
+    ld hl, SpecialEffects
+    ld de, 1
+    call IsInArray
+    call nc, JumpMoveEffect
+ExecutePlayerMoveDone:
+    xor a
+    ld [wActionResultOrTookBattleTurn], a
+    ld b, 1
+    ret
 
 MultiHitText:
 	TX_FAR _MultiHitText
 	db "@"
-
-ExecutePlayerMoveDone:
-	xor a
-	ld [wActionResultOrTookBattleTurn], a
-	ld b, 1
-	ret
 
 PrintGhostText:
 ; print the ghost battle messages
