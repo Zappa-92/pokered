@@ -229,8 +229,8 @@ CheckPlayerStatusConditions:
     call PrintText                      ; "Thrashing about!" (bank TBD)
     ld hl, wPlayerNumAttacksLeft
     dec [hl]
-    ld hl, PlayerCalcMoveDamage
-    jpab PlayerCalcMoveDamage           ; Bank F
+    callab CalculateDamage
+    callab ApplyDamageToEnemyPokemon ; Apply damage after calculation
     push hl
     ld hl, wPlayerBattleStatus1
     res THRASHING_ABOUT, [hl]
@@ -241,8 +241,8 @@ CheckPlayerStatusConditions:
     inc a                               ; 2-5 turns confused
     ld [wPlayerConfusedCounter], a
     pop hl
-    jpab PlayerCalcMoveDamage           ; Bank F
-
+    callab CalculateDamage
+    callab ApplyDamageToEnemyPokemon ; Apply damage after calculation
 .MultiturnMoveCheck
     ld hl, wPlayerBattleStatus1
     bit ATTACKING_MULTIPLE_TIMES, [hl]
