@@ -3358,7 +3358,7 @@ handleIfPlayerMoveMissed:
     jr z, getPlayerAnimationType
     ld a, [wPlayerMoveEffect]
     sub EXPLODE_EFFECT
-    jr z, playPlayerMoveAnimation
+    jr z, playPlayerAnimation
     jr playerCheckIfFlyOrChargeEffect
 getPlayerAnimationType:
     ld a, [wPlayerMoveEffect]
