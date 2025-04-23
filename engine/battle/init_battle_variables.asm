@@ -40,6 +40,4 @@ InitBattleVariables:
     ld a, BATTLE_TYPE_SAFARI
     ld [wBattleType], a
 .notSafariBattle
-    callab UpdatePartyAlive      ; Added: Initialize wPartyAlive
-    callab UpdateEnemyNumAlive   ; Added: Initialize wEnemyNumAlive
     jpab PlayBattleMusic
