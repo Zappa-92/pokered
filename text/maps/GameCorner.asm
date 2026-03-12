@@ -177,7 +177,7 @@ _CeladonGameCornerText_48ed8::
 _CeladonGameCornerText_48f09::
 	text "Hey!"
 
-	para "A RICARDO 
+	para "A RICARDO"
 	line "MONTANER"
 	cont "poster!??"
 	cont "Let's push it!@@"
