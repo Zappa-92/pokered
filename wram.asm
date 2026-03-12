@@ -3177,6 +3177,7 @@ wDayCareMon:: box_struct wDayCareMon ; da5f
 
 wMainDataEnd::
 
+wLastSeenMon:: ds 1 ; da60
 
 wBoxDataStart::
 
@@ -3193,10 +3194,20 @@ wBoxMonNicksEnd:: ; dee2
 
 wBoxDataEnd::
 
-; dee2
+wTempDamage:: ds 2    ; $DEE3-$DEE4
+wTotalDamage:: ds 2   ; $DEE5-$DEE6
+wLeechSeedDamage:: ds 2 ; $DEE7-$DEE8
+wPartyAlive::         ds 1 ; $DEE9 - Number of living player Pokémon
+wEnemyNumAlive::      ds 1 ; $DEEA - Number of living enemy Pokémon
+wPlayerSwitched::     ds 1 ; $DEEB - Flag for player Teleport switch
+wEnemySwitched::      ds 1 ; $DEEC - Flag for enemy Teleport switch
+wForceEnemyToSwitch:: ds 1 ; $DEED - Flag for player Whirlwind/Roar
+wForcePlayerToSwitch:: ds 1 ; $DEEE - Flag for enemy Whirlwind/Roar
+wRageTurnsLeft:: ds 1      ; $DEEF - Turns remaining (3-5)
+wRageCounter:: ds 1        ; $DEF0 - Hit counter (1-255)
+wRageAccuracy:: ds 1       ; $DEF1 - Initial accuracy to fix stacking bug
 
 SECTION "Stack", WRAM0
 wStack:: ; dfff
-
 
 INCLUDE "sram.asm"
