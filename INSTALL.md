@@ -52,8 +52,8 @@ Then download [**rgbds**](https://github.com/rednex/rgbds/releases/): the latest
 
 In the **Cygwin terminal**, enter these commands:
 
-	git clone https://github.com/Zappa-92/pokered
-	cd pokered
+git clone -b Before-crash https://github.com/Zappa-92/pokered.git pokered-before-crash
+cd pokered-before-crash
 
 To build **pokered.gbc** and **pokeblue.gbc**:
 
