@@ -114,7 +114,7 @@ const_value = 0
 	const HS_MT_MOON_1F_ITEM_3             ; 69 X
 	const HS_MT_MOON_1F_ITEM_4             ; 6A X
 	const HS_MT_MOON_1F_ITEM_5             ; 6B X
-	const HS_MT_MOON_1F_ITEM_6             ; 6C X
+	const HS_ROCK_TUNNEL_B1F_FOSSIL        ; NUEVO FOSIL
 	const HS_MT_MOON_B2F_FOSSIL_1          ; 6D
 	const HS_MT_MOON_B2F_FOSSIL_2          ; 6E
 	const HS_MT_MOON_B2F_ITEM_1            ; 6F X
