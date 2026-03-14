@@ -12,7 +12,8 @@ _OakSpeechText2A::
 	text "This game is"
 	line "the same #MON"
 	cont "game you know"
-	cont "but harder!"
+
+	para "but harder!"
 
 _OakSpeechText2B::
 	text "So prepare for"
