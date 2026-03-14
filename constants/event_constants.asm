@@ -304,7 +304,7 @@ const_value = 0
 	const EVENT_12D                                  ; 12D, (D76C, bit 5)
 	const EVENT_12E                                  ; 12E, (D76C, bit 6)
 	const EVENT_12F                                  ; 12F, (D76C, bit 7)
-	const EVENT_130                                  ; 130, (D76D, bit 0)
+	const EVENT_BEAT_BROCK_REMATCH                   ; 130, (D76D, bit 0)
 	const EVENT_131                                  ; 131, (D76D, bit 1)
 	const EVENT_132                                  ; 132, (D76D, bit 2)
 	const EVENT_133                                  ; 133, (D76D, bit 3)
