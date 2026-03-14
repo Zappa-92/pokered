@@ -34,6 +34,7 @@ PewterGym_ScriptPointers:
 	dw DisplayEnemyTrainerTextAndStartBattle
 	dw EndTrainerBattle
 	dw PewterGymScript3
+    dw PewterGymScript4
 
 PewterGymScript3:
 	ld a, [wIsInBattle]
@@ -99,40 +100,71 @@ PewterGymTrainerHeader0:
 	db $ff
 
 PewterGymText1:
-	TX_ASM
-	CheckEvent EVENT_BEAT_BROCK
-	jr z, .beginBattle
-	CheckEventReuseA EVENT_GOT_TM34
-	jr nz, .gymVictory
-	call z, PewterGymScript_5c3df
-	call DisableWaitingAfterTextDisplay
-	jr .done
+    TX_ASM
+    CheckEvent EVENT_BEAT_OAK
+    jr z, .originalBattle
+    CheckEvent EVENT_BEAT_BROCK_REMATCH
+    jr nz, .postRematch
+
+    ; === REMATCH ===
+    ld hl, PewterGymBrockRematchText
+    call PrintText
+    ld hl, wd72d
+    set 6, [hl]
+    set 7, [hl]
+    ld hl, PewterGymBrockRematchLoseText
+    ld de, PewterGymBrockRematchWinText
+    call SaveEndBattleTextPointers
+    ld a, OPP_BROCK
+    ld [wCurOpponent], a
+    ld a, $2          ; team rematch (el que ya agregaste en trainers)
+    ld [wTrainerNo], a
+    xor a
+    ld [wGymLeaderNo], a
+    ld a, $4
+    ld [wPewterGymCurScript], a
+    ld [wCurMapScript], a
+    jp TextScriptEnd
+
+.originalBattle
+    ; (todo el código original que ya tenías queda igual)
+    CheckEvent EVENT_BEAT_BROCK
+    jr z, .beginBattle
+    CheckEventReuseA EVENT_GOT_TM34
+    jr nz, .gymVictory
+    call z, PewterGymScript_5c3df
+    call DisableWaitingAfterTextDisplay
+    jr .done
 .gymVictory
-	ld hl, PewterGymText_5c4a3
-	call PrintText
-	jr .done
+    ld hl, PewterGymText_5c4a3
+    call PrintText
+    jr .done
 .beginBattle
-	ld hl, PewterGymText_5c49e
-	call PrintText
-	ld hl, wd72d
-	set 6, [hl]
-	set 7, [hl]
-	ld hl, PewterGymText_5c4bc
-	ld de, PewterGymText_5c4bc
-	call SaveEndBattleTextPointers
-	ld a, [H_SPRITEINDEX]
-	ld [wSpriteIndex], a
-	call EngageMapTrainer
-	call InitBattleEnemyParameters
-	ld a, $1
-	ld [wGymLeaderNo], a
-	xor a
-	ld [hJoyHeld], a
-	ld a, $3
-	ld [wPewterGymCurScript], a
-	ld [wCurMapScript], a
+    ld hl, PewterGymText_5c49e
+    call PrintText
+    ld hl, wd72d
+    set 6, [hl]
+    set 7, [hl]
+    ld hl, PewterGymText_5c4bc
+    ld de, PewterGymText_5c4bc
+    call SaveEndBattleTextPointers
+    ld a, [H_SPRITEINDEX]
+    ld [wSpriteIndex], a
+    call EngageMapTrainer
+    call InitBattleEnemyParameters
+    ld a, $1
+    ld [wGymLeaderNo], a
+    xor a
+    ld [hJoyHeld], a
+    ld a, $3
+    ld [wPewterGymCurScript], a
+    ld [wCurMapScript], a
+    jr .done
+.postRematch
+    ld hl, PewterGymBrockPostRematchText
+    call PrintText
 .done
-	jp TextScriptEnd
+    jp TextScriptEnd
 
 PewterGymText_5c49e:
 	TX_FAR _PewterGymText_5c49e
@@ -207,6 +239,17 @@ PewterGymText3:
 .asm_5c512
 	jp TextScriptEnd
 
+PewterGymScript4:  ; Rematch post-battle
+    ld a, [wIsInBattle]
+    cp $ff
+    jp z, PewterGymScript_5c3bf  ; si perdiste, resetea
+    SetEvent EVENT_BEAT_BROCK_REMATCH
+    xor a
+    ld [wJoyIgnore], a
+    ld [wPewterGymCurScript], a
+    ld [wCurMapScript], a
+    ret
+
 PewterGymText_5c515:
 	TX_FAR _PewterGymText_5c515
 	db "@"
@@ -226,3 +269,19 @@ PewterGymText_5c524:
 PewterGymText_5c529:
 	TX_FAR _PewterGymText_5c529
 	db "@"
+
+PewterGymBrockRematchText:
+    TX_FAR _PewterGymBrockRematchText
+    db "@"
+
+PewterGymBrockRematchLoseText:
+    TX_FAR _PewterGymBrockRematchLoseText
+    db "@"
+
+PewterGymBrockRematchWinText:
+    TX_FAR _PewterGymBrockRematchWinText
+    db "@"
+
+PewterGymBrockPostRematchText:
+    TX_FAR _PewterGymBrockPostRematchText
+    db "@"
