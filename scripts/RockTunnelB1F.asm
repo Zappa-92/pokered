@@ -148,29 +148,31 @@ RockTunnel2Text8:
 RockTunnelB1FTextFossil:
     TX_ASM
     CheckEvent EVENT_GOT_ROCK_TUNNEL_FOSSIL
-    jr nz, .alreadyGotFossil
+    jp nz, TextScriptEnd          ; ya lo tenés → tile vacío, sin mensaje
+
+    ; === Dar el fósil que te falta ===
     CheckEvent EVENT_GOT_HELIX_FOSSIL
     jr nz, .giveDome
-    CheckEvent EVENT_GOT_DOME_FOSSIL
-    jr nz, .giveHelix
-    ; Default if no choice made
-    ld a, HELIX_FOSSIL
-    jr .setFossil
-.giveDome:
-    ld a, DOME_FOSSIL
-    jr .setFossil
-.giveHelix:
-    ld a, HELIX_FOSSIL
-.setFossil:
-    ld [wItemReceived], a
-    call ReceiveItem
+    lb bc, HELIX_FOSSIL, 1
+    jr .give
+.giveDome
+    lb bc, DOME_FOSSIL, 1
+.give
+    call GiveItem
+    jr nc, .noRoom
+
+    ; === Éxito (mensaje automático + sonido, igual que MtMoon) ===
+    call MtMoon3Script_49f69      ; ya existe en el juego
+
+    ld a, HS_ROCK_TUNNEL_B1F_FOSSIL
+    ld [wMissableObjectIndex], a
+    predef HideObject
+
     SetEvent EVENT_GOT_ROCK_TUNNEL_FOSSIL
-    ld hl, RockTunnelB1FTextFossilFound
-    call PrintText
     jp TextScriptEnd
-.alreadyGotFossil:
-    ld hl, RockTunnelB1FTextFossilGone
-    call PrintText
+
+.noRoom
+    call MtMoon3Script_49f76      ; "no room" (ya existe)
     jp TextScriptEnd
 
 RockTunnel2BattleText2:
