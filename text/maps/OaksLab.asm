@@ -473,6 +473,59 @@ _OaksLabText_44247::
 
 _OaksLabText_4424c::
 	text "Your #DEX is"
-	line "entirely complete!"
+	line "filled!"
 	cont "Congratulations!"
 	done
+
+_OaksLabOakBattleIntroText::
+    	text "OAK: So, you’ve"
+    	line "caught all 150"
+    	cont "POKéMON! A true"
+    	cont "feat!"
+
+    	para "Now let’s see"
+    	line "if you can beat"
+    	cont "me, <PLAYER>!"
+    	prompt
+
+_OaksLabOakLoseText::  ; Player loses
+    	text "OAK: Haha! Still"
+    	line "much to learn,"
+    	cont "<PLAYER>!"
+    	prompt
+
+_OaksLabOakWinText::  ; Player wins
+    	text "OAK: Well fought!"
+    	line "your journey paid"
+    	cont "off, <PLAYER>!"
+    	prompt
+
+_OaksLabOakPostBattleText::
+    	text "Incredible!"
+    	line "You’ve surpassed"
+    	cont "me as a TRAINER!"
+    	cont "You’re a worthy"
+    	cont "#MON Master!"
+
+    	para "Now, face the"
+    	line "mightiest gym"
+    	cont "leaders once"
+		cont "again at their"
+		cont "full POWER"
+
+    	para "Then seek the"
+    	line "primigenial"
+    	cont "#MON, the most"
+    	cont "elusive of all:"
+		cont "MEW."
+    	done
+
+_OaksLabOakFinalText::
+    	text "You're"
+    	line "the ultimate"
+    	cont "#MON Master!"
+    
+		para "Your journey is"
+    	line "complete. Well"
+    	cont "done, <PLAYER>!"
+    	done
