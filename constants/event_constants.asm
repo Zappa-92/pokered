@@ -309,7 +309,7 @@ const_value = 0
 	const EVENT_BEAT_SURGE_REMATCH                   ; 132, (D76D, bit 2)
 	const EVENT_BEAT_ERIKA_REMATCH                   ; 133, (D76D, bit 3)
 	const EVENT_BEAT_KOGA_REMATCH                    ; 134, (D76D, bit 4)
-	const EVENT_135                                  ; 135, (D76D, bit 5)
+	const EVENT_BEAT_SABRINA_REMATCH                 ; 135, (D76D, bit 5)
 	const EVENT_136                                  ; 136, (D76D, bit 6)
 	const EVENT_137                                  ; 137, (D76D, bit 7)
 	const EVENT_138                                  ; 138, (D76E, bit 0)
