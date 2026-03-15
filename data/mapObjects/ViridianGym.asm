@@ -19,6 +19,7 @@ ViridianGym_Object:
 	object SPRITE_BLACK_HAIR_BOY_1, 6, 5, STAY, DOWN, 9, OPP_COOLTRAINER_M, 1
 	object SPRITE_GYM_HELPER, 16, 15, STAY, DOWN, 10 ; person
 	object SPRITE_BALL, 16, 9, STAY, NONE, 11, REVIVE
+	object SPRITE_BLUE, 2, 2, STAY, DOWN, 2, OPP_SONY3, 4  ; Rival added
 
 	; warp-to
 	warp_to 16, 17, VIRIDIAN_GYM_WIDTH
