@@ -1,8 +1,10 @@
 _CeladonGymText_48a5e::
 	text "Hello. Lovely"
 	line "weather isn't it?"
-	cont "Ohh..you are not"
-	cont "a cop!"
+	cont "hehe... (gulp)"
+	cont "....."
+	cont "Hey..you are not"
+	cont "a cop! Phew!"
 
 	para "...Oh man..."
 	line "I'm so high.."
@@ -147,7 +149,7 @@ _CeladonGymBattleText5::
 	done
 
 _CeladonGymEndBattleText5::
-	text "No!"
+	text "Noooo!"
 	prompt
 
 _CeladonGymAfterBattleText5::
@@ -175,7 +177,8 @@ _CeladonGymAfterBattleText6::
 	text "Our LEADER, ERIKA,"
 	line "might be quiet,"
 	cont "but she's also"
-	cont "very skilled!"
+	cont "very autistic!"
+	cont "... what?"
 	done
 
 _CeladonGymBattleText7::
@@ -216,4 +219,37 @@ _CeladonGymAfterBattleText8::
 
 	para "Wait 'til next"
 	line "time!"
+	done
+
+_CeladonGymErikaRematchText::
+	text "Oh, back so"
+	line "soon? My pot"
+	cont "is in full"
+	cont "bloom now!"
+
+	para "let's light"
+	line "it up"
+	done
+
+_CeladonGymErikaRematchLoseText::
+	text "ERIKA: You need"
+	line "more time to"
+	cont "smoke, dear!"
+	done
+
+_CeladonGymErikaRematchWinText::
+	text "ERIKA: My flowers"
+	line "wilt before your"
+	cont "strength!"
+	done
+
+_CeladonGymErikaPostRematchText::
+	text "You’re a"
+	line "rare flower"
+	cont "indeed!"
+
+	para "Like a"
+	line "citric Indica."
+
+	para "niiice"
 	done
