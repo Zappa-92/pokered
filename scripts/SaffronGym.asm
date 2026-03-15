@@ -34,6 +34,7 @@ SaffronGym_ScriptPointers:
 	dw DisplayEnemyTrainerTextAndStartBattle
 	dw EndTrainerBattle
 	dw SaffronGymScript3
+    dw SaffronGymSabrinaRematchPostBattle
 
 SaffronGymScript3:
 	ld a, [wIsInBattle]
@@ -150,37 +151,69 @@ SaffronGymTrainerHeader6:
 	db $ff
 
 SaffronGymText1:
-	TX_ASM
-	CheckEvent EVENT_BEAT_SABRINA
-	jr z, .beginBattle
-	CheckEventReuseA EVENT_GOT_TM46
-	jr nz, .afterVictory
-	call z, SaffronGymText_5d068
-	call DisableWaitingAfterTextDisplay
-	jr .done
+    TX_ASM
+    CheckEvent EVENT_BEAT_OAK
+    jr z, .originalBattle
+    CheckEvent EVENT_BEAT_SABRINA_REMATCH
+    jr nz, .postRematch
+
+    ; === REMATCH ===
+    ld hl, SaffronGymSabrinaRematchText
+    call PrintText
+    ld hl, wd72d
+    set 6, [hl]
+    set 7, [hl]
+    ld hl, SaffronGymSabrinaRematchLoseText
+    ld de, SaffronGymSabrinaRematchWinText
+    call SaveEndBattleTextPointers
+    ld a, OPP_SABRINA
+    ld [wCurOpponent], a
+    ld a, $2          ; team rematch (el que ya agregaste)
+    ld [wTrainerNo], a
+    xor a
+    ld [wGymLeaderNo], a
+    ld a, $4
+    ld [wSaffronGymCurScript], a
+    ld [wCurMapScript], a
+    jp TextScriptEnd
+
+.originalBattle
+    ; === TODO LO QUE YA TENÍAS ANTES (queda 100% igual) ===
+    CheckEvent EVENT_BEAT_SABRINA
+    jr z, .beginBattle
+    CheckEventReuseA EVENT_GOT_TM46
+    jr nz, .afterVictory
+    call z, SaffronGymText_5d068
+    call DisableWaitingAfterTextDisplay
+    jr .done
 .afterVictory
-	ld hl, SaffronGymText_5d16e
-	call PrintText
-	jr .done
+    ld hl, SaffronGymText_5d16e
+    call PrintText
+    jr .done
 .beginBattle
-	ld hl, SaffronGymText_5d162
-	call PrintText
-	ld hl, wd72d
-	set 6, [hl]
-	set 7, [hl]
-	ld hl, SaffronGymText_5d167
-	ld de, SaffronGymText_5d167
-	call SaveEndBattleTextPointers
-	ld a, [H_SPRITEINDEX]
-	ld [wSpriteIndex], a
-	call EngageMapTrainer
-	call InitBattleEnemyParameters
-	ld a, $6
-	ld [wGymLeaderNo], a
-	ld a, $3
-	ld [wSaffronGymCurScript], a
+    ld hl, SaffronGymText_5d162
+    call PrintText
+    ld hl, wd72d
+    set 6, [hl]
+    set 7, [hl]
+    ld hl, SaffronGymText_5d167
+    ld de, SaffronGymText_5d167
+    call SaveEndBattleTextPointers
+    ld a, [H_SPRITEINDEX]
+    ld [wSpriteIndex], a
+    call EngageMapTrainer
+    call InitBattleEnemyParameters
+    ld a, $6
+    ld [wGymLeaderNo], a
+    ld a, $3
+    ld [wSaffronGymCurScript], a
+    jr .done
+
+.postRematch
+    ld hl, SaffronGymSabrinaPostRematchText
+    call PrintText
 .done
-	jp TextScriptEnd
+    jp TextScriptEnd
 
 SaffronGymText_5d162:
 	TX_FAR _SaffronGymText_5d162
@@ -356,3 +389,30 @@ SaffronGymEndBattleText7:
 SaffronGymAfterBattleText7:
 	TX_FAR _SaffronGymAfterBattleText7
 	db "@"
+
+SaffronGymSabrinaRematchPostBattle:
+    ld a, [wIsInBattle]
+    cp $ff
+    jp z, SaffronGymText_5d048   ; si perdiste, resetea (igual que la victoria normal)
+    SetEvent EVENT_BEAT_SABRINA_REMATCH
+    xor a
+    ld [wJoyIgnore], a
+    ld [wSaffronGymCurScript], a
+    ld [wCurMapScript], a
+    ret
+
+SaffronGymSabrinaRematchText:
+    TX_FAR _SaffronGymSabrinaRematchText
+    db "@"
+
+SaffronGymSabrinaRematchLoseText:
+    TX_FAR _SaffronGymSabrinaRematchLoseText
+    db "@"
+
+SaffronGymSabrinaRematchWinText:
+    TX_FAR _SaffronGymSabrinaRematchWinText
+    db "@"
+
+SaffronGymSabrinaPostRematchText:
+    TX_FAR _SaffronGymSabrinaPostRematchText
+    db "@"
