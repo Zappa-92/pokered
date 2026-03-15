@@ -1,14 +1,46 @@
 ViridianGym_Script:
-	ld hl, Gym8CityName
-	ld de, Gym8LeaderName
-	call LoadGymLeaderAndCityName
-	call EnableAutoTextBoxDrawing
-	ld hl, ViridianGymTrainerHeader0
-	ld de, ViridianGym_ScriptPointers
-	ld a, [wViridianGymCurScript]
-	call ExecuteCurMapScriptInTable
-	ld [wViridianGymCurScript], a
-	ret
+    ld hl, Gym8CityName
+    ld de, Gym8LeaderName
+    call LoadGymLeaderAndCityName
+    call EnableAutoTextBoxDrawing
+    ld hl, ViridianGymTrainerHeader0
+    ld de, ViridianGym_ScriptPointers
+    ld a, [wViridianGymCurScript]
+    call ExecuteCurMapScriptInTable
+    ld [wViridianGymCurScript], a
+
+    ; === Dynamic hide/show (nuevo post-game) ===
+    CheckEvent EVENT_BEAT_VIRIDIAN_GYM_GIOVANNI
+    ret z  ; Giovanni todavía activo
+
+    ; Ocultar Giovanni
+    ld a, HS_VIRIDIAN_GYM_GIOVANNI
+    ld [wMissableObjectIndex], a
+    predef HideObject
+
+    ; Mostrar rival solo si completaste TODOS los rematches (incluyendo Blaine)
+    CheckEvent EVENT_BEAT_OAK
+    ret z
+    CheckEvent EVENT_BEAT_BROCK_REMATCH
+    ret z
+    CheckEvent EVENT_BEAT_MISTY_REMATCH
+    ret z
+    CheckEvent EVENT_BEAT_SURGE_REMATCH
+    ret z
+    CheckEvent EVENT_BEAT_ERIKA_REMATCH
+    ret z
+    CheckEvent EVENT_BEAT_KOGA_REMATCH
+    ret z
+    CheckEvent EVENT_BEAT_SABRINA_REMATCH
+    ret z
+    CheckEvent EVENT_BEAT_BLAINE_REMATCH
+    ret z
+
+    ; Mostrar rival
+    ld a, HS_VIRIDIAN_GYM_RIVAL
+    ld [wMissableObjectIndex], a
+    predef ShowObject
+    ret
 
 Gym8CityName:
 	db "VIRIDIAN CITY@"
@@ -28,6 +60,7 @@ ViridianGym_ScriptPointers:
 	dw EndTrainerBattle
 	dw ViridianGymScript3
 	dw ViridianGymScript4
+	dw ViridianGymRivalRematchPostBattle
 
 ViridianGymScript0:
 	ld a, [wYCoord]
@@ -183,6 +216,7 @@ ViridianGym_TextPointers:
 	dw ViridianGymText12
 	dw ViridianGymText13
 	dw ViridianGymText14
+    dw ViridianGymRivalPostRematchText
 
 ViridianGymTrainerHeader0:
 	dbEventFlagBit EVENT_BEAT_VIRIDIAN_GYM_TRAINER_0
@@ -494,3 +528,23 @@ ViridianGymText_74bd4:
 ViridianGymText_74bd9:
 	TX_FAR _ViridianGymText_74bd9
 	db "@"
+
+ViridianGymRivalRematchPostBattle:
+    ld a, [wIsInBattle]
+    cp $ff
+    jp z, ViridianGymScript_748d6   ; si perdiste, resetea
+    SetEvent EVENT_BEAT_RIVAL_REMATCH
+    ld a, $f0
+    ld [wJoyIgnore], a
+    ld a, $f                   ; text ID del rival post-battle
+    ld [hSpriteIndexOrTextID], a
+    call DisplayTextID
+    xor a
+    ld [wJoyIgnore], a
+    ld [wViridianGymCurScript], a
+    ld [wCurMapScript], a
+    ret
+
+ViridianGymRivalPostRematchText:
+    TX_FAR _ViridianGymRivalPostRematchText
+    db "@"
