@@ -35,6 +35,7 @@ FuchsiaGym_ScriptPointers:
 	dw DisplayEnemyTrainerTextAndStartBattle
 	dw EndTrainerBattle
 	dw FuchsiaGymScript3
+	dw FuchsiaGymKogaRematchPostBattle
 
 FuchsiaGymScript3:
 	ld a, [wIsInBattle]
@@ -140,39 +141,71 @@ FuchsiaGymTrainerHeader5:
 	db $ff
 
 FuchsiaGymText1:
-	TX_ASM
-	CheckEvent EVENT_BEAT_KOGA
-	jr z, .beginBattle
-	CheckEventReuseA EVENT_GOT_TM06
-	jr nz, .afterVictory
-	call z, FuchsiaGymScript3_75497
-	call DisableWaitingAfterTextDisplay
-	jr .done
+    TX_ASM
+    CheckEvent EVENT_BEAT_OAK
+    jr z, .originalBattle
+    CheckEvent EVENT_BEAT_KOGA_REMATCH
+    jr nz, .postRematch
+
+    ; === REMATCH ===
+    ld hl, FuchsiaGymKogaRematchText
+    call PrintText
+    ld hl, wd72d
+    set 6, [hl]
+    set 7, [hl]
+    ld hl, FuchsiaGymKogaRematchLoseText
+    ld de, FuchsiaGymKogaRematchWinText
+    call SaveEndBattleTextPointers
+    ld a, OPP_KOGA
+    ld [wCurOpponent], a
+    ld a, $2          ; team rematch (el que ya agregaste)
+    ld [wTrainerNo], a
+    xor a
+    ld [wGymLeaderNo], a
+    ld a, $4
+    ld [wFuchsiaGymCurScript], a
+    ld [wCurMapScript], a
+    jp TextScriptEnd
+
+.originalBattle
+    ; === TODO LO QUE YA TENÍAS ANTES (queda 100% igual) ===
+    CheckEvent EVENT_BEAT_KOGA
+    jr z, .beginBattle
+    CheckEventReuseA EVENT_GOT_TM06
+    jr nz, .afterVictory
+    call z, FuchsiaGymScript3_75497
+    call DisableWaitingAfterTextDisplay
+    jr .done
 .afterVictory
-	ld hl, KogaExplainToxicText
-	call PrintText
-	jr .done
+    ld hl, KogaExplainToxicText
+    call PrintText
+    jr .done
 .beginBattle
-	ld hl, KogaBeforeBattleText
-	call PrintText
-	ld hl, wd72d
-	set 6, [hl]
-	set 7, [hl]
-	ld hl, KogaAfterBattleText
-	ld de, KogaAfterBattleText
-	call SaveEndBattleTextPointers
-	ld a, [H_SPRITEINDEX]
-	ld [wSpriteIndex], a
-	call EngageMapTrainer
-	call InitBattleEnemyParameters
-	ld a, $5
-	ld [wGymLeaderNo], a
-	xor a
-	ld [hJoyHeld], a
-	ld a, $3
-	ld [wFuchsiaGymCurScript], a
+    ld hl, KogaBeforeBattleText
+    call PrintText
+    ld hl, wd72d
+    set 6, [hl]
+    set 7, [hl]
+    ld hl, KogaAfterBattleText
+    ld de, KogaAfterBattleText
+    call SaveEndBattleTextPointers
+    ld a, [H_SPRITEINDEX]
+    ld [wSpriteIndex], a
+    call EngageMapTrainer
+    call InitBattleEnemyParameters
+    ld a, $5
+    ld [wGymLeaderNo], a
+    xor a
+    ld [hJoyHeld], a
+    ld a, $3
+    ld [wFuchsiaGymCurScript], a
+    jr .done
+
+.postRematch
+    ld hl, FuchsiaGymKogaPostRematchText
+    call PrintText
 .done
-	jp TextScriptEnd
+    jp TextScriptEnd
 
 KogaBeforeBattleText:
 	TX_FAR _KogaBeforeBattleText
@@ -327,3 +360,30 @@ FuchsiaGymText_7564e:
 FuchsiaGymText_75653:
 	TX_FAR _FuchsiaGymText_75653
 	db "@"
+
+FuchsiaGymKogaRematchPostBattle:
+    ld a, [wIsInBattle]
+    cp $ff
+    jp z, FuchsiaGymScript_75477   ; si perdiste, resetea (igual que la victoria normal)
+    SetEvent EVENT_BEAT_KOGA_REMATCH
+    xor a
+    ld [wJoyIgnore], a
+    ld [wFuchsiaGymCurScript], a
+    ld [wCurMapScript], a
+    ret
+
+FuchsiaGymKogaRematchText:
+    TX_FAR _FuchsiaGymKogaRematchText
+    db "@"
+
+FuchsiaGymKogaRematchLoseText:
+    TX_FAR _FuchsiaGymKogaRematchLoseText
+    db "@"
+
+FuchsiaGymKogaRematchWinText:
+    TX_FAR _FuchsiaGymKogaRematchWinText
+    db "@"
+
+FuchsiaGymKogaPostRematchText:
+    TX_FAR _FuchsiaGymKogaPostRematchText
+    db "@"
