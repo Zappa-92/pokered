@@ -307,7 +307,7 @@ const_value = 0
 	const EVENT_BEAT_BROCK_REMATCH                   ; 130, (D76D, bit 0)
 	const EVENT_BEAT_MISTY_REMATCH                   ; 131, (D76D, bit 1)
 	const EVENT_BEAT_SURGE_REMATCH                   ; 132, (D76D, bit 2)
-	const EVENT_133                                  ; 133, (D76D, bit 3)
+	const EVENT_BEAT_ERIKA_REMATCH                   ; 133, (D76D, bit 3)
 	const EVENT_134                                  ; 134, (D76D, bit 4)
 	const EVENT_135                                  ; 135, (D76D, bit 5)
 	const EVENT_136                                  ; 136, (D76D, bit 6)
