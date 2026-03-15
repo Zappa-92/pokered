@@ -340,6 +340,7 @@ MapHS28:
 MapHS2D:
 	db VIRIDIAN_GYM,$01,Show
 	db VIRIDIAN_GYM,$0B,Show
+	db VIRIDIAN_GYM,$0C,Hide
 MapHS34:
 	db MUSEUM_1F,$05,Show
 MapHSE4:
