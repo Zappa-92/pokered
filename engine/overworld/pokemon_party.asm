@@ -1,5 +1,3 @@
-SECTION "Pokemon Party Check", ROMX, BANK[$10]
-
 ;adding function to check if a pokemon is in party, for GIOVANNI event
 IsPokemonInParty:
 ; Input: a = Pokémon ID to check
