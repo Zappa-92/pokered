@@ -6668,28 +6668,42 @@ CalculateModifiedStat:
 	ret
 
 ApplyBadgeStatBoosts:
-	ld a, [wLinkState]
-	cp LINK_STATE_BATTLING
-	ret z ; return if link battle
-	ld a, [wObtainedBadges]
-	ld b, a
-	ld hl, wBattleMonAttack
-	ld c, $4
-; the boost is applied for badges whose bit position is even
-; the order of boosts matches the order they are laid out in RAM
-; Boulder (bit 0) - attack
-; Thunder (bit 2) - defense
-; Soul (bit 4) - speed
-; Volcano (bit 6) - special
-.loop
-	srl b
-	call c, .applyBoostToStat
-	inc hl
-	inc hl
-	srl b
-	dec c
-	jr nz, .loop
-	ret
+    ld a, [wLinkState]
+    cp LINK_STATE_BATTLING
+    ret z ; return if link battle
+    ld a, [wObtainedBadges]
+    ld b, a
+    ld hl, wBattleMonAttack
+    ; Boulder (bit 0) - Attack
+    srl b
+    call c, .applyBoostToStat
+    ; Soul (bit 4) - Defense
+    push hl
+    srl b
+    srl b
+    srl b
+    srl b
+    inc hl
+    inc hl
+    call c, .applyBoostToStat
+    pop hl
+    ; Thunder (bit 2) - Speed
+    srl b
+    srl b
+    srl b
+    inc hl
+    inc hl
+    inc hl
+    inc hl
+    call c, .applyBoostToStat
+    ; Volcano (bit 6) - Special
+    srl b
+    srl b
+    srl b
+    inc hl
+    inc hl
+    call c, .applyBoostToStat
+    ret
 
 ; multiply stat at hl by 1.125
 ; cap stat at 999
