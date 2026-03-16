@@ -58,7 +58,7 @@ MoveEnd:
 	move GROWL,        ATTACK_DOWN1_EFFECT,          0, NORMAL,   100, 40
 	move ROAR,         SWITCH_AND_TELEPORT_EFFECT,   0, NORMAL,   100, 20
 	move SING,         SLEEP_EFFECT,                 0, NORMAL,    75, 15
-	move SUPERSONIC,   CONFUSION_EFFECT,             0, NORMAL,   100, 10
+	move SUPERSONIC,   CONFUSION_EFFECT,             0, NORMAL,    85, 10
 	move SONICBOOM,    SPECIAL_DAMAGE_EFFECT,        1, NORMAL,    95, 15
 	move DISABLE,      DISABLE_EFFECT,               0, NORMAL,    80, 20
 	move ACID,         DEFENSE_DOWN_SIDE_EFFECT,    28, POISON,   100, 25
@@ -119,7 +119,7 @@ MoveEnd:
 	move HARDEN,       DEFENSE_UP1_EFFECT,           0, NORMAL,   100, 30
 	move MINIMIZE,     EVASION_UP1_EFFECT,           0, NORMAL,   100, 20
 	move SMOKESCREEN,  ACCURACY_DOWN1_EFFECT,        0, NORMAL,    90, 20
-	move CONFUSE_RAY,  CONFUSION_EFFECT,             0, GHOST,    100, 10
+	move CONFUSE_RAY,  CONFUSION_EFFECT,             0, GHOST,     90, 10
 	move WITHDRAW,     DEFENSE_UP1_EFFECT,           0, WATER,    100, 40
 	move DEFENSE_CURL, DEFENSE_UP1_EFFECT,           0, NORMAL,   100, 40
 	move BARRIER,      DEFENSE_UP2_EFFECT,           0, PSYCHIC,  100, 30
