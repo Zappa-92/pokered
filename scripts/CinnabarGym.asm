@@ -270,7 +270,7 @@ CinnabarGymText1:
     call CinnabarGymScript_758b7
     jr .done
 .postRematch
-    ld hl, CeladonGymErikaPostRematchText
+    ld hl, CinnabarGymBlainePostRematchText
     call PrintText
     jr .done
 .gone
