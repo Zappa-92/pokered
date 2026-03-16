@@ -317,7 +317,7 @@ const_value = 0
 	const EVENT_HIGGS_STILL_REVIVING                 ; 13A, (D76E, bit 2)
 	const EVENT_GAVE_DNA_TO_BLAINE                   ; 13B, (D76E, bit 3)
 	const EVENT_DNA_STILL_REVIVING                   ; 13C, (D76E, bit 4)
-	const EVENT_13D                                  ; 13D, (D76E, bit 5)
+	const EVENT_GOT_HIGGS_FOSSIL                     ; 13D, (D76E, bit 5)
 	const EVENT_13E                                  ; 13E, (D76E, bit 6)
 	const EVENT_13F                                  ; 13F, (D76E, bit 7)
 	const EVENT_140                                  ; 140, (D76F, bit 0)
