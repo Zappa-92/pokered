@@ -41,15 +41,14 @@ _Mansion4Text7::
 	cont "intelligent and"
 	cont "strong MONSTER."
 	
-	para "We cannot control it,"
-	line "its psychic powers"
-	cont "are far too powerful."
+	para "Sept. 2"
+	line "Its beyond control,"
+	cont "its psychic powers"
+	cont "are far too"
+	cont "powerful!"
 	
 	para "We contacted SILPH"
 	line "to start production"
 	cont "of a new BALL"
 	cont "prototype."
-	cont "it could be our"
-	cont "only chance"
-	cont "to catch it."
 	done
