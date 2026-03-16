@@ -995,10 +995,11 @@ DoduoEvosMoves:
 	db EV_LEVEL, 31, DODRIO
 	db 0
 ; Learnset
-	db 20, GROWL
-	db 24, FURY_ATTACK
-	db 30, DRILL_PECK
-	db 36, RAGE
+	db 13, LEER
+	db 17, GROWL
+	db 23, FURY_ATTACK
+	db 29, DRILL_PECK
+	db 34, RAGE
 	db 40, TRI_ATTACK
 	db 44, AGILITY
 	db 0
@@ -1496,9 +1497,9 @@ DodrioEvosMoves:
 	db 20, GROWL
 	db 24, FURY_ATTACK
 	db 30, DRILL_PECK
-	db 39, RAGE
-	db 45, TRI_ATTACK
-	db 51, AGILITY
+	db 37, RAGE
+	db 44, TRI_ATTACK
+	db 50, AGILITY
 	db 0
 
 PrimeapeEvosMoves:
