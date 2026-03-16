@@ -18,7 +18,7 @@ Route24Mons:
 		db 16,BELLSPROUT
 		db 16,ODDISH
 		db 11,ABRA
-		db 10,HORSEA
+		db 10,POLIWAG
 		db 12,BULBASAUR
 		db 13,ABRA
 	ENDC
