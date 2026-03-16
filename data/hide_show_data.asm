@@ -502,7 +502,7 @@ MapHSD5:
 	db SILPH_CO_8F,$04,Show
 
 MapHSE8:
-    	db ROCK_TUNNEL_B1F,$09,Hide
+    db ROCK_TUNNEL_B1F,$09,Show
 
 MapHSE9:
 	db SILPH_CO_9F,$02,Show
