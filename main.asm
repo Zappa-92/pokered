@@ -336,6 +336,7 @@ SilphCo6F_Blocks: INCBIN "maps/SilphCo6F.blk"
 INCLUDE "engine/overworld/npc_movement.asm"
 INCLUDE "engine/overworld/doors.asm"
 INCLUDE "engine/overworld/ledges.asm"
+INCLUDE "engine/overworld/pokemon_party.asm"
 
 
 SECTION "bank7", ROMX
