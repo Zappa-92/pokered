@@ -5,9 +5,9 @@ TowerMons7:
 	db 30,GASTLY
 	db 31,GASTLY
 	db 27,GASTLY
-	db 35,HAUNTER
+	db 29,HAUNTER
 	db 29,CUBONE
 	db 31,CUBONE
-	db 35,HAUNTER
-	db 37,HAUNTER
+	db 31,HAUNTER
+	db 30,HAUNTER
 	db $00
