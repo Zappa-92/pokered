@@ -8,6 +8,6 @@ Route3Mons:
 	db 13,JIGGLYPUFF
 	db 11,DODUO
 	db 9,JIGGLYPUFF
-	db 10,CHANSEY
+	db 10,JIGGLYPUFF
 	db 12,DODUO
 	db $00
