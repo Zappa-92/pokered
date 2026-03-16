@@ -223,3 +223,43 @@ _CinnabarGymText_75ac7::
 	text "<PLAYER>! You beat"
 	line "that fire brand!"
 	done
+
+_CinnabarGymBlaineRematchText::
+    text "Back for more"
+    line "heat?...."
+
+	para "..."
+
+	para "You did it?!"
+	line "You caught MEWTWO?"
+
+	para "I have to check you"
+	line "out again then!"
+    cont "My flames burn"
+    cont "hotter than ever!"
+    done
+
+_CinnabarGymBlaineRematchLoseText::
+    text "BLAINE: Pathetic."
+	line "You’re not"
+    cont "fired up enough!"
+    done
+
+_CinnabarGymBlaineRematchWinText::
+    text "BLAINE: My blaze"
+    line "got extinguished!"
+    cont "Great job!"
+    done
+
+_CinnabarGymBlainePostRematchText::
+    text "You’re a"
+    line "true inferno now!"
+
+	para "I still can't"
+	line "believe you"
+	cont "tamed MEWTWO"
+
+	para "I know you"
+	line "are set to find"
+	cont "MEW! Go ahead"
+    done
