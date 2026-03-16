@@ -171,11 +171,11 @@ MapHSPointers:
 	dw MapHSXX
 	dw MapHSXX
 	dw MapHSA5
+	dw MapHSA6
 	dw MapHSXX
 	dw MapHSXX
 	dw MapHSXX
-	dw MapHSXX
-	dw MapHSXX
+	dw MapHSAA
 	dw MapHSXX
 	dw MapHSXX
 	dw MapHSXX
@@ -579,5 +579,9 @@ MapHSA2:
 	db SEAFOAM_ISLANDS_B4F,$01,Hide
 	db SEAFOAM_ISLANDS_B4F,$02,Hide
 	db SEAFOAM_ISLANDS_B4F,$03,Show
+MapHSA6:
+    db CINNABAR_GYM,$C1,Show
+MapHSAA:
+    db CINNABAR_LAB_FOSSIL_ROOM,$C2,Hide
 
 	db $FF,$01,Show
