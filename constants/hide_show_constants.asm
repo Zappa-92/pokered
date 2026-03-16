@@ -61,7 +61,7 @@ const_value = 0
 	const HS_OLD_AMBER                     ; 34
 	const HS_CINNABAR_GYM_BLAINE           ; BLAINE GYM
 	const HS_CINNABAR_LAB_BLAINE           ; BLAINE LAB
-	const HS_CERULEAN_CAVE_1F_ITEM_3       ; 37 X
+	const HS_CERULEAN_CAVE_B1F_GIOVANNI    ; 37 X
 	const HS_POKEMON_TOWER_2F_RIVAL        ; 38
 	const HS_POKEMON_TOWER_3F_ITEM         ; 39 X
 	const HS_POKEMON_TOWER_4F_ITEM_1       ; 3A X
