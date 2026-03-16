@@ -8,7 +8,7 @@ Route25Mons:
 		db 13,ABRA
 		db 19,ODDISH
 		db 14,ABRA
-		db 13,HORSEA
+		db 13,ODDISH
 		db 14,CATERPIE
 	ENDC
 	IF DEF(_BLUE)
