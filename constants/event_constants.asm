@@ -312,7 +312,7 @@ const_value = 0
 	const EVENT_BEAT_SABRINA_REMATCH                 ; 135, (D76D, bit 5)
 	const EVENT_BEAT_BLAINE_REMATCH                  ; 136, (D76D, bit 6)
 	const EVENT_BEAT_RIVAL_REMATCH                   ; 137, (D76D, bit 7)
-	const EVENT_138                                  ; 138, (D76E, bit 0)
+	const EVENT_BEAT_GIOVANNI_CAVE_REMATCH           ; 138, (D76E, bit 0)
 	const EVENT_139                                  ; 139, (D76E, bit 1)
 	const EVENT_13A                                  ; 13A, (D76E, bit 2)
 	const EVENT_13B                                  ; 13B, (D76E, bit 3)
