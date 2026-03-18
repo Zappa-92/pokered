@@ -57,13 +57,14 @@ const_value = 0
 	const HS_POKEDEX_2                     ; 30
 	const HS_OAKS_LAB_OAK_2                ; 31
 	const HS_VIRIDIAN_GYM_GIOVANNI         ; 32
+	const HS_VIRIDIAN_GYM_ITEM             ; 33 X
 	const HS_VIRIDIAN_GYM_RIVAL            ; RIVAL EN GYM VIRIDIAN
 	const HS_OLD_AMBER                     ; 34
-	const HS_CINNABAR_GYM_BLAINE           ; BLAINE GYM
-	const HS_CINNABAR_LAB_BLAINE           ; BLAINE LAB
-	const HS_CERULEAN_CAVE_B1F_GIOVANNI    ; GIOVANNI CUEVA
+	const HS_CERULEAN_CAVE_1F_ITEM_1       ; 35 X
+	const HS_CERULEAN_CAVE_1F_ITEM_2       ; 36 X
+	const HS_CERULEAN_CAVE_1F_ITEM_3       ; 37 X
 	const HS_POKEMON_TOWER_2F_RIVAL        ; 38
-	const HS_CERULEAN_CAVE_B1F_MEWTWO      ; MEWTWO
+	const HS_POKEMON_TOWER_3F_ITEM         ; 39 X
 	const HS_POKEMON_TOWER_4F_ITEM_1       ; 3A X
 	const HS_POKEMON_TOWER_4F_ITEM_2       ; 3B X
 	const HS_POKEMON_TOWER_4F_ITEM_3       ; 3C X
@@ -114,7 +115,7 @@ const_value = 0
 	const HS_MT_MOON_1F_ITEM_3             ; 69 X
 	const HS_MT_MOON_1F_ITEM_4             ; 6A X
 	const HS_MT_MOON_1F_ITEM_5             ; 6B X
-	const HS_ROCK_TUNNEL_B1F_FOSSIL        ; NUEVO FOSIL
+	const HS_MT_MOON_1F_ITEM_6             ; 6C X
 	const HS_MT_MOON_B2F_FOSSIL_1          ; 6D
 	const HS_MT_MOON_B2F_FOSSIL_2          ; 6E
 	const HS_MT_MOON_B2F_ITEM_1            ; 6F X
@@ -218,6 +219,7 @@ const_value = 0
 	const HS_MEWTWO                        ; D1 X
 	const HS_CERULEAN_CAVE_B1F_ITEM_1      ; D2 X
 	const HS_CERULEAN_CAVE_B1F_ITEM_2      ; D3 X
+	const HS_CERULEAN_CAVE_B1F_GIOVANNI    ; GIOVANNI CUEVA
 	const HS_VICTORY_ROAD_1F_ITEM_1        ; D4 X
 	const HS_VICTORY_ROAD_1F_ITEM_2        ; D5 X
 	const HS_CHAMPIONS_ROOM_OAK            ; D6
@@ -234,3 +236,6 @@ const_value = 0
 	const HS_SEAFOAM_ISLANDS_B4F_BOULDER_1 ; E1
 	const HS_SEAFOAM_ISLANDS_B4F_BOULDER_2 ; E2
 	const HS_ARTICUNO                      ; E3 X
+	const HS_ROCK_TUNNEL_B1F_FOSSIL
+	const HS_CINNABAR_GYM_BLAINE           ; BLAINE GYM
+	const HS_CINNABAR_LAB_BLAINE           ; BLAINE LAB
