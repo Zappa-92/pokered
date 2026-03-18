@@ -162,7 +162,7 @@ RockTunnelB1FTextFossil:
     jr nc, .noRoom
 
     ; === Éxito (mensaje automático + sonido, igual que MtMoon) ===
-    call RockTunnelB1FScript_Success
+    call RockTunnelB1FScriptSuccess
 
     ld a, HS_ROCK_TUNNEL_B1F_FOSSIL
     ld [wMissableObjectIndex], a
@@ -172,18 +172,18 @@ RockTunnelB1FTextFossil:
     jp TextScriptEnd
 
 .noRoom
-    call RockTunnelB1FScript_NoRoom
+    call RockTunnelB1FScriptNoRoom
     jp TextScriptEnd
 
 
-RockTunnelB1FScript_Success:
-	TX_FAR _RockTunnelB1FScript_Success
+RockTunnelB1FScriptSuccess:
+	TX_FAR _RockTunnelB1FScriptSuccess
 	TX_SFX_KEY_ITEM
 	TX_WAIT
 	db "@"
 
-RockTunnelB1FScript_NoRoom:
-	TX_FAR _RockTunnelB1FScript_NoRoom
+RockTunnelB1FScriptNoRoom:
+	TX_FAR _RockTunnelB1FScriptNoRoom
 	TX_WAIT
 	db "@"
 
