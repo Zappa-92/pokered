@@ -75,7 +75,7 @@ MewtwoText:
     CheckEvent EVENT_BEAT_GIOVANNI_CAVE_REMATCH
     jr nz, .postGiovanni
     ; Hide Mewtwo, show Giovanni
-    ld a, HS_CERULEAN_CAVE_B1F_MEWTWO
+    ld a, HS_MEWTWO
     ld [wMissableObjectIndex], a
     predef HideObject
     ld a, HS_CERULEAN_CAVE_B1F_GIOVANNI
