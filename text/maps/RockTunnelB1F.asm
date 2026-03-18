@@ -107,9 +107,12 @@ _RockTunnel2EndBattleText8::
 	line "away!"
 	prompt
 
-_RockTunnelB1FTextFossilFound::
-    text "Found a fossil"
-    line "in the rocks!"
-    prompt
-    done
+_RockTunnelB1FScript_Success::
+	text "<PLAYER> got the"
+	line "@"
+	TX_RAM wcf4b
+	text "!@@"
 
+_RockTunnelB1FScript_NoRoom::
+	text "Look, you've got"
+	line "no room for this.@@"
