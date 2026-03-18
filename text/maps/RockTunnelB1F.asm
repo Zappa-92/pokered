@@ -107,12 +107,12 @@ _RockTunnel2EndBattleText8::
 	line "away!"
 	prompt
 
-_RockTunnelB1FScript_Success::
+_RockTunnelB1FScriptSuccess::
 	text "<PLAYER> got the"
 	line "@"
 	TX_RAM wcf4b
 	text "!@@"
 
-_RockTunnelB1FScript_NoRoom::
+_RockTunnelB1FScriptNoRoom::
 	text "Look, you've got"
 	line "no room for this.@@"
