@@ -162,7 +162,7 @@ RockTunnelB1FTextFossil:
     jr nc, .noRoom
 
     ; === Éxito (mensaje automático + sonido, igual que MtMoon) ===
-    call MtMoon3Script_49f69      ; ya existe en el juego
+    call RockTunnelB1FScript_Success
 
     ld a, HS_ROCK_TUNNEL_B1F_FOSSIL
     ld [wMissableObjectIndex], a
@@ -172,8 +172,20 @@ RockTunnelB1FTextFossil:
     jp TextScriptEnd
 
 .noRoom
-    call MtMoon3Script_49f76      ; "no room" (ya existe)
+    call RockTunnelB1FScript_NoRoom
     jp TextScriptEnd
+
+
+RockTunnelB1FScript_Success:
+	TX_FAR _MtMoon3Text_49f6f
+	TX_SFX_KEY_ITEM
+	TX_WAIT
+	db "@"
+
+RockTunnelB1FScript_NoRoom:
+	TX_FAR _MtMoon3Text_49f7f
+	TX_WAIT
+	db "@"
 
 RockTunnel2BattleText2:
 	TX_FAR _RockTunnel2BattleText2
