@@ -171,11 +171,11 @@ MapHSPointers:
 	dw MapHSXX
 	dw MapHSXX
 	dw MapHSA5
+	dw MapHSA6
 	dw MapHSXX
 	dw MapHSXX
 	dw MapHSXX
-	dw MapHSXX
-	dw MapHSXX
+	dw MapHSAA
 	dw MapHSXX
 	dw MapHSXX
 	dw MapHSXX
@@ -500,10 +500,6 @@ MapHSD5:
 	db SILPH_CO_8F,$02,Show
 	db SILPH_CO_8F,$03,Show
 	db SILPH_CO_8F,$04,Show
-
-MapHSE8:
-    db ROCK_TUNNEL_B1F,$09,Show
-
 MapHSE9:
 	db SILPH_CO_9F,$02,Show
 	db SILPH_CO_9F,$03,Show
@@ -579,5 +575,11 @@ MapHSA2:
 	db SEAFOAM_ISLANDS_B4F,$01,Hide
 	db SEAFOAM_ISLANDS_B4F,$02,Hide
 	db SEAFOAM_ISLANDS_B4F,$03,Show
+MapHSE8:
+    db ROCK_TUNNEL_B1F,$09,Show
+MapHSA6:
+	db CINNABAR_GYM,$01,Show
+MapHSAA:
+	db CINNABAR_LAB_FOSSIL_ROOM,$03,Hide
 
 	db $FF,$01,Show
