@@ -177,13 +177,13 @@ RockTunnelB1FTextFossil:
 
 
 RockTunnelB1FScript_Success:
-	TX_FAR _MtMoon3Text_49f6f
+	TX_FAR _RockTunnelB1FScript_Success
 	TX_SFX_KEY_ITEM
 	TX_WAIT
 	db "@"
 
 RockTunnelB1FScript_NoRoom:
-	TX_FAR _MtMoon3Text_49f7f
+	TX_FAR _RockTunnelB1FScript_NoRoom
 	TX_WAIT
 	db "@"
 
