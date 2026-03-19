@@ -95,16 +95,17 @@ _FujiAncientFluteText::
     cont "MEWTWO."
 
     para "I want you to"
-	line "have this ANCIENT"
-    cont "FLUTE." 
+	line "know the story"
+    cont "about that FLUTE" 
 	
-	para "I found it years"
+	para "I made it years"
 	line "ago, when looking"
 	cont "for traces of MEW"
 	
    	para "Natives, deep in"
 	line "the jungle used"
-   	cont "it in many rituals"
+   	cont "a special FLUTE"
+	cont "in many rituals"
 	cont "to call for MEW"
     cont "and celebrate"
     cont "life."
@@ -113,14 +114,6 @@ _FujiAncientFluteText::
     line "MANSION, look for"
     cont "the MEW shrine."
 	done
-
-_ReceivedAncientFluteText::
-	text "Received an"
-    line "ANCIENTFLUTE!@"
-
-_AncientFluteNoRoomText::
-    text "No room for the"
-	line "ANCIENTFLUTE!@"
 
 _FujiPostAncientText::
     text "MR. FUJI: The"
