@@ -10,6 +10,7 @@ Route24Mons:
 		db 10,POLIWAG
 		db 12,BULBASAUR
 		db 13,ABRA
+		db 15,BELLSPROUT
 	ENDC
 	IF DEF(_BLUE)
 		db 14,CATERPIE
@@ -21,5 +22,6 @@ Route24Mons:
 		db 10,POLIWAG
 		db 12,BULBASAUR
 		db 13,ABRA
+		db 15,ODDISH
 	ENDC
 	db $00
