@@ -19,5 +19,6 @@ ForestMons:
 		db 8,PIKACHU
 	ENDC
 	db 7,DODUO
+	db 9,METAPOD
 	db 12,PIDGEOTTO
 	db $00
