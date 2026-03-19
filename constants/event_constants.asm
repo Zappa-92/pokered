@@ -2253,7 +2253,7 @@ const_value = 0
 	const EVENT_8CA                                  ; 8CA, (D860, bit 2)
 	const EVENT_8CB                                  ; 8CB, (D860, bit 3)
 	const EVENT_8CC                                  ; 8CC, (D860, bit 4)
-	const EVENT_8CD                                  ; 8CD, (D860, bit 5)
+	const EVENT_GOT_ANCIENT_FLUTE                    ; 8CD, (D860, bit 5)
 	const EVENT_8CE                                  ; 8CE, (D860, bit 6)
 	const EVENT_8CF                                  ; 8CF, (D860, bit 7)
 	const EVENT_8D0                                  ; 8D0, (D861, bit 0)
