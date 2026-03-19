@@ -7,7 +7,7 @@ CeruleanCaveB1F_Object:
 	db 0 ; signs
 
 	db 3 ; objects
-	object SPRITE_SLOWBRO, 27, 13, STAY, DOWN, 1, MEWTWO, 85
+	object SPRITE_SLOWBRO, 27, 13, STAY, DOWN, 1, MEWTWO, 70
 	object SPRITE_BALL, 16, 9, STAY, NONE, 2, ULTRA_BALL
 	object SPRITE_BALL, 18, 1, STAY, NONE, 3, MAX_REVIVE
 	object SPRITE_GIOVANNI, 27, 13, STAY, DOWN, 4, OPP_GIOVANNI, 4  ; Updated to team 4
