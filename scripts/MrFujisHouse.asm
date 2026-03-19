@@ -94,16 +94,7 @@ LavenderHouse1Text5:
     jr nz, .postAncient
     ld hl, FujiAncientFluteText
     call PrintText
-    lb bc, ANCIENTFLUTE, 1
-    call GiveItem
-    jr nc, .BagFullAncient
-    ld hl, ReceivedAncientFluteText
-    call PrintText
     SetEvent EVENT_GOT_ANCIENT_FLUTE
-    jr .done
-.BagFullAncient
-    ld hl, AncientFluteNoRoomText
-    call PrintText
     jr .done
 .postAncient
     ld hl, FujiPostAncientText
@@ -135,15 +126,6 @@ MrFujiAfterFluteText:
 
 FujiAncientFluteText:
     TX_FAR _FujiAncientFluteText
-    db "@"
-
-ReceivedAncientFluteText:
-    TX_FAR _ReceivedAncientFluteText
-    TX_SFX_KEY_ITEM
-    db "@"
-
-AncientFluteNoRoomText:
-    TX_FAR _AncientFluteNoRoomText
     db "@"
 
 FujiPostAncientText:
