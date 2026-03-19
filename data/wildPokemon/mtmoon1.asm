@@ -8,5 +8,6 @@ MoonMons1:
 	db 11,PARAS
 	db 14,ZUBAT
 	db 14,CLEFAIRY
+	db 11,ZUBAT
 	db 8,CHARMANDER
 	db $00
