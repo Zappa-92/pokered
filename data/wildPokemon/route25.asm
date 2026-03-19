@@ -10,6 +10,7 @@ Route25Mons:
 		db 14,ABRA
 		db 13,POLIWAG
 		db 14,CATERPIE
+		db 13,KAKUNA
 	ENDC
 	IF DEF(_BLUE)
 		db 14,CATERPIE
@@ -21,5 +22,6 @@ Route25Mons:
 		db 14,ABRA
 		db 13,POLIWAG
 		db 14,WEEDLE
+		db 13,METAPOD
 	ENDC
 	db $00
