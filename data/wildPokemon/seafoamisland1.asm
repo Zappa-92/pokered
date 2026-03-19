@@ -3,7 +3,6 @@ IslandMons1:
 	IF DEF(_RED)
 		db 35,SEEL
 		db 35,SLOWPOKE
-		db 35,SHELLDER
 		db 33,JYNX
 		db 34,HORSEA
 		db 34,KRABBY
@@ -16,7 +15,6 @@ IslandMons1:
 	IF DEF(_BLUE)
 		db 35,SEEL
 		db 35,PSYDUCK
-		db 34,STARYU
 		db 32,JYNX
 		db 34,KRABBY
 		db 34,HORSEA
