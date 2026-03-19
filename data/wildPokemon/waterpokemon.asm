@@ -10,3 +10,5 @@ WaterMons:
 	db 28,TENTACOOL
 	db 32,LAPRAS
 	db 31,LAPRAS
+	db 27,TENTACOOL
+
