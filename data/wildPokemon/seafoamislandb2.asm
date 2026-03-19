@@ -10,6 +10,7 @@ IslandMonsB2:
 		db 33,SHELLDER
 		db 36,SLOWBRO
 		db 35,JYNX
+		db 32,KRABBY
 	ENDC
 	IF DEF(_BLUE)
 		db 33,SEEL
@@ -21,5 +22,6 @@ IslandMonsB2:
 		db 33,STARYU
 		db 35,GOLDUCK
 		db 35,JYNX
+		db 32,KRABBY
 	ENDC
 	db $00
