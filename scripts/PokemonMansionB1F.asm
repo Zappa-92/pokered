@@ -57,6 +57,7 @@ PokemonMansionB1F_ScriptPointers:
 	dw CheckFightingMapTrainers
 	dw DisplayEnemyTrainerTextAndStartBattle
 	dw EndTrainerBattle
+	dw PokemonMansionB1FMewScript
 
 PokemonMansionB1F_TextPointers:
 	dw Mansion4Text1
@@ -133,7 +134,7 @@ Mansion4Text7:
 
 MansionB1FMewShrineText:
     TX_ASM
-    ld a, ANCIENTFLUTE
+    ld a, POKE_FLUTE
     ld [wcf91], a          ; Store item ID in wcf91
     call IsItemInBag
     jr z, .noFlute        ; Carry not set = not found
@@ -201,6 +202,26 @@ MewBattleText:
     call PlayCry
     call WaitForSoundToFinish
     jp TextScriptEnd
+
+PokemonMansionB1FMewScript:
+    ld a, [wIsInBattle]
+    cp $ff
+    jp z, EndTrainerBattle
+
+    ; === Drop inmediato de DNA Codes (igual que Snorlax) ===
+    CheckAndSetEvent EVENT_GOT_DNA_CODES
+    jr nz, .alreadyGot
+
+    ld a, HS_MANSION_B1F_DNA_CODES
+    ld [wMissableObjectIndex], a
+    predef ShowObject
+
+.alreadyGot
+    SetEvent EVENT_BEAT_MEW
+    xor a
+    ld [wPokemonMansionB1FCurScript], a
+    ld [wCurMapScript], a
+    ret
 
 ShrineNoFluteText:
     TX_FAR _ShrineNoFluteText
