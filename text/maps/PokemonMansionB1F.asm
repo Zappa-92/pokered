@@ -52,3 +52,25 @@ _Mansion4Text7::
 	cont "of a new BALL"
 	cont "prototype."
 	done
+
+_ShrineNoFluteText::
+    	text "It’s a very"
+    	line "ancient shrine"
+    	cont "dedicated to a"
+    	cont "mythical #MON"
+    	done
+
+_ShrinePatternsText::
+    	text "The shrine has"
+    	line "the same patterns"
+    	cont "that the ANCIENT"
+    	cont "FLUTE has..."
+    	done
+
+_MewAppearsText::
+    	text "MEW!"
+    	done
+
+_MewBattleText::
+    	text "MEW!"
+    	done
