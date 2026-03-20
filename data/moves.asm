@@ -27,7 +27,7 @@ MoveEnd:
 	move SWORDS_DANCE, ATTACK_UP2_EFFECT,            0, NORMAL,   100, 30
 	move CUT,          NO_ADDITIONAL_EFFECT,        35, NORMAL,    95, 30
 	move GUST,         NO_ADDITIONAL_EFFECT,        21, FLYING,   100, 35
-	move WING_ATTACK,  NO_ADDITIONAL_EFFECT,        25, FLYING,   100, 30
+	move WING_ATTACK,  NO_ADDITIONAL_EFFECT,        35, FLYING,   100, 30
 	move WHIRLWIND,    SWITCH_AND_TELEPORT_EFFECT,   0, NORMAL,    85, 20
 	move FLY,          FLY_EFFECT,                  49, FLYING,    95, 15
 	move BIND,         TRAPPING_EFFECT,             11, NORMAL,    75, 20
