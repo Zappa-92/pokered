@@ -38,9 +38,9 @@ _PokemonTower2Text_6063c::
 	text "How's your #DEX"
 	line "coming, pal?"
 	cont "I just caught a"
-	cont "CUBONE!"
+	cont "freaking ghost!"
 
-	para "Hay DRATINIS"
+	para "Hay STARTERS"
 	line "salvajes por ahí."
 	cont "Encontralos!"
 
