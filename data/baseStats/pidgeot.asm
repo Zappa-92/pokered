@@ -1,9 +1,9 @@
 db DEX_PIDGEOT ; pokedex id
-db 88 ; base hp
+db 93 ; base hp
 db 85 ; base attack
 db 75 ; base defense
-db 96 ; base speed
-db 70 ; base special
+db 101 ; base speed
+db 75 ; base special
 db FLYING ; species type 1
 db FLYING ; species type 2
 db 45 ; catch rate
