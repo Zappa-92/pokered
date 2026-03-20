@@ -118,6 +118,7 @@ _FujiAncientFluteText::
 _FujiPostAncientText::
     text "MR. FUJI: The"
     line "shrine’s on the"
-	cont "last floor. Good"
+	cont "basement, take"
+	cont "the flute. Good"
 	cont "luck, <PLAYER>."
 	done
