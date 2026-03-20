@@ -40,31 +40,3 @@ _SaffronGateText_1dff6::
 	line "and strong enough"
 	cont "so keep on!"
 	done
-
-_SaffronGateText_FirstDrinkNoBadge::
-	text ""
-
-	para "..."
-	line "Glug glug..."
-	cont "..."
-	cont "Gulp..."
-	cont "Ahh..refreshing"
-
-	para "But wait!"
-	line "Team Rocket"
-	cont "has invaded"
-	cont "Saffron! Only"
-	cont "strong trainers"
-	cont "may pass!"
-	done
-
-_SaffronGateText_NoBadgeAfterDrink::  ; ID 6
-	text "Thanks for the"
-	line "drinks, but"
-	cont "Team Rocket has"
-	cont "invaded Saffron"
-
-	para "Only strong"
-	line "#MON trainers"
-	cont "may pass!"
-	done
