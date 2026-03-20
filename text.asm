@@ -1027,7 +1027,8 @@ _PokemonBooksText::
 
 _DiglettSculptureText::
 	text "It's a sculpture"
-	line "of DIGLETT."
+	line "of a mythical"
+	cont "#MON"
 	done
 
 _ElevatorText::
