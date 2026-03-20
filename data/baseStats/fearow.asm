@@ -1,5 +1,5 @@
 db DEX_FEAROW ; pokedex id
-db 80 ; base hp
+db 90 ; base hp
 db 90 ; base attack
 db 75 ; base defense
 db 100 ; base speed
