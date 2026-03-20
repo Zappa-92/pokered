@@ -2528,7 +2528,7 @@ const_value = 0
 	const EVENT_9DD                                  ; 9DD, (D882, bit 5)
 	const EVENT_9DE                                  ; 9DE, (D882, bit 6)
 	const EVENT_9DF                                  ; 9DF, (D882, bit 7)
-	const EVENT_9E0                                  ; 9E0, (D883, bit 0)
+	const EVENT_GOT_ANCIENT_FLUTE                    ; AGREGAR EVENTO FLAUTA
 	const EVENT_9E1                                  ; 9E1, (D883, bit 1)
 	const EVENT_9E2                                  ; 9E2, (D883, bit 2)
 	const EVENT_9E3                                  ; 9E3, (D883, bit 3)
