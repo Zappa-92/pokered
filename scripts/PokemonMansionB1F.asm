@@ -62,8 +62,8 @@ PokemonMansionB1F_ScriptPointers:
 PokemonMansionB1FScript0:
 	CheckEvent EVENT_BEAT_MEW
 	jp nz, CheckFightingMapTrainers
-	CheckEventReuseHL EVENT_FIGHT_ROUTE12_SNORLAX
-	ResetEventReuseHL EVENT_FIGHT_ROUTE12_SNORLAX
+	CheckEventReuseHL EVENT_FIGHT_MEW
+	ResetEventReuseHL EVENT_FIGHT_MEW
 	jp z, CheckFightingMapTrainers
 	; iniciar combate con MEW
 	ld a, $d
@@ -91,8 +91,13 @@ PokemonMansionB1FScript0:
 PokemonMansionB1FMewScript:
 	ld a, [wIsInBattle]
 	cp $ff
-	jp z, EndTrainerBattle
+	jp z, .reset
 
+	call UpdateSprites
+
+	ld a, [wBattleResult]
+	cp $2 ; escapó
+	jr z, .reset
 	; flag de victoria
 	SetEvent EVENT_BEAT_MEW
 
@@ -103,8 +108,9 @@ PokemonMansionB1FMewScript:
 	ld a, HS_MANSION_B1F_DNA_CODES
 	ld [wMissableObjectIndex], a
 	predef ShowObject
-
 .skip
+	call Delay3
+.reset
 	xor a
 	ld [wPokemonMansionB1FCurScript], a
 	ld [wCurMapScript], a
