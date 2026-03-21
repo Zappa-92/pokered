@@ -2256,7 +2256,7 @@ const_value = 0
 	const EVENT_GOT_ANCIENT_FLUTE                    ; 8CD, (D860, bit 5)
 	const EVENT_8CE                                  ; 8CE, (D860, bit 6)
 	const EVENT_8CF                                  ; 8CF, (D860, bit 7)
-	const EVENT_8D0                                  ; 8D0, (D861, bit 0)
+	const EVENT_FIGHT_MEW                            ; AGREGO EVENTO DE PELEA CON MEW
 	const EVENT_8D1                                  ; 8D1, (D861, bit 1)
 	const EVENT_8D2                                  ; 8D2, (D861, bit 2)
 	const EVENT_8D3                                  ; 8D3, (D861, bit 3)
