@@ -1,12 +1,5 @@
 CinnabarLabFossilRoom_Script:
 	call EnableAutoTextBoxDrawing
-    	; Show Blaine post-Giovanni
-    	CheckEvent EVENT_BEAT_GIOVANNI_CAVE_REMATCH
-    	ret z
-    	ld a, HS_CINNABAR_LAB_BLAINE  ; $C2
-    	ld [wMissableObjectIndex], a
-    	predef ShowObject
-    	ret
 
 CinnabarLabFossilRoom_TextPointers:
 	dw Lab4Text1
