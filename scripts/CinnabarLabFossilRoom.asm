@@ -8,6 +8,7 @@ CinnabarLabFossilRoom_Script:
 	ld [wMissableObjectIndex], a
 	predef ShowObject
 .noBlaine
+	ret
 
 CinnabarLabFossilRoom_TextPointers:
 	dw Lab4Text1
