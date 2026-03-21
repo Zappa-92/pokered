@@ -1,12 +1,13 @@
 CinnabarLabFossilRoom_Script:
 	call EnableAutoTextBoxDrawing
+
 	CheckEvent EVENT_BEAT_GIOVANNI_CAVE_REMATCH
-	ret z
+	jr z, .noBlaine
 
 	ld a, HS_CINNABAR_LAB_BLAINE
 	ld [wMissableObjectIndex], a
 	predef ShowObject
-	ret
+.noBlaine
 
 CinnabarLabFossilRoom_TextPointers:
 	dw Lab4Text1
