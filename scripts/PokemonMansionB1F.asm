@@ -54,9 +54,10 @@ Mansion4Script_Switches:
 	jp DisplayTextID
 
 PokemonMansionB1F_ScriptPointers:
-	dw PokemonMansionB1FScript0
+	dw CheckFightingMapTrainers
 	dw DisplayEnemyTrainerTextAndStartBattle
 	dw EndTrainerBattle
+	dw PokemonMansionB1FScript0
 	dw PokemonMansionB1FMewScript
 
 PokemonMansionB1FScript0:
