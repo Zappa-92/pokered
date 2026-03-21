@@ -240,5 +240,3 @@ const_value = 0
 	const HS_SEAFOAM_ISLANDS_B4F_BOULDER_2 ; E2
 	const HS_ARTICUNO                      ; E3 X
 	const HS_ROCK_TUNNEL_B1F_FOSSIL
-	const HS_CINNABAR_GYM_BLAINE           ; BLAINE GYM
-	const HS_CINNABAR_LAB_BLAINE           ; BLAINE LAB
