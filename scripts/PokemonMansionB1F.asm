@@ -58,6 +58,7 @@ PokemonMansionB1F_ScriptPointers:
 	dw DisplayEnemyTrainerTextAndStartBattle
 	dw EndTrainerBattle
 	dw PokemonMansionB1FMewScript
+	dw PokemonMansionB1FScript_MewTrigger ; NUEVO
 
 PokemonMansionB1F_TextPointers:
 	dw Mansion4Text1
@@ -132,96 +133,84 @@ Mansion4Text7:
 	TX_FAR _Mansion4Text7
 	db "@"
 
-MansionB1FMewShrineText:
-    TX_ASM
-    ld a, POKE_FLUTE
-    ld [wcf91], a          ; Store item ID in wcf91
-    call IsItemInBag
-    jr z, .noFlute        ; Carry not set = not found
-    CheckEvent EVENT_BEAT_MEW
-    jr nz, .postMew
-    ; With Ancient Flute in bag
-    ld hl, ShrinePatternsText
-    call PrintText
-    ; Play Ancient Flute
-    ld a, $ff
-    call PlaySound
-    ld a, SFX_POKEFLUTE
-    ld c, BANK(SFX_Pokeflute)
-    call PlayMusic
-.musicWaitLoop
-    ld a, [wChannelSoundIDs + Ch3]
-    cp SFX_POKEFLUTE
-    jr z, .musicWaitLoop
-    call PlayDefaultMusic
-    ; Spawn Mew with teleport effect
-    ld a, HS_MANSION_B1F_MEW
-    ld [wMissableObjectIndex], a
-    predef ShowObject
-    callba EnterMapAnim
-    ld hl, MewAppearsText
-    call PrintText
-    ; Set up wild Mew with custom moves
-    ld a, MEW
-    ld [wEnemyMonSpecies], a
-    ld a, 100
-    ld [wEnemyMonLevel], a
-    ; Load custom moves into wEnemyMonMoves
-    ld hl, wEnemyMonMoves
-    ld a, PSYCHIC
-    ld [hli], a
-    ld a, SEISMIC_TOSS
-    ld [hli], a
-    ld a, ICE_BEAM
-    ld [hli], a
-    ld a, SOFTBOILED
-    ld [hl], a
-    ; Start wild battle
-    xor a
-    ld [wBattleType], a
-    call StartBattle
-    ld a, 3
-    ld [wPokemonMansionB1FCurScript], a
-    ld [wCurMapScript], a
-    jr .done
-.noFlute
-    	ld hl, ShrineNoFluteText
-    	call PrintText
-    	jr .done
-.postMew
-	ld hl, ShrineNoFluteText
-    	call PrintText
-    	jr .done
-.done
-    jp TextScriptEnd
+PokemonMansionB1FScript_MewTrigger:
+	CheckEventHL EVENT_BEAT_MEW
+	jp nz, CheckFightingMapTrainers
 
-MewBattleText:
-    TX_FAR _MewBattleText
-    TX_ASM
-    ld a, MEW
-    call PlayCry
-    call WaitForSoundToFinish
-    jp TextScriptEnd
+	CheckEventReuseHL EVENT_FIGHT_MEW
+	ResetEventReuseHL EVENT_FIGHT_MEW
+	jp z, CheckFightingMapTrainers
+
+	; iniciar combate con MEW
+	ld a, MEW
+	ld [wCurOpponent], a
+	ld a, 100
+	ld [wCurEnemyLVL], a
+
+	; custom moves
+	ld hl, wEnemyMonMoves
+	ld a, PSYCHIC
+	ld [hli], a
+	ld a, SEISMIC_TOSS
+	ld [hli], a
+	ld a, ICE_BEAM
+	ld [hli], a
+	ld a, SOFTBOILED
+	ld [hl], a
+
+	ld a, $3
+	ld [wPokemonMansionB1FCurScript], a
+	ld [wCurMapScript], a
+	ret
 
 PokemonMansionB1FMewScript:
-    ld a, [wIsInBattle]
-    cp $ff
-    jp z, EndTrainerBattle
+	ld a, [wIsInBattle]
+	cp $ff
+	jp z, EndTrainerBattle
 
-    ; === Drop inmediato de DNA Codes (igual que Snorlax) ===
-    CheckAndSetEvent EVENT_GOT_DNA_CODES
-    jr nz, .alreadyGot
+	; flag de victoria
+	SetEvent EVENT_BEAT_MEW
 
-    ld a, HS_MANSION_B1F_DNA_CODES
-    ld [wMissableObjectIndex], a
-    predef ShowObject
+	; drop DNA (solo una vez)
+	CheckAndSetEvent EVENT_GOT_DNA_CODES
+	jr nz, .skip
 
-.alreadyGot
-    SetEvent EVENT_BEAT_MEW
-    xor a
-    ld [wPokemonMansionB1FCurScript], a
-    ld [wCurMapScript], a
-    ret
+	ld a, HS_MANSION_B1F_DNA_CODES
+	ld [wMissableObjectIndex], a
+	predef ShowObject
+
+.skip
+	xor a
+	ld [wPokemonMansionB1FCurScript], a
+	ld [wCurMapScript], a
+	ret
+
+MansionB1FMewShrineText:
+	TX_ASM
+	ld a, POKE_FLUTE
+	ld [wcf91], a
+	call IsItemInBag
+	jr z, .noFlute
+
+	CheckEvent EVENT_BEAT_MEW
+	jr nz, .postMew
+
+	ld hl, ShrinePatternsText
+	call PrintText
+	jr .done
+
+.noFlute
+	ld hl, ShrineNoFluteText
+	call PrintText
+	jr .done
+
+.postMew
+	ld hl, ShrineNoFluteText
+	call PrintText
+
+.done
+	jp TextScriptEnd
+
 
 ShrineNoFluteText:
     TX_FAR _ShrineNoFluteText
@@ -231,6 +220,3 @@ ShrinePatternsText:
     TX_FAR _ShrinePatternsText
     db "@"
 
-MewAppearsText:
-    TX_FAR _MewAppearsText
-    db "@"
