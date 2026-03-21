@@ -3,15 +3,7 @@ CinnabarGym_Script:
 	call EnableAutoTextBoxDrawing
 	ld hl, CinnabarGym_ScriptPointers
 	ld a, [wCinnabarGymCurScript]
-	call ExecuteCurMapScriptInTable
-    	ld [wCinnabarGymCurScript], a
-    	; Hide Blaine after Giovanni battle
-    	CheckEvent EVENT_BEAT_GIOVANNI_CAVE_REMATCH
-    	ret z
-    	ld a, HS_CINNABAR_GYM_BLAINE  ; Define in hide_show_constants.asm
-    	ld [wMissableObjectIndex], a
-    	predef HideObject
-    	ret
+	jp CallFunctionInTable
 
 CinnabarGymScript_75759:
 	ld hl, wCurrentMapScriptFlags
@@ -225,58 +217,123 @@ CinnabarGymScript_758b7:
 	jp TextScriptEnd
 
 CinnabarGymText1:
-    TX_ASM
-    CheckEvent EVENT_BEAT_GIOVANNI_CAVE_REMATCH
-    jr nz, .gone
-    CheckEvent EVENT_BEAT_OAK
-    jr z, .originalBattle
-    CheckEvent EVENT_BEAT_BLAINE_REMATCH
-    jr nz, .postRematch
-    ld hl, CinnabarGymBlaineRematchText
-    call PrintText
-    ld hl, CinnabarGymBlaineRematchLoseText
-    ld de, CinnabarGymBlaineRematchWinText
-    call SaveEndBattleTextPointers
-    ld a, OPP_BLAINE  ; $0D
-    ld [wCurOpponent], a
-    ld a, $2  ; Rematch team
-    ld [wTrainerNo], a
-    xor a
-    ld [wGymLeaderNo], a
-    ld a, $4
-    ld [wCinnabarGymCurScript], a
-    ld [wCurMapScript], a
-    jr .done
+	TX_ASM
+
+	; Si no pasó Giovanni rematch → comportamiento normal
+	CheckEvent EVENT_BEAT_GIOVANNI_CAVE_REMATCH
+	jr z, .normalFlow
+
+	; ===== NUEVO SISTEMA DNA + HIGGS =====
+
+	; ¿ya entregó DNA?
+	CheckEvent EVENT_GAVE_DNA_TO_BLAINE
+	jr nz, .afterDNA
+
+	; ¿tiene HIGGS_FOSSIL?
+	ld a, HIGGS_FOSSIL
+	ld [wcf91], a
+	call IsItemInBag
+	jr z, .intro
+
+	; tiene fósil pero NO DNA
+	ld hl, BlaineLabHiggsFailedText
+	call PrintText
+	jp TextScriptEnd
+
+.intro
+	ld hl, BlaineLabIntroText
+	call PrintText
+
+	; intentar recibir DNA
+	ld a, DNA_CODES
+	ld [wcf91], a
+	call IsItemInBag
+	jr z, .done
+
+	; remover DNA
+	ld a, DNA_CODES
+	ld [hItemToRemoveID], a
+	callba RemoveItemByID
+
+	SetEvent EVENT_GAVE_DNA_TO_BLAINE
+	jr .done
+
+.afterDNA
+	; ya dio DNA → ¿tiene fósil?
+	ld a, HIGGS_FOSSIL
+	ld [wcf91], a
+	call IsItemInBag
+	jr z, .afterText
+
+	; tiene fósil + DNA
+	ld hl, BlaineLabMewText
+	call PrintText
+	jp TextScriptEnd
+
+.afterText
+	ld hl, BlaineLabIntroText
+	call PrintText
+	jp TextScriptEnd
+
+; ===== FLUJO ORIGINAL =====
+
+.normalFlow
+	CheckEvent EVENT_BEAT_OAK
+	jr z, .originalBattle
+	CheckEvent EVENT_BEAT_BLAINE_REMATCH
+	jr nz, .postRematch
+
+	ld hl, CinnabarGymBlaineRematchText
+	call PrintText
+	ld hl, CinnabarGymBlaineRematchLoseText
+	ld de, CinnabarGymBlaineRematchWinText
+	call SaveEndBattleTextPointers
+
+	ld a, OPP_BLAINE
+	ld [wCurOpponent], a
+	ld a, $2
+	ld [wTrainerNo], a
+
+	xor a
+	ld [wGymLeaderNo], a
+
+	ld a, $4
+	ld [wCinnabarGymCurScript], a
+	ld [wCurMapScript], a
+	jr .done
+
 .originalBattle
-    CheckEvent EVENT_BEAT_BLAINE
-    jr z, .beginBattle
-    CheckEventReuseA EVENT_GOT_TM38
-    jr nz, .afterVictory
-    call z, CinnabarGymScript3_75857
-    call DisableWaitingAfterTextDisplay
-    jr .done
+	CheckEvent EVENT_BEAT_BLAINE
+	jr z, .beginBattle
+	CheckEventReuseA EVENT_GOT_TM38
+	jr nz, .afterVictory
+	call z, CinnabarGymScript3_75857
+	call DisableWaitingAfterTextDisplay
+	jr .done
+
 .afterVictory
-    ld hl, BlaineFireBlastText
-    call PrintText
-    jr .done
+	ld hl, BlaineFireBlastText
+	call PrintText
+	jr .done
+
 .beginBattle
-    ld hl, BlaineBattleText
-    call PrintText
-    ld hl, BlaineEndBattleText
-    ld de, BlaineEndBattleText
-    call SaveEndBattleTextPointers
-    ld a, $7
-    ld [wGymLeaderNo], a
-    call CinnabarGymScript_758b7
-    jr .done
+	ld hl, BlaineBattleText
+	call PrintText
+	ld hl, BlaineEndBattleText
+	ld de, BlaineEndBattleText
+	call SaveEndBattleTextPointers
+	ld a, $7
+	ld [wGymLeaderNo], a
+	call CinnabarGymScript_758b7
+	jr .done
+
 .postRematch
-    ld hl, CinnabarGymBlainePostRematchText
-    call PrintText
-    jr .done
-.gone
-    ; No text, just end
+	ld hl, CinnabarGymBlainePostRematchText
+	call PrintText
+	jr .done
+
 .done
-    jp TextScriptEnd
+	jp TextScriptEnd
 
 BlaineBattleText:
 	TX_FAR _BlaineBattleText
@@ -536,4 +593,16 @@ CinnabarGymText_75ac2:
 
 CinnabarGymText_75ac7:
 	TX_FAR _CinnabarGymText_75ac7
+	db "@"
+
+BlaineLabIntroText:
+	TX_FAR _BlaineLabIntroText
+	db "@"
+
+BlaineLabHiggsFailedText:
+	TX_FAR _BlaineLabHiggsFailedText
+	db "@"
+
+BlaineLabMewText:
+	TX_FAR _BlaineLabMewText
 	db "@"
