@@ -69,7 +69,6 @@ PokemonMansionB1F_TextPointers:
 	dw PickUpItemText
 	dw Mansion4Text7
 	dw PickUpItemText
-	dw Mansion3Text6
 	dw MansionB1FMewShrineText
 	dw PickUpItemText  ; DNA Codes
 
