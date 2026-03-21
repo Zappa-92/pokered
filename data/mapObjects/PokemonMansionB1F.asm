@@ -16,8 +16,7 @@ PokemonMansionB1F_Object:
 	object SPRITE_BOOK_MAP_DEX, 16, 20, STAY, NONE, 7 ; person
 	object SPRITE_BALL, 5, 13, STAY, NONE, 8, SECRET_KEY
     object SPRITE_SLOWBRO, 4, 18, STAY, DOWN, 9 ; Mew shrine
-    object SPRITE_SLOWBRO, 4, 18, STAY, DOWN, 10 ; MEW
-	object SPRITE_BALL, 4, 20, STAY, NONE, 11, DNA_CODES
+	object SPRITE_BALL, 4, 20, STAY, NONE, 10, DNA_CODES
 
 	; warp-to
 	warp_to 23, 22, POKEMON_MANSION_B1F_WIDTH ; POKEMON_MANSION_1F
