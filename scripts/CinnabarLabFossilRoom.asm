@@ -1,19 +1,9 @@
 CinnabarLabFossilRoom_Script:
 	call EnableAutoTextBoxDrawing
 
-	CheckEvent EVENT_BEAT_GIOVANNI_CAVE_REMATCH
-	jr z, .noBlaine
-
-	ld a, HS_CINNABAR_LAB_BLAINE
-	ld [wMissableObjectIndex], a
-	predef ShowObject
-.noBlaine
-	ret
-
 CinnabarLabFossilRoom_TextPointers:
 	dw Lab4Text1
 	dw Lab4Text2
-	dw BlaineLabText
 
 Lab4Script_GetFossilsInBag:
 ; construct a list of all fossils in the player's bag
@@ -115,74 +105,6 @@ Lab4Text2:
 	ld [wWhichTrade], a
 	predef DoInGameTradeDialogue
 	jp TextScriptEnd
-
-BlaineLabText:
-	TX_ASM
-
-	CheckEvent EVENT_BEAT_GIOVANNI_CAVE_REMATCH
-	jr z, .done
-
-	; ¿ya entregó DNA?
-	CheckEvent EVENT_GAVE_DNA_TO_BLAINE
-	jr nz, .afterDNA
-
-	; ¿tiene HIGGS_FOSSIL?
-	ld a, HIGGS_FOSSIL
-	ld [wcf91], a
-	call IsItemInBag
-	jr z, .intro
-
-	; tiene fósil pero NO DNA
-	ld hl, BlaineLabHiggsFailedText
-	call PrintText
-	jr .done
-.intro
-	ld hl, BlaineLabIntroText
-	call PrintText
-
-	; intentar recibir DNA
-	ld a, DNA_CODES
-	ld [wcf91], a
-	call IsItemInBag
-	jr z, .done
-
-	; tiene DNA → lo entrega
-	ld a, DNA_CODES
-	ld [hItemToRemoveID], a
-	callba RemoveItemByID
-
-	SetEvent EVENT_GAVE_DNA_TO_BLAINE
-
-.afterDNA
-	; ya dio DNA → ¿tiene fósil?
-	ld a, HIGGS_FOSSIL
-	ld [wcf91], a
-	call IsItemInBag
-	jr z, .afterText
-
-	; tiene fósil + DNA → mensaje especial
-	ld hl, BlaineLabMewText
-	call PrintText
-	jr .done
-
-.afterText
-	ld hl, BlaineLabIntroText
-	call PrintText
-
-.done
-	jp TextScriptEnd
-
-BlaineLabIntroText:
-	TX_FAR _BlaineLabIntroText
-	db "@"
-
-BlaineLabHiggsFailedText:
-	TX_FAR _BlaineLabHiggsFailedText
-	db "@"
-
-BlaineLabMewText:
-	TX_FAR _BlaineLabMewText
-	db "@"
 
 LoadFossilItemAndMonNameBank1D:
 	jpba LoadFossilItemAndMonName
