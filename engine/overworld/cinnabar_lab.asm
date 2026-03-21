@@ -99,6 +99,11 @@ GiveFossilToCinnabarLab:
 	SetEvents EVENT_GAVE_FOSSIL_TO_LAB, EVENT_LAB_STILL_REVIVING_FOSSIL
 	ret
 
+.cancelledGivingFossil
+	ld hl, LabFossil_610bd
+	call PrintText
+	ret
+
 LabFossil_610ae:
 	TX_FAR _Lab4Text_610ae
 	db "@"
