@@ -48,7 +48,16 @@ GiveFossilToCinnabarLab:
 	ld b, OMANYTE
 	jr .fossilSelected
 .choseHiggsFossil
+	CheckEvent EVENT_GAVE_DNA_TO_BLAINE
+	jr z, .higgsFail
+
+	; DNA OK → MEW
 	ld b, MEW
+	jr .fossilSelected
+
+.higgsFail
+	; SIN DNA → DITTO
+	ld b, DITTO
 	jr .fossilSelected
 .choseDomeFossil
 	ld b, KABUTO
@@ -56,25 +65,38 @@ GiveFossilToCinnabarLab:
 	ld [wFossilItem], a
 	ld a, b
 	ld [wFossilMon], a
+
 	call LoadFossilItemAndMonName
+
 	ld hl, LabFossil_610ae
 	call PrintText
+
 	call YesNoChoice
 	ld a, [wCurrentMenuItem]
 	and a
 	jr nz, .cancelledGivingFossil
+
 	ld hl, LabFossil_610b3
 	call PrintText
+
+	; NUEVO: lógica de remoción condicional
+	ld a, [wFossilItem]
+	cp HIGGS_FOSSIL
+	jr nz, .removeFossilNormally
+
+	; es HIGGS → ver si tiene DNA
+	CheckEvent EVENT_GAVE_DNA_TO_BLAINE
+	jr z, .skipRemoval   ; NO remover si no hay DNA
+
+.removeFossilNormally
 	ld a, [wFossilItem]
 	ld [hItemToRemoveID], a
 	callba RemoveItemByID
+
+.skipRemoval
 	ld hl, LabFossil_610b8
 	call PrintText
 	SetEvents EVENT_GAVE_FOSSIL_TO_LAB, EVENT_LAB_STILL_REVIVING_FOSSIL
-	ret
-.cancelledGivingFossil
-	ld hl, LabFossil_610bd
-	call PrintText
 	ret
 
 LabFossil_610ae:
