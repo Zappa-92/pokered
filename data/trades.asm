@@ -2,7 +2,7 @@ TradeMons:
 ; givemonster, getmonster, textstring, nickname (11 bytes), 14 bytes total
 	db CLEFAIRY,  PSYDUCK,  0,"CUACKI@@@@@"
 	db PARASECT,  HAUNTER,  0,"HUNT@@@@@@@"
-	db CHARMANDER,CHANSEY,  2,"EGGHEAD@@@@"
+	db CHARMANDER,MR_MIME,  2,"CLOWN@@@@@@"
 	db POLIWHIRL, KADABRA,  0,"BRANIAC@@@@"
 	db PARASECT,  MACHOKE,  2,"CHAD@@@@@@@"
 	db VULPIX,    LICKITUNG,0,"KISS@@@@@@@"
