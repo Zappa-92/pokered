@@ -171,11 +171,11 @@ MapHSPointers:
 	dw MapHSXX
 	dw MapHSXX
 	dw MapHSA5
-	dw MapHSA6
 	dw MapHSXX
 	dw MapHSXX
 	dw MapHSXX
-	dw MapHSAA
+	dw MapHSXX
+	dw MapHSXX
 	dw MapHSXX
 	dw MapHSXX
 	dw MapHSXX
