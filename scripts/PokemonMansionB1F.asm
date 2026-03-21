@@ -59,6 +59,57 @@ PokemonMansionB1F_ScriptPointers:
 	dw EndTrainerBattle
 	dw PokemonMansionB1FMewScript
 
+PokemonMansionB1FScript0:
+	CheckEvent EVENT_BEAT_MEW
+	jp nz, CheckFightingMapTrainers
+	CheckEventReuseHL EVENT_FIGHT_ROUTE12_SNORLAX
+	ResetEventReuseHL EVENT_FIGHT_ROUTE12_SNORLAX
+	jp z, CheckFightingMapTrainers
+	; iniciar combate con MEW
+	ld a, $d
+	ld [hSpriteIndexOrTextID], a
+	call DisplayTextID
+	ld a, MEW
+	ld [wCurOpponent], a
+	ld a, 100
+	ld [wCurEnemyLVL], a
+	; custom moves
+	ld hl, wEnemyMonMoves
+	ld a, PSYCHIC
+	ld [hli], a
+	ld a, SEISMIC_TOSS
+	ld [hli], a
+	ld a, ICE_BEAM
+	ld [hli], a
+	ld a, SOFTBOILED
+	ld [hl], a
+	ld a, $3
+	ld [wPokemonMansionB1FCurScript], a
+	ld [wCurMapScript], a
+	ret
+
+PokemonMansionB1FMewScript:
+	ld a, [wIsInBattle]
+	cp $ff
+	jp z, EndTrainerBattle
+
+	; flag de victoria
+	SetEvent EVENT_BEAT_MEW
+
+	; drop DNA (solo una vez)
+	CheckAndSetEvent EVENT_GOT_DNA_CODES
+	jr nz, .skip
+
+	ld a, HS_MANSION_B1F_DNA_CODES
+	ld [wMissableObjectIndex], a
+	predef ShowObject
+
+.skip
+	xor a
+	ld [wPokemonMansionB1FCurScript], a
+	ld [wCurMapScript], a
+	ret
+
 PokemonMansionB1F_TextPointers:
 	dw Mansion4Text1
 	dw Mansion4Text2
@@ -131,62 +182,6 @@ Mansion4AfterBattleText2:
 Mansion4Text7:
 	TX_FAR _Mansion4Text7
 	db "@"
-
-PokemonMansionB1FScript0:
-	CheckEvent EVENT_BEAT_MEW
-	jr nz, .checkTrainers
-
-	CheckEvent EVENT_FIGHT_MEW
-	jr z, .checkTrainers
-
-	ResetEvent EVENT_FIGHT_MEW
-
-	; iniciar combate con MEW
-	ld a, MEW
-	ld [wCurOpponent], a
-	ld a, 100
-	ld [wCurEnemyLVL], a
-
-	; custom moves
-	ld hl, wEnemyMonMoves
-	ld a, PSYCHIC
-	ld [hli], a
-	ld a, SEISMIC_TOSS
-	ld [hli], a
-	ld a, ICE_BEAM
-	ld [hli], a
-	ld a, SOFTBOILED
-	ld [hl], a
-
-	ld a, $3
-	ld [wPokemonMansionB1FCurScript], a
-	ld [wCurMapScript], a
-	ret
-
-.checkTrainers
-	jp CheckFightingMapTrainers
-
-PokemonMansionB1FMewScript:
-	ld a, [wIsInBattle]
-	cp $ff
-	jp z, EndTrainerBattle
-
-	; flag de victoria
-	SetEvent EVENT_BEAT_MEW
-
-	; drop DNA (solo una vez)
-	CheckAndSetEvent EVENT_GOT_DNA_CODES
-	jr nz, .skip
-
-	ld a, HS_MANSION_B1F_DNA_CODES
-	ld [wMissableObjectIndex], a
-	predef ShowObject
-
-.skip
-	xor a
-	ld [wPokemonMansionB1FCurScript], a
-	ld [wCurMapScript], a
-	ret
 
 MansionB1FMewShrineText:
 	TX_ASM
