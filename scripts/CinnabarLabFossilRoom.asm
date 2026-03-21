@@ -6,37 +6,12 @@ CinnabarLabFossilRoom_Script:
     	ld a, HS_CINNABAR_LAB_BLAINE  ; $C2
     	ld [wMissableObjectIndex], a
     	predef ShowObject
-    	; Higgs revival steps
-    	CheckEvent EVENT_GAVE_HIGGS_TO_BLAINE
-    	jr z, .checkDNA
-    	CheckEvent EVENT_HIGGS_STILL_REVIVING
-    	jr z, .checkDNA
-    	ld a, [wWalkCounter]
-    	and a
-    	ret z
-    	dec a
-    	ld [wWalkCounter], a
-    	ret nz
-    	ResetEvent EVENT_HIGGS_STILL_REVIVING
-.checkDNA
-    	; DNA revival steps
-    	CheckEvent EVENT_GAVE_DNA_TO_BLAINE
-    	ret z
-    	CheckEvent EVENT_DNA_STILL_REVIVING
-    	ret z
-    	ld a, [wWalkCounter]
-    	and a
-    	ret z
-    	dec a
-    	ld [wWalkCounter], a
-    	ret nz
-    	ResetEvent EVENT_DNA_STILL_REVIVING
     	ret
 
 CinnabarLabFossilRoom_TextPointers:
 	dw Lab4Text1
 	dw Lab4Text2
-    	dw BlaineLabText
+    dw BlaineLabText
 
 Lab4Script_GetFossilsInBag:
 ; construct a list of all fossils in the player's bag
