@@ -262,4 +262,62 @@ _CinnabarGymBlainePostRematchText::
 	para "I know you"
 	line "are set to find"
 	cont "MEW! Go ahead"
+
+_BlaineLabIntroText::
+    	text "BLAINE: Yes, I"
+    	line "was a scientist"
+    	cont "researching MEW."
+    	cont "But I wasn’t the"
+    	cont "leader back then,"
+	cont "DR FUJI was."
+
+    	para "After years of"
+    	line "research, we" 
+	cont "found a fossil"
+    	cont "with MEW DNA"
+
+    	para "We started to"
+	line "experiment with"
+    	cont "clonation."
+	cont "but the genome"
+    	cont "was incomplete."
+	
+    	para "Thus to create"
+	line "MEWTWO, I also"
+    	cont "used my own"
+    	cont "human cells."
+
+		para "Then came the"
+		line "disaster.."
+    	cont "MEWTWO was too"
+		cont "powerful, and"
+		cont "we couldn’t keep"
+    	cont "it under control"
+    	cont "MEWTWO destroyed"
+		cont "the enitre lab."
+
+		para "Then left.."
+    	cont "and hid."
+    	done
+
+
+_BlaineLabHiggsFailedText::
+    	text "BLAINE: It’s"
+    	line "useless—"
+    	cont "incomplete, like"
+    	cont "last time. MEW"
+    	cont "can’t be cloned"
+    	cont "with this alone."
+
+    	para "Only DR. FUJI"
+    	line "could work"
+		cont "it out."
+    	done
+
+_BlaineLabMewText::
+    	text "BLAINE: It’s"
+    	line "finally done!"
+		cont "A trully"
+    	cont "cloned MEW!"
+    	done
     done
