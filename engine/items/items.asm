@@ -1733,6 +1733,22 @@ ItemUsePokeflute:
 	SetEvent EVENT_FIGHT_ROUTE12_SNORLAX
 	ret
 .notRoute12
+	cp POKEMON_MANSION_B1F
+	jr nz, .checkRoute16
+
+	CheckEvent EVENT_BEAT_MEW
+	jr nz, .noSnorlaxToWakeUp
+
+	ld hl, MansionB1FMewFluteCoords
+	call ArePlayerCoordsInArray
+	jr nc, .noSnorlaxToWakeUp
+
+	ld hl, PlayedFluteHadEffectText
+	call PrintText
+	SetEvent EVENT_FIGHT_MEW
+	ret
+
+.checkRoute16
 	cp ROUTE_16
 	jr nz, .noSnorlaxToWakeUp
 	CheckEvent EVENT_BEAT_ROUTE16_SNORLAX
@@ -1833,6 +1849,10 @@ Route16SnorlaxFluteCoords:
 	db 10,27 ; one space East of Snorlax
 	db 10,25 ; one space West of Snorlax
 	db $ff ; terminator
+
+MansionB1FMewFluteCoords:
+	db 18,4 ; frente al altar
+	db $ff
 
 PlayedFluteNoEffectText:
 	TX_FAR _PlayedFluteNoEffectText
