@@ -54,11 +54,10 @@ Mansion4Script_Switches:
 	jp DisplayTextID
 
 PokemonMansionB1F_ScriptPointers:
-	dw CheckFightingMapTrainers
+	dw PokemonMansionB1FScript0
 	dw DisplayEnemyTrainerTextAndStartBattle
 	dw EndTrainerBattle
 	dw PokemonMansionB1FMewScript
-	dw PokemonMansionB1FScript_MewTrigger ; NUEVO
 
 PokemonMansionB1F_TextPointers:
 	dw Mansion4Text1
@@ -132,13 +131,13 @@ Mansion4Text7:
 	TX_FAR _Mansion4Text7
 	db "@"
 
-PokemonMansionB1FScript_MewTrigger:
+PokemonMansionB1FScript0:
 	CheckEventHL EVENT_BEAT_MEW
-	jp nz, CheckFightingMapTrainers
+	jr nz, .checkTrainers
 
 	CheckEventReuseHL EVENT_FIGHT_MEW
 	ResetEventReuseHL EVENT_FIGHT_MEW
-	jp z, CheckFightingMapTrainers
+	jr z, .checkTrainers
 
 	; iniciar combate con MEW
 	ld a, MEW
@@ -161,6 +160,9 @@ PokemonMansionB1FScript_MewTrigger:
 	ld [wPokemonMansionB1FCurScript], a
 	ld [wCurMapScript], a
 	ret
+
+.checkTrainers
+	jp CheckFightingMapTrainers
 
 PokemonMansionB1FMewScript:
 	ld a, [wIsInBattle]
