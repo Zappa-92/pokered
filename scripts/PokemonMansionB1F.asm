@@ -68,6 +68,7 @@ PokemonMansionB1F_TextPointers:
 	dw PickUpItemText
 	dw Mansion4Text7
 	dw PickUpItemText
+	dw Mansion3Text6
 	dw MansionB1FMewShrineText
 	dw PickUpItemText  ; DNA Codes
 
@@ -132,12 +133,13 @@ Mansion4Text7:
 	db "@"
 
 PokemonMansionB1FScript0:
-	CheckEventHL EVENT_BEAT_MEW
+	CheckEvent EVENT_BEAT_MEW
 	jr nz, .checkTrainers
 
-	CheckEventReuseHL EVENT_FIGHT_MEW
-	ResetEventReuseHL EVENT_FIGHT_MEW
+	CheckEvent EVENT_FIGHT_MEW
 	jr z, .checkTrainers
+
+	ResetEvent EVENT_FIGHT_MEW
 
 	; iniciar combate con MEW
 	ld a, MEW
