@@ -248,7 +248,8 @@ CinnabarGymText1:
 	ld a, DNA_CODES
 	ld [wcf91], a
 	call IsItemInBag
-	jr z, .done
+	jr z, TextScriptEnd
+
 
 	; remover DNA
 	ld a, DNA_CODES
@@ -256,7 +257,7 @@ CinnabarGymText1:
 	callba RemoveItemByID
 
 	SetEvent EVENT_GAVE_DNA_TO_BLAINE
-	jr .done
+	jp TextScriptEnd
 
 .afterDNA
 	; ya dio DNA → ¿tiene fósil?
