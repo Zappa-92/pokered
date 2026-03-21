@@ -101,43 +101,19 @@ _BlaineLabIntroText::
     	cont "used my own"
     	cont "human cells."
 
-	para "Then came the"
-	line "disaster.."
+		para "Then came the"
+		line "disaster.."
     	cont "MEWTWO was too"
-	cont "powerful, and"
-	cont "we couldn’t keep"
+		cont "powerful, and"
+		cont "we couldn’t keep"
     	cont "it under control"
-    	cont "MEWRWO destroyed"
-	cont "the enitre lab."
+    	cont "MEWTWO destroyed"
+		cont "the enitre lab."
 
-	para "Then left.."
+		para "Then left.."
     	cont "and hid."
     	done
 
-_BlaineLabHiggsText::
-    	text "BLAINE: GIOVANNI"
-    	line "gave you this?!"
-    	cont "This is another"
-    	cont "fossil with MEW"
-    	cont "DNA!"
-
-    	para "I won’t create"
-    	line "anything like"
-    	cont "MEWTWO again, I"
-    	cont "promise, but let"
-    	cont "me work with it."
-
-	para "I'll create a"
-	line "perfect copy"
-	cont "of MEW, just"
-	cont "for you."
-    	prompt
-
-_BlaineLabWaitText::
-    	text "BLAINE: Be patient."
-    	line "Let me work a"
-    	cont "little longer."
-    	done
 
 _BlaineLabHiggsFailedText::
     	text "BLAINE: It’s"
@@ -149,25 +125,13 @@ _BlaineLabHiggsFailedText::
 
     	para "Only DR. FUJI"
     	line "could work"
-	cont "it out."
+		cont "it out."
     	done
-
-_BlaineLabDNAText::
-    	text "BLAINE: These DNA"
-    	line "CODES… Incredible!"
-    	cont "Let me try again."
-    	prompt
 
 _BlaineLabMewText::
     	text "BLAINE: It’s"
     	line "finally done!"
-	cont "Here’s your"
+		cont "A trully"
     	cont "cloned MEW!"
-    	prompt
-
-_BlainePostMewText::
-    	text "BLAINE: I’m busy"
-    	line "working! …Hmm so"
-    	cont "this DNA chain"
-    	cont "here.."
     	done
+
