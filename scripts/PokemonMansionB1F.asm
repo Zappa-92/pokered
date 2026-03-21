@@ -62,8 +62,8 @@ PokemonMansionB1F_ScriptPointers:
 PokemonMansionB1FScript0:
 	CheckEvent EVENT_BEAT_MEW
 	jp nz, CheckFightingMapTrainers
-	CheckEventReuseHL EVENT_FIGHT_MEW
-	ResetEventReuseHL EVENT_FIGHT_MEW
+	CheckEventReuseA EVENT_FIGHT_MEW
+	ResetEventReuseA EVENT_FIGHT_MEW
 	jp z, CheckFightingMapTrainers
 	; iniciar combate con MEW
 	ld a, $d
