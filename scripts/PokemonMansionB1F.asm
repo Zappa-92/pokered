@@ -54,12 +54,73 @@ Mansion4Script_Switches:
 	jp DisplayTextID
 
 PokemonMansionB1F_ScriptPointers:
-	dw CheckFightingMapTrainers
+	dw PokemonMansionB1FScript0
 	dw DisplayEnemyTrainerTextAndStartBattle
 	dw EndTrainerBattle
-	;dw PokemonMansionB1FScript0
-	;dw PokemonMansionB1FMewScript
+	dw PokemonMansionB1FMewScript
 
+PokemonMansionB1FScript0:
+	CheckEvent EVENT_BEAT_MEW
+	jp nz, CheckFightingMapTrainers
+
+	CheckEvent EVENT_FIGHT_MEW
+	jp z, CheckFightingMapTrainers
+
+	ResetEvent EVENT_FIGHT_MEW
+
+	; iniciar combate con MEW
+	ld a, $d
+	ld [hSpriteIndexOrTextID], a
+	call DisplayTextID
+
+	ld a, MEW
+	ld [wCurOpponent], a
+	ld a, 100
+	ld [wCurEnemyLVL], a
+
+	; custom moves
+	ld hl, wEnemyMonMoves
+	ld a, PSYCHIC
+	ld [hli], a
+	ld a, SEISMIC_TOSS
+	ld [hli], a
+	ld a, ICE_BEAM
+	ld [hli], a
+	ld a, SOFTBOILED
+	ld [hl], a
+
+	ld a, $3
+	ld [wPokemonMansionB1FCurScript], a
+	ld [wCurMapScript], a
+	ret
+
+PokemonMansionB1FMewScript:
+	ld a, [wIsInBattle]
+	cp $ff
+	jp z, .reset
+
+	call UpdateSprites
+
+	ld a, [wBattleResult]
+	cp $2 ; escapó
+	jr z, .reset
+	; flag de victoria
+	SetEvent EVENT_BEAT_MEW
+
+	; drop DNA (solo una vez)
+	CheckAndSetEvent EVENT_GOT_DNA_CODES
+	jr nz, .skip
+
+	ld a, HS_MANSION_B1F_DNA_CODES
+	ld [wMissableObjectIndex], a
+	predef ShowObject
+.skip
+	call Delay3
+.reset
+	xor a
+	ld [wPokemonMansionB1FCurScript], a
+	ld [wCurMapScript], a
+	ret
 
 PokemonMansionB1F_TextPointers:
 	dw Mansion4Text1
@@ -71,8 +132,8 @@ PokemonMansionB1F_TextPointers:
 	dw Mansion4Text7
 	dw PickUpItemText
 	dw Mansion3Text6
-;	dw MansionB1FMewShrineText
-;	dw PickUpItemText  ; DNA Codes
+	dw MansionB1FMewShrineText
+	dw PickUpItemText  ; DNA Codes
 
 Mansion4TrainerHeader0:
 	dbEventFlagBit EVENT_BEAT_MANSION_4_TRAINER_0
@@ -134,5 +195,37 @@ Mansion4Text7:
 	TX_FAR _Mansion4Text7
 	db "@"
 
+MansionB1FMewShrineText:
+	TX_ASM
+	ld a, POKE_FLUTE
+	ld [wcf91], a
+	call IsItemInBag
+	jr z, .noFlute
+
+	CheckEvent EVENT_BEAT_MEW
+	jr nz, .postMew
+
+	ld hl, ShrinePatternsText
+	call PrintText
+	jr .done
+
+.noFlute
+	ld hl, ShrineNoFluteText
+	call PrintText
+	jr .done
+
+.postMew
+	ld hl, ShrineNoFluteText
+	call PrintText
+
+.done
+	jp TextScriptEnd
 
 
+ShrineNoFluteText:
+    TX_FAR _ShrineNoFluteText
+    db "@"
+
+ShrinePatternsText:
+    TX_FAR _ShrinePatternsText
+    db "@"
