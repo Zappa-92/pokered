@@ -6,7 +6,7 @@ PokemonMansionB1F_Object:
 
 	db 0 ; signs
 
-	db 8 ; objects
+	db 10 ; objects
 	object SPRITE_BLACK_HAIR_BOY_2, 16, 23, STAY, NONE, 1, OPP_BURGLAR, 9
 	object SPRITE_OAK_AIDE, 27, 11, STAY, DOWN, 2, OPP_SCIENTIST, 13
 	object SPRITE_BALL, 10, 2, STAY, NONE, 3, RARE_CANDY
