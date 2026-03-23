@@ -1,6 +1,15 @@
 PokemonMansionB1F_Script:
 	call Mansion4Script_523cf
 	call EnableAutoTextBoxDrawing
+
+	; --- FIX VISIBILIDAD DNA_CODES ---
+	CheckEvent EVENT_GOT_DNA_CODES
+	jr nz, .already_visible
+	ld a, HS_MANSION_B1F_DNA_CODES
+	ld [wMissableObjectIndex], a
+	predef HideObject
+.already_visible
+
 	ld hl, Mansion4TrainerHeader0
 	ld de, PokemonMansionB1F_ScriptPointers
 	ld a, [wPokemonMansionB1FCurScript]
