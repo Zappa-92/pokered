@@ -6,6 +6,7 @@ Route15Mons:
 		db 33,DITTO
 		db 31,PIDGEY
 		db 35,VENONAT
+		db 35,TANGELA
 		db 35,PARAS
 		db 34,ODDISH
 		db 37,GLOOM
@@ -17,6 +18,7 @@ Route15Mons:
 		db 33,DITTO
 		db 31,PIDGEY
 		db 35,VENONAT
+		db 35,TANGELA
 		db 35,PARAS
 		db 34,BELLSPROUT
 		db 37,WEEPINBELL
