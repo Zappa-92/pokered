@@ -54,7 +54,7 @@ _Mansion4Text7::
 	done
 
 _ShrineNoFluteText::
-    	text "It’s a very"
+    	text "It's a very"
     	line "ancient shrine"
     	cont "dedicated to a"
     	cont "mythical #MON"
