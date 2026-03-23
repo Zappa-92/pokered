@@ -58,7 +58,7 @@ Mansion4Script_Switches:
 	ret nz
 	xor a
 	ld [hJoyHeld], a
-	ld a, $9
+	ld a, $0b
 	ld [hSpriteIndexOrTextID], a
 	jp DisplayTextID
 
@@ -140,9 +140,9 @@ PokemonMansionB1F_TextPointers:
 	dw PickUpItemText
 	dw Mansion4Text7
 	dw PickUpItemText
-	dw Mansion3Text6
 	dw MansionB1FMewShrineText
 	dw PickUpItemText  ; DNA Codes
+	dw Mansion3Text6
 
 Mansion4TrainerHeader0:
 	dbEventFlagBit EVENT_BEAT_MANSION_4_TRAINER_0
