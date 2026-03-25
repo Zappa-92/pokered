@@ -13,11 +13,6 @@ ViridianGym_Script:
     CheckEvent EVENT_BEAT_VIRIDIAN_GYM_GIOVANNI
     ret z  ; Giovanni todavía activo
 
-    ; Ocultar Giovanni
-    ld a, HS_VIRIDIAN_GYM_GIOVANNI
-    ld [wMissableObjectIndex], a
-    predef HideObject
-
     ; Mostrar rival solo si completaste TODOS los rematches (incluyendo Blaine)
     CheckEvent EVENT_BEAT_OAK
     ret z
