@@ -10,6 +10,7 @@ Route14Mons:
 		db 32,ODDISH
 		db 34,GLOOM
 		db 33,PIDGEOTTO
+		db 32,DITTO
 	ENDC
 	IF DEF(_BLUE)
 		db 31,BELLSPROUT
@@ -21,5 +22,6 @@ Route14Mons:
 		db 32,BELLSPROUT
 		db 34,WEEPINBELL
 		db 33,PIDGEOTTO
+		db 32,DITTO
 	ENDC
 	db $00
