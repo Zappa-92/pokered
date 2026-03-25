@@ -5,7 +5,7 @@ ZoneMons1:
 		db 33,DODUO
 		db 30,PARAS
 		db 32,EXEGGCUTE
-		db 37,NIDORINO
+		db 32,NIDORAN_F
 		db 31,EEVEE
 		db 32,PARASECT
 		db 32,KANGASKHAN
@@ -17,7 +17,7 @@ ZoneMons1:
 		db 33,DODUO
 		db 30,PARAS
 		db 32,EXEGGCUTE
-		db 37,NIDORINA
+		db 32,NIDORAN_M
 		db 31,EEVEE
 		db 32,PARASECT
 		db 32,KANGASKHAN
