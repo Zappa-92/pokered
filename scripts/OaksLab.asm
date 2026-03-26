@@ -30,6 +30,7 @@ OaksLab_ScriptPointers:
 	dw OaksLabScript17
 	dw OaksLabScript18
 	dw OaksLabScript19
+    dw OaksLabScript20
 
 OaksLabScript0:
 	CheckEvent EVENT_OAK_APPEARED_IN_PALLET
@@ -669,6 +670,31 @@ OaksLabScript19:
     ld [wJoyIgnore], a
     ld a, PLAYER_DIR_UP
     ld [wPlayerMovingDirection], a
+	ld a, 20
+	ld [wOaksLabCurScript], a
+	ld [wCurMapScript], a
+	ret
+
+OaksLabScript20:
+    ld a, [wIsInBattle]
+    cp $ff
+    jp z, OaksLabScript_Reset
+
+    call UpdateSprites
+
+    ld a, [wBattleResult]
+    cp $2
+    jr z, OaksLabScript_Reset
+
+    ; ✔️ ACA va el evento
+    SetEvent EVENT_BEAT_OAK
+
+    call Delay3
+
+OaksLabScript_Reset:
+    xor a
+    ld [wOaksLabCurScript], a
+    ld [wCurMapScript], a
     ret
 
 OaksLabScript_RemoveParcel:
@@ -1000,16 +1026,17 @@ OaksLabText5:
     jr nz, .finalDialogue
     CheckEvent EVENT_BEAT_OAK
     jr nz, .postBattle
-    ld hl, wPokedexOwned
-    ld b, 150 / 8
-    call CountSetBits
-    ld a, [wNumSetBits]
-    cp 150
-    jr nz, .notEnoughPokemon
+	ld hl, wPokedexOwned
+	ld b, wPokedexOwnedEnd - wPokedexOwned
+	call CountSetBits
+	ld a, [wNumSetBits]
+	cp 150
+	jr nz, .notEnoughPokemon
     ld hl, OaksLabOakBattleIntroText
     call PrintText
     ld a, 19
     ld [wOaksLabCurScript], a
+	ld [wCurMapScript], a
     jp TextScriptEnd
 .notEnoughPokemon
     ld hl, OaksLabText_1d31d
@@ -1285,9 +1312,7 @@ OaksLabOakLoseText:
 
 OaksLabOakWinText:
     TX_FAR _OaksLabOakWinText
-    TX_ASM
-    SetEvent EVENT_BEAT_OAK
-    jp TextScriptEnd
+	db "@"
 
 OaksLabOakPostBattleText:
     TX_FAR _OaksLabOakPostBattleText
