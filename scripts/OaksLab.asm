@@ -653,8 +653,8 @@ OaksLabScript18:
 	ret
 
 OaksLabScript19:
-    ld a, PROF_OAK
-    ld [wCurOpponent], a
+	ld a, OPP_PROF_OAK
+	ld [wCurOpponent], a
     ld a, 1  ; Team 1
     ld [wTrainerNo], a
     ld a, 8  ; Oak’s sprite ID (adjust if needed)
