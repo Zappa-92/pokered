@@ -478,12 +478,12 @@ _OaksLabText_4424c::
 	done
 
 _OaksLabOakBattleIntroText::
-    	text "OAK: So, you’ve"
+    	text "OAK: So, you've"
     	line "caught all 150"
-    	cont "POKéMON! A true"
+    	cont "#MON! A true"
     	cont "feat!"
 
-    	para "Now let’s see"
+    	para "Now let's see"
     	line "if you can beat"
     	cont "me, <PLAYER>!"
     	prompt
@@ -502,9 +502,9 @@ _OaksLabOakWinText::  ; Player wins
 
 _OaksLabOakPostBattleText::
     	text "Incredible!"
-    	line "You’ve surpassed"
+    	line "You've surpassed"
     	cont "me as a TRAINER!"
-    	cont "You’re a worthy"
+    	cont "You're a worthy"
     	cont "#MON Master!"
 
     	para "Now, face the"
