@@ -673,34 +673,22 @@ OaksLabScript19:
 	ret
 
 OaksLabScript20:
-    ld a, [wIsInBattle]
-    and a
-    ret nz
+  ld a, [wIsInBattle]
+    cp $ff
+    ret z
 
-    ; resultado
+    ; batalla terminó
+
     ld a, [wBattleResult]
-    cp $2 ; perdiste
+    cp $2
     jr z, .lost
 
-.win
+    ; ganó
     SetEvent EVENT_BEAT_OAK
-    ld hl, OaksLabOakPostBattleText
-    call PrintText
-    jr .end
 
 .lost
-    ld hl, OaksLabOakLoseText
-    call PrintText
-
-.end
-    xor a
-    ld [wJoyIgnore], a
-
-    call Delay3
-
-    xor a
+    ld a, $d ; 👈 IMPORTANTE: continuar flujo normal del lab
     ld [wOaksLabCurScript], a
-
     ret
 
 OaksLabScript_RemoveParcel:
