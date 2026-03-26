@@ -660,16 +660,14 @@ OaksLabScript19:
     ld a, 8  ; Oak’s sprite ID (adjust if needed)
     ld [wSpriteIndex], a
     call GetSpritePosition1
-    ld hl, OaksLabOakLoseText
-    ld de, OaksLabOakWinText
+    ld hl, OaksLabOakWinText
+    ld de, OaksLabOakLoseText
     call SaveEndBattleTextPointers
     ld hl, wd72d
     set 6, [hl]
     set 7, [hl]
-    xor a
-    ld [wJoyIgnore], a
-    ld a, PLAYER_DIR_UP
-    ld [wPlayerMovingDirection], a
+	call EngageMapTrainer
+	call InitBattleEnemyParameters
 	ld a, 20
 	ld [wOaksLabCurScript], a
 	ld [wCurMapScript], a
