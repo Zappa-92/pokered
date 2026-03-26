@@ -666,11 +666,10 @@ OaksLabScript19:
     ld hl, wd72d
     set 6, [hl]
     set 7, [hl]
-	call EngageMapTrainer
-	call InitBattleEnemyParameters
+    xor a
+    ld [wJoyIgnore], a
 	ld a, 20
 	ld [wOaksLabCurScript], a
-	ld [wCurMapScript], a
 	ret
 
 OaksLabScript20:
@@ -692,7 +691,6 @@ OaksLabScript20:
 OaksLabScript_Reset:
     xor a
     ld [wOaksLabCurScript], a
-    ld [wCurMapScript], a
     ret
 
 OaksLabScript_RemoveParcel:
