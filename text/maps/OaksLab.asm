@@ -489,13 +489,13 @@ _OaksLabOakBattleIntroText::
     	prompt
 
 _OaksLabOakLoseText::  ; Player loses
-    	text "OAK: Haha! Still"
+    	text "Ha! Still"
     	line "much to learn,"
     	cont "<PLAYER>!"
     	prompt
 
 _OaksLabOakWinText::  ; Player wins
-    	text "OAK: Well fought!"
+    	text "Well done!"
     	line "your journey paid"
     	cont "off, <PLAYER>!"
     	prompt
