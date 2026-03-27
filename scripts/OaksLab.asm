@@ -667,25 +667,21 @@ OaksLabScript19:
     set 6, [hl]
     set 7, [hl]
     xor a
-    ld [wJoyIgnore], a
+    ld [hJoyHeld], a
 	ld a, $14
 	ld [wOaksLabCurScript], a
 	ret
 
 OaksLabScript20:
-  ld a, [wIsInBattle]
+    ld a, [wIsInBattle]
     cp $ff
-    ret z
-
-    ; batalla terminó
-
+    ret z   ; seguir esperando mientras termina
+    ld a, $f0
+    ld [wJoyIgnore], a ; bloquear input mientras corre lógica
     ld a, [wBattleResult]
     cp $2
     jr z, .lost
-
-    ; ganó
     SetEvent EVENT_BEAT_OAK
-
 .lost
     xor a
     ld [wJoyIgnore], a
