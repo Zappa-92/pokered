@@ -668,7 +668,7 @@ OaksLabScript19:
     set 7, [hl]
     xor a
     ld [wJoyIgnore], a
-	ld a, 20
+	ld a, $13
 	ld [wOaksLabCurScript], a
 	ret
 
@@ -687,7 +687,7 @@ OaksLabScript20:
     SetEvent EVENT_BEAT_OAK
 
 .lost
-    ld a, $d ; 👈 IMPORTANTE: continuar flujo normal del lab
+    ld a, $14 ;
     ld [wOaksLabCurScript], a
     ret
 
