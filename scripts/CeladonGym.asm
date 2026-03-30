@@ -162,8 +162,8 @@ CeladonGymText1:
     ld hl, wd72d
     set 6, [hl]
     set 7, [hl]
-    ld hl, CeladonGymErikaRematchLoseText
-    ld de, CeladonGymErikaRematchWinText
+    ld hl, CeladonGymErikaRematchWinText
+    ld de, CeladonGymErikaRematchLoseText
     call SaveEndBattleTextPointers
     ld a, OPP_ERIKA
     ld [wCurOpponent], a
