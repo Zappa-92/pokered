@@ -36,16 +36,16 @@ _FuchsiaGymKogaRematchText::
     done
 
 _FuchsiaGymKogaRematchLoseText::
-    text "KOGA: My poison"
+    text "My poison"
     line "still works"
 	cont "on you!"
-    done
+    prompt
 
 _FuchsiaGymKogaRematchWinText::
-    text "KOGA: My poison"
+    text "My poison"
     line "fade before your"
     cont "might!"
-    done
+    prompt
 
 _FuchsiaGymKogaPostRematchText::
     text "You are a"
