@@ -135,20 +135,20 @@ _CeruleanGymMistyRematchText::
 	line "CHAMP?!"
 
     para "This time won't"
-    cont "be that easy!"
+    line "be that easy!"
     done
 
 _CeruleanGymMistyRematchLoseText::
-    text "MISTY: Told you!"
+    text "Told you!"
     line "Don't under-"
 	cont "estimate me!"
-    done
+    prompt
 
 _CeruleanGymMistyRematchWinText::
-    text "MISTY: You’ve"
+    text "You’ve"
     line "beaten me again—"
     cont "impressive!"
-    done
+    prompt
 
 _CeruleanGymMistyPostRematchText::
 	text "You've been"
