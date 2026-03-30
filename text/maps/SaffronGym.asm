@@ -244,13 +244,13 @@ _SaffronGymSabrinaRematchText::
     done
 
 _SaffronGymSabrinaRematchLoseText::
-    text "SABRINA: Your will"
+    text "Your will"
     line "is weak. I saw"
     cont "that coming!"
 	done
 
 _SaffronGymSabrinaRematchWinText::
-	text "SABRINA: My vision"
+	text "My vision"
     line "failed, you’ve"
     cont "outshone me!"
     done
