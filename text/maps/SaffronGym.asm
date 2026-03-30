@@ -247,13 +247,13 @@ _SaffronGymSabrinaRematchLoseText::
     text "Your will"
     line "is weak. I saw"
     cont "that coming!"
-	done
+	prompt
 
 _SaffronGymSabrinaRematchWinText::
 	text "My vision"
     line "failed, you’ve"
     cont "outshone me!"
-    done
+    prompt
 
 _SaffronGymSabrinaPostRematchText::
     text "Your mind"
