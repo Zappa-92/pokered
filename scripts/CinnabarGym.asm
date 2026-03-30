@@ -284,8 +284,8 @@ CinnabarGymText1:
 
 	ld hl, CinnabarGymBlaineRematchText
 	call PrintText
-	ld hl, CinnabarGymBlaineRematchLoseText
-	ld de, CinnabarGymBlaineRematchWinText
+	ld hl, CinnabarGymBlaineRematchWinText
+	ld de, CinnabarGymBlaineRematchLoseText
 	call SaveEndBattleTextPointers
 
 	ld a, OPP_BLAINE
