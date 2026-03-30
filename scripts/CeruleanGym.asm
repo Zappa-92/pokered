@@ -113,8 +113,8 @@ CeruleanGymText1:
     ld hl, wd72d
     set 6, [hl]
     set 7, [hl]
-    ld hl, CeruleanGymMistyRematchLoseText
-    ld de, CeruleanGymMistyRematchWinText
+    ld hl, CeruleanGymMistyRematchWinText
+    ld de, CeruleanGymMistyRematchLoseText
     call SaveEndBattleTextPointers
     ld a, OPP_MISTY
     ld [wCurOpponent], a
