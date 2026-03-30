@@ -112,8 +112,8 @@ PewterGymText1:
     ld hl, wd72d
     set 6, [hl]
     set 7, [hl]
-    ld de, PewterGymBrockRematchWinText
-    ld hl, PewterGymBrockRematchLoseText
+    ld hl, PewterGymBrockRematchWinText
+    ld de, PewterGymBrockRematchLoseText
     call SaveEndBattleTextPointers
     ld a, OPP_BROCK
     ld [wCurOpponent], a
