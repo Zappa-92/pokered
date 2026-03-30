@@ -142,8 +142,8 @@ LTSurgeText:
     ld hl, wd72d
     set 6, [hl]
     set 7, [hl]
-    ld hl, VermilionGymSurgeRematchLoseText
-    ld de, VermilionGymSurgeRematchWinText
+    ld hl, VermilionGymSurgeRematchWinText
+    ld de, VermilionGymSurgeRematchLoseText
     call SaveEndBattleTextPointers
     ld a, OPP_LT_SURGE
     ld [wCurOpponent], a
