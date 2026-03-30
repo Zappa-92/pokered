@@ -153,12 +153,12 @@ _PewterGymBrockRematchText::
 _PewterGymBrockRematchLoseText::
     	text "You're not rock-"
     	line "solid enough!"
-    	done
+    	prompt
 
 _PewterGymBrockRematchWinText::
     	text "Crushed again,"
     	line "well done!"
-    	done
+    	prompt
 
 _PewterGymBrockPostRematchText::
     	text "BROCK: You're"
