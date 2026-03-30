@@ -151,7 +151,7 @@ _PewterGymBrockRematchText::
     	done
 
 _PewterGymBrockRematchLoseText::
-    	text "You're not rock-"
+    	text "Not rock-"
     	line "solid enough!"
     	prompt
 
