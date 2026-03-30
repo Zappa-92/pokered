@@ -163,8 +163,8 @@ SaffronGymText1:
     ld hl, wd72d
     set 6, [hl]
     set 7, [hl]
-    ld hl, SaffronGymSabrinaRematchLoseText
-    ld de, SaffronGymSabrinaRematchWinText
+    ld hl, SaffronGymSabrinaRematchWinText
+    ld de, SaffronGymSabrinaRematchLoseText
     call SaveEndBattleTextPointers
     ld a, OPP_SABRINA
     ld [wCurOpponent], a
