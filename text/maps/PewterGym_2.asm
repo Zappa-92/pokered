@@ -161,6 +161,6 @@ _PewterGymBrockRematchWinText::
     	done
 
 _PewterGymBrockPostRematchText::
-    	text "BROCK: You’re"
+    	text "BROCK: You're"
     	line "unbreakable!"
     	done
