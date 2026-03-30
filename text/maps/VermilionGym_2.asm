@@ -148,16 +148,16 @@ _VermilionGymSurgeRematchText::
     line "What a shocker!"
     cont "My team’s fully"
     cont "charged now!"
-    done
+    prompt
 
 _VermilionGymSurgeRematchLoseText::
-    text "LT.SURGE: You’re"
+    text "You’re"
     line "not amped up"
     cont "enough yet!"
-    done
+    prompt
 
 _VermilionGymSurgeRematchWinText::
-    text "LT.SURGE: ZAP!"
+    text "ZAP!"
     line "Shocking victory"
     done
 
