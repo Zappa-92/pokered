@@ -254,16 +254,16 @@ _ViridianGymRivalRematchText::
     done
 
 _ViridianGymRivalRematchLoseText::
-    text "<RIVAL>: Ha! You"
+    text "Ha! You"
     line "thought you’d win"
     cont "that easily?"
-    done
+    prompt
 
 _ViridianGymRivalRematchWinText::
-    text "<RIVAL>: What?!"
+    text "What?!"
     line "No way!"
     cont "Beat again"
-    done
+    prompt
 
 _ViridianGymRivalPostRematchText::
     text "Fine, you win"
