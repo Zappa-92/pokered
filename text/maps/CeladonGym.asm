@@ -232,16 +232,16 @@ _CeladonGymErikaRematchText::
 	done
 
 _CeladonGymErikaRematchLoseText::
-	text "ERIKA: You need"
+	text "You need"
 	line "more time to"
 	cont "smoke, dear!"
-	done
+	prompt
 
 _CeladonGymErikaRematchWinText::
-	text "ERIKA: My flowers"
+	text "My flowers"
 	line "wilt before your"
 	cont "strength!"
-	done
+	prompt
 
 _CeladonGymErikaPostRematchText::
 	text "You’re a"
