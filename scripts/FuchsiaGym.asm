@@ -153,8 +153,8 @@ FuchsiaGymText1:
     ld hl, wd72d
     set 6, [hl]
     set 7, [hl]
-    ld hl, FuchsiaGymKogaRematchLoseText
-    ld de, FuchsiaGymKogaRematchWinText
+    ld hl, FuchsiaGymKogaRematchWinText
+    ld de, FuchsiaGymKogaRematchLoseText
     call SaveEndBattleTextPointers
     ld a, OPP_KOGA
     ld [wCurOpponent], a
