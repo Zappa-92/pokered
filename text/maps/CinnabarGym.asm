@@ -243,13 +243,13 @@ _CinnabarGymBlaineRematchLoseText::
     text "BLAINE: Pathetic."
 	line "You’re not"
     cont "fired up enough!"
-    done
+    prompt
 
 _CinnabarGymBlaineRematchWinText::
     text "BLAINE: My blaze"
     line "got extinguished!"
     cont "Great job!"
-    done
+    prompt
 
 _CinnabarGymBlainePostRematchText::
     text "You’re a"
@@ -262,6 +262,7 @@ _CinnabarGymBlainePostRematchText::
 	para "I know you"
 	line "are set to find"
 	cont "MEW! Go ahead"
+	done
 
 _BlaineLabIntroText::
     	text "BLAINE: Yes, I"
@@ -269,21 +270,21 @@ _BlaineLabIntroText::
     	cont "researching MEW."
     	cont "But I wasn’t the"
     	cont "leader back then,"
-	cont "DR FUJI was."
+		cont "DR FUJI was."
 
     	para "After years of"
     	line "research, we" 
-	cont "found a fossil"
+		cont "found a fossil"
     	cont "with MEW DNA"
 
     	para "We started to"
-	line "experiment with"
+		line "experiment with"
     	cont "clonation."
-	cont "but the genome"
+		cont "but the genome"
     	cont "was incomplete."
 	
     	para "Thus to create"
-	line "MEWTWO, I also"
+		line "MEWTWO, I also"
     	cont "used my own"
     	cont "human cells."
 
@@ -297,7 +298,7 @@ _BlaineLabIntroText::
 		cont "the enitre lab."
 
 		para "Then left.."
-    	cont "and hid."
+    	line "and hid."
     	done
 
 
@@ -320,4 +321,4 @@ _BlaineLabMewText::
 		cont "A trully"
     	cont "cloned MEW!"
     	done
-    done
+
