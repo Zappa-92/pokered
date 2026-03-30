@@ -685,8 +685,8 @@ OaksLabScript20:
 .lost
     xor a
     ld [wJoyIgnore], a
-    xor a
-    ld [wOaksLabCurScript], a
+	ld a, $12
+	ld [wOaksLabCurScript], a
     ret
 
 OaksLabScript_RemoveParcel:
