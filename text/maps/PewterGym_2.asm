@@ -156,8 +156,8 @@ _PewterGymBrockRematchLoseText::
     	prompt
 
 _PewterGymBrockRematchWinText::
-    	text "Crushed again,"
-    	line "well done!"
+    	text "Crushed"
+    	line "again, well done!"
     	prompt
 
 _PewterGymBrockPostRematchText::
