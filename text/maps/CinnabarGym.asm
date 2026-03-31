@@ -240,19 +240,19 @@ _CinnabarGymBlaineRematchText::
     done
 
 _CinnabarGymBlaineRematchLoseText::
-    text "BLAINE: Pathetic."
-	line "You’re not"
+    text "Pathetic."
+	line "You're not"
     cont "fired up enough!"
     prompt
 
 _CinnabarGymBlaineRematchWinText::
-    text "BLAINE: My blaze"
+    text "My blaze"
     line "got extinguished!"
     cont "Great job!"
     prompt
 
 _CinnabarGymBlainePostRematchText::
-    text "You’re a"
+    text "You're a"
     line "true inferno now!"
 
 	para "I still can't"
@@ -265,10 +265,10 @@ _CinnabarGymBlainePostRematchText::
 	done
 
 _BlaineLabIntroText::
-    	text "BLAINE: Yes, I"
-    	line "was a scientist"
+    	text "Yes, I was"
+    	line "a scientist"
     	cont "researching MEW."
-    	cont "But I wasn’t the"
+    	cont "But I wasn't the"
     	cont "leader back then,"
 		cont "DR FUJI was."
 
@@ -292,10 +292,10 @@ _BlaineLabIntroText::
 		line "disaster.."
     	cont "MEWTWO was too"
 		cont "powerful, and"
-		cont "we couldn’t keep"
+		cont "we couldn't keep"
     	cont "it under control"
     	cont "MEWTWO destroyed"
-		cont "the enitre lab."
+		cont "the entire lab."
 
 		para "Then left.."
     	line "and hid."
@@ -303,11 +303,11 @@ _BlaineLabIntroText::
 
 
 _BlaineLabHiggsFailedText::
-    	text "BLAINE: It’s"
-    	line "useless—"
+    	text "BLAINE: It's"
+    	line "useless!"
     	cont "incomplete, like"
     	cont "last time. MEW"
-    	cont "can’t be cloned"
+    	cont "can't be cloned"
     	cont "with this alone."
 
     	para "Only DR. FUJI"
@@ -316,7 +316,7 @@ _BlaineLabHiggsFailedText::
     	done
 
 _BlaineLabMewText::
-    	text "BLAINE: It’s"
+    	text "BLAINE: It's"
     	line "finally done!"
 		cont "A trully"
     	cont "cloned MEW!"
