@@ -146,12 +146,12 @@ _VermilionGymFanPostBattleText::
 _VermilionGymSurgeRematchText::
     text "Back again?"
     line "What a shocker!"
-    cont "My team’s fully"
+    cont "My team's fully"
     cont "charged now!"
-    prompt
+    done
 
 _VermilionGymSurgeRematchLoseText::
-    text "You’re"
+    text "You're"
     line "not amped up"
     cont "enough yet!"
     prompt
@@ -159,10 +159,10 @@ _VermilionGymSurgeRematchLoseText::
 _VermilionGymSurgeRematchWinText::
     text "ZAP!"
     line "Shocking victory"
-    done
+    prompt
 
 _VermilionGymSurgePostRematchText::
-    text "You’re"
+    text "You're"
     line "electerrific!"
     cont "I'm low on"
 	cont "battery now!"
