@@ -251,7 +251,7 @@ _SaffronGymSabrinaRematchLoseText::
 
 _SaffronGymSabrinaRematchWinText::
 	text "My vision"
-    line "failed, you’ve"
+    line "failed, you've"
     cont "outshone me!"
     prompt
 
