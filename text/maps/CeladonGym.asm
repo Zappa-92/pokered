@@ -244,7 +244,7 @@ _CeladonGymErikaRematchWinText::
 	prompt
 
 _CeladonGymErikaPostRematchText::
-	text "You’re a"
+	text "You're a"
 	line "rare flower"
 	cont "indeed!"
 
