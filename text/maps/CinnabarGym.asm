@@ -233,7 +233,7 @@ _CinnabarGymBlaineRematchText::
 	para "You did it?!"
 	line "You caught MEWTWO?"
 
-	para "I have to check you"
+	para "I'll check you"
 	line "out again then!"
     cont "My flames burn"
     cont "hotter than ever!"
