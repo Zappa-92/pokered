@@ -238,7 +238,7 @@ _ViridianGymText_74bd9::
 
 _ViridianGymRivalRematchText::
     text "Hey <PLAYER>!"
-    line "I’m the new GYM"
+    line "I'm the new GYM"
     cont "LEADER here."
 
     para "Got an invitation"
@@ -255,7 +255,7 @@ _ViridianGymRivalRematchText::
 
 _ViridianGymRivalRematchLoseText::
     text "Ha! You"
-    line "thought you’d win"
+    line "thought you'd win"
     cont "that easily?"
     prompt
 
