@@ -140,13 +140,13 @@ _CeruleanGymMistyRematchText::
 
 _CeruleanGymMistyRematchLoseText::
     text "Told you!"
-    line "Don't under-"
+    line "Don't under"
 	cont "estimate me!"
     prompt
 
 _CeruleanGymMistyRematchWinText::
-    text "You’ve"
-    line "beaten me again—"
+    text "You've"
+    line "beaten me again"
     cont "impressive!"
     prompt
 
