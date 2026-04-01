@@ -288,46 +288,91 @@ ViridianGymTrainerHeader7:
 	db $ff
 
 ViridianGymText1:
-	TX_ASM
-	CheckEvent EVENT_BEAT_VIRIDIAN_GYM_GIOVANNI
-	jr z, .beginBattle
-	CheckEventReuseA EVENT_GOT_TM27
-	jr nz, .afterVictory
-	call z, ViridianGymScript3_74995
-	call DisableWaitingAfterTextDisplay
-	jr .done
-.afterVictory
-	ld a, $1
-	ld [wDoNotWaitForButtonPressAfterDisplayingText], a
-	ld hl, ViridianGymText_74ad9
-	call PrintText
-	call GBFadeOutToBlack
-	ld a, HS_VIRIDIAN_GYM_GIOVANNI
-	ld [wMissableObjectIndex], a
-	predef HideObject
-	call UpdateSprites
-	call Delay3
-	call GBFadeInFromBlack
-	jr .done
-.beginBattle
-	ld hl, ViridianGymText_74ace
-	call PrintText
-	ld hl, wd72d
-	set 6, [hl]
-	set 7, [hl]
-	ld hl, ViridianGymText_74ad3
-	ld de, ViridianGymText_74ad3
-	call SaveEndBattleTextPointers
-	ld a, [H_SPRITEINDEX]
-	ld [wSpriteIndex], a
-	call EngageMapTrainer
-	call InitBattleEnemyParameters
-	ld a, $8
-	ld [wGymLeaderNo], a
-	ld a, $3
-	ld [wViridianGymCurScript], a
+    TX_ASM
+    CheckEvent EVENT_BEAT_VIRIDIAN_GYM_GIOVANNI
+    jp z, .beginGiovanniBattle
+    CheckEvent EVENT_BEAT_OAK
+    jr z, .afterGiovanni
+    ; Check all gym rematches
+    CheckEvent EVENT_BEAT_BROCK_REMATCH
+    jr z, .afterGiovanni
+    CheckEvent EVENT_BEAT_MISTY_REMATCH
+    jr z, .afterGiovanni
+    CheckEvent EVENT_BEAT_SURGE_REMATCH
+    jr z, .afterGiovanni
+    CheckEvent EVENT_BEAT_ERIKA_REMATCH
+    jr z, .afterGiovanni
+    CheckEvent EVENT_BEAT_KOGA_REMATCH
+    jr z, .afterGiovanni
+    CheckEvent EVENT_BEAT_SABRINA_REMATCH
+    jr z, .afterGiovanni
+    CheckEvent EVENT_BEAT_BLAINE_REMATCH
+    jr z, .afterGiovanni
+    ; All rematches beaten, proceed to Rival
+    CheckEvent EVENT_BEAT_RIVAL_REMATCH
+    jr nz, .afterRivalVictory
+    ; Rival rematch
+    ld hl, ViridianGymRivalRematchText
+    call PrintText
+    ld hl, wd72d
+    set 6, [hl]
+    set 7, [hl]
+    ld hl, ViridianGymRivalRematchWinText
+    ld de, ViridianGymRivalRematchLoseText
+    call SaveEndBattleTextPointers
+    ld a, OPP_SONY3  ; $07, corrected from OPP_RIVAL3
+    ld [wCurOpponent], a
+    ld a, $4  ; Team 4 (new Viridian Gym team)
+    ld [wTrainerNo], a
+    ld a, $1
+    ld [wViridianGymCurScript], a
+    ld [wCurMapScript], a
+    jr .done
+.afterRivalVictory
+    ld a, HS_VIRIDIAN_GYM_RIVAL
+    ld [wMissableObjectIndex], a
+    predef ShowObject
+    ld hl, ViridianGymRivalPostRematchTextStatic
+    call PrintText
+    jr .done
+.afterGiovanni
+    CheckEventReuseA EVENT_GOT_TM27
+    jr nz, .postGiovanniFade
+    call z, ViridianGymScript3_74995
+    call DisableWaitingAfterTextDisplay
+    jr .done
+.postGiovanniFade
+    ld a, $1
+    ld [wDoNotWaitForButtonPressAfterDisplayingText], a
+    ld hl, ViridianGymText_74ad9
+    call PrintText
+    call GBFadeOutToBlack
+    ld a, HS_VIRIDIAN_GYM_GIOVANNI
+    ld [wMissableObjectIndex], a
+    predef HideObject
+    call UpdateSprites
+    call Delay3
+    call GBFadeInFromBlack
+    jr .done
+.beginGiovanniBattle
+    ld hl, ViridianGymText_74ace
+    call PrintText
+    ld hl, wd72d
+    set 6, [hl]
+    set 7, [hl]
+    ld hl, ViridianGymText_74ad3
+    ld de, ViridianGymText_74ad3
+    call SaveEndBattleTextPointers
+    ld a, [H_SPRITEINDEX]
+    ld [wSpriteIndex], a
+    call EngageMapTrainer
+    call InitBattleEnemyParameters
+    ld a, $8
+    ld [wGymLeaderNo], a
+    ld a, $3
+    ld [wViridianGymCurScript], a
 .done
-	jp TextScriptEnd
+    jp TextScriptEnd
 
 ViridianGymText_74ace:
 	TX_FAR _ViridianGymText_74ace
