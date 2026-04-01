@@ -585,6 +585,22 @@ ViridianGymRivalRematchPostBattle:
     ld [wCurMapScript], a
     ret
 
+ViridianGymRivalRematchText:
+    TX_FAR _ViridianGymRivalRematchText
+    db "@"
+
+ViridianGymRivalRematchLoseText:
+    TX_FAR _ViridianGymRivalRematchLoseText
+    db "@"
+
+ViridianGymRivalRematchWinText:
+    TX_FAR _ViridianGymRivalRematchWinText
+    db "@"
+
 ViridianGymRivalPostRematchText:
     TX_FAR _ViridianGymRivalPostRematchText
+    db "@"
+
+ViridianGymRivalPostRematchTextStatic:
+    TX_FAR _ViridianGymRivalPostRematchTextStatic
     db "@"
