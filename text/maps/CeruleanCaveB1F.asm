@@ -19,21 +19,21 @@ _CeruleanCaveGiovanniBattleText::
     	done
 
 _CeruleanCaveGiovanniLoseText::
-    	text "GIOVANNI: Even"
-    	line "MEWTWO couldn't"
+    	text "Not even"
+    	line "MEWTWO could"
     	cont "stop me?!"
 		cont "Pathetic..."
-    	done
+    	prompt
 
 _CeruleanCaveGiovanniWinText::
-    	text "GIOVANNI: MEWTWO's"
-    	line "strength... You've"
+    	text "MEWTWO's"
+    	line "strength...you've"
     	cont "mastered it well!"
 	
-	para "The bond of a"
-	line "#MON and a"
-	cont "fierce TRAINER"
-    	done
+		para "The bond of a"
+		line "#MON and a"
+		cont "fierce TRAINER"
+    	prompt
 
 _CeruleanCaveGiovanniPostText::    
     	text "GIOVANNI: MEWTWO"
