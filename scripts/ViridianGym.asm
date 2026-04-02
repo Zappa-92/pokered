@@ -324,14 +324,11 @@ ViridianGymText1:
     ld [wCurOpponent], a
     ld a, $4  ; Team 4 (new Viridian Gym team)
     ld [wTrainerNo], a
-    ld a, $1
-    ld [wViridianGymCurScript], a
-    ld [wCurMapScript], a
+  	ld a, $5                      ; 🔥 ESTE SÍ ES CORRECTO AHORA
+	ld [wViridianGymCurScript], a
+	ld [wCurMapScript], a
     jr .done
 .afterRivalVictory
-    ld a, HS_VIRIDIAN_GYM_RIVAL
-    ld [wMissableObjectIndex], a
-    predef ShowObject
     ld hl, ViridianGymRivalPostRematchTextStatic
     call PrintText
     jr .done
