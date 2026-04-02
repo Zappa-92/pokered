@@ -86,7 +86,7 @@ _LavenderHouse1Text6::
 	done
 
 _FujiAncientFluteText::
-    text "MR. FUJI: I’ve"
+    text "MR. FUJI: I've"
     line "never seen a"
     cont "trainer like you"
     cont "that cares for all"
@@ -117,7 +117,7 @@ _FujiAncientFluteText::
 
 _FujiPostAncientText::
     text "MR. FUJI: The"
-    line "shrine’s on the"
+    line "shrine's on the"
 	cont "basement, take"
 	cont "the flute. Good"
 	cont "luck, <PLAYER>."
