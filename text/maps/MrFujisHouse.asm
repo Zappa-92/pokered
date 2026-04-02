@@ -89,8 +89,9 @@ _FujiAncientFluteText::
     text "MR. FUJI: I've"
     line "never seen a"
     cont "trainer like you"
-    cont "that cares for all"
-	cont "#MON, and strong"
+    cont "that cares for"
+	cont "all #MON."
+	cont "And strong"
     cont "enough to contain"
     cont "MEWTWO."
 
