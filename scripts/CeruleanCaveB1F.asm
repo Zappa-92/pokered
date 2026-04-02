@@ -100,9 +100,14 @@ CeruleanCaveGiovanniText:
     ld [wCurOpponent], a
     ld a, $4
     ld [wTrainerNo], a
-    ld a, $3
-    ld [wCeruleanCaveB1FCurScript], a
-    ld [wCurMapScript], a
+	ld hl, wd72d
+	set 6, [hl]
+	set 7, [hl]
+	call EngageMapTrainer
+	call InitBattleEnemyParameters
+	ld a, $3
+	ld [wCeruleanCaveB1FCurScript], a
+	ld [wCurMapScript], a
     jr .done
 .noMewtwo
     ld hl, CeruleanCaveGiovanniNoMewtwoText
