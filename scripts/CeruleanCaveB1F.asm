@@ -5,6 +5,18 @@ CeruleanCaveB1F_Script:
 	ld a, [wCeruleanCaveB1FCurScript]
 	call ExecuteCurMapScriptInTable
 	ld [wCeruleanCaveB1FCurScript], a
+ ; === Control de aparición de Giovanni ===
+    CheckEvent EVENT_BEAT_RIVAL_REMATCH
+    jr z, .hideGiovanni
+    ld a, HS_CERULEAN_CAVE_B1F_GIOVANNI
+    ld [wMissableObjectIndex], a
+    predef ShowObject
+    jr .doneGiovanni
+.hideGiovanni
+    ld a, HS_CERULEAN_CAVE_B1F_GIOVANNI
+    ld [wMissableObjectIndex], a
+    predef HideObject
+.doneGiovanni
 	ret
 
 CeruleanCaveB1F_ScriptPointers:
@@ -49,7 +61,7 @@ CeruleanCaveB1F_TextPointers:
 	dw MewtwoText
 	dw PickUpItemText
 	dw PickUpItemText
-    	dw CeruleanCaveGiovanniText  ; New text pointer
+    dw CeruleanCaveGiovanniText  ; New text pointer
 
 MewtwoTrainerHeader:
 	dbEventFlagBit EVENT_BEAT_MEWTWO
@@ -64,36 +76,29 @@ MewtwoTrainerHeader:
 
 MewtwoText:
     TX_ASM
-    CheckEvent EVENT_BEAT_MEWTWO
-    jr nz, .afterMewtwo
     ld hl, MewtwoTrainerHeader
     call TalkToTrainer
-    jp .done
-.afterMewtwo
+    jp TextScriptEnd
+
+CeruleanCaveGiovanniText:
+    TX_ASM
     CheckEvent EVENT_BEAT_RIVAL_REMATCH
-    jr z, .noGiovanni
+    jr z, .noShow
     CheckEvent EVENT_BEAT_GIOVANNI_CAVE_REMATCH
-    jr nz, .postGiovanni
-    ; Hide Mewtwo, show Giovanni
-    ld a, HS_MEWTWO
-    ld [wMissableObjectIndex], a
-    predef HideObject
-    ld a, HS_CERULEAN_CAVE_B1F_GIOVANNI
-    ld [wMissableObjectIndex], a
-    predef ShowObject
-    ; Check for Mewtwo in party
+    jr nz, .postBattle
+    ; Chequear si tenés a Mewtwo
     ld a, MEWTWO
     callab IsPokemonInParty
     jr z, .noMewtwo
-    ; Giovanni battle
+    ; Batalla
     ld hl, CeruleanCaveGiovanniBattleText
     call PrintText
-    ld hl, CeruleanCaveGiovanniLoseText
-    ld de, CeruleanCaveGiovanniWinText
+    ld hl, CeruleanCaveGiovanniWinText
+    ld de, CeruleanCaveGiovanniLoseText
     call SaveEndBattleTextPointers
-    ld a, OPP_GIOVANNI  ; $0E
+    ld a, OPP_GIOVANNI
     ld [wCurOpponent], a
-    ld a, $4  ; Team 4
+    ld a, $4
     ld [wTrainerNo], a
     ld a, $3
     ld [wCeruleanCaveB1FCurScript], a
@@ -103,55 +108,24 @@ MewtwoText:
     ld hl, CeruleanCaveGiovanniNoMewtwoText
     call PrintText
     jr .done
-.postGiovanni
+.postBattle
     CheckEvent EVENT_GOT_HIGGS_FOSSIL
-    jr nz, .silent
+    jr nz, .done
     ld hl, CeruleanCaveGiovanniPostFadeText
     call PrintText
     lb bc, HIGGS_FOSSIL, 1
     call GiveItem
-    jr nc, .BagFull
+    jr nc, .bagFull
     ld hl, ReceivedHiggsFossilText
     call PrintText
     SetEvent EVENT_GOT_HIGGS_FOSSIL
     jr .done
-.BagFull
+.bagFull
     ld hl, HiggsFossilNoRoomText
     call PrintText
     jr .done
-.silent
-    ; No text after fade
-    jr .done
-.noGiovanni
-    ; Silence if neither Mewtwo nor Giovanni
-.done
-    jp TextScriptEnd
-
-CeruleanCaveGiovanniText:
-    TX_ASM
-    CheckEvent EVENT_GOT_HIGGS_FOSSIL
-    jr nz, .done  ; Silent if gone
-    CheckEvent EVENT_BEAT_GIOVANNI_CAVE_REMATCH
-    jr z, .done   ; Silent pre-battle (handled by MewtwoText)
-    ld hl, CeruleanCaveGiovanniPostFadeText
-    call PrintText
-    lb bc, HIGGS_FOSSIL, 1
-    call GiveItem
-    jr nc, .BagFull
-    ld hl, ReceivedHiggsFossilText
-    call PrintText
-    SetEvent EVENT_GOT_HIGGS_FOSSIL
-    call GBFadeOutToBlack
-    ld a, HS_CERULEAN_CAVE_B1F_GIOVANNI  ; $D2
-    ld [wMissableObjectIndex], a
-    predef HideObject
-    call UpdateSprites
-    call Delay3
-    call GBFadeInFromBlack
-    jr .done
-.BagFull
-    ld hl, HiggsFossilNoRoomText
-    call PrintText
+.noShow
+    ret
 .done
     jp TextScriptEnd
 
