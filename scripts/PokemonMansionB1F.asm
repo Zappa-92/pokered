@@ -206,27 +206,39 @@ Mansion4Text7:
 
 MansionB1FMewShrineText:
 	TX_ASM
+	; --- Chequear Poké Flute ---
 	ld a, POKE_FLUTE
 	ld [wcf91], a
 	call IsItemInBag
 	jr z, .noFlute
 
+	; --- Chequear Higgs Fossil ---
+	CheckEvent EVENT_GOT_HIGGS_FOSSIL
+	jr z, .noFossil
+
+	; --- Ya derrotaste a Mew ---
 	CheckEvent EVENT_BEAT_MEW
 	jr nz, .postMew
 
+	; --- Activar evento de pelea ---
 	ld hl, ShrinePatternsText
 	call PrintText
+	SetEvent EVENT_FIGHT_MEW
+	ld a, $3
+	ld [wPokemonMansionB1FCurScript], a
+	ld [wCurMapScript], a
 	jr .done
-
 .noFlute
 	ld hl, ShrineNoFluteText
 	call PrintText
 	jr .done
-
-.postMew
-	ld hl, ShrineNoFluteText
+.noFossil
+	ld hl, ShrinePatternsText
 	call PrintText
-
+	jr .done
+.postMew
+	ld hl, ShrinePatternsText
+	call PrintText
 .done
 	jp TextScriptEnd
 
