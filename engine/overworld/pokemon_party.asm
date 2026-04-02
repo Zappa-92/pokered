@@ -2,28 +2,34 @@ SECTION "Pokemon Party Check", ROMX, BANK[$10]
 
 ;adding function to check if a pokemon is in party, for GIOVANNI event
 IsPokemonInParty:
-; Input: a = Pokémon ID to check
-; Output: z flag set if not in party, nz if found
+; Input: a = Pokémon ID
+; Output: Z = 1 → NO está
+;         Z = 0 → SÍ está
+
     push bc
-    push de
     push hl
-    ld [wcf91], a        ; Store input Pokémon ID
+
+    ld b, a              ; guardar Pokémon buscado en B
     ld hl, wPartySpecies
-    ld b, 6  ; Party size
+
 .loop
     ld a, [hli]
-    ld c, a
-    ld a, [wcf91]
-    cp c ; Compare with input Pokémon ID
+    cp $FF               ; fin de lista
+    jr z, .not_found
+
+    cp b                 ; comparar con el buscado
     jr z, .found
-    dec b
-    jr nz, .loop
-    xor a  ; Set z flag (not found)
-    jr .done
+
+    jr .loop
+
 .found
-    ld a, 1  ; Clear z flag (found)
+    or a                 ; fuerza Z=0
+    jr .done
+
+.not_found
+    xor a                ; fuerza Z=1
+
 .done
     pop hl
-    pop de
     pop bc
     ret
