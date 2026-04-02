@@ -10,7 +10,7 @@ _MewtwoBattleText::
 _CeruleanCaveGiovanniBattleText::
     	text "GIOVANNI: I came"
     	line "here for MEWTWO,"
-    	cont "but you’ve claimed"
+    	cont "but you've claimed"
     	cont "it already!"
 
     	para "Show me its power,"
@@ -20,14 +20,14 @@ _CeruleanCaveGiovanniBattleText::
 
 _CeruleanCaveGiovanniLoseText::
     	text "GIOVANNI: Even"
-    	line "MEWTWO couldn’t"
+    	line "MEWTWO couldn't"
     	cont "stop me?!"
-	cont "Pathetic..."
+		cont "Pathetic..."
     	done
 
 _CeruleanCaveGiovanniWinText::
-    	text "GIOVANNI: MEWTWO’s"
-    	line "strength... You’ve"
+    	text "GIOVANNI: MEWTWO's"
+    	line "strength... You've"
     	cont "mastered it well!"
 	
 	para "The bond of a"
