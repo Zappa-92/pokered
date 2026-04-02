@@ -42,11 +42,7 @@ _Lab4Text_610ae::
 	text "!"
 
 	para "It is fossil of"
-	line "@"
-	TX_RAM wcf4b
-	text ", a"
-	cont "#MON that is"
-	cont "already extinct!"
+	line "a rare #MON."
 
 	para "My Resurrection"
 	line "Machine will make"
