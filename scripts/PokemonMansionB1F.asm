@@ -81,23 +81,10 @@ PokemonMansionB1FScript0:
 	ld a, $d
 	ld [hSpriteIndexOrTextID], a
 	call DisplayTextID
-
 	ld a, MEW
 	ld [wCurOpponent], a
 	ld a, 100
 	ld [wCurEnemyLVL], a
-
-	; custom moves
-	ld hl, wEnemyMonMoves
-	ld a, PSYCHIC
-	ld [hli], a
-	ld a, SEISMIC_TOSS
-	ld [hli], a
-	ld a, ICE_BEAM
-	ld [hli], a
-	ld a, SOFTBOILED
-	ld [hl], a
-
 	ld a, $3
 	ld [wPokemonMansionB1FCurScript], a
 	ld [wCurMapScript], a
