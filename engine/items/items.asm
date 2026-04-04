@@ -1851,7 +1851,7 @@ Route16SnorlaxFluteCoords:
 	db $ff ; terminator
 
 MansionB1FMewFluteCoords:
-	db 18,4 ; frente al altar
+	db 19,4 ; frente al altar
 	db $ff
 
 PlayedFluteNoEffectText:
