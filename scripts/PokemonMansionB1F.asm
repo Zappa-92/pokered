@@ -224,7 +224,8 @@ MansionB1FMewShrineText:
 	ld hl, ShrinePatternsText
 	call PrintText
 	SetEvent EVENT_FIGHT_MEW
-	ld a, $3
+
+	ld a, $0
 	ld [wPokemonMansionB1FCurScript], a
 	ld [wCurMapScript], a
 	jr .done
