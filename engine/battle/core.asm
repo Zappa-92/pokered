@@ -6941,6 +6941,19 @@ InitWildBattle:
 	ld [wcf91], a
 	jr .spriteLoaded
 .isNoGhost
+ld a, [wCurOpponent]
+cp MEW
+jr nz, .skip
+ld hl, wEnemyMonMoves
+ld a, PSYCHIC
+ld [hli], a
+ld a, SEISMIC_TOSS
+ld [hli], a
+ld a, ICE_BEAM
+ld [hli], a
+ld a, SOFTBOILED
+ld [hl], a
+.skip
 	ld de, vFrontPic
 	call LoadMonFrontSprite ; load mon sprite
 .spriteLoaded
