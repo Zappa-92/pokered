@@ -303,7 +303,7 @@ _BlaineLabIntroText::
 
 
 _BlaineLabHiggsFailedText::
-    	text "BLAINE: It's"
+    	text "It's"
     	line "useless!"
     	cont "incomplete, like"
     	cont "last time. MEW"
@@ -316,9 +316,23 @@ _BlaineLabHiggsFailedText::
     	done
 
 _BlaineLabMewText::
-    	text "BLAINE: It's"
-    	line "finally done!"
-		cont "A trully"
-    	cont "cloned MEW!"
+    	text "It's finally"
+    	line "done!"
+		cont "MEW can now"
+    	cont "be cloned!"
+    	done
+
+_BlaineLabHiggsText::
+    	text "HEY!"
+		
+		para "Let me"
+    	line "see this fossil!"
+    	done
+
+_BlaineLabUrgentText::
+    	text "Quick!"
+
+		para "A trully"
+    	line "cloned MEW!"
     	done
 
