@@ -229,52 +229,48 @@ CinnabarGymText1:
 	CheckEvent EVENT_GAVE_DNA_TO_BLAINE
 	jr nz, .afterDNA
 
-	; ¿tiene HIGGS_FOSSIL?
+	; ===== CHECK HIGGS =====
 	ld a, HIGGS_FOSSIL
 	ld [wcf91], a
 	call IsItemInBag
-	jr z, .intro
+	jr z, .noHiggs
 
-	; tiene fósil pero NO DNA
-	ld hl, BlaineLabHiggsFailedText
-	call PrintText
-	jp TextScriptEnd
+	; ===== TIENE HIGGS =====
 
-.intro
-	ld hl, BlaineLabIntroText
+	; mostrar primer diálogo
+	ld hl, BlaineLabHiggsText
 	call PrintText
 
-	; intentar recibir DNA
+	; ===== CHECK DNA =====
 	ld a, DNA_CODES
 	ld [wcf91], a
 	call IsItemInBag
-	jp z, .done
+	jr z, .higgsOnly
 
-	; remover DNA
-	ld a, DNA_CODES
-	ld [hItemToRemoveID], a
-	callba RemoveItemByID
+	; ===== TIENE HIGGS + DNA =====
+	ld hl, BlaineLabUrgentText
+	call PrintText
 
 	SetEvent EVENT_GAVE_DNA_TO_BLAINE
-	jp .done
-.afterDNA
-	; ya dio DNA → ¿tiene fósil?
-	ld a, HIGGS_FOSSIL
-	ld [wcf91], a
-	call IsItemInBag
-	jr z, .afterText
 
-	; tiene fósil + DNA
 	ld hl, BlaineLabMewText
 	call PrintText
 	jp TextScriptEnd
 
-.afterText
+.higgsOnly
+	ld hl, BlaineLabHiggsFailedText
+	call PrintText
+	jp TextScriptEnd
+
+.noHiggs
 	ld hl, BlaineLabIntroText
 	call PrintText
 	jp TextScriptEnd
 
-; ===== FLUJO ORIGINAL =====
+.afterDNA
+	ld hl, BlaineLabMewText
+	call PrintText
+	jp TextScriptEnd
 
 .normalFlow
 	CheckEvent EVENT_BEAT_OAK
@@ -604,4 +600,12 @@ BlaineLabHiggsFailedText:
 
 BlaineLabMewText:
 	TX_FAR _BlaineLabMewText
+	db "@"
+
+BlaineLabHiggsText:
+	TX_FAR _BlaineLabHiggsText
+	db "@"
+
+BlaineLabUrgentText:
+	TX_FAR _BlaineLabUrgentText
 	db "@"
