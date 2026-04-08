@@ -230,8 +230,7 @@ CinnabarGymText1:
 	jr nz, .afterDNA
 
 	; ===== CHECK HIGGS =====
-	ld a, HIGGS_FOSSIL
-	ld [wcf91], a
+	ld b, HIGGS_FOSSIL
 	call IsItemInBag
 	jr z, .noHiggs
 
@@ -242,8 +241,7 @@ CinnabarGymText1:
 	call PrintText
 
 	; ===== CHECK DNA =====
-	ld a, DNA_CODES
-	ld [wcf91], a
+	ld b, DNA_CODES
 	call IsItemInBag
 	jr z, .higgsOnly
 
